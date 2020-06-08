@@ -1,0 +1,8 @@
+module.exports = function (api) {
+  api.extendQuasarConf((conf) => {
+    conf.boot.push(
+      'authentication',
+      'safe-axios'
+    )
+  })
+}
