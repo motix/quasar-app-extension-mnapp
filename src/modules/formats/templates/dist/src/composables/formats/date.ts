@@ -27,7 +27,7 @@ export default function () {
   if (config.dateMask === undefined) config.dateMask = '##/##/####'
 
   function dateFormat (value: Date | null | undefined) {
-    if (value === null || value === undefined) return value
+    if (value == null) return value
 
     if (value instanceof Date) return date.formatDate(value, config.dateFormat as string)
 
@@ -35,7 +35,7 @@ export default function () {
   }
 
   function dateForEdit (value: Date | null | undefined) {
-    if (value === null || value === undefined) return value
+    if (value == null) return value
 
     if (value instanceof Date) return date.formatDate(value, config.editDateFormat as string)
 
@@ -43,7 +43,7 @@ export default function () {
   }
 
   function dateEdit (value: string | null | undefined, defaultDisplay?: string) {
-    if (value === null || value === undefined || value === '') return defaultDisplay
+    if (value == null || value === '') return defaultDisplay
 
     if (_.isString(value)) return dateFormat(date.extractDate(value, config.editDateFormat as string))
 
@@ -51,7 +51,7 @@ export default function () {
   }
 
   function dateForSave (value: string | null | undefined) {
-    if (value === null || value === undefined) return value
+    if (value == null) return value
 
     if (_.isString(value)) return date.formatDate(date.extractDate(value, config.editDateFormat as string), 'YYYY-MM-DD')
 

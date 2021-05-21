@@ -7,7 +7,7 @@ declare module '../use-formats' {
 }
 
 export default function (value: number | string | null | undefined, decimal?: number) {
-  if (value === null || value === undefined) return value
+  if (value == null) return value
 
   if (_.isNumber(value)) return (value * 100).toFixed(decimal || 0) + '%'
 
