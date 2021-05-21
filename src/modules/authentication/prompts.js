@@ -1,20 +1,21 @@
-module.exports = function () {
+// Give the function a name to identify the module when filling default values from app config
+module.exports = function authentication () {
   return [
     {
       name: 'isAuthenticatedUrl',
-      type: 'string',
+      type: 'input',
       message: 'isAuthenticatedUrl',
       default: 'api/Authentication/is-authenticated'
     },
     {
       name: 'currentUserUrl',
-      type: 'string',
+      type: 'input',
       message: 'currentUserUrl',
       default: 'api/Authentication/current-user'
     },
     {
       name: 'loginUrl',
-      type: 'string',
+      type: 'input',
       message: 'loginUrl',
       default: '/SignIn'
     }

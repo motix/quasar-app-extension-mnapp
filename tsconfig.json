@@ -1,45 +1,33 @@
 {
   "extends": "@quasar/app/tsconfig-preset",
+  "exclude": [
+    "dev",
+    "dev-clean"
+  ],
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      // Quasar-defined webpack aliases
-      "src/*": [
-        "src/*"
-      ],
-      "app/*": [
-        "*"
-      ],
-      "components/*": [
-        "src/components/*"
-      ],
-      "layouts/*": [
-        "src/layouts/*"
-      ],
-      "pages/*": [
-        "src/pages/*"
-      ],
-      "assets/*": [
-        "src/assets/*"
-      ],
-      "boot/*": [
-        "src/boot/*"
-      ],
       // App-defined webpack aliases
+      "models/*": [
+        "src/modules/authentication/templates/dist/src/models/*"
+      ],
       "store/*": [
-        "src/store/*"
+        "src/store/*",
+        "src/modules/authentication/templates/dist/src/store/*"
       ],
       "api/*": [
-        "src/api/*"
+        "src/modules/authentication/templates/dist/src/api/*"
       ],
-      "utils/*": [
-        "src/utils/*"
-      ],
-      "mixins/*": [
-        "src/mixins/*"
-      ],
-      "uses/*": [
-        "src/uses/*"
+      "composables/*": [
+        "src/modules/frameworks/templates/dist/src/composables/*",
+        "src/modules/config/templates/dist/src/composables/*",
+        "src/modules/scroll/templates/dist/src/composables/*",
+        "src/modules/float-toolbar/templates/dist/src/composables/*",
+        "src/modules/multi-views/templates/dist/src/composables/*",
+        "src/modules/formats/templates/dist/src/composables/*",
+        "src/modules/rules/templates/dist/src/composables/*",
+        "src/modules/notifications/templates/dist/src/composables/*",
+        "src/modules/authentication/templates/dist/src/composables/*"
       ]
     }
   }

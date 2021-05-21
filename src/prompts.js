@@ -12,7 +12,7 @@
   return [
     {
       name: 'name',
-      type: 'string',
+      type: 'input',
       required: true,
       message: 'Quasar CLI Extension name (without prefix)',
     },
@@ -39,24 +39,32 @@
 
  */
 
-/* eslint-disable @typescript-eslint/no-var-requires */
-
-const app = require('./modules/app/prompts')
-const authentication = require('./modules/authentication/prompts')
+const getModules = require('./modules')
+const getExtensionConfig = require('./modules/extension-config')
 
 module.exports = function () {
-  function mergePrompts (...modules) {
-    let prompts = []
+  const modules = getModules('prompts')
+  const extensionConfig = getExtensionConfig()
+  let prompts = []
 
-    for (const module of modules) {
-      prompts = [
-        ...prompts,
-        ...module()
-      ]
+  for (const module of modules) {
+    const modulePrompts = module()
+
+    if (extensionConfig[module.name] && extensionConfig[module.name].prompts) {
+      const promptsConfig = extensionConfig[module.name].prompts
+
+      for (const modulePrompt of modulePrompts) {
+        if (promptsConfig[modulePrompt.name] !== undefined) {
+          modulePrompt.default = promptsConfig[modulePrompt.name]
+        }
+      }
     }
 
-    return prompts
+    prompts = [
+      ...prompts,
+      ...modulePrompts
+    ]
   }
 
-  return mergePrompts(app, authentication)
+  return prompts
 }

@@ -5,15 +5,12 @@
  * API: https://github.com/quasarframework/quasar/blob/master/app/lib/app-extension/InstallAPI.js
  */
 
-/* eslint-disable @typescript-eslint/no-var-requires */
-
 const merge = require('webpack-merge')
-
-const app = require('./modules/app/install')
-const authentication = require('./modules/authentication/install')
+const fs = require('fs')
+const getModules = require('./modules')
 
 module.exports = function (api) {
-  function mergeExtendPackageJson (...modules) {
+  function mergeExtendPackageJson (modules) {
     let extendPackageJson = {}
 
     for (const module of modules) {
@@ -25,7 +22,7 @@ module.exports = function (api) {
     return extendPackageJson
   }
 
-  function mergeExtendJsonFiles (...modules) {
+  function mergeExtendJsonFiles (modules) {
     const jsonFiles = {}
 
     for (const module of modules) {
@@ -41,13 +38,39 @@ module.exports = function (api) {
     return jsonFiles
   }
 
-  app(api)
-  authentication(api)
+  function run (modules) {
+    for (const module of modules) {
+      module(api)
+    }
 
-  api.extendPackageJson(mergeExtendPackageJson(app, authentication))
+    const packageJson = mergeExtendPackageJson(modules)
+    if (Object.keys(packageJson).length > 0) {
+      const packageJsonPath = api.resolve.app('package.json')
+      const packageJsonBackupPath = api.resolve.app('package-bk.json')
 
-  const jsonFiles = mergeExtendJsonFiles(app, authentication)
-  for (const file in jsonFiles) {
-    api.extendJsonFile(file, jsonFiles[file])
+      if (!fs.existsSync(packageJsonBackupPath)) {
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
+        fs.copyFile(packageJsonPath, packageJsonBackupPath, () => { })
+      }
+
+      api.extendPackageJson(packageJson)
+    }
+
+    const jsonFiles = mergeExtendJsonFiles(modules)
+    for (const file in jsonFiles) {
+      const jsonFilePath = api.resolve.app(file)
+      const jsonFileBackupPath = api.resolve.app(`${file.substr(0, file.length - '.json'.length)}-bk.json`)
+
+      if (!fs.existsSync(jsonFileBackupPath)) {
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
+        fs.copyFile(jsonFilePath, jsonFileBackupPath, () => { })
+      }
+
+      api.extendJsonFile(file, jsonFiles[file])
+    }
   }
+
+  const modules = getModules('install')
+
+  run(modules)
 }

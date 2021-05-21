@@ -1,0 +1,5 @@
+{
+  "@motinet/mnapp": {
+    "devServerPort": 8080
+  }
+}

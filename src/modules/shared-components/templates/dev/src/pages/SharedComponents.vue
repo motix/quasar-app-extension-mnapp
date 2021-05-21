@@ -1,0 +1,124 @@
+<template>
+  <q-page padding>
+    <div class="text-h3">
+      Shared Components
+    </div>
+
+    <h4>FadeTransition</h4>
+    <fade-transition>
+      <q-card
+        v-if="fsShowCard1"
+        key="card1"
+        @click="fsShowCard1 = !fsShowCard1"
+      >
+        <q-card-section>
+          Card 1
+        </q-card-section>
+      </q-card>
+      <q-card
+        v-else
+        key="card2"
+        @click="fsShowCard1 = !fsShowCard1"
+      >
+        <q-card-section>
+          Card 2
+        </q-card-section>
+      </q-card>
+    </fade-transition>
+
+    <h4>ListTransition</h4>
+    <q-btn
+      label="Add"
+      @click="lsAddCard"
+    />
+    <list-transition
+      class="q-gutter-y-md q-py-md"
+      color-effect
+    >
+      <q-card
+        v-for="(card, index) in lsCards"
+        :key="card"
+      >
+        <q-card-section>
+          <q-btn
+            label="Remove"
+            @click="lsRemoveCard(index)"
+          />
+          {{ card }}
+        </q-card-section>
+      </q-card>
+    </list-transition>
+    <q-btn
+      label="Add"
+      @click="lsAddCard"
+    />
+
+    <h4>TopTooltip</h4>
+    <q-btn>
+      Top Tooltip
+      <top-tooltip>
+        Top Tooltip
+      </top-tooltip>
+    </q-btn>
+
+    <h4>Gravatar</h4>
+    <gravatar />
+    <gravatar gravatar-id="9c9fc5119fa33d6ac836600c6f933e76" />
+
+    <h4>ExpandableCard</h4>
+    <expandable-card
+      caption="Caption"
+      expandable
+      gravatar-id="9c9fc5119fa33d6ac836600c6f933e76"
+      header-background-color="primary"
+      header-dark
+      subtitle="Sub-title"
+      title="Title"
+      use-gravatar
+    >
+      <template #side>
+        Side
+      </template>
+      <template #body>
+        Body
+      </template>
+    </expandable-card>
+
+    <h4>PercentInput</h4>
+    <div>Value: {{ piValue }}</div>
+    <div style="max-width: 100px">
+      <percent-input
+        v-model="piValue"
+        input-class="text-right"
+        suffix="%"
+      />
+    </div>
+  </q-page>
+</template>
+
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+export default defineComponent({
+  name: 'SharedComponents',
+
+  data () {
+    return {
+      fsShowCard1: true,
+
+      lsCards: ['Card 1', 'Card 2', 'Card 3'],
+
+      piValue: 0.5
+    }
+  },
+
+  methods: {
+    lsAddCard () {
+      this.lsCards.push(`New Card ${Date.now().valueOf() - new Date(2020, 1, 1).valueOf()}`)
+    },
+    lsRemoveCard (index: number) {
+      this.lsCards.splice(index, 1)
+    }
+  }
+})
+</script>

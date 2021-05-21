@@ -6,12 +6,12 @@
  * API: https://github.com/quasarframework/quasar/blob/master/app/lib/app-extension/IndexAPI.js
  */
 
-/* eslint-disable @typescript-eslint/no-var-requires */
-
-const app = require('./modules/app')
-const authentication = require('./modules/authentication')
+const getModules = require('./modules')
 
 module.exports = function (api) {
-  app(api)
-  authentication(api)
+  const modules = getModules('index')
+
+  for (const module of modules) {
+    module(api)
+  }
 }

@@ -1,0 +1,41 @@
+// app global css in SCSS form
+
+$muted: $grey;
+
+.text-muted {
+  color: $muted;
+}
+
+.bg-muted {
+  background-color: $muted;
+}
+
+body {
+  font-size: 1rem;
+}
+
+.q-table {
+  th {
+    font-size: 1.1em;
+  }
+
+  tbody td {
+    font-size: 1em;
+  }
+}
+
+.flex-break {
+  flex: 1 0 100% !important;
+}
+
+.row .flex-break {
+  height: 0 !important;
+}
+
+.column .flex-break {
+  width: 0 !important;
+}
+
+.right-toggle {
+  margin-right: -12px;
+}
