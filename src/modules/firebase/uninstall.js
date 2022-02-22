@@ -14,7 +14,7 @@ module.exports = function (api) {
   api.removePath('src/boot/firebase-auth.ts')
   api.removePath('src/models/firebase-auth')
   api.removePath('src/services/firebase-auth.ts')
-  api.removePath('src/store/firebase-auth')
+  api.removePath('src/stores/FirebaseAuth.ts')
   api.removePath('src/composables/useFirebaseAuth.ts')
   api.removePath('src/pages/auth')
 

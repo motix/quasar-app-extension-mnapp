@@ -7,7 +7,6 @@
       "models/*": ["src/models/*"],
       "api/*": ["src/api/*"],
       "services/*": ["src/services/*"],
-      "store/*": ["src/store/*"],
       "stores/*": ["src/stores/*"],
       "composables/*": ["src/composables/*"],
       "mixins/*": ["src/mixins/*"],

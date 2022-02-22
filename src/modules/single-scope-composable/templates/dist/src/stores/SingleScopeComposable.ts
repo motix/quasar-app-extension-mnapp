@@ -1,13 +1,19 @@
-import { computed } from 'vue'
 // Main
+import { computed } from 'vue'
 import { defineStore, acceptHMRUpdate } from 'pinia'
 // Types
 import type { ScopeRecord } from 'models/single-scope-composable'
 
 export const useSingleScopeComposableStore = defineStore('SingleScopeComposable', () => {
+  // Private
+
   const _scopes: Record<string, ScopeRecord<unknown>> = {}
 
+  // Getters
+
   const scopes = computed(() => _scopes)
+
+  // Actions
 
   function hasScope (name: string) {
     return Object.keys(_scopes).includes(name)

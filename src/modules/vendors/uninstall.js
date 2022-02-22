@@ -1,4 +1,6 @@
 module.exports = function (api) {
+  // Pinia
+  api.removePath('src/boot/pinia.ts')
   // Font Awesome Pro, vue-fontawesome
   api.removePath('src/boot/fontawesome-pro.ts')
 

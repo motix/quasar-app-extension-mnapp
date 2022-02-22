@@ -16,6 +16,8 @@ module.exports = function (api) {
 
   // axios
   if (vendors.includes('pin')) {
+    api.render('./templates/dist-pin')
+
     module.exports.extendPackageJson.dependencies = {
       ...module.exports.extendPackageJson.dependencies,
 

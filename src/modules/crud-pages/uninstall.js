@@ -1,4 +1,5 @@
 module.exports = function (api) {
+  api.removePath('src/crud-pages.d.ts')
   api.removePath('src/boot/crud-pages.ts')
   api.removePath('src/components/shared/crud-pages')
   api.removePath('src/composables/crud-pages')

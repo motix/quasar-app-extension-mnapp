@@ -1,36 +1,37 @@
 import { onAuthStateChanged } from 'firebase/auth'
 import { httpsCallable } from 'firebase/functions'
 import { Router } from 'vue-router'
-import { Store } from 'vuex'
+import { useFirebaseAuthStore } from 'stores/FirebaseAuth'
 import { userRoles } from 'models/firebase-auth'
 import { getAuth, getFunctions } from 'services/firebase'
-import { firebaseAuthMutations } from 'store/firebase-auth'
 // Types
 import type { User } from 'firebase/auth'
 import type { UserClaims } from 'models/firebase-auth'
-import type { StateInterface } from 'store/index'
-import type { FirebaseAuthGetters } from 'store/firebase-auth'
 
-function waitForUserClaims (store: Store<StateInterface>) {
-  if (store.state['firebase-auth'].currentUserClaims) {
+function waitForUserClaims () {
+  const store = useFirebaseAuthStore()
+
+  if (store.currentUserClaims) {
     return new Promise<void>(resolve => resolve())
   }
 
   return new Promise<void>(resolve => {
     setTimeout(() => {
-      waitForUserClaims(store)
+      waitForUserClaims()
         .then(() => resolve())
         .catch(() => undefined)
     }, 100)
   })
 }
 
-export function ensureAuthInitialized (store: Store<StateInterface>) {
-  if (store.state['firebase-auth'].isAuthInitialized) {
-    if (store.state['firebase-auth'].currentUser) {
+export function ensureAuthInitialized () {
+  const store = useFirebaseAuthStore()
+
+  if (store.isAuthInitialized) {
+    if (store.currentUser) {
       // For newly signed up users, wait for getIdTokenResult and getIdToken to resolve
       // and set claims to store. Otherwise, routes that require checking roles will always deny access.
-      return waitForUserClaims(store)
+      return waitForUserClaims()
     }
 
     return new Promise<void>(resolve => resolve())
@@ -46,15 +47,15 @@ export function ensureAuthInitialized (store: Store<StateInterface>) {
         if (user) {
           // For already signed in users from last session, wait for getIdTokenResult to resolve
           // and set claims to store. Otherwise, routes that require checking roles will always deny access.
-          waitForUserClaims(store)
+          waitForUserClaims()
             .then(() => {
-              store.commit(`firebase-auth/${firebaseAuthMutations.SET_AUTH_INITIALIZED}`)
+              store.isAuthInitialized = true
               resolve()
               unsubscribe()
             })
             .catch(() => undefined)
         } else {
-          store.commit(`firebase-auth/${firebaseAuthMutations.SET_AUTH_INITIALIZED}`)
+          store.isAuthInitialized = true
           resolve()
           unsubscribe()
         }
@@ -66,13 +67,17 @@ export function ensureAuthInitialized (store: Store<StateInterface>) {
   })
 }
 
-export function isAuthenticated (store: Store<StateInterface>) {
-  return (store.getters as FirebaseAuthGetters)['firebase-auth/isAuthenticated']
+export function isAuthenticated () {
+  const store = useFirebaseAuthStore()
+
+  return store.isAuthenticated
 }
 
-export function handleAuthStateChanged (user: User | null, router: Router, store: Store<StateInterface>) {
-  store.commit(`firebase-auth/${firebaseAuthMutations.SET_CURRENT_USER}`, user)
-  store.commit(`firebase-auth/${firebaseAuthMutations.SET_CURRENT_USER_CLAIMS}`, null)
+export function handleAuthStateChanged (user: User | undefined, router: Router) {
+  const store = useFirebaseAuthStore()
+
+  store.currentUser = user
+  store.currentUserClaims = undefined
 
   if (user) {
     // Signed in
@@ -82,7 +87,7 @@ export function handleAuthStateChanged (user: User | null, router: Router, store
           // For newly signed up users, server will assign claims but they are not returned together with
           // the token immediately. Force refresh the toke to get new claims.
           user.getIdToken(true)
-            .then(() => handleAuthStateChanged(user, router, store))
+            .then(() => handleAuthStateChanged(user, router))
             .catch(error => {
               console.error(error)
               throw new Error('getIdToken failed.')
@@ -94,7 +99,7 @@ export function handleAuthStateChanged (user: User | null, router: Router, store
             claims[role] = idTokenResult.claims[role]
           }
 
-          store.commit(`firebase-auth/${firebaseAuthMutations.SET_CURRENT_USER_CLAIMS}`, claims)
+          store.currentUserClaims = claims
         }
       })
       .catch(error => {

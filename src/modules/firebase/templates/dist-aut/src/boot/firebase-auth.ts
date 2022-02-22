@@ -3,16 +3,11 @@
 import { onAuthStateChanged } from 'firebase/auth'
 import { getAuth } from 'services/firebase'
 import { ensureAuthInitialized, handleAuthStateChanged, isAuthenticated } from 'services/firebase-auth'
-import firebaseAuth from 'store/firebase-auth'
+import { useFirebaseAuthStore } from 'stores/FirebaseAuth'
 // Main
 import { boot } from 'quasar/wrappers'
-// Types
-import type { Module } from 'vuex'
-import type { StateInterface } from 'store/index'
-import type { FirebaseAuthGetters } from 'store/firebase-auth'
-import type { FirebaseAuthStateInterface } from 'store/firebase-auth/state'
 
-export default boot<StateInterface>(({ router, store }) => {
+export default boot(({ router }) => {
   // Router
 
   router.addRoute('MainLayout',
@@ -64,16 +59,18 @@ export default boot<StateInterface>(({ router, store }) => {
     })
 
   router.beforeEach(async (to, _from, next) => {
-    // Force the app to wait until Firebase has finished its initialization
-    await ensureAuthInitialized(store)
+    const store = useFirebaseAuthStore()
 
-    if (to.name === 'SignIn' && isAuthenticated(store)) {
+    // Force the app to wait until Firebase has finished its initialization
+    await ensureAuthInitialized()
+
+    if (to.name === 'SignIn' && isAuthenticated()) {
       next('/')
     } else if (to.meta.anonymous === true) {
       next()
     } else if (to.matched.some(record => record.meta.requiresAuth === true)) {
-      if (isAuthenticated(store)) {
-        const roles = (store.getters as FirebaseAuthGetters)['firebase-auth/currentUserRoles']
+      if (isAuthenticated()) {
+        const roles = store.currentUserRoles
 
         if (!roles.includes('admin')) {
           for (const record of to.matched) {
@@ -99,25 +96,12 @@ export default boot<StateInterface>(({ router, store }) => {
     }
   })
 
-  // Store
-
-  store.registerModule('firebase-auth', firebaseAuth)
-
-  if (process.env.DEV && module.hot) {
-    module.hot.accept(['./firebase-auth'], () => {
-      // Have to add .default here due to babel 6 module output
-      // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-unsafe-member-access
-      const newFirebaseAuth = require('./firebase-auth').default as Module<FirebaseAuthStateInterface, StateInterface>
-      store.hotUpdate({ modules: { 'firebase-auth': newFirebaseAuth } })
-    })
-  }
-
   // Firebase Authentication
 
   const auth = getAuth()
 
   onAuthStateChanged(auth,
-    user => handleAuthStateChanged(user, router, store),
+    user => handleAuthStateChanged(user || undefined, router),
     error => {
       console.error(error)
       // TODO: Show error page

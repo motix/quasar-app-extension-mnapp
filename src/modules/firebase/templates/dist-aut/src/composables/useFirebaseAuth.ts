@@ -5,30 +5,29 @@ import { auth } from 'firebaseui'
 import { getAuth } from 'services/firebase'
 import { isAuthenticated, signOut, createRemoteSignInToken } from 'services/firebase-auth'
 import { useRouter, useRoute } from 'vue-router'
-import { useStore } from 'store/index'
+import { useFirebaseAuthStore } from 'stores/FirebaseAuth'
 // Main
 import { computed } from 'vue'
 // Types
 import type { UserRole } from 'models/firebase-auth'
-import type { FirebaseAuthGetters } from 'store/firebase-auth'
 
 export default function () {
   // Private
 
   const router = useRouter()
   const route = useRoute()
-  const store = useStore()
+  const store = useFirebaseAuthStore()
   const remoteWindows: Record<string, { remoteWindow: Window, token: string } | undefined> = {}
 
   // Computed
 
-  const isAuthenticatedComputed = computed(() => isAuthenticated(store))
+  const isAuthenticatedComputed = computed(() => isAuthenticated())
 
   const authenticatedUser = computed(() =>
-    store.state['firebase-auth'].currentUser ||
+    store.currentUser ||
     (() => { throw new Error('Cannot retrieve unauthenticated user.') })())
 
-  const roles = computed(() => (store.getters as FirebaseAuthGetters)['firebase-auth/currentUserRoles'])
+  const roles = computed(() => store.currentUserRoles)
 
   const isSignInPage = computed(() => route.name === 'SignIn')
 
