@@ -23,7 +23,6 @@
     "@quasar/vite-plugin": "^1.0.4",
     "@types/lodash": "^4.14.178",
     "@types/node": "^17.0.17",
-    "@types/webpack-env": "^1.16.3",
     "@typescript-eslint/eslint-plugin": "^5.10.0",
     "@typescript-eslint/parser": "^5.10.0",
     "@vitejs/plugin-vue": "^2.2.0",
@@ -45,8 +44,7 @@
     "vee-validate": "^4.5.8",
     "vite": "^2.8.1",
     "vue": "^3.2.30",
-    "vue-router": "^4.0.12",
-    "vuex": "^4.0.2"
+    "vue-router": "^4.0.12"
   },
   "engines": {
     "node": ">= 8.9.0",

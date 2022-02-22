@@ -1,5 +1,3 @@
-/// <reference types="webpack-env" />
-
 import { onAuthStateChanged } from 'firebase/auth'
 import { getAuth } from 'services/firebase'
 import { ensureAuthInitialized, handleAuthStateChanged, isAuthenticated } from 'services/firebase-auth'
