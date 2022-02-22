@@ -1,0 +1,11 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    // For linting `quasar.conf.js`
+    "types": ["@quasar/app"]
+  },
+  "include": [
+    "quasar.conf.js",
+    "vite.config.ts"
+  ]
+}

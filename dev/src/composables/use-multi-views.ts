@@ -7,19 +7,23 @@ const data = reactive({
 })
 
 export default function () {
+  // Computed
+
   const isTableView = computed(() => data.viewType === 'table')
   const isCardsView = computed(() => data.viewType === 'cards')
 
+  // Methods
+
   function switchView () {
     switch (data.viewType) {
-      case 'table':
-        data.viewType = 'cards'
-        break
-      case 'cards':
-        data.viewType = 'table'
-        break
-      default:
-        throw new Error(`viewType '${data.viewType}' not implemented`)
+    case 'table':
+      data.viewType = 'cards'
+      break
+    case 'cards':
+      data.viewType = 'table'
+      break
+    default:
+      throw new Error(`viewType '${data.viewType}' not implemented`)
     }
   }
 

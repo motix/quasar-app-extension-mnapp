@@ -1,3 +1,38 @@
+<script setup lang="ts">
+import useScroll from 'composables/useScroll'
+// Main
+import { ref } from 'vue'
+// Types
+import type { QCard } from 'quasar'
+
+// Composables
+
+const {
+  toTop,
+  toElement
+} = useScroll()
+
+// Data
+
+const buttons = ref<Element | null>(null)
+const element = ref<Element | null>(null)
+const component = ref<QCard | null>(null)
+
+// Methods
+
+function toButtons () {
+  buttons.value && toElement(buttons.value)
+}
+
+function toTheElement () {
+  element.value && toElement(element.value)
+}
+
+function toComponent () {
+  component.value && toElement(component.value)
+}
+</script>
+
 <template>
   <q-page padding>
     <div>
@@ -38,7 +73,7 @@
       />
       <q-btn
         label="To Element"
-        @click="toElement"
+        @click="toTheElement"
       />
       <q-btn
         label="To Component"
@@ -47,47 +82,3 @@
     </div>
   </q-page>
 </template>
-
-<script lang="ts">
-import { defineComponent, ref, ComponentPublicInstance } from 'vue'
-
-import useScroll from 'composables/use-scroll'
-
-const scroll = useScroll()
-
-export default defineComponent({
-  name: 'Scroll',
-
-  setup () {
-    const buttons = ref<Element>()
-    const element = ref<Element>()
-    const component = ref<ComponentPublicInstance>()
-
-    function toButtons () {
-      scroll.toElement(buttons.value as Element)
-    }
-
-    function toTop () {
-      scroll.toTop()
-    }
-
-    function toElement () {
-      scroll.toElement(element.value as Element)
-    }
-
-    function toComponent () {
-      scroll.toElement(component.value as ComponentPublicInstance)
-    }
-
-    return {
-      buttons,
-      element,
-      component,
-      toButtons,
-      toTop,
-      toElement,
-      toComponent
-    }
-  }
-})
-</script>

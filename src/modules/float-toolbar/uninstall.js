@@ -1,6 +1,7 @@
 module.exports = function (api) {
   api.removePath('src/components/shared/FloatToolbar.vue')
-  api.removePath('src/composables/use-float-toolbar.ts')
+  api.removePath('src/components/shared/FloatToolbar.ts')
+  api.removePath('src/composables/useFloatToolbar.ts')
 
   if (api.appDir.endsWith('\\dev')) {
     api.removePath('src/boot/float-toolbar-dev.ts')

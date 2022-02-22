@@ -44,14 +44,17 @@ const getExtensionConfig = require('./modules/extension-config')
 
 module.exports = function () {
   const modules = getModules('prompts')
-  const extensionConfig = getExtensionConfig()
+  const config = getExtensionConfig()
   let prompts = []
+
+  const normalizeModuleName = str => str.replace(/[A-Z]/g, letter => `-${letter.toLowerCase()}`)
 
   for (const module of modules) {
     const modulePrompts = module()
 
-    if (extensionConfig[module.name] && extensionConfig[module.name].prompts) {
-      const promptsConfig = extensionConfig[module.name].prompts
+    const moduleName = normalizeModuleName(module.name)
+    if (config.hasPrompts(moduleName)) {
+      const promptsConfig = config.prompts(moduleName)
 
       for (const modulePrompt of modulePrompts) {
         if (promptsConfig[modulePrompt.name] !== undefined) {

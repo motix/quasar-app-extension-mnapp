@@ -1,3 +1,21 @@
+<script setup lang="ts">
+import type { PropType } from 'vue'
+
+// Props
+
+defineProps({
+  gravatarId: {
+    type: String as PropType<string | undefined>,
+    default: undefined
+  },
+
+  dark: {
+    type: Boolean,
+    default: false
+  }
+})
+</script>
+
 <template>
   <span>
     <q-avatar size="56px">
@@ -14,26 +32,6 @@
     </q-avatar>
   </span>
 </template>
-
-<script lang="ts">
-import { defineComponent, PropType } from 'vue'
-
-export default defineComponent({
-  name: 'Gravatar',
-
-  props: {
-    gravatarId: {
-      type: String as PropType<string | undefined>,
-      default: undefined
-    },
-
-    dark: {
-      type: Boolean,
-      default: false
-    }
-  }
-})
-</script>
 
 <style scoped>
 .q-icon {

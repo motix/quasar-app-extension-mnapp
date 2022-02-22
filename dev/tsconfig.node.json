@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "composite": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "baseUrl": ".",
+    "outDir": ".mnapp-vite/build",
+    "paths": {
+      ".mnapp-vite/*": [".mnapp-vite/*"]
+    }
+  },
+  "include": [
+    "vite.config.ts",
+    ".mnapp-vite/**/*.ts"
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "extends": "./tsconfig-vite-preset.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      // App-defined webpack aliases
+      "models/*": ["src/models/*"],
+      "api/*": ["src/api/*"],
+      "services/*": ["src/services/*"],
+      "store/*": ["src/store/*"],
+      "composables/*": ["src/composables/*"],
+      "mixins/*": ["src/mixins/*"],
+      "utils/*": ["src/utils/*"],
+      // Quasar-defined webpack aliases
+      "src/*": ["src/*"],
+      "app/*": ["*"],
+      "components/*": ["src/components/*"],
+      "layouts/*": ["src/layouts/*"],
+      "pages/*": ["src/pages/*"],
+      "assets/*": ["src/assets/*"],
+      "boot/*": ["src/boot/*"]
+    }
+  }
+}

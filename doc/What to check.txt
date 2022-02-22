@@ -1,0 +1,34 @@
+import order
+  json
+  vue
+  quasar
+  firebase
+
+  models
+  services
+  router
+  store
+  composables
+  components
+
+error handling
+
+<script setup>
+
+function
+
+setup sections
+  Private
+  Props
+  Attrs
+  Slots
+  Emit
+  Composables
+  Data
+  Method Refs
+  Computed
+  Private Executions
+  Methods
+  Lifecycle Hooks
+  Watch
+  Expose

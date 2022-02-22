@@ -1,3 +1,3 @@
 module.exports = function (api) {
-  api.removePath('src/composables/use-config.ts')
+  api.removePath('src/services/useConfig.ts')
 }

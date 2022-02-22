@@ -1,3 +1,125 @@
+<script setup lang="ts">
+import { computed } from 'vue'
+
+// Props
+
+const props = defineProps({
+  headerBackgroundColor: {
+    type: String,
+    required: false,
+    default: undefined
+  },
+  headerDark: {
+    type: Boolean,
+    default: false
+  },
+  externalLinkUrl: {
+    type: String,
+    required: false,
+    default: undefined
+  },
+  avatarTop: {
+    type: Boolean,
+    default: false
+  },
+  avatarColor: {
+    type: String,
+    required: false,
+    default: undefined
+  },
+  avatarIcon: {
+    type: String,
+    required: false,
+    default: undefined
+  },
+  avatarImage: {
+    type: String,
+    required: false,
+    default: undefined
+  },
+  useGravatar: {
+    type: Boolean,
+    default: false
+  },
+  gravatarId: {
+    type: String,
+    required: false,
+    default: undefined
+  },
+  titleTop: {
+    type: Boolean,
+    default: false
+  },
+  titleColor: {
+    type: String,
+    required: false,
+    default: undefined
+  },
+  titleNoWrap: {
+    type: Boolean,
+    default: false
+  },
+  title: {
+    type: String,
+    required: false,
+    default: undefined
+  },
+  subtitleIcon: {
+    type: String,
+    required: false,
+    default: undefined
+  },
+  subtitleColor: {
+    type: String,
+    required: false,
+    default: undefined
+  },
+  subtitle: {
+    type: String,
+    required: false,
+    default: undefined
+  },
+  subtitleTooltip: {
+    type: String,
+    required: false,
+    default: undefined
+  },
+  caption: {
+    type: String,
+    required: false,
+    default: undefined
+  },
+  sideTop: {
+    type: Boolean,
+    default: false
+  }
+})
+
+// Computed
+
+const titleCssClass = computed(() => {
+  const val: {[key: string]: boolean} = {
+    'text-no-wrap': props.titleNoWrap
+  }
+
+  if (props.titleColor) {
+    val[`text-${props.titleColor}`] = true
+  }
+
+  return val
+})
+
+const subtitleCssClass = computed(() => {
+  const val: {[key: string]: boolean} = {}
+
+  if (props.subtitleColor) {
+    val[`text-${props.subtitleColor}`] = true
+  }
+
+  return val
+})
+</script>
+
 <template>
   <q-item :dark="headerDark">
     <q-btn
@@ -31,8 +153,11 @@
           :name="avatarIcon"
         />
       </q-avatar>
-      <q-avatar v-if="avatarImage">
-        Avatar image
+      <q-avatar
+        v-if="avatarImage"
+        size="56px"
+      >
+        <q-img :src="avatarImage" />
       </q-avatar>
       <gravatar
         v-if="useGravatar"
@@ -88,129 +213,3 @@
     </q-item-section>
   </q-item>
 </template>
-
-<script lang="ts">
-import { defineComponent, computed } from 'vue'
-
-export default defineComponent({
-  name: 'ExpandableCardHeader',
-
-  props: {
-    headerBackgroundColor: {
-      type: String,
-      required: false,
-      default: undefined
-    },
-    headerDark: {
-      type: Boolean,
-      default: false
-    },
-    externalLinkUrl: {
-      type: String,
-      required: false,
-      default: undefined
-    },
-    avatarTop: {
-      type: Boolean,
-      default: false
-    },
-    avatarColor: {
-      type: String,
-      required: false,
-      default: undefined
-    },
-    avatarIcon: {
-      type: String,
-      required: false,
-      default: undefined
-    },
-    avatarImage: {
-      type: String,
-      required: false,
-      default: undefined
-    },
-    useGravatar: {
-      type: Boolean,
-      default: false
-    },
-    gravatarId: {
-      type: String,
-      required: false,
-      default: undefined
-    },
-    titleTop: {
-      type: Boolean,
-      default: false
-    },
-    titleColor: {
-      type: String,
-      required: false,
-      default: undefined
-    },
-    titleNoWrap: {
-      type: Boolean,
-      default: false
-    },
-    title: {
-      type: String,
-      required: false,
-      default: undefined
-    },
-    subtitleIcon: {
-      type: String,
-      required: false,
-      default: undefined
-    },
-    subtitleColor: {
-      type: String,
-      required: false,
-      default: undefined
-    },
-    subtitle: {
-      type: String,
-      required: false,
-      default: undefined
-    },
-    subtitleTooltip: {
-      type: String,
-      required: false,
-      default: undefined
-    },
-    caption: {
-      type: String,
-      required: false,
-      default: undefined
-    },
-    sideTop: {
-      type: Boolean,
-      default: false
-    }
-  },
-
-  setup (props) {
-    const titleCssClass = computed(() => {
-      const val: {[key: string]: boolean} = {
-        'text-no-wrap': props.titleNoWrap
-      }
-
-      if (props.titleColor) {
-        val[`text-${props.titleColor}`] = true
-      }
-
-      return val
-    })
-
-    const subtitleCssClass = computed(() => {
-      const val: {[key: string]: boolean} = {}
-
-      if (props.subtitleColor) {
-        val[`text-${props.subtitleColor}`] = true
-      }
-
-      return val
-    })
-
-    return { titleCssClass, subtitleCssClass }
-  }
-})
-</script>

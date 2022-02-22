@@ -14,14 +14,18 @@ module.exports = {
     // Needed to make the parser take into account 'vue' files
     extraFileExtensions: ['.vue'],
     parser: '@typescript-eslint/parser',
-    project: resolve(__dirname, './tsconfig.json'),
+    project: [
+      resolve(__dirname, './tsconfig.json'),
+      resolve(__dirname, './tsconfig.eslint.json')
+    ],
     tsconfigRootDir: __dirname,
     ecmaVersion: 2018, // Allows for the parsing of modern ECMAScript features
     sourceType: 'module' // Allows for the use of imports
   },
 
   env: {
-    browser: true
+    browser: true,
+    "vue/setup-compiler-macros": true
   },
 
   // Rules order is important, please avoid shuffling them
@@ -57,16 +61,16 @@ module.exports = {
   ],
 
   globals: {
-    ga: true, // Google Analytics
-    cordova: true,
-    __statics: true,
-    __QUASAR_SSR__: true,
-    __QUASAR_SSR_SERVER__: true,
-    __QUASAR_SSR_CLIENT__: true,
-    __QUASAR_SSR_PWA__: true,
-    process: true,
-    Capacitor: true,
-    chrome: true
+    ga: 'readonly', // Google Analytics
+    cordova: 'readonly',
+    __statics: 'readonly',
+    __QUASAR_SSR__: 'readonly',
+    __QUASAR_SSR_SERVER__: 'readonly',
+    __QUASAR_SSR_CLIENT__: 'readonly',
+    __QUASAR_SSR_PWA__: 'readonly',
+    process: 'readonly',
+    Capacitor: 'readonly',
+    chrome: 'readonly'
   },
 
   // add your custom rules here
@@ -80,7 +84,6 @@ module.exports = {
     'multiline-ternary': 'off',
 
     'import/first': 'off',
-    'import/named': 'error',
     'import/namespace': 'error',
     'import/default': 'error',
     'import/export': 'error',
@@ -92,7 +95,6 @@ module.exports = {
     // TypeScript
     quotes: ['warn', 'single', { avoidEscape: true }],
     '@typescript-eslint/explicit-function-return-type': 'off',
-    '@typescript-eslint/explicit-module-boundary-types': 'off',
 
     // allow debugger during development only
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
@@ -100,7 +102,17 @@ module.exports = {
     // alphabetical
     "vue/attributes-order": ['warn', {
       'alphabetical': true
-    }]
+    }],
+
+    // Avoid "Cannot read property 'loc' of undefined" issue
+    // and take care of multiline generic type parameters.
+    // https://github.com/typescript-eslint/typescript-eslint/issues/455#issuecomment-580636221
+    "indent": "off",
+    "@typescript-eslint/indent": ["error", 2, {
+      ignoredNodes: ['TSTypeParameterInstantiation']
+    }],
+
+    "vue/multi-word-component-names": "off"
   },
 
   overrides: [
@@ -108,6 +120,7 @@ module.exports = {
       files: ['*.js'],
       rules: {
         '@typescript-eslint/no-var-requires': 'off',
+        '@typescript-eslint/no-unsafe-argument': 'off',
         '@typescript-eslint/no-unsafe-assignment': 'off',
         '@typescript-eslint/no-unsafe-member-access': 'off',
         '@typescript-eslint/no-unsafe-return': 'off',

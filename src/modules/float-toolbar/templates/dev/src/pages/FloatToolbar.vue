@@ -1,3 +1,16 @@
+<script setup lang="ts">
+import { useFloatToolbarResult } from 'composables/useFloatToolbar'
+
+// Composables
+
+const {
+  collapseHeaderHeight,
+  headerElevated,
+  floatToolbarOffsetTop,
+  floatToolbarOffsetBottom
+} = useFloatToolbarResult()
+</script>
+
 <template>
   <div>
     <div
@@ -8,7 +21,8 @@
     <q-page padding>
       <div style="padding: 100px 0" />
       <div>headerElevated: {{ headerElevated }}</div>
-      <div>floatToolbarPosition: {{ floatToolbarPosition }}</div>
+      <div>floatToolbarOffsetTop: {{ floatToolbarOffsetTop }}</div>
+      <div>floatToolbarOffsetBottom: {{ floatToolbarOffsetBottom }}</div>
       <div style="padding: 400px 0" />
       <div>
         End
@@ -16,18 +30,3 @@
     </q-page>
   </div>
 </template>
-
-<script lang="ts">
-import { defineComponent } from 'vue'
-import { useFloatToolbarResult } from 'composables/use-float-toolbar'
-
-export default defineComponent({
-  name: 'FloatToolbar',
-
-  setup () {
-    return {
-      ...useFloatToolbarResult()
-    }
-  }
-})
-</script>

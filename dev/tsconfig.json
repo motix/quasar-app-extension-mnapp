@@ -1,6 +1,11 @@
 {
-  "extends": "./tsconfig-preset",
+  "extends": "./tsconfig-map-paths-preset.json",
   "compilerOptions": {
     "baseUrl": "."
-  }
+  },
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ]
 }

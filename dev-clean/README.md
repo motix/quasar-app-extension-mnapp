@@ -14,7 +14,7 @@ quasar dev
 
 ### Lint the files
 ```bash
-yarn run lint
+yarn lint
 ```
 
 ### Build the app for production

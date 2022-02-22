@@ -5,7 +5,7 @@
  * API: https://github.com/quasarframework/quasar/blob/master/app/lib/app-extension/InstallAPI.js
  */
 
-const merge = require('webpack-merge')
+const { merge } = require('webpack-merge')
 const fs = require('fs')
 const getModules = require('./modules')
 
@@ -43,18 +43,26 @@ module.exports = function (api) {
       module(api)
     }
 
-    const packageJson = mergeExtendPackageJson(modules)
-    if (Object.keys(packageJson).length > 0) {
-      const packageJsonPath = api.resolve.app('package.json')
-      const packageJsonBackupPath = api.resolve.app('package-bk.json')
+    let packageJson = mergeExtendPackageJson(modules)
 
-      if (!fs.existsSync(packageJsonBackupPath)) {
-        // eslint-disable-next-line @typescript-eslint/no-empty-function
-        fs.copyFile(packageJsonPath, packageJsonBackupPath, () => { })
+    packageJson = merge({
+      scripts: {
+        'i-mnapp': 'quasar ext invoke @motinet/mnapp',
+        'u-mnapp': 'quasar ext uninvoke @motinet/mnapp'
       }
+    }, packageJson)
 
-      api.extendPackageJson(packageJson)
+    const packageJsonPath = api.resolve.app('package.json')
+    const packageJsonBackupPath = api.resolve.app('package-bk.json')
+
+    if (!fs.existsSync(packageJsonBackupPath)) {
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
+      fs.copyFile(packageJsonPath, packageJsonBackupPath, () => { })
     }
+
+    api.extendPackageJson(packageJson)
+
+    api.onExitLog('\x1b[32m              • \x1b[0mPlease manually add \x1b[33mi-mnapp\x1b[0m and \x1b[33mu-mnapp\x1b[0m to \x1b[47m\x1b[30mpackage-bk.json\x1b[0m \x1b[33mscripts\x1b[0m for later use.')
 
     const jsonFiles = mergeExtendJsonFiles(modules)
     for (const file in jsonFiles) {

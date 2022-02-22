@@ -1,3 +1,14 @@
+<script setup lang="ts">
+import useNotifications from 'composables/useNotifications'
+
+// Composables
+
+const {
+  notifyLoadDataError,
+  notifyCreateDataSuccessAndRedirect
+} = useNotifications()
+</script>
+
 <template>
   <q-page padding>
     <q-btn
@@ -10,18 +21,3 @@
     />
   </q-page>
 </template>
-
-<script lang="ts">
-import { defineComponent } from 'vue'
-import useNotifications from 'composables/use-notifications'
-
-export default defineComponent({
-  name: 'Notifications',
-
-  setup () {
-    return {
-      ...useNotifications()
-    }
-  }
-})
-</script>

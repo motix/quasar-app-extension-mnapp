@@ -8,14 +8,6 @@
   </transition>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-  name: 'FadeTransition'
-})
-</script>
-
 <style lang="scss">
 .fade-transition-enter-active,
 .fade-transition-leave-active {

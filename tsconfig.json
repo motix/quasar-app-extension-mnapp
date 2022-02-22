@@ -1,34 +1,58 @@
 {
-  "extends": "@quasar/app/tsconfig-preset",
-  "exclude": [
-    "dev",
-    "dev-clean"
-  ],
+  "extends": "./tsconfig-quasar-preset.json",
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
+      // Quasar-defined webpack aliases
+      "app/package.json": [
+        "src/modules/page-title/package.json"
+      ],
+      "app/firebase.json": [
+        "src/modules/firebase/firebase.json"
+      ],
       // App-defined webpack aliases
       "models/*": [
-        "src/modules/authentication/templates/dist/src/models/*"
+        "src/modules/firebase/templates/dist-aut/src/models/*",
+        "src/modules/single-scope-composable/templates/dist/src/models/*"
+      ],
+      "services/*": [
+        "src/modules/config/templates/dist/src/services/*",
+        "src/modules/firebase/templates/dist/src/services/*",
+        "src/modules/firebase/templates/dist-aut/src/services/*",
+        "src/modules/firebase/templates/dist-str/src/services/*"
       ],
       "store/*": [
         "src/store/*",
-        "src/modules/authentication/templates/dist/src/store/*"
+        "src/modules/firebase/templates/dist-aut/src/store/*"
       ],
-      "api/*": [
-        "src/modules/authentication/templates/dist/src/api/*"
+      "stores/*": [
+        "src/modules/single-scope-composable/templates/dist/src/stores/*"
       ],
       "composables/*": [
-        "src/modules/frameworks/templates/dist/src/composables/*",
-        "src/modules/config/templates/dist/src/composables/*",
+        "src/modules/firebase/templates/dist-aut/src/composables/*",
+        "src/modules/notifications/templates/dist/src/composables/*",
         "src/modules/scroll/templates/dist/src/composables/*",
         "src/modules/float-toolbar/templates/dist/src/composables/*",
+        "src/modules/sticky-headers/templates/dist/src/composables/*",
         "src/modules/multi-views/templates/dist/src/composables/*",
-        "src/modules/formats/templates/dist/src/composables/*",
-        "src/modules/rules/templates/dist/src/composables/*",
-        "src/modules/notifications/templates/dist/src/composables/*",
-        "src/modules/authentication/templates/dist/src/composables/*"
+        "src/modules/return-url/templates/dist/src/composables/*",
+        "src/modules/crud-pages/templates/dist/src/composables/*"
+      ],
+      "components/*": [
+        "src/modules/shared-components/templates/dist/src/components/*",
+        "src/modules/float-toolbar/templates/dist/src/components/*",
+        "src/modules/multi-views/templates/dist/src/components/*"
+      ],
+      // mnapp only
+      ".mnapp-vite/*": [
+        "src/modules/map-paths/templates/dist-vite/_mnapp-vite/*",
+        "src/modules/firebase/templates/dist-vite/_mnapp-vite/*",
+        "src/modules/app-default/templates/dist-vite/_mnapp-vite/*"
       ]
     }
-  }
+  },
+  "exclude": [
+    "dev",
+    "dev-clean"
+  ]
 }

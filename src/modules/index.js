@@ -2,11 +2,15 @@
 Modules:
 - map-paths
 - frameworks
-  Dependencies: map-paths
+- vite
 - vendors
 - config
+- pageTitle
+  Dependencies: config
 - shared-components
   Dependencies: map-paths, vendors, config
+- firebase
+  Dependencies: frameworks, vendors, config, shared-components
 - formats
   Dependencies: map-paths, vendors, config
 - rules
@@ -17,25 +21,39 @@ Modules:
   Dependencies: map-paths, config
 - float-toolbar
   Dependencies: map-paths
+- sticky-headers
+  Dependencies: map-paths, shared-components
 - multi-views
   Dependencies: map-paths, vendors, shared-components, scroll
+- return-url
+  Dependencies: map-paths
+- single-scope-composable
+  Dependencies: map-paths, vendors
+- crud-pages
+  Dependencies: map-paths, vendors, config, shared-components, firebase,
+                notifications, float-toolbar, sticky-headers, multi-views,
+                return-url, single-scope-composable
 - authentication
   Dependencies: frameworks, vendors
-- app
-  Dependencies: frameworks
+- app-default
+  Dependencies: frameworks, config
 */
 
 const fs = require('fs')
 const getExtensionConfig = require('./extension-config')
 
 module.exports = function (script) {
-  const extensionConfig = getExtensionConfig()
+  const config = getExtensionConfig()
 
   const modules = []
   const files = fs.readdirSync(__dirname)
 
   files.forEach(file => {
-    if (file === 'index.js' || file === 'extension-config.js' || extensionConfig[file] === false) return
+    if (
+      file === 'index.js' ||
+      file === 'extension-config.js' ||
+      !config.hasModule(file)
+    ) return
 
     try {
       const module = require(`./${file}/${script}`)

@@ -31,3 +31,12 @@ yarn-error.log*
 *.ntvs*
 *.njsproj
 *.sln
+
+# .npmrc
+.npmrc
+
+# dotenv
+.env
+
+# mkcerts
+mkcerts/server.*

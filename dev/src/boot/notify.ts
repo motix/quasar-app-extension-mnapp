@@ -3,6 +3,6 @@ import { boot } from 'quasar/wrappers'
 
 export default boot(() => {
   Notify.setDefaults({
-    color: 'accent'
+    color: 'grey-6'
   })
 })

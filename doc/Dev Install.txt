@@ -1,6 +1,11 @@
 In quasar-app-extension-mnapp
 > yarn link
 
-In ClientApp
+In dev
 > yarn link @motinet/quasar-app-extension-mnapp
 > quasar ext invoke @motinet/mnapp
+
+
+.eslintignore
+  quasar.conf.js
+  vite.config.ts

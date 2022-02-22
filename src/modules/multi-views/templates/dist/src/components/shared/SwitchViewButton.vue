@@ -1,3 +1,14 @@
+<script setup lang="ts">
+import useMultiViews from 'composables/useMultiViews'
+
+// Composables
+
+const {
+  isTableView,
+  switchViewAndScroll
+} = useMultiViews()
+</script>
+
 <template>
   <q-btn
     color="grey-3"
@@ -11,16 +22,3 @@
     </top-tooltip>
   </q-btn>
 </template>
-
-<script lang="ts">
-import { defineComponent } from 'vue'
-import useMultiViews from 'composables/use-multi-views'
-
-export default defineComponent({
-  name: 'SwitchViewButton',
-
-  setup () {
-    return { ...useMultiViews() }
-  }
-})
-</script>

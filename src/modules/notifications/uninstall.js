@@ -1,5 +1,5 @@
 module.exports = function (api) {
-  api.removePath('src/composables/use-notifications.ts')
+  api.removePath('src/composables/useNotifications.ts')
 
   if (api.appDir.endsWith('\\dev')) {
     api.removePath('src/boot/notifications-dev.ts')

@@ -1,0 +1,6 @@
+{
+  "extends": "./tsconfig.json",
+  "include": [
+    "src/**/_mnapp-vite/**/*.d.ts"
+  ]
+}

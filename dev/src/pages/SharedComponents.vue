@@ -1,3 +1,23 @@
+<script setup lang="ts">
+import { ref } from 'vue'
+
+// Data
+
+const fsShowCard1 = ref(true)
+const lsCards = ref(['Card 1', 'Card 2', 'Card 3'])
+const piValue = ref(0.5)
+
+// Methods
+
+function lsAddCard () {
+  lsCards.value.push(`New Card ${Date.now().valueOf() - new Date(2020, 1, 1).valueOf()}`)
+}
+
+function lsRemoveCard (index: number) {
+  lsCards.value.splice(index, 1)
+}
+</script>
+
 <template>
   <q-page padding>
     <div class="text-h3">
@@ -95,30 +115,3 @@
     </div>
   </q-page>
 </template>
-
-<script lang="ts">
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-  name: 'SharedComponents',
-
-  data () {
-    return {
-      fsShowCard1: true,
-
-      lsCards: ['Card 1', 'Card 2', 'Card 3'],
-
-      piValue: 0.5
-    }
-  },
-
-  methods: {
-    lsAddCard () {
-      this.lsCards.push(`New Card ${Date.now().valueOf() - new Date(2020, 1, 1).valueOf()}`)
-    },
-    lsRemoveCard (index: number) {
-      this.lsCards.splice(index, 1)
-    }
-  }
-})
-</script>

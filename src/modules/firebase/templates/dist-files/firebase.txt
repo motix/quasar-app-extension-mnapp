@@ -1,0 +1,13 @@
+{
+  "emulators": {
+    "auth": {
+      "port": <%= prompts.authEmulatorPort %>
+    },
+    "functions": {
+      "port": <%= prompts.functionsEmulatorPort %>
+    },
+    "firestore": {
+      "port": <%= prompts.firestoreEmulatorPort %>
+    }
+  }
+}

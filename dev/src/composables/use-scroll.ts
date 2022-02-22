@@ -5,11 +5,18 @@ import useConfig from 'composables/use-config'
 const { getScrollTarget, setVerticalScrollPosition } = scroll
 
 export default function () {
-  const config = useConfig()
+  // Composables
+
+  const {
+    scrollDuration,
+    scrollOffset
+  } = useConfig()
+
+  // Methods
 
   function toTop () {
     const target = getScrollTarget(window.document.body)
-    setVerticalScrollPosition(target, 0, config.scrollDuration)
+    setVerticalScrollPosition(target, 0, scrollDuration)
   }
 
   function toElement (destination: ComponentPublicInstance | Element | ComponentPublicInstance[] | Element[], index?: number) {
@@ -37,7 +44,7 @@ export default function () {
       }
     }
 
-    if (el === undefined) throw new Error('No element to scroll to')
+    el === undefined && (() => { throw new Error('No element to scroll to') })()
 
     const target = getScrollTarget(el)
 
@@ -49,9 +56,9 @@ export default function () {
       offset += offsetParent.offsetTop
     }
 
-    offset -= config.scrollOffset as number
+    offset -= scrollOffset as number
 
-    setVerticalScrollPosition(target, offset, config.scrollDuration)
+    setVerticalScrollPosition(target, offset, scrollDuration)
   }
 
   return {

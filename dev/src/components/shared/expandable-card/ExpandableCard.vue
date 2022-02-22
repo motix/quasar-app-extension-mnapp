@@ -1,7 +1,145 @@
+<script setup lang="ts">
+import useConfig from 'composables/use-config'
+import ExpandableCardHeader from './ExpandableCardHeader.vue'
+import { computed } from 'vue'
+
+// Props
+
+const props = defineProps({
+  expandable: {
+    type: Boolean,
+    default: false
+  },
+  clickable: {
+    type: Boolean,
+    default: false
+  },
+  headerBackgroundColor: {
+    type: String,
+    required: false,
+    default: undefined
+  },
+  bodyBackgroundColor: {
+    type: String,
+    required: false,
+    default: 'grey-1'
+  },
+  headerDark: {
+    type: Boolean,
+    default: false
+  },
+  externalLinkUrl: {
+    type: String,
+    required: false,
+    default: undefined
+  },
+  avatarTop: {
+    type: Boolean,
+    default: false
+  },
+  avatarColor: {
+    type: String,
+    required: false,
+    default: undefined
+  },
+  avatarIcon: {
+    type: String,
+    required: false,
+    default: undefined
+  },
+  avatarImage: {
+    type: String,
+    required: false,
+    default: undefined
+  },
+  useGravatar: {
+    type: Boolean,
+    default: false
+  },
+  gravatarId: {
+    type: String,
+    required: false,
+    default: undefined
+  },
+  titleTop: {
+    type: Boolean,
+    default: false
+  },
+  titleColor: {
+    type: String,
+    required: false,
+    default: undefined
+  },
+  titleNoWrap: {
+    type: Boolean,
+    default: false
+  },
+  title: {
+    type: String,
+    required: false,
+    default: undefined
+  },
+  subtitleIcon: {
+    type: String,
+    required: false,
+    default: undefined
+  },
+  subtitleColor: {
+    type: String,
+    required: false,
+    default: undefined
+  },
+  subtitle: {
+    type: String,
+    required: false,
+    default: undefined
+  },
+  subtitleTooltip: {
+    type: String,
+    required: false,
+    default: undefined
+  },
+  caption: {
+    type: String,
+    required: false,
+    default: undefined
+  },
+  sideTop: {
+    type: Boolean,
+    default: false
+  },
+  headerSeparator: {
+    type: Boolean,
+    default: false
+  },
+  gutterColBody: {
+    type: Boolean,
+    default: false
+  },
+  gutterRowBody: {
+    type: Boolean,
+    default: false
+  }
+})
+
+// Composables
+
+const { cardWidth } = useConfig()
+
+// Computed
+
+const cardCssClass = computed<Record<string, unknown>>(() => ({
+  'cursor-pointer': props.clickable
+}))
+
+//  Private Executions
+
+cardCssClass.value[`bg-${props.bodyBackgroundColor}`] = true
+</script>
+
 <template>
   <q-card
-    class="bg-grey-1"
-    :class="{ 'cursor-pointer': clickable }"
+    :class="cardCssClass"
     style="width: 100%"
     :style="{ maxWidth: cardWidth + 'px' }"
   >
@@ -13,8 +151,9 @@
         expand-separator
       >
         <template #header>
+          <!-- Refer to this issue for v-bind="$props": https://giters.com/johnsoncodehk/volar/issues/556 -->
           <expandable-card-header
-            v-bind="$props"
+            v-bind="{ ...$props, ref: undefined }"
             class="q-pl-none full-width"
           >
             <template
@@ -33,28 +172,30 @@
           </expandable-card-header>
         </template>
 
-        <q-card-section
-          v-if="$slots.body"
-          class="bg-grey-1"
-        >
-          <div
-            v-if="gutterColBody || gutterRowBody"
-            :class="{ 'q-gutter-y-md': gutterColBody, 'q-col-gutter-md row items-start': gutterRowBody }"
-          >
-            <slot name="body" />
-          </div>
-          <slot
-            v-else
-            name="body"
-          />
-        </q-card-section>
+        <div :class="`bg-${bodyBackgroundColor}`">
+          <slot name="bezel-less-top" />
 
-        <slot name="bezel-less" />
+          <q-card-section v-if="$slots.body">
+            <div
+              v-if="gutterColBody || gutterRowBody"
+              :class="{ 'q-gutter-y-md': gutterColBody, 'q-col-gutter-md row items-start': gutterRowBody }"
+            >
+              <slot name="body" />
+            </div>
+            <slot
+              v-else
+              name="body"
+            />
+          </q-card-section>
+
+          <slot name="bezel-less" />
+        </div>
       </q-expansion-item>
     </template>
     <template v-else>
+      <!-- Refer to this issue for v-bind="$props": https://giters.com/johnsoncodehk/volar/issues/556 -->
       <expandable-card-header
-        v-bind="$props"
+        v-bind="{ ...$props, ref: undefined }"
         class="q-pa-md"
         :class="(headerBackgroundColor ? `bg-${headerBackgroundColor}` : '')"
       >
@@ -75,6 +216,8 @@
 
       <q-separator v-if="headerSeparator" />
 
+      <slot name="bezel-less-top" />
+
       <q-card-section v-if="$slots.body">
         <div
           v-if="gutterColBody || gutterRowBody"
@@ -92,131 +235,3 @@
     </template>
   </q-card>
 </template>
-
-<script lang="ts">
-import { defineComponent } from 'vue'
-import useConfig from 'composables/use-config'
-import ExpandableCardHeader from './ExpandableCardHeader.vue'
-
-export default defineComponent({
-  name: 'ExpandableCard',
-
-  components: { ExpandableCardHeader },
-
-  props: {
-    expandable: {
-      type: Boolean,
-      default: false
-    },
-    clickable: {
-      type: Boolean,
-      default: false
-    },
-    headerBackgroundColor: {
-      type: String,
-      required: false,
-      default: undefined
-    },
-    headerDark: {
-      type: Boolean,
-      default: false
-    },
-    externalLinkUrl: {
-      type: String,
-      required: false,
-      default: undefined
-    },
-    avatarTop: {
-      type: Boolean,
-      default: false
-    },
-    avatarColor: {
-      type: String,
-      required: false,
-      default: undefined
-    },
-    avatarIcon: {
-      type: String,
-      required: false,
-      default: undefined
-    },
-    avatarImage: {
-      type: String,
-      required: false,
-      default: undefined
-    },
-    useGravatar: {
-      type: Boolean,
-      default: false
-    },
-    gravatarId: {
-      type: String,
-      required: false,
-      default: undefined
-    },
-    titleTop: {
-      type: Boolean,
-      default: false
-    },
-    titleColor: {
-      type: String,
-      required: false,
-      default: undefined
-    },
-    titleNoWrap: {
-      type: Boolean,
-      default: false
-    },
-    title: {
-      type: String,
-      required: false,
-      default: undefined
-    },
-    subtitleIcon: {
-      type: String,
-      required: false,
-      default: undefined
-    },
-    subtitleColor: {
-      type: String,
-      required: false,
-      default: undefined
-    },
-    subtitle: {
-      type: String,
-      required: false,
-      default: undefined
-    },
-    subtitleTooltip: {
-      type: String,
-      required: false,
-      default: undefined
-    },
-    caption: {
-      type: String,
-      required: false,
-      default: undefined
-    },
-    sideTop: {
-      type: Boolean,
-      default: false
-    },
-    headerSeparator: {
-      type: Boolean,
-      default: false
-    },
-    gutterColBody: {
-      type: Boolean,
-      default: false
-    },
-    gutterRowBody: {
-      type: Boolean,
-      default: false
-    }
-  },
-
-  setup () {
-    return { ...useConfig() }
-  }
-})
-</script>

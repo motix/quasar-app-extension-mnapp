@@ -27,7 +27,8 @@ module.exports = function (api) {
     module(api)
   }
 
-  const revertFiles = mergeRevertFiles(modules)
+  const revertFiles = [...mergeRevertFiles(modules), 'package.json']
+
   for (const file of revertFiles) {
     const backupFile = `${file.substr(0, file.length - '.json'.length)}-bk.json`
     const filePath = api.resolve.app(file)
@@ -39,4 +40,6 @@ module.exports = function (api) {
       api.removePath(backupFile)
     }
   }
+
+  api.onExitLog('\x1b[32m              • \x1b[0mPlease remove \x1b[33mi-mnapp\x1b[0m and \x1b[33mu-mnapp\x1b[0m from \x1b[47m\x1b[30mpackage-bk.json\x1b[0m \x1b[33mscripts\x1b[0m if no longer used.')
 }

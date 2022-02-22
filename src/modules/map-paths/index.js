@@ -8,8 +8,10 @@ module.exports = function (api) {
       models: path.resolve(api.appDir, './src/models'),
       api: path.resolve(api.appDir, './src/api'),
       store: path.resolve(api.appDir, './src/store'),
+      stores: path.resolve(api.appDir, './src/stores'),
       composables: path.resolve(api.appDir, './src/composables'),
       mixins: path.resolve(api.appDir, './src/mixins'),
+      services: path.resolve(api.appDir, './src/services'),
       utils: path.resolve(api.appDir, './src/utils')
     }
   })

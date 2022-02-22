@@ -1,24 +1,11 @@
 <template>
   <q-page class="row items-center justify-evenly">
-    <q-input filled v-model="date" mask="date" :rules="['date']">
-      <template v-slot:append>
-        <q-icon name="event" class="cursor-pointer">
-          <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale">
-            <q-date v-model="date">
-              <div class="row items-center justify-end">
-                <q-btn v-close-popup label="Close" color="primary" flat />
-              </div>
-            </q-date>
-          </q-popup-proxy>
-        </q-icon>
-      </template>
-    </q-input>
     <example-component
-      title="Example component"
       active
-      :todos="todos"
       :meta="meta"
-    ></example-component>
+      title="Example component"
+      :todos="todos"
+    />
   </q-page>
 </template>
 
@@ -56,7 +43,7 @@ export default defineComponent({
     const meta = ref<Meta>({
       totalCount: 1200
     })
-    return { todos, meta, date: ref('2019/02/01') }
+    return { todos, meta }
   }
 })
 </script>

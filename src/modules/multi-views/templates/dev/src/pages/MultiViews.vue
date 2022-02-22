@@ -1,3 +1,15 @@
+<script setup lang="ts">
+import useMultiViews from 'composables/useMultiViews'
+import SwitchViewButton from 'components/shared/SwitchViewButton.vue'
+
+// Composables
+
+const {
+  isTableView,
+  isCardsView
+} = useMultiViews()
+</script>
+
 <template>
   <q-page padding>
     <switch-view-button />
@@ -19,21 +31,3 @@
     <switch-view-button />
   </q-page>
 </template>
-
-<script lang="ts">
-import { defineComponent } from 'vue'
-import useMultiViews from 'composables/use-multi-views'
-import SwitchViewButton from 'components/shared/SwitchViewButton.vue'
-
-export default defineComponent({
-  name: 'MultiViews',
-
-  components: { SwitchViewButton },
-
-  setup () {
-    return {
-      ...useMultiViews()
-    }
-  }
-})
-</script>

@@ -1,12 +1,6 @@
+import useConfig from 'services/useConfig'
+// Main
 import { boot } from 'quasar/wrappers'
-import useConfig from 'composables/use-config'
-
-declare module 'composables/use-config' {
-  interface Config {
-    scrollDuration?: number;
-    scrollOffset?: number;
-  }
-}
 
 export default boot(() => {
   const config = useConfig()
