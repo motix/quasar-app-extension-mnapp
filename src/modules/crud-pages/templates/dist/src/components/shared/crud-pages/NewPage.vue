@@ -5,6 +5,10 @@ import FloatToolbar from 'components/shared/FloatToolbar.vue'
 // Main
 import { ref } from 'vue'
 
+// Props
+
+const props = defineProps<{scopeName: string}>()
+
 // Composables
 
 const {
@@ -20,7 +24,7 @@ const {
   confirmAndGoBack,
   // useToolbar
   toolbar
-} = useNewPage()
+} = useNewPage(props.scopeName)
 
 // Data
 

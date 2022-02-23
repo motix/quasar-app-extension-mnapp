@@ -11,7 +11,7 @@ import { defineEmits, useSlots, computed } from 'vue'
 
 type ListPageType = ReturnType<typeof useListPage>
 
-function useTableView () {
+function useTableView (scopeName: string) {
   // Slots
 
   const slots = useSlots()
@@ -21,7 +21,7 @@ function useTableView () {
   const {
     columns,
     pagination
-  } = useListPage()
+  } = useListPage(scopeName)
 
   // Computed
 
@@ -43,6 +43,7 @@ function useTableView () {
 }
 
 function usePageData (
+  scopeName: string,
   emit: (e: 'loadNextPage', index: number, done: (stop: boolean) => void) => void
 ) {
   // Composables
@@ -51,7 +52,7 @@ function usePageData (
     items,
     allItemsLoaded,
     itemCountLabel
-  } = useListPage()
+  } = useListPage(scopeName)
 
   // Methods
 
@@ -73,12 +74,12 @@ function usePageData (
   }
 }
 
-function useNavigateToViewPage () {
+function useNavigateToViewPage (scopeName: string) {
   // Private
 
   const {
     onItemClick
-  } = useListPage()
+  } = useListPage(scopeName)
 
   // Methods
 
@@ -93,9 +94,7 @@ function useNavigateToViewPage () {
   }
 }
 
-function usePageMultiViews (
-  columns: ListPageType['columns']
-) {
+function usePageMultiViews (columns: ListPageType['columns']) {
   // Slots
 
   const slots = useSlots()
@@ -124,6 +123,10 @@ function usePageMultiViews (
 </script>
 
 <script setup lang="ts">
+// Props
+
+const props = defineProps<{scopeName: string}>()
+
 // Emit
 
 // eslint-disable-next-line func-call-spacing
@@ -139,24 +142,24 @@ const {
   // useNavigateToNewPage
   newUrl,
   newButton
-} = useListPage()
+} = useListPage(props.scopeName)
 
 const {
   columns,
   pagination,
   scopedSlotNames
-} = useTableView()
+} = useTableView(props.scopeName)
 
 const {
   items,
   allItemsLoaded,
   itemCountLabel,
   onLoadNextPage
-} = usePageData(emit)
+} = usePageData(props.scopeName, emit)
 
 const {
   onRowClick
-} = useNavigateToViewPage()
+} = useNavigateToViewPage(props.scopeName)
 
 const {
   isTableView,
@@ -229,11 +232,11 @@ const {
 
               <template
                 v-for="slotName in scopedSlotNames"
-                #[slotName]="props"
+                #[slotName]="slotProps"
               >
                 <slot
                   :name="slotName"
-                  :props="props"
+                  :props="slotProps"
                 />
               </template>
 

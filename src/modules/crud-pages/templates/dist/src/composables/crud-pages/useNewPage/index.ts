@@ -7,8 +7,6 @@ import useToolbar from './useToolbar'
 // Main
 import { onUnmounted } from 'vue'
 
-const SCOPE_NAME = 'new-page'
-
 function newScope<TVm = unknown> () {
   const pageStatus = usePageStatus()
   const pageData = usePageData<TVm>()
@@ -32,15 +30,15 @@ class NewScopeHelper<TVm = unknown> {
   Return = newScope<TVm>()
 }
 
-export default function useNewPage<TVm = unknown> (hitUseCount?: boolean): NewScopeHelper<TVm>['Return'] {
+export default function useNewPage<TVm = unknown> (scopeName: string, hitUseCount?: boolean): NewScopeHelper<TVm>['Return'] {
   const store = useSingleScopeComposableStore()
 
-  !store.hasScope(SCOPE_NAME) && store.setScope(SCOPE_NAME, newScope<TVm>())
+  !store.hasScope(scopeName) && store.setScope(scopeName, newScope<TVm>())
 
   if (hitUseCount === true) {
-    store.increaseScopeUseCount(SCOPE_NAME)
-    onUnmounted(() => store.decreaseScopeUseCount(SCOPE_NAME))
+    store.increaseScopeUseCount(scopeName)
+    onUnmounted(() => store.decreaseScopeUseCount(scopeName))
   }
 
-  return store.retrieveScope(SCOPE_NAME)
+  return store.retrieveScope(scopeName)
 }

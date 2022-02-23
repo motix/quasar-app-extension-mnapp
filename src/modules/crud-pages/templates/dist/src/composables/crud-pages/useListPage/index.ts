@@ -9,8 +9,6 @@ import useNavigateToNewPage from './useNavigateToNewPage'
 // Main
 import { onUnmounted } from 'vue'
 
-const SCOPE_NAME = 'list-page'
-
 function newScope<T = unknown> () {
   const pageStatus = usePageStatus()
 
@@ -31,15 +29,15 @@ class NewScopeHelper<T = unknown> {
 
 export * from './useTableView'
 
-export default function useListPage<T = unknown> (hitUseCount?: boolean): NewScopeHelper<T>['Return'] {
+export default function useListPage<T = unknown> (scopeName: string, hitUseCount?: boolean): NewScopeHelper<T>['Return'] {
   const store = useSingleScopeComposableStore()
 
-  !store.hasScope(SCOPE_NAME) && store.setScope(SCOPE_NAME, newScope<T>())
+  !store.hasScope(scopeName) && store.setScope(scopeName, newScope<T>())
 
   if (hitUseCount === true) {
-    store.increaseScopeUseCount(SCOPE_NAME)
-    onUnmounted(() => store.decreaseScopeUseCount(SCOPE_NAME))
+    store.increaseScopeUseCount(scopeName)
+    onUnmounted(() => store.decreaseScopeUseCount(scopeName))
   }
 
-  return store.retrieveScope(SCOPE_NAME)
+  return store.retrieveScope(scopeName)
 }

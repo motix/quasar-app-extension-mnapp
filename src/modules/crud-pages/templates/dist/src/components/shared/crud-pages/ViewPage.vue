@@ -6,6 +6,10 @@ import SwitchViewButton from 'components/shared/SwitchViewButton.vue'
 // Main
 import { ref } from 'vue'
 
+// Props
+
+const props = defineProps<{scopeName: string}>()
+
 // Composables
 
 const {
@@ -32,7 +36,7 @@ const {
   toolbar,
   toolbarFabButtonsVisibility,
   toolbarFixedButtonsVisibility
-} = useViewPage()
+} = useViewPage(props.scopeName)
 
 // Data
 

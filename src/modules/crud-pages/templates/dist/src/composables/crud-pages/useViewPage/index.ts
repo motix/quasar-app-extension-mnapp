@@ -11,8 +11,6 @@ import useToolbar from './useToolbar'
 // Main
 import { onUnmounted } from 'vue'
 
-const SCOPE_NAME = 'view-page'
-
 function newScope<T = unknown, TVm = unknown> () {
   const {
     defaultReturnUrl: backUrl,
@@ -76,15 +74,15 @@ class NewScopeHelper< T = unknown, TVm = unknown> {
   Return = newScope<T, TVm>()
 }
 
-export default function useViewPage<T = unknown, TVm = unknown> (hitUseCount?: boolean): NewScopeHelper<T, TVm>['Return'] {
+export default function useViewPage<T = unknown, TVm = unknown> (scopeName: string, hitUseCount?: boolean): NewScopeHelper<T, TVm>['Return'] {
   const store = useSingleScopeComposableStore()
 
-  !store.hasScope(SCOPE_NAME) && store.setScope(SCOPE_NAME, newScope<T, TVm>())
+  !store.hasScope(scopeName) && store.setScope(scopeName, newScope<T, TVm>())
 
   if (hitUseCount === true) {
-    store.increaseScopeUseCount(SCOPE_NAME)
-    onUnmounted(() => store.decreaseScopeUseCount(SCOPE_NAME))
+    store.increaseScopeUseCount(scopeName)
+    onUnmounted(() => store.decreaseScopeUseCount(scopeName))
   }
 
-  return store.retrieveScope(SCOPE_NAME)
+  return store.retrieveScope(scopeName)
 }
