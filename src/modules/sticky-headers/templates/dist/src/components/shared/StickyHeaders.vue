@@ -185,7 +185,7 @@ function onDestTableScroll (info: OnScrollDetail) {
   </fade-transition>
 </template>
 
-<style lang="scss" scoped>
+<style scoped lang="scss">
 .container {
   position: fixed;
   z-index: 1;

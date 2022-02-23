@@ -10,6 +10,6 @@ declare module 'vue-router' {
     // Commonly used in View page.
     returnRequired?: boolean;
     history?: string[];
-    goingBack?: boolean
+    goingBack?: boolean;
   }
 }
