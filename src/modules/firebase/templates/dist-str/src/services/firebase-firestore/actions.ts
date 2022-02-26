@@ -187,6 +187,8 @@ function buildActions<T extends DocWithId, TVm extends DocVmWithId, TAm> (
                 id,
                 docKey,
                 this.realtimeDocs,
+                (id) => this.onDocUpdate(id),
+                (id) => this.onDocDelete(id),
                 done,
                 notFound,
                 deleted,
@@ -201,6 +203,8 @@ function buildActions<T extends DocWithId, TVm extends DocVmWithId, TAm> (
           id,
           docKey,
           this.realtimeDocs,
+          (id) => this.onDocUpdate(id),
+          (id) => this.onDocDelete(id),
           done,
           notFound,
           deleted,
@@ -223,25 +227,8 @@ function buildActions<T extends DocWithId, TVm extends DocVmWithId, TAm> (
 
       const db = getFirestore()
       const docRef = await addDoc(collection(db, collectionPath), docAm) as DocumentReference<TAm>
-
-      this.releaseDocs({ immediately: true })
-
-      const newDocAm = (await getDoc(docRef)).data()
-
-      !newDocAm && (() => { throw new Error(`[mnapp-firebase-firestore] Failed to retrieve created doc '${collectionPath}/${docRef.id}'.`) })()
-
-      const idMap = new Map([[newDocAm, docRef.id]])
-      const newDocM = mapper.map<TAm, T>(
-        newDocAm, modelName, apiModelName,
-        { extraArguments: { idMap } }
-      )
-
-      this.recentlyAddedDocs.push(newDocM as UnwrapRef<DocStateInterface<T>>['recentlyAddedDocs'][number])
-
-      const newDocVm = mapper.map<T, TVm>(
-        newDocM, viewModelName, modelName,
-        { extraArguments: { idMap } }
-      )
+      const newDocM = await this.onDocCreate(docRef.id)
+      const newDocVm = mapper.map<T, TVm>(newDocM, viewModelName, modelName)
 
       return newDocVm
     },
@@ -266,6 +253,44 @@ function buildActions<T extends DocWithId, TVm extends DocVmWithId, TAm> (
       const db = getFirestore()
       const docRef = doc(db, collectionPath, id) as DocumentReference<TAm>
       await updateDoc(docRef, docAm as UpdateData<TAm>)
+      await this.onDocUpdate(id)
+    },
+
+    async deleteDoc ({ docKey }: DeleteDocActionPayload) {
+      const id =
+        this.realtimeDocs[docKey]?.doc?.id ||
+        (() => { throw new Error(`[mnapp-firebase-firestore] Realtime doc '${docKey}' not available.`) })()
+
+      const db = getFirestore()
+      const docRef = doc(db, collectionPath, id)
+      await deleteDoc(docRef)
+      this.onDocDelete(id)
+    },
+
+    async onDocCreate (id: string) {
+      const db = getFirestore()
+      const docRef = doc(db, collectionPath, id) as DocumentReference<TAm>
+
+      this.releaseDocs({ immediately: true })
+
+      const newDocAm = (await getDoc(docRef)).data()
+
+      !newDocAm && (() => { throw new Error(`[mnapp-firebase-firestore] Failed to retrieve created doc '${collectionPath}/${docRef.id}'.`) })()
+
+      const idMap = new Map([[newDocAm, docRef.id]])
+      const newDocM = mapper.map<TAm, T>(
+        newDocAm, modelName, apiModelName,
+        { extraArguments: { idMap } }
+      )
+
+      this.recentlyAddedDocs.push(newDocM as UnwrapRef<DocStateInterface<T>>['recentlyAddedDocs'][number])
+
+      return newDocM
+    },
+
+    async onDocUpdate (id: string) {
+      const db = getFirestore()
+      const docRef = doc(db, collectionPath, id) as DocumentReference<TAm>
 
       this.releaseDocs({ immediately: true })
 
@@ -294,15 +319,7 @@ function buildActions<T extends DocWithId, TVm extends DocVmWithId, TAm> (
       }
     },
 
-    async deleteDoc ({ docKey }: DeleteDocActionPayload) {
-      const id =
-        this.realtimeDocs[docKey]?.doc?.id ||
-        (() => { throw new Error(`[mnapp-firebase-firestore] Realtime doc '${docKey}' not available.`) })()
-
-      const db = getFirestore()
-      const docRef = doc(db, collectionPath, id)
-      await deleteDoc(docRef)
-
+    onDocDelete (id: string) {
       this.releaseDocs({ immediately: true })
 
       this.recentlyDeletedDocs.push(id)
@@ -344,6 +361,8 @@ function buildActions<T extends DocWithId, TVm extends DocVmWithId, TAm> (
     id: string,
     docKey: string,
     realtimeDocs: RealtimeDocIndex<UnwrapRef<T>>,
+    onDocUpdate: (id: string) => Promise<void>,
+    onDocDelete: (id: string) => void,
     done: () => void,
     notFound?: (() => void),
     deleted?: (() => void),
@@ -351,6 +370,7 @@ function buildActions<T extends DocWithId, TVm extends DocVmWithId, TAm> (
   ) {
     const db = getFirestore()
     const docRef = doc(db, collectionPath, id) as DocumentReference<TAm>
+    let firstSnapshot = true
     const unsubscribe = onSnapshot(
       docRef,
       // onNext
@@ -360,14 +380,21 @@ function buildActions<T extends DocWithId, TVm extends DocVmWithId, TAm> (
         if (data) {
           const docM = mapper.map<TAm, T>(
             data, modelName, apiModelName,
-            { extraArguments: { idMap: new Map([[data, docSnapshot.id]]) } }
+            { extraArguments: { idMap: new Map([[data, id]]) } }
           )
           realtimeDocs[docKey].doc = docM as UnwrapRef<T>
 
           done()
+
+          if (firstSnapshot) {
+            firstSnapshot = false
+          } else {
+            void onDocUpdate(id)
+          }
         } else {
           if (realtimeDocs[docKey].doc) {
             deleted && deleted()
+            onDocDelete(id)
           } else {
             notFound && notFound()
           }
