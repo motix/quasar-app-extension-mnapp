@@ -1,22 +1,20 @@
 import useNotifications from 'composables/useNotifications'
 // Main
-import { ref, watch, WatchSource } from 'vue'
+import { watch, WatchSource } from 'vue'
 // Types
 import type { UpdateDocActionPayload } from 'services/firebase-firestore'
 import type usePageStatus from './usePageStatus'
 import type usePageData from './usePageData'
 import type { UsePageDataHelper } from './usePageData'
 
-export default function useViewer<T = unknown, TVm = unknown> (
+export default function useViewer<T = unknown> (
   freezed: ReturnType<typeof usePageStatus>['freezed'],
   muteNextRealtimeUpdate: ReturnType<typeof usePageStatus>['muteNextRealtimeUpdate'],
   muteViewerWatch: ReturnType<typeof usePageStatus>['muteViewerWatch'],
   editMode: ReturnType<typeof usePageStatus>['editMode'],
   docKey: ReturnType<typeof usePageData>['docKey'],
   model: UsePageDataHelper<T, never>['Return']['model'],
-  viewModel: UsePageDataHelper<never, TVm>['Return']['viewModel'],
-  mapper: ReturnType<typeof usePageData>['mapper'],
-  updateModel: UsePageDataHelper<never, TVm>['Return']['updateModel']
+  updateModel: UsePageDataHelper<T, never>['Return']['updateModel']
 ) {
   // Private
 
@@ -28,15 +26,16 @@ export default function useViewer<T = unknown, TVm = unknown> (
 
   async function viewerSave () {
     docKey.value === null && (() => { throw new Error('docKey not specified') })()
-    viewModel.value === null && (() => { throw new Error('viewModel not specified') })()
+    model.value === null && (() => { throw new Error('model not specified') })()
     updateModel.value === null && (() => { throw new Error('updateModel not specified') })()
 
     freezed.value = true
     muteNextRealtimeUpdate.value = true
 
-    const payload: UpdateDocActionPayload<TVm> = {
+    const payload: UpdateDocActionPayload<T> = {
       docKey: docKey.value,
-      doc: viewModel.value
+      doc: model.value,
+      isViewModel: false
     }
 
     try {
@@ -55,11 +54,6 @@ export default function useViewer<T = unknown, TVm = unknown> (
     freezed.value = false
   }
 
-  // Data
-
-  const modelTypeName = ref<string | null>(null)
-  const viewModelTypeName = ref<string | null>(null)
-
   // Methods
 
   function watchViewer (...sources: WatchSource[]) {
@@ -69,19 +63,12 @@ export default function useViewer<T = unknown, TVm = unknown> (
           return
         }
 
-        modelTypeName.value === null && (() => { throw new Error('modelTypeName not specified') })()
-        viewModelTypeName.value === null && (() => { throw new Error('viewModelTypeName not specified') })()
-        mapper.value === null && (() => { throw new Error('mapper not specified') })()
-
-        viewModel.value = mapper.value.map<T, TVm>(model.value as T, viewModelTypeName.value, modelTypeName.value)
         await viewerSave()
       })
     }
   }
 
   return {
-    modelTypeName,
-    viewModelTypeName,
     watchViewer
   }
 }

@@ -73,11 +73,11 @@ export function isAuthenticated () {
   return store.isAuthenticated
 }
 
-export function handleAuthStateChanged (user: User | undefined, router: Router) {
+export function handleAuthStateChanged (user: User | null, router: Router) {
   const store = useFirebaseAuthStore()
 
   store.currentUser = user
-  store.currentUserClaims = undefined
+  store.currentUserClaims = null
 
   if (user) {
     // Signed in

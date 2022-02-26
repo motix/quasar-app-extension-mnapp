@@ -147,6 +147,7 @@ const subtitleCssClass = computed(() => {
       <q-avatar
         v-if="avatarIcon"
         :color="avatarColor || (headerDark ? 'white' : 'grey-9')"
+        size="56px"
       >
         <q-icon
           :color="headerBackgroundColor || (headerDark ? 'grey-9' : 'white')"

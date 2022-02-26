@@ -30,7 +30,10 @@ class NewScopeHelper<TVm = unknown> {
   Return = newScope<TVm>()
 }
 
-export default function useNewPage<TVm = unknown> (scopeName: string, hitUseCount?: boolean): NewScopeHelper<TVm>['Return'] {
+export default function useNewPage<TVm = unknown> (
+  scopeName: string,
+  hitUseCount?: boolean
+): NewScopeHelper<TVm>['Return'] {
   const store = useSingleScopeComposableStore()
 
   !store.hasScope(scopeName) && store.setScope(scopeName, newScope<TVm>())

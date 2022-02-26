@@ -8,7 +8,10 @@ function buildState<T> () {
   return {
     docsPageSize,
     docs: [] as T[],
-    realtimeDocs: {} as RealtimeDocIndex<T>
+    realtimeDocs: {} as RealtimeDocIndex<T>,
+    recentlyAddedDocs: [] as T[],
+    recentlyUpdatedDocs: [] as T[],
+    recentlyDeletedDocs: [] as string[]
   }
 }
 

@@ -7,7 +7,7 @@ import { ref } from 'vue'
 
 // Props
 
-const props = defineProps<{scopeName: string}>()
+const props = defineProps<{ scopeName: string }>()
 
 // Composables
 

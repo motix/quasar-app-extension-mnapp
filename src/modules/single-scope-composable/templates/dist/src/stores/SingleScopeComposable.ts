@@ -1,5 +1,5 @@
 // Main
-import { computed } from 'vue'
+import { ref, markRaw, Ref } from 'vue'
 import { defineStore, acceptHMRUpdate } from 'pinia'
 // Types
 import type { ScopeRecord } from 'models/single-scope-composable'
@@ -7,43 +7,39 @@ import type { ScopeRecord } from 'models/single-scope-composable'
 export const useSingleScopeComposableStore = defineStore('SingleScopeComposable', () => {
   // Private
 
-  const _scopes: Record<string, ScopeRecord<unknown>> = {}
-
-  // Getters
-
-  const scopes = computed(() => _scopes)
+  const scopes: Ref<Record<string, ScopeRecord<unknown>>> = ref({})
 
   // Actions
 
   function hasScope (name: string) {
-    return Object.keys(_scopes).includes(name)
+    return Object.keys(scopes.value).includes(name)
   }
 
-  function setScope<T> (name: string, scope: T) {
+  function setScope<T extends object> (name: string, scope: T) {
     hasScope(name) && (() => { throw new Error(`Scope ${name} already exists`) })()
 
     const record: ScopeRecord<T> = {
-      scope,
+      scope: markRaw(scope),
       useCount: 0
     }
 
-    _scopes[name] = record
+    scopes.value[name] = record
   }
 
   function increaseScopeUseCount (name: string) {
     !hasScope(name) && (() => { throw new Error(`Scope ${name} unavailable`) })()
-    _scopes[name].useCount++
+    scopes.value[name].useCount++
   }
 
   function decreaseScopeUseCount (name: string) {
     !hasScope(name) && (() => { throw new Error(`Scope ${name} unavailable`) })()
-    _scopes[name].useCount--
-    _scopes[name].useCount === 0 && delete _scopes[name]
+    scopes.value[name].useCount--
+    scopes.value[name].useCount === 0 && delete scopes.value[name]
   }
 
   function retrieveScope<T> (name: string) {
     !hasScope(name) && (() => { throw new Error(`Scope ${name} unavailable`) })()
-    return (_scopes[name] as ScopeRecord<T>).scope
+    return (scopes.value[name] as ScopeRecord<T>).scope
   }
 
   return {

@@ -64,7 +64,7 @@ const QFAB_ACTIONS_MARGIN = 9
 const QBTN_MARGIN = 5
 const QBTN_SIZE = 42
 
-const fab = ref<QFab>()
+const fab = ref<QFab | null>(null)
 const fabOpened = ref<boolean>(false)
 
 // Computed
@@ -140,7 +140,7 @@ const fixedButtonsPosition = computed(() => {
 // Methods
 
 function open () {
-  (fab.value as QFab).show()
+  fab.value && fab.value.show()
 }
 
 function onBeforeShow () {

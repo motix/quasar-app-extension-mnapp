@@ -5,7 +5,6 @@ import useReturnUrl from 'composables/useReturnUrl'
 // Main
 import { ref, nextTick, Ref } from 'vue'
 // Types
-import type { Mapper } from '@automapper/core'
 import type {
   LoadRealtimeDocActionPayload,
   LoadRealtimeDocActionResult,
@@ -32,18 +31,17 @@ export default function usePageData<T = unknown, TVm = unknown> (
   // Data
 
   const findKey = ref(route.params.findKey as string)
-  const modelFindKeyField = ref<keyof TVm>('id' as keyof TVm) as Ref<keyof TVm>
+  const modelFindKeyField = ref<keyof T & keyof TVm>('id' as keyof T & keyof TVm) as Ref<keyof T & keyof TVm>
   const docKey = ref<string | null>(null)
   const model = ref(null) as Ref<T | null>
   const viewModel = ref(null) as Ref<TVm | null>
-  const mapper = ref<Mapper | null>(null)
 
   // Method Refs
 
   const modelGetter = ref<((docKey: string) => T | null) | null>(null)
   const viewModelGetter = ref<((docKey: string) => TVm | null) | null>(null)
   const releaseModel = ref<(() => void) | null>(null)
-  const updateModel = ref<((payload: UpdateDocActionPayload<TVm>) => Promise<void>) | null>(null)
+  const updateModel = ref<((payload: UpdateDocActionPayload<T | TVm>) => Promise<void>) | null>(null)
   const deleteModel = ref<((payload: DeleteDocActionPayload) => Promise<void>) | null>(null)
 
   // Methods
@@ -133,7 +131,6 @@ export default function usePageData<T = unknown, TVm = unknown> (
     docKey,
     model,
     viewModel,
-    mapper,
     modelGetter,
     viewModelGetter,
     releaseModel,

@@ -108,7 +108,8 @@ export default function useEditor<TVm = unknown> (
 
     const payload: UpdateDocActionPayload<TVm> = {
       docKey: docKey.value,
-      doc: viewModel.value
+      doc: viewModel.value,
+      isViewModel: true
     }
 
     try {
@@ -135,7 +136,7 @@ export default function useEditor<TVm = unknown> (
     if (newFindKey !== findKey.value) {
       let path = route.fullPath
 
-      path = path.substr(0, path.length - findKey.value.length)
+      path = path.substring(0, path.length - findKey.value.length + 1)
       findKey.value = newFindKey
       path += findKey.value
       void router.replace(path)

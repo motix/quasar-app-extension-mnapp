@@ -10,13 +10,13 @@ import QPageWithToolbar from 'components/shared/QPageWithToolbar.vue'
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
-    FadeTransition: typeof FadeTransition
-    ListTransition: typeof ListTransition
-    TopTooltip: typeof TopTooltip
-    Gravatar: typeof Gravatar
-    ExpandableCard: typeof ExpandableCard
-    PercentInput: typeof PercentInput
-    QPageWithToolbar: typeof QPageWithToolbar
+    FadeTransition: typeof FadeTransition;
+    ListTransition: typeof ListTransition;
+    TopTooltip: typeof TopTooltip;
+    Gravatar: typeof Gravatar;
+    ExpandableCard: typeof ExpandableCard;
+    PercentInput: typeof PercentInput;
+    QPageWithToolbar: typeof QPageWithToolbar;
   }
 }
 

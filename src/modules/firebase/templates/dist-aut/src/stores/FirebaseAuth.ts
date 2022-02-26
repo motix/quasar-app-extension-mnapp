@@ -10,8 +10,8 @@ export const useFirebaseAuthStore = defineStore('FirebaseAuth', () => {
   // State
 
   const isAuthInitialized = ref(false)
-  const currentUser = ref<User>()
-  const currentUserClaims = ref<UserClaims>()
+  const currentUser = ref<User | null>(null)
+  const currentUserClaims = ref<UserClaims | null>(null)
 
   // Getters
 

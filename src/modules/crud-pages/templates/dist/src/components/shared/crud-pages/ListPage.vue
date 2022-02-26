@@ -125,7 +125,7 @@ function usePageMultiViews (columns: ListPageType['columns']) {
 <script setup lang="ts">
 // Props
 
-const props = defineProps<{scopeName: string}>()
+const props = defineProps<{ scopeName: string }>()
 
 // Emit
 

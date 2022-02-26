@@ -6,16 +6,11 @@ import order
 
   models
   services
+  utils
   router
   store
   composables
   components
-
-error handling
-
-<script setup>
-
-function
 
 setup sections
   Private
@@ -27,6 +22,7 @@ setup sections
   Data
   Method Refs
   Computed
+  Dependency Injection
   Private Executions
   Methods
   Lifecycle Hooks

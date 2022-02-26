@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import useNotifications from 'composables/useNotifications'
 // Main
 import { ref, computed, Ref } from 'vue'
@@ -24,6 +25,7 @@ export default function usePageData<T = unknown> (
   const queryConstraints = ref<QueryConstraint[]>([])
   const items = ref(null) as Ref<T[] | null>
   const allItemsLoaded = ref(false)
+  const modelFindKeyField = ref<keyof T>('id' as keyof T) as Ref<keyof T>
 
   // Computed
 
@@ -88,12 +90,63 @@ export default function usePageData<T = unknown> (
     }
   }
 
+  function resetItems (newItems: T[]) {
+    items.value = newItems
+  }
+
+  function appendItems (newItems: T[]) {
+    if (!items.value || items.value.length === 0) {
+      items.value = newItems
+      return
+    }
+
+    const itemsToKeep = _.differenceBy(items.value, newItems, modelFindKeyField.value)
+    items.value = itemsToKeep.concat(newItems)
+  }
+
+  function updateItems (
+    recentlyAddedDocs: T[],
+    recentlyUpdatedDocs: T[],
+    recentlyDeletedDocs: string[]
+  ) {
+    const itemsValue = items.value
+    if (itemsValue) {
+      itemsValue.push(...recentlyAddedDocs)
+
+      recentlyUpdatedDocs.forEach(doc => {
+        const index = _.findIndex(itemsValue, ['id', (doc as unknown as {id: string}).id])
+        if (index > -1) {
+          itemsValue[index] = doc
+        }
+      })
+
+      recentlyDeletedDocs.forEach(id => {
+        const index = _.findIndex(itemsValue, ['id', id])
+        index > -1 && itemsValue.splice(index, 1)
+      })
+
+      items.value = itemsValue
+    }
+
+    recentlyAddedDocs.splice(0)
+    recentlyUpdatedDocs.splice(0)
+    recentlyDeletedDocs.splice(0)
+  }
+
   return {
     queryConstraints,
     items,
     allItemsLoaded,
+    modelFindKeyField,
     itemCountLabel,
     loadFirstPage,
-    loadPage
+    loadPage,
+    resetItems,
+    appendItems,
+    updateItems
   }
+}
+
+export class UsePageDataHelper<T = unknown> {
+  Return = usePageData<T>(ref(false))
 }

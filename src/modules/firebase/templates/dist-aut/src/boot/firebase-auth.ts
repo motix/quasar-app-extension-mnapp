@@ -1,4 +1,5 @@
 import { onAuthStateChanged } from 'firebase/auth'
+import { adminRole, userRole } from 'models/firebase-auth'
 import { getAuth } from 'services/firebase'
 import { ensureAuthInitialized, handleAuthStateChanged, isAuthenticated } from 'services/firebase-auth'
 import { useFirebaseAuthStore } from 'stores/FirebaseAuth'
@@ -70,10 +71,13 @@ export default boot(({ router }) => {
       if (isAuthenticated()) {
         const roles = store.currentUserRoles
 
-        if (!roles.includes('admin')) {
+        if (!roles.includes(adminRole)) {
           for (const record of to.matched) {
             if (record.meta.roles && record.meta.roles.length > 0) {
-              if (!record.meta.roles.some(role => roles.includes(role))) {
+              if (
+                !roles.includes(userRole) ||
+                !record.meta.roles.some(role => roles.includes(role))
+              ) {
                 next({ name: 'Unauthorized' })
                 return
               }
@@ -99,7 +103,7 @@ export default boot(({ router }) => {
   const auth = getAuth()
 
   onAuthStateChanged(auth,
-    user => handleAuthStateChanged(user || undefined, router),
+    user => handleAuthStateChanged(user, router),
     error => {
       console.error(error)
       // TODO: Show error page

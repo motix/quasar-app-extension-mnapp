@@ -46,15 +46,13 @@ function newScope<T = unknown, TVm = unknown> () {
     goBack,
     ...pageStatus,
     ...pageData,
-    ...useViewer<T, TVm>(
+    ...useViewer<T>(
       pageStatus.freezed,
       pageStatus.muteNextRealtimeUpdate,
       pageStatus.muteViewerWatch,
       pageStatus.editMode,
       pageData.docKey,
       pageData.model,
-      pageData.viewModel,
-      pageData.mapper,
       pageData.updateModel
     ),
     ...editor,
@@ -74,7 +72,10 @@ class NewScopeHelper< T = unknown, TVm = unknown> {
   Return = newScope<T, TVm>()
 }
 
-export default function useViewPage<T = unknown, TVm = unknown> (scopeName: string, hitUseCount?: boolean): NewScopeHelper<T, TVm>['Return'] {
+export default function useViewPage<T = unknown, TVm = unknown> (
+  scopeName: string,
+  hitUseCount?: boolean
+): NewScopeHelper<T, TVm>['Return'] {
   const store = useSingleScopeComposableStore()
 
   !store.hasScope(scopeName) && store.setScope(scopeName, newScope<T, TVm>())

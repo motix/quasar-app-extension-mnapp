@@ -58,7 +58,8 @@ export type CreateDocActionPayload<T> = {
 
 export type UpdateDocActionPayload<T> = {
   docKey: string,
-  doc: T
+  doc: T,
+  isViewModel: boolean
 }
 
 export type DeleteDocActionPayload = {

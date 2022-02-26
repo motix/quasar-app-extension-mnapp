@@ -10,9 +10,9 @@ declare module '@firebase/auth' {
 declare module 'vue-router' {
   interface RouteMeta {
     // Apply to this route only, override all parents
-    anonymous?: boolean
+    anonymous?: boolean;
     // Apply to current route and its children
-    requiresAuth?: boolean
-    roles?: Array<UserRole>
+    requiresAuth?: boolean;
+    roles?: Array<UserRole>;
   }
 }

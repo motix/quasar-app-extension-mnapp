@@ -1,8 +1,12 @@
 import { useRouter } from 'vue-router'
 // Main
-import { ref, Ref } from 'vue'
+import { ref } from 'vue'
+// Types
+import type { UsePageDataHelper } from './usePageData'
 
-export default function useNavigateToViewPage<T = unknown> () {
+export default function useNavigateToViewPage<T = unknown> (
+  modelFindKeyField: UsePageDataHelper<T>['Return']['modelFindKeyField']
+) {
   // Private
 
   const router = useRouter()
@@ -10,7 +14,6 @@ export default function useNavigateToViewPage<T = unknown> () {
   // Data
 
   const viewUrl = ref<string | null>(null)
-  const modelFindKeyField = ref<keyof T>('id' as keyof T) as Ref<keyof T>
 
   // Methods
 
@@ -29,7 +32,6 @@ export default function useNavigateToViewPage<T = unknown> () {
 
   return {
     viewUrl,
-    modelFindKeyField,
     onItemClick
   }
 }

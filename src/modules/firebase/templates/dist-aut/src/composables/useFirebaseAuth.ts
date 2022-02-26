@@ -2,6 +2,7 @@ import { Guid } from 'js-guid'
 import { Platform } from 'quasar'
 import { GoogleAuthProvider, signInWithCustomToken } from 'firebase/auth'
 import { auth } from 'firebaseui'
+import { adminRole } from 'models/firebase-auth'
 import { getAuth } from 'services/firebase'
 import { isAuthenticated, signOut, createRemoteSignInToken } from 'services/firebase-auth'
 import { useRouter, useRoute } from 'vue-router'
@@ -33,7 +34,7 @@ export default function () {
 
   // Methods
 
-  const hasRole = (role: UserRole) => roles.value.includes('admin') || roles.value.includes(role)
+  const hasRole = (role: UserRole) => roles.value.includes(adminRole) || roles.value.includes(role)
 
   const startAuthUi = (element: string | Element, uiShown?: () => void, returnUrl?: string) => {
     const uiConfig: auth.Config = {

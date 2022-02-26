@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import { Guid } from 'js-guid'
 import {
   doc,
@@ -22,7 +23,8 @@ import type { UnwrapRef } from 'vue'
 import type {
   DocumentReference,
   CollectionReference,
-  Query
+  Query,
+  UpdateData
 } from 'firebase/firestore'
 import type {
   RealtimeDocIndex,
@@ -218,30 +220,78 @@ function buildActions<T extends DocWithId, TVm extends DocVmWithId, TAm> (
       const docAm = mapper.map<TVm, TAm>(
         docVm, apiModelName, viewModelName
       )
+
       const db = getFirestore()
       const docRef = await addDoc(collection(db, collectionPath), docAm) as DocumentReference<TAm>
 
-      docVm.id = docRef.id
+      this.releaseDocs({ immediately: true })
 
-      return docVm
+      const newDocAm = (await getDoc(docRef)).data()
+
+      !newDocAm && (() => { throw new Error(`[mnapp-firebase-firestore] Failed to retrieve created doc '${collectionPath}/${docRef.id}'.`) })()
+
+      const idMap = new Map([[newDocAm, docRef.id]])
+      const newDocM = mapper.map<TAm, T>(
+        newDocAm, modelName, apiModelName,
+        { extraArguments: { idMap } }
+      )
+
+      this.recentlyAddedDocs.push(newDocM as UnwrapRef<DocStateInterface<T>>['recentlyAddedDocs'][number])
+
+      const newDocVm = mapper.map<T, TVm>(
+        newDocM, viewModelName, modelName,
+        { extraArguments: { idMap } }
+      )
+
+      return newDocVm
     },
 
-    async updateDoc ({ docKey, doc: docVm }: UpdateDocActionPayload<TVm>) {
+    async updateDoc ({ docKey, doc: docMOrVm, isViewModel }: UpdateDocActionPayload<T | TVm>) {
       const id =
         this.realtimeDocs[docKey]?.doc?.id ||
         (() => { throw new Error(`[mnapp-firebase-firestore] Realtime doc '${docKey}' not available.`) })()
 
-      const docAm = mapper.map<TVm, TAm>(
-        docVm, apiModelName, viewModelName
-      )
+      let docAm: TAm
+
+      if (isViewModel) {
+        docAm = mapper.map<TVm, TAm>(
+          docMOrVm as TVm, apiModelName, viewModelName
+        )
+      } else {
+        docAm = mapper.map<T, TAm>(
+          docMOrVm as T, apiModelName, modelName
+        )
+      }
 
       const db = getFirestore()
-      const docRef = doc(db, collectionPath, id)
-      await updateDoc(docRef, docAm)
+      const docRef = doc(db, collectionPath, id) as DocumentReference<TAm>
+      await updateDoc(docRef, docAm as UpdateData<TAm>)
 
       this.releaseDocs({ immediately: true })
 
-      return new Promise<void>(resolve => resolve())
+      const newDocAm = (await getDoc(docRef)).data()
+
+      !newDocAm && (() => { throw new Error(`[mnapp-firebase-firestore] Failed to retrieve updated doc '${collectionPath}/${docRef.id}'.`) })()
+
+      const idMap = new Map([[newDocAm, id]])
+      const newDocM = mapper.map<TAm, T>(
+        newDocAm, modelName, apiModelName,
+        { extraArguments: { idMap } }
+      )
+
+      const addedIndex = _.findIndex(this.recentlyAddedDocs, ['id', id])
+
+      if (addedIndex > -1) {
+        this.recentlyAddedDocs[addedIndex] = newDocM as UnwrapRef<DocStateInterface<T>>['recentlyAddedDocs'][number]
+      } else {
+        const updatedIndex = _.findIndex(this.recentlyUpdatedDocs, ['id', id])
+
+        if (updatedIndex > -1) {
+          this.recentlyUpdatedDocs[updatedIndex] = newDocM as UnwrapRef<DocStateInterface<T>>['recentlyUpdatedDocs'][number]
+        } else {
+          this.recentlyUpdatedDocs.push(newDocM as UnwrapRef<DocStateInterface<T>>['recentlyUpdatedDocs'][number])
+        }
+      }
     },
 
     async deleteDoc ({ docKey }: DeleteDocActionPayload) {
@@ -252,6 +302,10 @@ function buildActions<T extends DocWithId, TVm extends DocVmWithId, TAm> (
       const db = getFirestore()
       const docRef = doc(db, collectionPath, id)
       await deleteDoc(docRef)
+
+      this.releaseDocs({ immediately: true })
+
+      this.recentlyDeletedDocs.push(id)
     }
   })
 
