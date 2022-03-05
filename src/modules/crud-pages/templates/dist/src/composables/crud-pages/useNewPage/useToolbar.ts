@@ -5,16 +5,12 @@ export default function useToolbar () {
 
   // TODO: Quasar failed to compile this
   // const toolbar = ref<InstanceType<typeof FloatToolbar> | null>(null)
-  const toolbar = ref(null)
-
-  // Computed
+  const toolbar = ref<{open:() => void} | null>(null)
 
   // Methods
 
   function openToolbar () {
-    // See TODO: above
-    // toolbar.value?.open()
-    toolbar.value && ((toolbar.value) as {open: () => void}).open()
+    toolbar.value?.open()
   }
 
   return {

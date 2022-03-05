@@ -1,6 +1,7 @@
 <script setup lang="ts">
-// Data
+// Constants
 
+// TODO: Props and config
 const TOOLBAR_HEIGHT = 50
 
 // Methods

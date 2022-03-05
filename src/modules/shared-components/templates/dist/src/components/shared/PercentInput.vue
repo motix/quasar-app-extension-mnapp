@@ -3,6 +3,12 @@ import _ from 'lodash'
 // Main
 import { computed } from 'vue'
 
+// Private
+
+function percentRound (value: number) {
+  return Math.round(value * 10000) / 10000
+}
+
 // Props
 
 const props = defineProps({
@@ -15,7 +21,10 @@ const props = defineProps({
 
 // Emit
 
-const emit = defineEmits(['update:modelValue'])
+// eslint-disable-next-line func-call-spacing
+const emit = defineEmits<{
+  (e: 'update:modelValue', value: string | number): void
+}>()
 
 // Computed
 
@@ -24,10 +33,6 @@ const displayValue = computed(() => _.isNumber(props.modelValue)
   : _.toString(props.modelValue))
 
 // Methods
-
-function percentRound (value: number) {
-  return Math.round(value * 10000) / 10000
-}
 
 function onUpdate (value: string) {
   const valueAsNumber = parseFloat(value)
@@ -42,7 +47,7 @@ function onUpdate (value: string) {
   <q-input
     v-bind="$attrs"
     :model-value="displayValue"
-    @update:model-value="onUpdate"
+    @update:model-value="onUpdate($event as string)"
   >
     <template
       v-if="$slots.loading"

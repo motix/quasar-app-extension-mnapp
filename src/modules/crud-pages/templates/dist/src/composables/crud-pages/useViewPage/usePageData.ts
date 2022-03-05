@@ -11,12 +11,15 @@ import type {
   UpdateDocActionPayload,
   DeleteDocActionPayload
 } from 'services/firebase-firestore'
+import type usePageFeatures from './usePageFeatures'
 import type usePageStatus from './usePageStatus'
 
 export default function usePageData<T = unknown, TVm = unknown> (
   goBack: ReturnType<typeof useReturnUrl>['goBack'],
+  hasEditor: ReturnType<typeof usePageFeatures>['hasEditor'],
   muteNextRealtimeUpdate: ReturnType<typeof usePageStatus>['muteNextRealtimeUpdate'],
-  muteViewerWatch: ReturnType<typeof usePageStatus>['muteViewerWatch']
+  muteViewerWatch: ReturnType<typeof usePageStatus>['muteViewerWatch'],
+  isDirty: ReturnType<typeof usePageStatus>['isDirty']
 ) {
   // Private
 
@@ -68,6 +71,7 @@ export default function usePageData<T = unknown, TVm = unknown> (
               }
             })
               .onOk(() => {
+                isDirty.value = false
                 getModelAndViewModel()
               })
           } else {
@@ -94,7 +98,7 @@ export default function usePageData<T = unknown, TVm = unknown> (
               goBack()
             })
         },
-        error: (error) => {
+        error: error => {
           console.error(error)
           notifyLoadDataError()
           notifyErrorDebug(error)
@@ -116,12 +120,16 @@ export default function usePageData<T = unknown, TVm = unknown> (
 
   function getModelAndViewModel () {
     modelGetter.value === null && (() => { throw new Error('modelGetter not specified') })()
-    viewModelGetter.value === null && (() => { throw new Error('viewModelGetter not specified') })()
     docKey.value === null && (() => { throw new Error('docKey not specified') })()
 
     muteViewerWatch.value = true
     model.value = modelGetter.value(docKey.value)
-    viewModel.value = viewModelGetter.value(docKey.value)
+
+    if (hasEditor.value) {
+      viewModelGetter.value === null && (() => { throw new Error('viewModelGetter not specified') })()
+      viewModel.value = viewModelGetter.value(docKey.value)
+    }
+
     void nextTick(() => { muteViewerWatch.value = false })
   }
 
@@ -142,5 +150,5 @@ export default function usePageData<T = unknown, TVm = unknown> (
 }
 
 export class UsePageDataHelper<T = unknown, TVm = unknown> {
-  Return = usePageData<T, TVm>(() => undefined, ref(false), ref(false))
+  Return = usePageData<T, TVm>(() => undefined, ref(false), ref(false), ref(false), ref(false))
 }

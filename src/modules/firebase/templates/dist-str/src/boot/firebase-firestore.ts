@@ -5,6 +5,6 @@ import { boot } from 'quasar/wrappers'
 export default boot(() => {
   const config = useConfig()
 
-  config.docsPageSize = 25
-  config.releaseDocsTimeout = 5000
+  if (config.docsPageSize === undefined) config.docsPageSize = 25
+  if (config.releaseDocsTimeout === undefined) config.releaseDocsTimeout = 5000
 })

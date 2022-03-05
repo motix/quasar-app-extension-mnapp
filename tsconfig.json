@@ -21,6 +21,9 @@
         "src/modules/firebase/templates/dist-aut/src/services/*",
         "src/modules/firebase/templates/dist-str/src/services/*"
       ],
+      "utils/*": [
+        "src/modules/utils/templates/dist/src/utils/*"
+      ],
       "stores/*": [
         "src/modules/firebase/templates/dist-aut/src/stores/*",
         "src/modules/single-scope-composable/templates/dist/src/stores/*"

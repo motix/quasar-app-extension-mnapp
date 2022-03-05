@@ -1,12 +1,12 @@
 import { useSingleScopeComposableStore } from 'stores/SingleScopeComposable'
 import useReturnUrl from 'composables/useReturnUrl'
+import usePageFeatures from './usePageFeatures'
 import usePageStatus from './usePageStatus'
 import usePageData from './usePageData'
 import useViewer from './useViewer'
 import useEditor from './useEditor'
 import useDeleting from './useDeleting'
 import usePageTitle from './usePageTitle'
-import useMultiViews from './useMultiViews'
 import useToolbar from './useToolbar'
 // Main
 import { onUnmounted } from 'vue'
@@ -17,33 +17,21 @@ function newScope<T = unknown, TVm = unknown> () {
     returnUrl,
     goBack
   } = useReturnUrl()
+  const pageFeatures = usePageFeatures()
   const pageStatus = usePageStatus()
   const pageData = usePageData<T, TVm>(
     goBack,
+    pageFeatures.hasEditor,
     pageStatus.muteNextRealtimeUpdate,
-    pageStatus.muteViewerWatch)
-  const editor = useEditor(
-    pageStatus.freezed,
-    pageStatus.muteNextRealtimeUpdate,
-    pageStatus.editMode,
-    pageData.findKey,
-    pageData.modelFindKeyField,
-    pageData.docKey,
-    pageData.viewModel,
-    pageData.updateModel,
-    pageData.getModelAndViewModel)
-  const deleting = useDeleting(
-    goBack,
-    pageStatus.freezed,
-    pageStatus.muteNextRealtimeUpdate,
-    pageData.docKey,
-    pageData.deleteModel
+    pageStatus.muteViewerWatch,
+    pageStatus.isDirty
   )
 
   return {
     backUrl,
     returnUrl,
     goBack,
+    ...pageFeatures,
     ...pageStatus,
     ...pageData,
     ...useViewer<T>(
@@ -55,15 +43,31 @@ function newScope<T = unknown, TVm = unknown> () {
       pageData.model,
       pageData.updateModel
     ),
-    ...editor,
-    ...deleting,
-    ...usePageTitle<T>(pageData.model),
-    ...useMultiViews(),
-    ...useToolbar(
-      pageStatus.ready,
+    ...useEditor<TVm>(
+      pageStatus.freezed,
+      pageStatus.muteNextRealtimeUpdate,
       pageStatus.editMode,
-      editor.hasEditor,
-      deleting.isDeletable
+      pageStatus.isDirty,
+      pageData.findKey,
+      pageData.modelFindKeyField,
+      pageData.docKey,
+      pageData.viewModel,
+      pageData.updateModel,
+      pageData.getModelAndViewModel
+    ),
+    ...useDeleting(
+      goBack,
+      pageStatus.freezed,
+      pageStatus.muteNextRealtimeUpdate,
+      pageData.docKey,
+      pageData.deleteModel
+    ),
+    ...usePageTitle<T>(pageData.model),
+    ...useToolbar(
+      pageFeatures.hasEditor,
+      pageFeatures.hasDeleting,
+      pageStatus.ready,
+      pageStatus.editMode
     )
   }
 }

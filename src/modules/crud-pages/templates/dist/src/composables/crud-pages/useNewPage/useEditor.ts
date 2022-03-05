@@ -43,7 +43,6 @@ export default function useEditor<TVm = unknown> (
 
   const viewUrl = ref<string | null>(null)
   const modelFindKeyField = ref<keyof TVm>('id' as keyof TVm) as Ref<keyof TVm>
-  const isDirty = ref(false)
   const saving = ref(false)
   const initiallyFilled = ref(false)
 
@@ -64,10 +63,6 @@ export default function useEditor<TVm = unknown> (
     const result = callUseForm(initialValues)
 
     internalValidate = result.validate
-  }
-
-  function dirty () {
-    isDirty.value = true
   }
 
   async function save () {
@@ -116,11 +111,9 @@ export default function useEditor<TVm = unknown> (
   return {
     viewUrl,
     modelFindKeyField,
-    isDirty,
     saving,
     initiallyFilled,
     useValidation,
-    dirty,
     save
   }
 }

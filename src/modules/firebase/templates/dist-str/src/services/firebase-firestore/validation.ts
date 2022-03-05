@@ -6,6 +6,7 @@ import {
   getDocs
 } from 'firebase/firestore'
 import { getFirestore } from 'services/firebase'
+import { indexNormalizeString } from 'utils/normalization'
 
 export async function validateUniqueField<TValue> (
   collectionPath: string,
@@ -14,21 +15,36 @@ export async function validateUniqueField<TValue> (
   excludeId?: string
 ) {
   const db = getFirestore()
+
   const collectionRef = collection(db, collectionPath)
   const q = query(
     collectionRef,
     where(fieldName, '==', value),
     limit(2)
   )
-  const querySnapshot = await getDocs(q)
-
+  const qSnapshot = await getDocs(q)
   const result =
-    querySnapshot.empty ||
+    qSnapshot.empty ||
     (
       !!excludeId &&
-      querySnapshot.docs.length === 1 &&
-      querySnapshot.docs[0].id === excludeId
+      qSnapshot.docs.length === 1 &&
+      qSnapshot.docs[0].id === excludeId
     )
 
-  return result
+  const collectionRefNormalized = collection(db, `${collectionPath}_normalized`)
+  const qNormalized = query(
+    collectionRefNormalized,
+    where(fieldName, '==', indexNormalizeString(String(value))),
+    limit(2)
+  )
+  const qSnapshotNormalized = await getDocs(qNormalized)
+  const resultNormalized =
+    qSnapshotNormalized.empty ||
+    (
+      !!excludeId &&
+      qSnapshotNormalized.docs.length === 1 &&
+      qSnapshotNormalized.docs[0].id === excludeId
+    )
+
+  return result && resultNormalized
 }

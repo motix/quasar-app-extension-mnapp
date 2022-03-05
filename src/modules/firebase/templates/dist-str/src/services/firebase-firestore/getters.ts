@@ -2,9 +2,8 @@ import _ from 'lodash'
 import { defineGetters } from '.'
 // Types
 import type { Mapper } from '@automapper/core'
-import type { DocWithId } from '.'
 
-function buildGetters<T extends DocWithId, TVm> (
+function buildGetters<T, TVm> (
   mapper: Mapper,
   modelName: string,
   viewModelName: string
@@ -24,12 +23,6 @@ function buildGetters<T extends DocWithId, TVm> (
     docVm: state =>
       (docKey: string) => {
         const doc = state.realtimeDocs[docKey].doc
-
-        if (viewModelName === modelName) {
-          return doc
-            ? _.cloneDeep(doc)
-            : (() => { throw new Error(`Realtime doc '${docKey}' not available.`) })()
-        }
 
         return doc
           ? mapper.map<T, TVm>(doc as T, viewModelName, modelName)

@@ -1,21 +1,20 @@
 // Main
 import { ref, computed } from 'vue'
 // Types
+import type usePageFeatures from './usePageFeatures'
 import type usePageStatus from './usePageStatus'
-import type useEditor from './useEditor'
-import type useDeleting from './useDeleting'
 
 export default function useToolbar (
+  hasEditor: ReturnType<typeof usePageFeatures>['hasEditor'],
+  hasDeleting: ReturnType<typeof usePageFeatures>['hasDeleting'],
   ready: ReturnType<typeof usePageStatus>['ready'],
-  editMode: ReturnType<typeof usePageStatus>['editMode'],
-  hasEditor: ReturnType<typeof useEditor>['hasEditor'],
-  isDeletable: ReturnType<typeof useDeleting>['isDeletable']
+  editMode: ReturnType<typeof usePageStatus>['editMode']
 ) {
   // Data
 
   // TODO: Quasar failed to compile this
   // const toolbar = ref<InstanceType<typeof FloatToolbar> | null>(null)
-  const toolbar = ref(null)
+  const toolbar = ref<{open:() => void} | null>(null)
 
   // Computed
 
@@ -23,7 +22,7 @@ export default function useToolbar (
     edit: hasEditor.value && ready.value && !editMode.value,
     revert: editMode.value,
     save: editMode.value,
-    trash: isDeletable.value && ready.value
+    trash: hasDeleting.value && ready.value
   }))
 
   const toolbarFixedButtonsVisibility = computed(() => ({
@@ -33,9 +32,7 @@ export default function useToolbar (
   // Methods
 
   function openToolbar () {
-    // See TODO: above
-    // toolbar.value?.open()
-    toolbar.value && ((toolbar.value) as {open: () => void}).open()
+    toolbar.value?.open()
   }
 
   return {

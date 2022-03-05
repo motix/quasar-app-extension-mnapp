@@ -8,12 +8,21 @@ export default function usePageStatus () {
   const muteNextRealtimeUpdate = ref(false)
   const muteViewerWatch = ref(false)
   const editMode = ref(false)
+  const isDirty = ref(false)
+
+  // Methods
+
+  function dirty () {
+    isDirty.value = true
+  }
 
   return {
     ready,
     freezed,
     muteNextRealtimeUpdate,
     muteViewerWatch,
-    editMode
+    editMode,
+    isDirty,
+    dirty
   }
 }

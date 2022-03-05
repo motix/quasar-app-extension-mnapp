@@ -49,7 +49,7 @@ export default function usePageData<T = unknown> (
         items.value = []
         ready.value = true
       },
-      error: (error: Error) => {
+      error: error => {
         console.error(error)
         notifyLoadDataError()
         notifyErrorDebug(error)
@@ -75,7 +75,7 @@ export default function usePageData<T = unknown> (
       queryConstraints: queryConstraints.value,
       done: () => { done(false) },
       outOfRange: () => { done(true) },
-      error: (error: Error) => {
+      error: error => {
         done(true)
         console.error(error)
         notifyLoadDataError()

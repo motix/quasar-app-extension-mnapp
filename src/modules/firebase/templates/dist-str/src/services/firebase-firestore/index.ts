@@ -14,7 +14,7 @@ import type {
   PiniaCustomProperties
 } from 'pinia'
 import type { UnwrapRef } from 'vue'
-import type { DocWithId } from '.'
+import type { DocModel } from '.'
 
 export * from './types'
 
@@ -28,7 +28,7 @@ export function defineGetters<T, G> (getters: GettersFlag<T> & G & ThisType<Unwr
   return ret as Omit<G, '__flag'>
 }
 
-class GettersHelper<T extends DocWithId, TVm> {
+class GettersHelper<T, TVm> {
   Return = buildGetters<T, TVm>(
     createMapper({
       name: '',
@@ -37,17 +37,17 @@ class GettersHelper<T extends DocWithId, TVm> {
     '', '')
 }
 
-type G<T extends DocWithId, TVm> = GettersHelper<T, TVm>['Return']
+type G<T, TVm> = GettersHelper<T, TVm>['Return']
 
 type ActionFlag<T, TVm, TAm> = { __flag: (model: T, viewModel: TVm, apiModel: TAm) => { model: T, viewModel: TVm, apiModel: TAm } }
 
-export function defineActions<T extends DocWithId, TVm, TAm, A> (actions: ActionFlag<T, TVm, TAm> & A & ThisType<A & UnwrapRef<S<T>> & _StoreWithState<string, S<T>, G<T, TVm>, A> & _StoreWithGetters<G<T, TVm>> & PiniaCustomProperties>) {
+export function defineActions<T, TVm, TAm, A> (actions: ActionFlag<T, TVm, TAm> & A & ThisType<A & UnwrapRef<S<T>> & _StoreWithState<string, S<T>, G<T, TVm>, A> & _StoreWithGetters<G<T, TVm>> & PiniaCustomProperties>) {
   const ret = actions as Omit<A, '__flag'> & Partial<ActionFlag<T, TVm, TAm>>
   delete ret.__flag
   return ret as Omit<A, '__flag'>
 }
 
-export function useStore<T extends DocWithId, TVm, TAm> (
+export function useStore<T extends DocModel, TVm, TAm> (
   id: string,
   collectionPath: string,
   mapper: Mapper,

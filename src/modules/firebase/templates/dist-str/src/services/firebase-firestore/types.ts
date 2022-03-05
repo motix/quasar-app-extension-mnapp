@@ -1,5 +1,17 @@
 import type { QueryConstraint, Unsubscribe } from 'firebase/firestore'
 
+// Models
+
+export type DocModel = {
+  id: string;
+}
+
+export type DocViewModel<T extends DocModel> = Omit<T, 'id'> & {
+  id?: string;
+}
+
+export type DocApiModel<T extends DocModel> = Omit<T, 'id'>
+
 // State
 
 export type RealtimeDocIndex<T> = {
@@ -7,14 +19,6 @@ export type RealtimeDocIndex<T> = {
     doc?: T,
     unsubscribe: Unsubscribe
   }
-}
-
-export type DocWithId = {
-  id: string;
-}
-
-export type DocVmWithId = {
-  id?: string;
 }
 
 // Actions
@@ -54,11 +58,17 @@ export type ReleaseRealtimeDocActionPayload = {
 
 export type CreateDocActionPayload<T> = {
   doc: T
+  idField?: keyof T
 }
 
 export type UpdateDocActionPayload<T> = {
   docKey: string,
   doc: T,
+  isViewModel: boolean
+}
+
+export type UpdateDocsActionPayload<T> = {
+  docs: T[],
   isViewModel: boolean
 }
 

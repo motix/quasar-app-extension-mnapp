@@ -7,7 +7,7 @@ import FloatToolbar from 'components/shared/FloatToolbar.vue'
 import StickyHeaders from 'components/shared/StickyHeaders.vue'
 import SwitchViewButton from 'components/shared/SwitchViewButton.vue'
 // Main
-import { defineEmits, useSlots, computed } from 'vue'
+import { useSlots, ref, computed, watchEffect, nextTick } from 'vue'
 
 type ListPageType = ReturnType<typeof useListPage>
 
@@ -75,9 +75,10 @@ function usePageData (
 }
 
 function useNavigateToViewPage (scopeName: string) {
-  // Private
+  // Composables
 
   const {
+    itemLink,
     onItemClick
   } = useListPage(scopeName)
 
@@ -90,6 +91,7 @@ function useNavigateToViewPage (scopeName: string) {
   }
 
   return {
+    itemLink,
     onRowClick
   }
 }
@@ -118,6 +120,26 @@ function usePageMultiViews (columns: ListPageType['columns']) {
     hasTableView,
     hasCardsView,
     hasMultiViews
+  }
+}
+
+function useSmoothHideInfiniteScrollLoading (allItemsLoaded: ReturnType<typeof useListPage>['allItemsLoaded']) {
+  // Data
+
+  const hideInfiniteScrollLoading = ref(false)
+
+  // Watch
+
+  watchEffect(() => {
+    if (allItemsLoaded.value) {
+      void nextTick(() => { hideInfiniteScrollLoading.value = true })
+    } else {
+      hideInfiniteScrollLoading.value = false
+    }
+  })
+
+  return {
+    hideInfiniteScrollLoading
   }
 }
 </script>
@@ -158,6 +180,7 @@ const {
 } = usePageData(props.scopeName, emit)
 
 const {
+  itemLink,
   onRowClick
 } = useNavigateToViewPage(props.scopeName)
 
@@ -168,6 +191,10 @@ const {
   hasCardsView,
   hasMultiViews
 } = usePageMultiViews(columns)
+
+const {
+  hideInfiniteScrollLoading
+} = useSmoothHideInfiniteScrollLoading(allItemsLoaded)
 </script>
 
 <template>
@@ -260,6 +287,7 @@ const {
 
                 <slot
                   v-for="item in items"
+                  :link="itemLink(item)"
                   :model="item"
                   name="item-card"
                 />
@@ -275,11 +303,10 @@ const {
           </fade-transition>
 
           <!-- Smoothly hide loading template -->
-          <q-slide-transition>
+          <q-slide-transition v-if="allItemsLoaded">
             <div
-              v-show="!allItemsLoaded"
+              v-show="!hideInfiniteScrollLoading"
               style="height: 72px"
-              :style="{'margin-top': allItemsLoaded ? '0px' : '-72px'}"
             />
           </q-slide-transition>
 

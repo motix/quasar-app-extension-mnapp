@@ -5,16 +5,16 @@ Modules:
 - vite
 - vendors
 - config
+- formats
+  Dependencies: map-paths, vendors, config
+- utils
+  Dependencies: vendors, formats
 - pageTitle
   Dependencies: config
 - shared-components
   Dependencies: map-paths, vendors, config
 - firebase
-  Dependencies: frameworks, vendors, config, shared-components
-- formats
-  Dependencies: map-paths, vendors, config
-- rules
-  Dependencies: map-paths, config
+  Dependencies: frameworks, vendors, config, utils, shared-components
 - notifications
   Dependencies: frameworks
 - scroll

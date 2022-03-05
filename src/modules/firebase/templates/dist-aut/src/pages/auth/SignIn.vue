@@ -7,11 +7,10 @@ import { ref, onMounted } from 'vue'
 
 // Composables
 
+const { params: routeParams } = useRoute()
 const { startAuthUi } = useFirebaseAuth()
 
 // Data
-
-const { params: routeParams } = useRoute()
 
 const loading = ref<boolean>(true)
 

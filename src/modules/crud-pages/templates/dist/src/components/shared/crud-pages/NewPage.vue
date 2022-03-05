@@ -3,7 +3,9 @@ import useNewPage from 'composables/crud-pages/useNewPage'
 import TopTooltip from 'components/shared/TopTooltip.vue'
 import FloatToolbar from 'components/shared/FloatToolbar.vue'
 // Main
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
+// Types
+import type { QAjaxBar } from 'quasar'
 
 // Props
 
@@ -15,8 +17,8 @@ const {
   // usePageStatus
   ready,
   freezed,
-  // useEditor
   isDirty,
+  // useEditor
   saving,
   initiallyFilled,
   save,
@@ -28,6 +30,7 @@ const {
 
 // Data
 
+const freezingBar = ref<QAjaxBar | null>(null)
 const saveTooltip = ref<InstanceType<typeof TopTooltip> | null>(null)
 
 // Methods
@@ -35,6 +38,16 @@ const saveTooltip = ref<InstanceType<typeof TopTooltip> | null>(null)
 function hideSaveTooltip () {
   saveTooltip.value?.hide()
 }
+
+// Watch
+
+watch(freezed, value => {
+  if (value) {
+    freezingBar.value?.start()
+  } else {
+    freezingBar.value?.stop()
+  }
+})
 </script>
 
 <template>
@@ -97,5 +110,12 @@ function hideSaveTooltip () {
         </float-toolbar>
       </div>
     </fade-transition>
+
+    <q-ajax-bar
+      ref="freezingBar"
+      color="warning"
+      position="bottom"
+      size="3px"
+    />
   </div>
 </template>

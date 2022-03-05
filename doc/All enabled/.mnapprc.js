@@ -12,6 +12,8 @@ module.exports = {
     }
   },
   config: true,
+  formats: true,
+  utils: true,
   'page-title': true,
   'shared-components': true,
   firebase: {
@@ -23,8 +25,6 @@ module.exports = {
       firestoreEmulatorPort: '6060'
     }
   },
-  formats: true,
-  rules: true,
   notifications: true,
   scroll: true,
   'float-toolbar': true,

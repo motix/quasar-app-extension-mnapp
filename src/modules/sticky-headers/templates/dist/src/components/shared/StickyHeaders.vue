@@ -8,6 +8,15 @@ import type { QScrollObserverProps } from 'quasar'
 
 type OnScrollDetail = Parameters<Exclude<QScrollObserverProps['onScroll'], undefined>>[0]
 
+// Private
+
+let sourceScrollObserverPaused = false
+let destScrollObserverPaused = false
+let sourceScrollObserverPausedTimeout: ReturnType<typeof setTimeout> | null = null
+let destScrollObserverPausedTimeout: ReturnType<typeof setTimeout> | null = null
+
+const getSourceTable = () => document.querySelector(`${sourceTableScrollTarget.value}>table`)
+
 // Props
 
 const props = defineProps({
@@ -28,11 +37,6 @@ const { stickyHeadersPosition } = useStickyHeadersResult()
 
 // Data
 
-let sourceScrollObserverPaused = false
-let destScrollObserverPaused = false
-let sourceScrollObserverPausedTimeout: ReturnType<typeof setTimeout> | null = null
-let destScrollObserverPausedTimeout: ReturnType<typeof setTimeout> | null = null
-
 const container = ref<HTMLElement | null>(null)
 const containerVisible = ref(false)
 const containerTop = ref('0px')
@@ -46,8 +50,6 @@ const sourceTableScrollObserverEnabled = ref(false)
 const sourceTableScrollTarget = computed(() => `${props.target}>.q-table__middle.scroll`)
 
 // Methods
-
-const getSourceTable = () => document.querySelector(`${sourceTableScrollTarget.value}>table`)
 
 function onResize () {
   const source = getSourceTable()

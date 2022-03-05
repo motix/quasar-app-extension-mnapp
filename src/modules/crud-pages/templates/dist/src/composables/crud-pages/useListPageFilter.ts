@@ -1,14 +1,16 @@
-import { ref, computed, nextTick, Ref } from 'vue'
+import useListPage from './useListPage'
+// Main
+import { ref, computed, onMounted, nextTick, Ref } from 'vue'
 
 export default function useListPageFilter<FilterType> (
-  ready: Ref<boolean>,
-  defaultFilter: FilterType,
+  ready: ReturnType<typeof useListPage>['ready'],
+  initialFilter: FilterType,
   generateFilterLabel: (filter: FilterType) => string,
   loadFilteredItems: (filter: FilterType) => Promise<void>
 ) {
   // Data
 
-  const currentFilter = ref<FilterType>(defaultFilter) as Ref<FilterType>
+  const currentFilter = ref<FilterType>(initialFilter) as Ref<FilterType>
 
   // Computed
 
@@ -24,6 +26,12 @@ export default function useListPageFilter<FilterType> (
 
     void nextTick(() => { ready.value = true })
   }
+
+  // Lifecycle Hooks
+
+  onMounted(() => {
+    void filterItems(currentFilter.value)
+  })
 
   return {
     currentFilter,

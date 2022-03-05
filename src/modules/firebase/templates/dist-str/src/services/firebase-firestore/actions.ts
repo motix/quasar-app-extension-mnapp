@@ -12,24 +12,25 @@ import {
   addDoc,
   updateDoc,
   deleteDoc,
+  runTransaction,
   onSnapshot
 } from 'firebase/firestore'
 import { requiredConfigEntries } from 'services/useConfig'
 import { getFirestore } from 'services/firebase'
+import { urlFriendlyNormalizeString } from 'utils/normalization'
 import { defineActions } from '.'
 // Types
 import type { Mapper } from '@automapper/core'
-import type { UnwrapRef } from 'vue'
 import type {
   DocumentReference,
   CollectionReference,
   Query,
   UpdateData
 } from 'firebase/firestore'
+import type { UnwrapRef } from 'vue'
 import type {
   RealtimeDocIndex,
-  DocWithId,
-  DocVmWithId,
+  DocModel,
   LoadDocsPageActionPayload,
   ReleaseDocsActionPayload,
   LoadRealtimeDocActionPayload,
@@ -41,7 +42,7 @@ import type {
 } from '.'
 import type { DocStateInterface } from './state'
 
-function buildActions<T extends DocWithId, TVm extends DocVmWithId, TAm> (
+function buildActions<T extends DocModel, TVm, TAm> (
   collectionPath: string,
   mapper: Mapper,
   modelName: string,
@@ -80,7 +81,8 @@ function buildActions<T extends DocWithId, TVm extends DocVmWithId, TAm> (
       const q = query(
         collectionRef,
         ...queryConstraints,
-        limit(this.docsPageSize))
+        limit(this.docsPageSize)
+      )
 
       do {
         try {
@@ -98,7 +100,8 @@ function buildActions<T extends DocWithId, TVm extends DocVmWithId, TAm> (
               } else {
                 isEmpty = true
               }
-            })
+            }
+          )
 
           if (isOutOfRange) {
             return
@@ -220,13 +223,31 @@ function buildActions<T extends DocWithId, TVm extends DocVmWithId, TAm> (
       delete this.realtimeDocs[docKey]
     },
 
-    async createDoc ({ doc: docVm }: CreateDocActionPayload<TVm>) {
+    async createDoc ({ doc: docVm, idField }: CreateDocActionPayload<TVm>) {
       const docAm = mapper.map<TVm, TAm>(
         docVm, apiModelName, viewModelName
       )
 
       const db = getFirestore()
-      const docRef = await addDoc(collection(db, collectionPath), docAm) as DocumentReference<TAm>
+      const collectionRef = collection(db, collectionPath) as CollectionReference<TAm>
+      let docRef: DocumentReference<TAm>
+
+      if (idField) {
+        const id = urlFriendlyNormalizeString(String(docVm[idField])) as string
+        docRef = doc(collectionRef, id)
+        await runTransaction(db, async transaction => {
+          const existingDocSnapshot = await transaction.get(docRef)
+
+          if (existingDocSnapshot.exists()) {
+            throw new Error(`[mnapp-firebase-firestore] Failed to generate id from '${String(idField)}' field. '${docRef.path}' already exists.`)
+          }
+
+          transaction.set(docRef, docAm)
+        })
+      } else {
+        docRef = await addDoc(collectionRef, docAm)
+      }
+
       const newDocM = await this.onDocCreate(docRef.id)
       const newDocVm = mapper.map<T, TVm>(newDocM, viewModelName, modelName)
 
@@ -278,9 +299,9 @@ function buildActions<T extends DocWithId, TVm extends DocVmWithId, TAm> (
       !newDocAm && (() => { throw new Error(`[mnapp-firebase-firestore] Failed to retrieve created doc '${collectionPath}/${docRef.id}'.`) })()
 
       const idMap = new Map([[newDocAm, docRef.id]])
-      const newDocM = mapper.map<TAm, T>(
-        newDocAm, modelName, apiModelName,
-        { extraArguments: { idMap } }
+      const extraArguments = { idMap }
+      const newDocM = mapper.map<TAm, T, typeof extraArguments>(
+        newDocAm, modelName, apiModelName, { extraArguments }
       )
 
       this.recentlyAddedDocs.push(newDocM as UnwrapRef<DocStateInterface<T>>['recentlyAddedDocs'][number])
@@ -299,9 +320,9 @@ function buildActions<T extends DocWithId, TVm extends DocVmWithId, TAm> (
       !newDocAm && (() => { throw new Error(`[mnapp-firebase-firestore] Failed to retrieve updated doc '${collectionPath}/${docRef.id}'.`) })()
 
       const idMap = new Map([[newDocAm, id]])
-      const newDocM = mapper.map<TAm, T>(
-        newDocAm, modelName, apiModelName,
-        { extraArguments: { idMap } }
+      const extraArguments = { idMap }
+      const newDocM = mapper.map<TAm, T, typeof extraArguments>(
+        newDocAm, modelName, apiModelName, { extraArguments }
       )
 
       const addedIndex = _.findIndex(this.recentlyAddedDocs, ['id', id])
@@ -347,11 +368,11 @@ function buildActions<T extends DocWithId, TVm extends DocVmWithId, TAm> (
       })
       const docs = docAndIds.map(docAndId => docAndId[0] as TAm)
       const docIdMap = new Map(docAndIds as Iterable<readonly [TAm, string]>)
+      const extraArguments = { idMap: docIdMap }
 
       state.docs = state.docs.concat(
-        mapper.mapArray<TAm, T>(
-          docs, modelName, apiModelName,
-          { extraArguments: { idMap: docIdMap } }
+        mapper.mapArray<TAm, T, typeof extraArguments>(
+          docs, modelName, apiModelName, { extraArguments }
         ) as UnwrapRef<T[]>
       )
     }
@@ -378,9 +399,9 @@ function buildActions<T extends DocWithId, TVm extends DocVmWithId, TAm> (
         const data = docSnapshot.data()
 
         if (data) {
-          const docM = mapper.map<TAm, T>(
-            data, modelName, apiModelName,
-            { extraArguments: { idMap: new Map([[data, id]]) } }
+          const extraArguments = { idMap: new Map([[data, id]]) }
+          const docM = mapper.map<TAm, T, typeof extraArguments>(
+            data, modelName, apiModelName, { extraArguments }
           )
           realtimeDocs[docKey].doc = docM as UnwrapRef<T>
 

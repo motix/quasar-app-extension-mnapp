@@ -25,7 +25,6 @@ export default function useDeleting (
 
   // Data
 
-  const isDeletable = ref(true)
   const deleting = ref(false)
 
   // Methods
@@ -71,7 +70,6 @@ export default function useDeleting (
   }
 
   return {
-    isDeletable,
     deleting,
     trash
   }

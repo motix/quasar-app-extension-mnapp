@@ -10,17 +10,17 @@ import { onUnmounted } from 'vue'
 function newScope<TVm = unknown> () {
   const pageStatus = usePageStatus()
   const pageData = usePageData<TVm>()
-  const editor = useEditor(
-    pageStatus.freezed,
-    pageData.viewModel,
-    pageData.createModel)
 
   return {
     ...pageStatus,
     ...pageData,
-    ...editor,
+    ...useEditor<TVm>(
+      pageStatus.freezed,
+      pageData.viewModel,
+      pageData.createModel
+    ),
     ...useNavigateToListPage(
-      editor.isDirty
+      pageStatus.isDirty
     ),
     ...useToolbar()
   }

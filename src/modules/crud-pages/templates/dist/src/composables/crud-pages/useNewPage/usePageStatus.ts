@@ -5,9 +5,18 @@ export default function usePageStatus () {
 
   const ready = ref(false)
   const freezed = ref(false)
+  const isDirty = ref(false)
+
+  // Methods
+
+  function dirty () {
+    isDirty.value = true
+  }
 
   return {
     ready,
-    freezed
+    freezed,
+    isDirty,
+    dirty
   }
 }

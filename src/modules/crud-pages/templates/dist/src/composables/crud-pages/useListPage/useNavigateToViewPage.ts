@@ -17,14 +17,22 @@ export default function useNavigateToViewPage<T = unknown> (
 
   // Methods
 
+  function itemLink (item: T) {
+    viewUrl.value === null && (() => { throw new Error('viewUrl not specified') })()
+
+    const keyValue = item[modelFindKeyField.value]
+    const routeLocation = router.resolve(viewUrl.value + String(keyValue))
+
+    return routeLocation.href
+  }
+
   function onItemClick (event: MouseEvent, item: T) {
     viewUrl.value === null && (() => { throw new Error('viewUrl not specified') })()
 
     const keyValue = item[modelFindKeyField.value]
 
     if (event.ctrlKey) {
-      const routeData = router.resolve(viewUrl.value + String(keyValue))
-      window.open(routeData.href, '_blank')
+      window.open(itemLink(item), '_blank')
     } else {
       void router.push(viewUrl.value + String(keyValue))
     }
@@ -32,6 +40,7 @@ export default function useNavigateToViewPage<T = unknown> (
 
   return {
     viewUrl,
+    itemLink,
     onItemClick
   }
 }

@@ -15,6 +15,7 @@ export default function useEditor<TVm = unknown> (
   freezed: ReturnType<typeof usePageStatus>['freezed'],
   muteNextRealtimeUpdate: ReturnType<typeof usePageStatus>['muteNextRealtimeUpdate'],
   editMode: ReturnType<typeof usePageStatus>['editMode'],
+  isDirty: ReturnType<typeof usePageStatus>['isDirty'],
   findKey: ReturnType<typeof usePageData>['findKey'],
   modelFindKeyField: UsePageDataHelper<never, TVm>['Return']['modelFindKeyField'],
   docKey: ReturnType<typeof usePageData>['docKey'],
@@ -50,8 +51,6 @@ export default function useEditor<TVm = unknown> (
 
   // Data
 
-  const hasEditor = ref(true)
-  const isDirty = ref(false)
   const editorSaving = ref(false)
 
   // Methods
@@ -80,10 +79,6 @@ export default function useEditor<TVm = unknown> (
   function exitEditMode () {
     isDirty.value = false
     editMode.value = false
-  }
-
-  function dirty () {
-    isDirty.value = true
   }
 
   async function editorSave () {
@@ -163,14 +158,10 @@ export default function useEditor<TVm = unknown> (
   }
 
   return {
-    hasEditor,
-    modelFindKeyField,
-    isDirty,
     editorSaving,
     useValidation,
     edit,
     exitEditMode,
-    dirty,
     editorSave,
     revert
   }
