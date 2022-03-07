@@ -36,7 +36,8 @@ module.exports = {
   authentication: true,
   'app-default': {
     prompts: {
-      devServerPort: 8080
+      devServerPort: 8080,
+      https: true
     }
   }
 }
