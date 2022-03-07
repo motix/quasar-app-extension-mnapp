@@ -8,9 +8,11 @@ module.exports = function (api) {
   const prompts = config.prompts('app-default')
 
   api.extendQuasarConf((conf, api) => {
-    conf.devServer.https = {
-      key: fs.readFileSync(api.resolve.app('mkcerts/server.key')),
-      cert: fs.readFileSync(api.resolve.app('mkcerts/server.crt'))
+    if (prompts.https) {
+      conf.devServer.https = {
+        key: fs.readFileSync(api.resolve.app('mkcerts/server.key')),
+        cert: fs.readFileSync(api.resolve.app('mkcerts/server.crt'))
+      }
     }
     conf.devServer.port = prompts.devServerPort
     conf.build.vueRouterMode = 'history'

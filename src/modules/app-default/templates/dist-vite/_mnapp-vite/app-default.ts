@@ -11,10 +11,16 @@ export function defineConfig (config: UserConfig) {
 
   config.server = {
     ...config.server,
-    port: Number('<%= prompts.devServerPort + 1 %>'),
+    port: Number('<%= prompts.devServerPort + 1 %>')
+  }
+
+  // <% if (prompts.https) { %>Start HTTPS
+  config.server = {
+    ...config.server,
     https: {
       key: readFileSync(resolve(__dirname, '../mkcerts/server.key')),
       cert: readFileSync(resolve(__dirname, '../mkcerts/server.crt'))
     }
   }
+  // End<% } else { %>No<% } %> HTTPS
 }

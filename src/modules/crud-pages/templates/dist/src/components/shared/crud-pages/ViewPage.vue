@@ -215,7 +215,7 @@ watch(freezed, value => {
             key="extra"
             class="no-wrap row reverse"
             name="float-toolbar-transition"
-            :style="{ 'margin-right': `${editMode ? 7 : 59}px` }"
+            style="margin-right: 7px"
             tag="div"
           >
             <switch-view-button

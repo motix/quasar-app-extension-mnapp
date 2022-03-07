@@ -1,4 +1,3 @@
-import _ from 'lodash'
 import { useForm } from 'vee-validate'
 import { useRouter } from 'vue-router'
 import useNotifications from 'composables/useNotifications'
@@ -25,12 +24,12 @@ export default function useEditor<TVm = unknown> (
     notifyCreateDataError
   } = useNotifications()
 
-  class UseFormHelper {
-    Return = useForm<Partial<TVm>>()
+  class UseFormHelper<K extends keyof TVm> {
+    Return = useForm<Pick<TVm, K>>()
   }
-  type UseFormResult = UseFormHelper['Return']
+  type UseFormResult<K extends keyof TVm> = UseFormHelper<K>['Return']
 
-  let internalValidate: UseFormResult['validate'] | null = null
+  let internalValidate: UseFormResult<never>['validate'] | null = null
 
   async function validate () {
     !internalValidate && (() => { throw new Error('internalValidate not specified') })()
@@ -48,16 +47,13 @@ export default function useEditor<TVm = unknown> (
 
   // Methods
 
-  function useValidation (
-    callUseForm: (initialValues?: Partial<TVm>) => UseFormResult,
-    ...initialValuesExclude: (keyof TVm)[]
+  function useValidation<K extends keyof TVm> (
+    callUseForm: (initialValues?: Pick<TVm, K>) => UseFormResult<K>,
+    ...initialValuesKeys: (K)[]
   ) {
     const viewModelValue = viewModel.value
     const initialValues = viewModelValue
-      ? Object.fromEntries(
-        _.difference(Object.keys(viewModelValue) as (keyof TVm)[], initialValuesExclude)
-          .map(key => [key, viewModelValue[key]])
-      ) as Partial<TVm>
+      ? Object.fromEntries(initialValuesKeys.map(key => [key, viewModelValue[key]])) as Pick<TVm, K>
       : undefined
 
     const result = callUseForm(initialValues)
