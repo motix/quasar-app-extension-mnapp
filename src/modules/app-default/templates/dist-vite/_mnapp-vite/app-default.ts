@@ -1,5 +1,7 @@
+// <% if (prompts.https) { %>Start HTTPS
 import { readFileSync } from 'fs'
 import { resolve } from 'path'
+// End<% } else { %>No<% } %> HTTPS
 // Types
 import type { UserConfig } from 'vite'
 
