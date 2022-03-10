@@ -4,8 +4,3 @@ In quasar-app-extension-mnapp
 In dev
 > yarn link @motinet/quasar-app-extension-mnapp
 > quasar ext invoke @motinet/mnapp
-
-
-.eslintignore
-  quasar.conf.js
-  vite.config.ts
