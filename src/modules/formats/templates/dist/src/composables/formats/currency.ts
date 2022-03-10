@@ -1,4 +1,4 @@
-import _ from 'lodash'
+import { isFinite } from 'lodash'
 
 declare module '../useFormats' {
   interface FormatsInstance {
@@ -9,10 +9,10 @@ declare module '../useFormats' {
 export default function currency (value: number | string | null | undefined) {
   if (value == null) return value
 
-  if (_.isNumber(value)) {
+  if (isFinite(value)) {
     const negative = value < 0
-    value = Math.abs(value)
-    let result = _.toString(value).replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+    value = Math.abs(value as number)
+    let result = value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
     result = result.replace(/,/g, '_')
     result = result.replace(/\./g, ',')
     result = result.replace(/_/g, '.')
@@ -20,5 +20,5 @@ export default function currency (value: number | string | null | undefined) {
     return (negative ? '(' : '') + result + (negative ? ')' : '')
   }
 
-  return _.toString(value)
+  return String(value)
 }

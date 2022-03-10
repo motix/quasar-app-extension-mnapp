@@ -1,18 +1,17 @@
-const getExtensionConfig = require('../extension-config')
+/* eslint-env node */
+/* eslint-disable @typescript-eslint/no-var-requires */
 
-module.exports = function (api) {
+const { defineInstall, getExtensionConfig } = require('..')
+
+module.exports = defineInstall(function (api) {
   const config = getExtensionConfig()
 
   api.render('./templates/dist', { config })
 
-  if (api.appDir.endsWith('\\dev')) {
-    api.render('./templates/dev')
-  }
-
   if (config.hasModule('vite')) {
     api.render('./templates/dist-vite')
   }
-}
+})
 
 module.exports.extendJsonFiles = {
   // tsconfig.json

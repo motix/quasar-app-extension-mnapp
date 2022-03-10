@@ -45,10 +45,10 @@ export default function useListPageStore<T extends DocModel> (
 
   function onLoadNextPage (index: number, done: (stop: boolean) => void) {
     void loadPage(
-      (payload) => store.loadDocsPage(payload),
+      payload => store.loadDocsPage(payload),
       index,
       // done
-      (stop: boolean) => {
+      stop => {
         appendItems(store.docPage(index) as T[])
         done(stop)
       })
@@ -59,7 +59,7 @@ export default function useListPageStore<T extends DocModel> (
   if (loadOnMounted) {
     onMounted(() => {
       void loadOnMounted.loadFirstPage(
-        (payload) => store.loadDocsPage(payload),
+        payload => store.loadDocsPage(payload),
         // done
         () => {
           loadOnMounted.resetItems(store.docPage(0) as T[])

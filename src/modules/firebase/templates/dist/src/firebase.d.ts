@@ -10,7 +10,7 @@ declare global {
   }
 }
 
-declare module 'services/useConfig' {
+declare module 'composables/useConfig' {
   interface Config {
     firebaseRegion?: string;
   }

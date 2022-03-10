@@ -1,9 +1,10 @@
+/* eslint-env node */
 /* eslint-disable @typescript-eslint/no-var-requires */
 
 const fs = require('fs')
-const getExtensionConfig = require('../extension-config')
+const { defineIndex, getExtensionConfig } = require('..')
 
-module.exports = function (api) {
+module.exports = defineIndex(function (api) {
   const config = getExtensionConfig()
   const prompts = config.prompts('app-default')
 
@@ -19,4 +20,4 @@ module.exports = function (api) {
     conf.boot.push('notify')
     conf.css.push('app-default.scss')
   })
-}
+})

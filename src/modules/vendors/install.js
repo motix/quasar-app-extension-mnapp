@@ -1,20 +1,19 @@
-const getExtensionConfig = require('../extension-config')
+/* eslint-env node */
+/* eslint-disable @typescript-eslint/no-var-requires */
 
-module.exports = function (api) {
+const { defineInstall, getExtensionConfig } = require('..')
+
+module.exports = defineInstall(function (api) {
   const config = getExtensionConfig()
   const prompts = config.prompts('vendors')
 
-  api.render('./templates/dist')
+  /**
+   * @type string
+   */
+  const vendorsConfig = prompts.vendors
+  const vendors = vendorsConfig.split(',')
 
-  if (api.appDir.endsWith('\\dev')) {
-    api.render('./templates/dev')
-  }
-
-  // TODO:: Check unused vendors
-
-  const vendors = prompts.vendors.split(',')
-
-  // axios
+  // Pinia
   if (vendors.includes('pin')) {
     api.render('./templates/dist-pin')
 
@@ -48,7 +47,7 @@ module.exports = function (api) {
     module.exports.extendPackageJson.dependencies = {
       ...module.exports.extendPackageJson.dependencies,
 
-      axios: '^0.24.0'
+      axios: '^0.26.0'
     }
   }
 
@@ -63,7 +62,7 @@ module.exports = function (api) {
     module.exports.extendPackageJson.devDependencies = {
       ...module.exports.extendPackageJson.devDependencies,
 
-      '@types/lodash': '^4.14.178'
+      '@types/lodash': '^4.14.179'
     }
   }
 
@@ -81,8 +80,8 @@ module.exports = function (api) {
     module.exports.extendPackageJson.dependencies = {
       ...module.exports.extendPackageJson.dependencies,
 
-      '@automapper/core': '^7.2.1',
-      '@automapper/pojos': '^7.2.1'
+      '@automapper/core': '^7.3.14',
+      '@automapper/pojos': '^7.3.14'
     }
   }
 
@@ -91,7 +90,7 @@ module.exports = function (api) {
     module.exports.extendPackageJson.dependencies = {
       ...module.exports.extendPackageJson.dependencies,
 
-      'vee-validate': '^4.5.8',
+      'vee-validate': '^4.5.10',
       yup: '^0.32.11'
     }
   }
@@ -110,16 +109,7 @@ module.exports = function (api) {
       '@types/markdown-it': '^12.2.3'
     }
   }
-
-  // json-tree-view-vue3
-  if (vendors.includes('jtv')) {
-    module.exports.extendPackageJson.dependencies = {
-      ...module.exports.extendPackageJson.dependencies,
-
-      'json-tree-view-vue3': '^0.1.16'
-    }
-  }
-}
+})
 
 module.exports.extendPackageJson = {
   dependencies: {},

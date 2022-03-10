@@ -1,4 +1,9 @@
-module.exports = function (api) {
+/* eslint-env node */
+/* eslint-disable @typescript-eslint/no-var-requires */
+
+const { defineUninstall } = require('..')
+
+module.exports = defineUninstall(function (api) {
   api.removePath('src/shared-components.d.ts')
   api.removePath('src/boot/shared-components.ts')
   api.removePath('src/components/shared/expandable-card')
@@ -12,4 +17,4 @@ module.exports = function (api) {
     api.removePath('src/boot/shared-components-dev.ts')
     api.removePath('src/pages/SharedComponents.vue')
   }
-}
+})

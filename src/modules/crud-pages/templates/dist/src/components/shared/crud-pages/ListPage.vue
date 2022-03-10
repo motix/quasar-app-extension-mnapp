@@ -60,7 +60,7 @@ function usePageData (
     emit(
       'loadNextPage',
       index,
-      (stop: boolean) => {
+      stop => {
         done(stop)
         allItemsLoaded.value = stop
       })

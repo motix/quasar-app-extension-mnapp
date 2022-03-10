@@ -1,6 +1,5 @@
-import _ from 'lodash'
 import { date as qdate } from 'quasar'
-import { requiredConfigEntries } from 'services/useConfig'
+import { requiredConfigEntries } from 'composables/useConfig'
 
 declare module '../useFormats' {
   // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -18,17 +17,13 @@ export default function date () {
   function formatDate (value: Date | null | undefined) {
     if (value == null) return value
 
-    if (value instanceof Date) return qdate.formatDate(value, dateFormat)
-
-    return _.toString(value)
+    return qdate.formatDate(value, dateFormat)
   }
 
   function dateViewModel (value: string | null | undefined, defaultDisplay?: string) {
     if (value == null || value === '') return defaultDisplay
 
-    if (_.isString(value)) return formatDate(qdate.extractDate(value, editDateFormat))
-
-    return _.toString(value)
+    return formatDate(qdate.extractDate(value, editDateFormat))
   }
 
   return {

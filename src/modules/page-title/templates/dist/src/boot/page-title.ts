@@ -1,5 +1,5 @@
 import packageInfo from 'app/package.json'
-import useConfig from 'services/useConfig'
+import useConfig from 'composables/useConfig'
 // Main
 import { boot } from 'quasar/wrappers'
 

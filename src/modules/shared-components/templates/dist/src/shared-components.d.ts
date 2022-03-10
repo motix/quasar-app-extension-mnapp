@@ -20,7 +20,7 @@ declare module '@vue/runtime-core' {
   }
 }
 
-declare module 'services/useConfig' {
+declare module 'composables/useConfig' {
   interface Config {
     cardWidth?: number;
     listItemCardWidth?: number;

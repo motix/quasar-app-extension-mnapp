@@ -1,5 +1,5 @@
 import { useMeta } from 'quasar'
-import { requiredConfigEntries } from 'services/useConfig'
+import { requiredConfigEntries } from 'composables/useConfig'
 // Main
 import { ref, computed, Ref } from 'vue'
 // Types

@@ -19,12 +19,9 @@ const getSourceTable = () => document.querySelector(`${sourceTableScrollTarget.v
 
 // Props
 
-const props = defineProps({
-  target: {
-    type: String,
-    required: true
-  }
-})
+const props = defineProps<{
+  target: string;
+}>()
 
 // Composables
 

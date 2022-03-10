@@ -1,10 +1,14 @@
-const path = require('path')
+/* eslint-env node */
+/* eslint-disable @typescript-eslint/no-var-requires */
 
-module.exports = function (api) {
+const path = require('path')
+const { defineIndex } = require('..')
+
+module.exports = defineIndex(function (api) {
   // Aliases that match tsconfig.json
-  api.extendWebpack((cfg) => {
-    cfg.resolve.alias = {
-      ...cfg.resolve.alias,
+  api.extendWebpack(conf => {
+    conf.resolve.alias = {
+      ...conf.resolve.alias,
       models: path.resolve(api.appDir, './src/models'),
       api: path.resolve(api.appDir, './src/api'),
       store: path.resolve(api.appDir, './src/store'),
@@ -15,4 +19,4 @@ module.exports = function (api) {
       utils: path.resolve(api.appDir, './src/utils')
     }
   })
-}
+})

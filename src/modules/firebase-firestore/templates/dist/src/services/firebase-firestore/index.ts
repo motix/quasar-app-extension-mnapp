@@ -4,7 +4,12 @@ import buildState, { DocStateInterface } from './state'
 import buildGetters from './getters'
 import buildActions from './actions'
 // Main
-import { defineStore, acceptHMRUpdate } from 'pinia'
+import {
+  // <% if (config.hasModule('vite')) { %>Start mnapp.vite module
+  acceptHMRUpdate,
+  // End<% } else { %>No<% } %> mnapp.vite module
+  defineStore
+} from 'pinia'
 // Types
 import type { Mapper } from '@automapper/core'
 import type {
@@ -77,9 +82,11 @@ export function useStore<T extends DocModel, TVm, TAm> (
     actions
   })
 
+  // <% if (config.hasModule('vite')) { %>Start mnapp.vite module
   if (import.meta.hot) {
     import.meta.hot.accept(acceptHMRUpdate(store, import.meta.hot))
   }
+  // End<% } else { %>No<% } %> mnapp.vite module
 
   return store
 }

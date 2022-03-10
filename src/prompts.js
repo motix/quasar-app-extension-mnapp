@@ -1,3 +1,6 @@
+/* eslint-env node */
+/* eslint-disable @typescript-eslint/no-var-requires */
+
 /**
  * Quasar App Extension prompts script
  *
@@ -39,14 +42,26 @@
 
  */
 
-const getModules = require('./modules')
-const getExtensionConfig = require('./modules/extension-config')
+// eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
+const { PromptRecord, PromptsDefinition } = require('./lib/extension-wrappers')
 
-module.exports = function () {
+const getModules = require('./modules')
+const { definePrompts, getExtensionConfig } = getModules
+
+module.exports = definePrompts(function () {
+  /**
+   * @type PromptsDefinition[]
+   */
   const modules = getModules('prompts')
   const config = getExtensionConfig()
+  /**
+   * @type PromptRecord[]
+   */
   let prompts = []
 
+  /**
+   * @param {string} str
+   */
   const normalizeModuleName = str => str.replace(/[A-Z]/g, letter => `-${letter.toLowerCase()}`)
 
   for (const module of modules) {
@@ -70,4 +85,4 @@ module.exports = function () {
   }
 
   return prompts
-}
+})

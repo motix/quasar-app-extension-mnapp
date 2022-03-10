@@ -49,7 +49,7 @@ export default function useListPageFilterWithOptionsAndStore<T extends DocModel,
       store.releaseDocs({ immediately: true })
 
       return loadFirstPage(
-        (payload) => store.loadDocsPage(payload),
+        payload => store.loadDocsPage(payload),
         // done
         () => { resetItems(store.docPage(0) as T[]) }
       )

@@ -1,126 +1,52 @@
 <script setup lang="ts">
-import { requiredConfigEntries } from 'services/useConfig'
+import { requiredConfigEntries } from 'composables/useConfig'
 import ExpandableCardHeader from './ExpandableCardHeader.vue'
 // Main
 import { ref, readonly, computed } from 'vue'
 
 // Props
 
-const props = defineProps({
-  expandable: {
-    type: Boolean,
-    default: false
-  },
-  clickable: {
-    type: Boolean,
-    default: false
-  },
-  headerBackgroundColor: {
-    type: String,
-    required: false,
-    default: undefined
-  },
-  bodyBackgroundColor: {
-    type: String,
-    required: false,
-    default: 'grey-1'
-  },
-  headerDark: {
-    type: Boolean,
-    default: false
-  },
-  externalLinkUrl: {
-    type: String,
-    required: false,
-    default: undefined
-  },
-  avatarTop: {
-    type: Boolean,
-    default: false
-  },
-  avatarColor: {
-    type: String,
-    required: false,
-    default: undefined
-  },
-  avatarIcon: {
-    type: String,
-    required: false,
-    default: undefined
-  },
-  avatarImage: {
-    type: String,
-    required: false,
-    default: undefined
-  },
-  useGravatar: {
-    type: Boolean,
-    default: false
-  },
-  gravatarId: {
-    type: String,
-    required: false,
-    default: undefined
-  },
-  titleTop: {
-    type: Boolean,
-    default: false
-  },
-  titleColor: {
-    type: String,
-    required: false,
-    default: undefined
-  },
-  titleNoWrap: {
-    type: Boolean,
-    default: false
-  },
-  title: {
-    type: String,
-    required: false,
-    default: undefined
-  },
-  subtitleIcon: {
-    type: String,
-    required: false,
-    default: undefined
-  },
-  subtitleColor: {
-    type: String,
-    required: false,
-    default: undefined
-  },
-  subtitle: {
-    type: String,
-    required: false,
-    default: undefined
-  },
-  subtitleTooltip: {
-    type: String,
-    required: false,
-    default: undefined
-  },
-  caption: {
-    type: String,
-    required: false,
-    default: undefined
-  },
-  sideTop: {
-    type: Boolean,
-    default: false
-  },
-  headerSeparator: {
-    type: Boolean,
-    default: false
-  },
-  gutterColBody: {
-    type: Boolean,
-    default: false
-  },
-  gutterRowBody: {
-    type: Boolean,
-    default: false
-  }
+const props = withDefaults(defineProps<{
+  expandable: boolean;
+  clickable: boolean;
+  // eslint-disable-next-line vue/require-default-prop
+  headerBackgroundColor?: string;
+  bodyBackgroundColor?: string;
+  headerDark: boolean;
+  // eslint-disable-next-line vue/require-default-prop
+  externalLinkUrl?: string;
+  avatarTop: boolean;
+  // eslint-disable-next-line vue/require-default-prop
+  avatarColor?: string;
+  // eslint-disable-next-line vue/require-default-prop
+  avatarIcon?: string;
+  // eslint-disable-next-line vue/require-default-prop
+  avatarImage?: string;
+  useGravatar: boolean;
+  // eslint-disable-next-line vue/require-default-prop
+  gravatarId?: string;
+  titleTop: boolean;
+  // eslint-disable-next-line vue/require-default-prop
+  titleColor?: string;
+  titleNoWrap: boolean;
+  // eslint-disable-next-line vue/require-default-prop
+  title?: string;
+  // eslint-disable-next-line vue/require-default-prop
+  subtitleIcon?: string;
+  // eslint-disable-next-line vue/require-default-prop
+  subtitleColor?: string;
+  // eslint-disable-next-line vue/require-default-prop
+  subtitle?: string;
+  // eslint-disable-next-line vue/require-default-prop
+  subtitleTooltip?: string;
+  // eslint-disable-next-line vue/require-default-prop
+  caption?: string;
+  sideTop: boolean;
+  headerSeparator: boolean;
+  gutterColBody: boolean;
+  gutterRowBody: boolean;
+}>(), {
+  bodyBackgroundColor: 'grey-1'
 })
 
 // Data

@@ -1,3 +1,6 @@
+/* eslint-env node */
+/* eslint-disable @typescript-eslint/no-var-requires */
+
 /*
 Modules:
 - map-paths
@@ -8,13 +11,11 @@ Modules:
 - formats
   Dependencies: map-paths, vendors, config
 - utils
-  Dependencies: vendors, formats
+  Dependencies: map-paths, vendors, config, formats
 - pageTitle
   Dependencies: config
 - shared-components
   Dependencies: map-paths, vendors, config
-- firebase
-  Dependencies: frameworks, vendors, config, utils, shared-components
 - notifications
   Dependencies: frameworks
 - scroll
@@ -26,36 +27,50 @@ Modules:
 - multi-views
   Dependencies: map-paths, vendors, shared-components, scroll
 - return-url
-  Dependencies: map-paths
+- firebase
+  Dependencies: map-paths, config
+- firebase-auth
+  Dependencies: map-paths, vendors, config, shared-components, firebase
+- firebase-firestore
+  Dependencies: map-paths, vendors, config, formats, utils, firebase
 - single-scope-composable
   Dependencies: map-paths, vendors
 - crud-pages
-  Dependencies: map-paths, vendors, config, shared-components, firebase,
+  Dependencies: map-paths, vendors, config, formats, utils, shared-components,
                 notifications, float-toolbar, sticky-headers, multi-views,
-                return-url, single-scope-composable
-- authentication
-  Dependencies: frameworks, vendors
+                return-url, firebase, firebase-firestore, single-scope-composable
 - app-default
-  Dependencies: frameworks, config
+  Dependencies: frameworks
 */
 
-const fs = require('fs')
-const getExtensionConfig = require('./extension-config')
+const {
+  // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
+  PromptsDefinition, InstallDefinition, IndexDefinition, UninstallDefinition
+} = require('../lib/extension-wrappers')
 
+const fs = require('fs')
+const getExtensionConfig = require('../lib/extension-config')
+
+/**
+ * @param {string} script
+ */
 module.exports = function (script) {
   const config = getExtensionConfig()
 
+  /**
+   * @type {PromptsDefinition[] | InstallDefinition[] | IndexDefinition[] | UninstallDefinition[]}
+   */
   const modules = []
   const files = fs.readdirSync(__dirname)
 
   files.forEach(file => {
-    if (
-      file === 'index.js' ||
-      file === 'extension-config.js' ||
-      !config.hasModule(file)
-    ) return
+    if (file === 'index.js' || !config.hasModule(file)) return
 
     try {
+      /**
+       * @type PromptsDefinition | InstallDefinition | IndexDefinition | UninstallDefinition
+       */
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       const module = require(`./${file}/${script}`)
       modules.push(module)
     } catch {
@@ -65,3 +80,12 @@ module.exports = function (script) {
 
   return modules
 }
+
+const wrappers = require('../lib/extension-wrappers')
+
+module.exports.definePrompts = wrappers.definePrompts
+module.exports.defineInstall = wrappers.defineInstall
+module.exports.defineIndex = wrappers.defineIndex
+module.exports.defineUninstall = wrappers.defineUninstall
+
+module.exports.getExtensionConfig = getExtensionConfig

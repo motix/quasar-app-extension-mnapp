@@ -1,6 +1,11 @@
-// eslint-disable-next-line @typescript-eslint/no-empty-function
-module.exports = function () {
-}
+/* eslint-env node */
+/* eslint-disable @typescript-eslint/no-var-requires */
+
+const { defineUninstall } = require('..')
+
+module.exports = defineUninstall(function () {
+  //
+})
 
 module.exports.revertFiles = [
   'package.json'

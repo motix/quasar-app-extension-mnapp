@@ -1,6 +1,11 @@
 // Main
 import { ref, markRaw, Ref } from 'vue'
-import { defineStore, acceptHMRUpdate } from 'pinia'
+import {
+  // <% if (config.hasModule('vite')) { %>Start mnapp.vite module
+  acceptHMRUpdate,
+  // End<% } else { %>No<% } %> mnapp.vite module
+  defineStore
+} from 'pinia'
 // Types
 import type { ScopeRecord } from 'models/single-scope-composable'
 
@@ -52,6 +57,8 @@ export const useSingleScopeComposableStore = defineStore('SingleScopeComposable'
   }
 })
 
+// <% if (config.hasModule('vite')) { %>Start mnapp.vite module
 if (import.meta.hot) {
   import.meta.hot.accept(acceptHMRUpdate(useSingleScopeComposableStore, import.meta.hot))
 }
+// End<% } else { %>No<% } %> mnapp.vite module

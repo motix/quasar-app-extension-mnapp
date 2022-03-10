@@ -4,25 +4,33 @@ import {
   Resolver
 } from '@automapper/core'
 import { date } from 'quasar'
-import { requiredConfigEntries } from 'services/useConfig'
+import { requiredConfigEntries } from 'composables/useConfig'
 // Types
-import { Timestamp } from 'firebase/firestore'
 import type { CreateMapFluentFunction } from '@automapper/core'
 
+export interface DateDataConverter {
+  fromDate: <T>(date: Date) => T;
+  toDate: <T>(data: T) => Date;
+}
+
 const {
-  editDateFormat
+  editDateFormat,
+  dateDataConverter
 } = requiredConfigEntries(
-  'editDateFormat')
+  'editDateFormat',
+  'dateDataConverter'
+)
 
 type HasProp<Key extends string, T> = Record<Key, T>
 
 const apiModelToModelResolver = {
   dateRequired: function <
     Key extends string,
-    TSource extends HasProp<Key, Timestamp>
+    DateDataType,
+    TSource extends HasProp<Key, DateDataType>
   > (key: Key) {
     return {
-      resolve: (source: TSource): Date => source[key].toDate()
+      resolve: (source: TSource): Date => dateDataConverter.toDate<DateDataType>(source[key])
     }
   },
 
@@ -48,10 +56,16 @@ const apiModelToModelResolver = {
 
   dateOptional: function <
     Key extends string,
-    TSource extends Partial<HasProp<Key, Timestamp | null>>
+    DateDataType,
+    TSource extends Partial<HasProp<Key, DateDataType | null>>
   > (key: Key) {
     return {
-      resolve: (source: TSource): Date | undefined => source[key]?.toDate()
+      resolve: (source: TSource): Date | undefined => {
+        const field: DateDataType | null | undefined = source[key]
+        return field == null
+          ? undefined
+          : dateDataConverter.toDate(field)
+      }
     }
   },
 
@@ -141,10 +155,11 @@ const modelToViewModelResolver = {
 const modelToApiModelResolver = {
   dateRequired: function <
     Key extends string,
+    DateDataType,
     TSource extends HasProp<Key, Date>
   > (key: Key) {
     return {
-      resolve: (source: TSource): Timestamp => Timestamp.fromDate(source[key])
+      resolve: (source: TSource): DateDataType => dateDataConverter.fromDate(source[key])
     }
   },
 
@@ -187,25 +202,27 @@ const modelToApiModelResolver = {
 
   dateOptional: function <
     Key extends string,
+    DateDataType,
     TSource extends Partial<HasProp<Key, Date>>
   > (key: Key) {
     return {
-      resolve: (source: TSource): Timestamp | null => {
+      resolve: (source: TSource): DateDataType | null => {
         const field = source[key]
-        return field === undefined ? null : Timestamp.fromDate(field)
+        return field === undefined ? null : dateDataConverter.fromDate<DateDataType>(field)
       }
     }
   },
 
   dateReadOptionalWriteRequired: function <
     Key extends string,
+    DateDataType,
     TSource extends Partial<HasProp<Key, Date>>
   > (key: Key) {
     return {
-      resolve: (source: TSource): Timestamp => {
+      resolve: (source: TSource): DateDataType => {
         const field = source[key]
         field === undefined && (() => { throw new Error(`${key} is required for saving`) })()
-        return Timestamp.fromDate(field)
+        return dateDataConverter.fromDate(field)
       }
     }
   },
@@ -254,10 +271,11 @@ const viewModelToApiModelResolver = {
 
   dateRequired: function <
     Key extends string,
+    DateDataType,
     TSource extends HasProp<Key, string>
   > (key: Key) {
     return {
-      resolve: (source: TSource): Timestamp => Timestamp.fromDate(date.extractDate(source[key], editDateFormat))
+      resolve: (source: TSource): DateDataType => dateDataConverter.fromDate(date.extractDate(source[key], editDateFormat))
     }
   },
 
@@ -342,25 +360,29 @@ const viewModelToApiModelResolver = {
 
   dateOptional: function <
     Key extends string,
+    DateDataType,
     TSource extends HasProp<Key, string | null>
   > (key: Key) {
     return {
-      resolve: (source: TSource): Timestamp | null => {
+      resolve: (source: TSource): DateDataType | null => {
         const field = source[key]
-        return field === '' || field === null ? null : Timestamp.fromDate(date.extractDate(field, editDateFormat))
+        return field === '' || field === null
+          ? null
+          : dateDataConverter.fromDate<DateDataType>(date.extractDate(field, editDateFormat))
       }
     }
   },
 
   dateReadOptionalWriteRequired: function <
     Key extends string,
+    DateDataType,
     TSource extends HasProp<Key, string | null>
   > (key: Key) {
     return {
-      resolve: (source: TSource): Timestamp => {
+      resolve: (source: TSource): DateDataType => {
         const field = source[key];
         (field === '' || field === null) && (() => { throw new Error(`${key} is required for saving`) })()
-        return Timestamp.fromDate(date.extractDate(field, editDateFormat))
+        return dateDataConverter.fromDate(date.extractDate(field, editDateFormat))
       }
     }
   }

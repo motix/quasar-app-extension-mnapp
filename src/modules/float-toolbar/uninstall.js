@@ -1,4 +1,9 @@
-module.exports = function (api) {
+/* eslint-env node */
+/* eslint-disable @typescript-eslint/no-var-requires */
+
+const { defineUninstall } = require('..')
+
+module.exports = defineUninstall(function (api) {
   api.removePath('src/components/shared/FloatToolbar.vue')
   api.removePath('src/components/shared/FloatToolbar.ts')
   api.removePath('src/composables/useFloatToolbar.ts')
@@ -8,4 +13,4 @@ module.exports = function (api) {
     api.removePath('src/layouts/FloatToolbarLayout.vue')
     api.removePath('src/pages/FloatToolbar.vue')
   }
-}
+})

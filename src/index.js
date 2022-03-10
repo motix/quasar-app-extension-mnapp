@@ -1,3 +1,6 @@
+/* eslint-env node */
+/* eslint-disable @typescript-eslint/no-var-requires */
+
 /**
  * Quasar App Extension index/runner script
  * (runs on each dev/build)
@@ -6,12 +9,19 @@
  * API: https://github.com/quasarframework/quasar/blob/master/app/lib/app-extension/IndexAPI.js
  */
 
-const getModules = require('./modules')
+// eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
+const { IndexDefinition } = require('./lib/extension-wrappers')
 
-module.exports = function (api) {
+const getModules = require('./modules')
+const { defineIndex } = getModules
+
+module.exports = defineIndex(function (api) {
+  /**
+   * @type IndexDefinition[]
+   */
   const modules = getModules('index')
 
   for (const module of modules) {
     module(api)
   }
-}
+})

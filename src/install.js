@@ -1,3 +1,6 @@
+/* eslint-env node */
+/* eslint-disable @typescript-eslint/no-var-requires */
+
 /**
  * Quasar App Extension install script
  *
@@ -5,11 +8,18 @@
  * API: https://github.com/quasarframework/quasar/blob/master/app/lib/app-extension/InstallAPI.js
  */
 
+// eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
+const { InstallDefinition } = require('./lib/extension-wrappers')
+
 const { merge } = require('webpack-merge')
 const fs = require('fs')
 const getModules = require('./modules')
+const { defineInstall } = getModules
 
-module.exports = function (api) {
+module.exports = defineInstall(function (api) {
+  /**
+   * @param {InstallDefinition[]} modules
+   */
   function mergeExtendPackageJson (modules) {
     let extendPackageJson = {}
 
@@ -22,7 +32,13 @@ module.exports = function (api) {
     return extendPackageJson
   }
 
+  /**
+   * @param {InstallDefinition[]} modules
+   */
   function mergeExtendJsonFiles (modules) {
+    /**
+     * @type Record<string, unknown>
+     */
     const jsonFiles = {}
 
     for (const module of modules) {
@@ -38,6 +54,9 @@ module.exports = function (api) {
     return jsonFiles
   }
 
+  /**
+   * @param {InstallDefinition[]} modules
+   */
   function run (modules) {
     for (const module of modules) {
       module(api)
@@ -78,7 +97,10 @@ module.exports = function (api) {
     }
   }
 
+  /**
+   * @type InstallDefinition[]
+   */
   const modules = getModules('install')
 
   run(modules)
-}
+})

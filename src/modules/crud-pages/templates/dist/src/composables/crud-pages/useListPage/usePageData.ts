@@ -1,4 +1,4 @@
-import _ from 'lodash'
+import { differenceBy, findIndex } from 'lodash'
 import useNotifications from 'composables/useNotifications'
 // Main
 import { ref, computed, Ref } from 'vue'
@@ -100,7 +100,7 @@ export default function usePageData<T = unknown> (
       return
     }
 
-    const itemsToKeep = _.differenceBy(items.value, newItems, modelFindKeyField.value)
+    const itemsToKeep = differenceBy(items.value, newItems, modelFindKeyField.value)
     items.value = itemsToKeep.concat(newItems)
   }
 
@@ -114,14 +114,14 @@ export default function usePageData<T = unknown> (
       itemsValue.push(...recentlyAddedDocs)
 
       recentlyUpdatedDocs.forEach(doc => {
-        const index = _.findIndex(itemsValue, ['id', (doc as unknown as {id: string}).id])
+        const index = findIndex(itemsValue, ['id', (doc as unknown as {id: string}).id])
         if (index > -1) {
           itemsValue[index] = doc
         }
       })
 
       recentlyDeletedDocs.forEach(id => {
-        const index = _.findIndex(itemsValue, ['id', id])
+        const index = findIndex(itemsValue, ['id', id])
         index > -1 && itemsValue.splice(index, 1)
       })
 

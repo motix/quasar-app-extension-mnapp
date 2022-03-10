@@ -1,47 +1,32 @@
 <script setup lang="ts">
 import { useFloatToolbarResult } from 'composables/useFloatToolbar'
 // Main
-import { ref, computed, useSlots, PropType, Comment } from 'vue'
+import { ref, computed, useSlots, Comment } from 'vue'
 // Types
 import type { QFab } from 'quasar'
 
 // Props
 
-const props = defineProps({
-  position: {
-    type: String as PropType<
-      | 'top-right'
-      | 'top-left'
-      | 'bottom-right'
-      | 'bottom-left'
-      | 'top'
-      | 'right'
-      | 'bottom'
-      | 'left'
-    >,
-    required: false,
-    default: 'bottom-right'
-  },
-  minMarginY: {
-    type: Number,
-    required: false,
-    default: 2
-  },
-  fabButtonsVisibility: {
-    type: Object as PropType<Record<string, boolean> | undefined>,
-    required: false,
-    default: undefined
-  },
-  fabButtonsSpaceIgnored: {
-    type: Number,
-    required: false,
-    default: 0
-  },
-  offset: {
-    type: Object as PropType<{ x?: number, y?: number }>,
-    required: false,
-    default: undefined
-  }
+const props = withDefaults(defineProps<{
+  position?:
+  | 'top-right'
+  | 'top-left'
+  | 'bottom-right'
+  | 'bottom-left'
+  | 'top'
+  | 'right'
+  | 'bottom'
+  | 'left';
+  minMarginY?: number;
+  // eslint-disable-next-line vue/require-default-prop
+  fabButtonsVisibility?: Record<string, boolean>;
+  fabButtonsSpaceIgnored?: number;
+  offset?: { x?: number, y?: number }
+}>(), {
+  position: 'bottom-right',
+  minMarginY: 2,
+  fabButtonsSpaceIgnored: 0,
+  offset: () => ({})
 })
 
 // Slots
@@ -87,7 +72,7 @@ const fabButtonsCount = computed(() => {
 
 const showFab = computed(() => !!slots.default && fabButtonsCount.value > 0)
 
-const offsetX = computed(() => PAGE_PADDING - (!showFab.value ? QBTN_MARGIN : 0) + (props.offset?.x || 0))
+const offsetX = computed(() => PAGE_PADDING - (!showFab.value ? QBTN_MARGIN : 0) + (props.offset.x || 0))
 
 const offsetY = computed(() => {
   const buttonSize = !showFab.value ? QBTN_SIZE : QFAB_BTN_SIZE
@@ -97,13 +82,13 @@ const offsetY = computed(() => {
       floatToolbarOffsetTop.value - (buttonSize / 2),
       -(buttonSize / 2),
       props.minMarginY) +
-          (props.offset?.y || 0)
+          (props.offset.y || 0)
   } else if (props.position.includes('bottom')) {
     return Math.max(
       floatToolbarOffsetBottom.value - (buttonSize / 2),
       -(buttonSize / 2),
       props.minMarginY) +
-          (props.offset?.y || 0)
+          (props.offset.y || 0)
   } else {
     return 0
   }

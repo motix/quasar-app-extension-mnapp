@@ -1,5 +1,5 @@
 import firebaseConfig from 'app/firebase.json'
-import useConfig from 'services/useConfig'
+import useConfig from 'composables/useConfig'
 import { getAuth, connectAuthEmulator } from 'firebase/auth'
 import { getFirestore, connectFirestoreEmulator } from 'firebase/firestore'
 import { getFunctions, connectFunctionsEmulator } from 'firebase/functions'

@@ -3,97 +3,27 @@ import { computed } from 'vue'
 
 // Props
 
-const props = defineProps({
-  headerBackgroundColor: {
-    type: String,
-    required: false,
-    default: undefined
-  },
-  headerDark: {
-    type: Boolean,
-    default: false
-  },
-  externalLinkUrl: {
-    type: String,
-    required: false,
-    default: undefined
-  },
-  avatarTop: {
-    type: Boolean,
-    default: false
-  },
-  avatarColor: {
-    type: String,
-    required: false,
-    default: undefined
-  },
-  avatarIcon: {
-    type: String,
-    required: false,
-    default: undefined
-  },
-  avatarImage: {
-    type: String,
-    required: false,
-    default: undefined
-  },
-  useGravatar: {
-    type: Boolean,
-    default: false
-  },
-  gravatarId: {
-    type: String,
-    required: false,
-    default: undefined
-  },
-  titleTop: {
-    type: Boolean,
-    default: false
-  },
-  titleColor: {
-    type: String,
-    required: false,
-    default: undefined
-  },
-  titleNoWrap: {
-    type: Boolean,
-    default: false
-  },
-  title: {
-    type: String,
-    required: false,
-    default: undefined
-  },
-  subtitleIcon: {
-    type: String,
-    required: false,
-    default: undefined
-  },
-  subtitleColor: {
-    type: String,
-    required: false,
-    default: undefined
-  },
-  subtitle: {
-    type: String,
-    required: false,
-    default: undefined
-  },
-  subtitleTooltip: {
-    type: String,
-    required: false,
-    default: undefined
-  },
-  caption: {
-    type: String,
-    required: false,
-    default: undefined
-  },
-  sideTop: {
-    type: Boolean,
-    default: false
-  }
-})
+const props = defineProps<{
+  headerBackgroundColor?: string;
+  headerDark: boolean;
+  externalLinkUrl?: string;
+  avatarTop: boolean;
+  avatarColor?: string;
+  avatarIcon?: string;
+  avatarImage?: string;
+  useGravatar: boolean;
+  gravatarId?: string;
+  titleTop: boolean;
+  titleColor?: string;
+  titleNoWrap: boolean;
+  title?: string;
+  subtitleIcon?: string;
+  subtitleColor?: string;
+  subtitle?: string;
+  subtitleTooltip?: string;
+  caption?: string;
+  sideTop: boolean;
+}>()
 
 // Computed
 

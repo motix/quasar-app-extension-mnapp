@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import _ from 'lodash'
+import { isFinite } from 'lodash'
 // Main
 import { computed } from 'vue'
 
@@ -11,34 +11,36 @@ function percentRound (value: number) {
 
 // Props
 
-const props = defineProps({
-  modelValue: {
-    type: [String, Number],
-    required: false,
-    default: undefined
-  }
-})
+const props = defineProps<{
+  modelValue?: string | number;
+}>()
 
 // Emit
 
 // eslint-disable-next-line func-call-spacing
 const emit = defineEmits<{
-  (e: 'update:modelValue', value: string | number): void
+  (e: 'update:modelValue', value: string | number | null): void
 }>()
 
 // Computed
 
-const displayValue = computed(() => _.isNumber(props.modelValue)
-  ? _.toString(percentRound(props.modelValue * 100))
-  : _.toString(props.modelValue))
+const displayValue = computed(() => isFinite(props.modelValue)
+  ? percentRound(props.modelValue as number * 100).toString()
+  : ''
+)
 
 // Methods
 
-function onUpdate (value: string) {
-  const valueAsNumber = parseFloat(value)
-  const roundedValue = (_.isNumber(valueAsNumber) && _.toString(valueAsNumber) === value)
-    ? percentRound(valueAsNumber / 100)
-    : value
+function onUpdate (value: string | null) {
+  let roundedValue: string | number | null = null
+
+  if (value != null) {
+    const valueAsNumber = parseFloat(value)
+    roundedValue = (isFinite(valueAsNumber) && String(valueAsNumber) === value)
+      ? percentRound(valueAsNumber / 100)
+      : value
+  }
+
   if (roundedValue !== props.modelValue) emit('update:modelValue', roundedValue)
 }
 </script>
@@ -47,7 +49,7 @@ function onUpdate (value: string) {
   <q-input
     v-bind="$attrs"
     :model-value="displayValue"
-    @update:model-value="onUpdate($event as string)"
+    @update:model-value="onUpdate($event as string | null)"
   >
     <template
       v-if="$slots.loading"

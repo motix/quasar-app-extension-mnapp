@@ -1,6 +1,6 @@
 export { }
 
-declare module 'services/useConfig' {
+declare module 'composables/useConfig' {
   interface Config {
     dateFormat?: string;
     editDateFormat?: string;

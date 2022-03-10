@@ -1,18 +1,13 @@
 <script setup lang="ts">
-import type { PropType } from 'vue'
 
 // Props
 
-defineProps({
-  gravatarId: {
-    type: String as PropType<string | undefined>,
-    default: undefined
-  },
-
-  dark: {
-    type: Boolean,
-    default: false
-  }
+withDefaults(defineProps<{
+  // eslint-disable-next-line vue/require-default-prop
+  gravatarId?: string,
+  dark?: boolean
+}>(), {
+  dark: false
 })
 </script>
 

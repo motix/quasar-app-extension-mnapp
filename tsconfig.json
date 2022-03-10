@@ -1,5 +1,5 @@
 {
-  "extends": "./tsconfig-quasar-preset.json",
+  "extends": "@quasar/app/tsconfig-preset",
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
@@ -12,24 +12,24 @@
       ],
       // App-defined webpack aliases
       "models/*": [
-        "src/modules/firebase/templates/dist-aut/src/models/*",
+        "src/modules/firebase-auth/templates/dist/src/models/*",
         "src/modules/single-scope-composable/templates/dist/src/models/*"
       ],
       "services/*": [
-        "src/modules/config/templates/dist/src/services/*",
         "src/modules/firebase/templates/dist/src/services/*",
-        "src/modules/firebase/templates/dist-aut/src/services/*",
-        "src/modules/firebase/templates/dist-str/src/services/*"
+        "src/modules/firebase-auth/templates/dist/src/services/*",
+        "src/modules/firebase-firestore/templates/dist/src/services/*"
       ],
       "utils/*": [
         "src/modules/utils/templates/dist/src/utils/*"
       ],
       "stores/*": [
-        "src/modules/firebase/templates/dist-aut/src/stores/*",
+        "src/modules/firebase-auth/templates/dist/src/stores/*",
         "src/modules/single-scope-composable/templates/dist/src/stores/*"
       ],
       "composables/*": [
-        "src/modules/firebase/templates/dist-aut/src/composables/*",
+        "src/modules/config/templates/dist/src/composables/*",
+        "src/modules/firebase-auth/templates/dist/src/composables/*",
         "src/modules/notifications/templates/dist/src/composables/*",
         "src/modules/scroll/templates/dist/src/composables/*",
         "src/modules/float-toolbar/templates/dist/src/composables/*",
@@ -39,9 +39,7 @@
         "src/modules/crud-pages/templates/dist/src/composables/*"
       ],
       "components/*": [
-        "src/modules/shared-components/templates/dist/src/components/*",
-        "src/modules/float-toolbar/templates/dist/src/components/*",
-        "src/modules/multi-views/templates/dist/src/components/*"
+        "src/modules/shared-components/templates/dist/src/components/*"
       ],
       // mnapp only
       ".mnapp-vite/*": [

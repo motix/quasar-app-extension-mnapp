@@ -1,5 +1,5 @@
 import { scroll } from 'quasar'
-import { requiredConfigEntries } from 'services/useConfig'
+import { requiredConfigEntries } from 'composables/useConfig'
 // Main
 import { ComponentPublicInstance } from 'vue'
 

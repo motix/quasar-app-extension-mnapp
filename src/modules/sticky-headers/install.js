@@ -1,7 +1,8 @@
-module.exports = function (api) {
-  api.render('./templates/dist')
+/* eslint-env node */
+/* eslint-disable @typescript-eslint/no-var-requires */
 
-  if (api.appDir.endsWith('\\dev')) {
-    api.render('./templates/dev')
-  }
-}
+const { defineInstall } = require('..')
+
+module.exports = defineInstall(function (api) {
+  api.render('./templates/dist')
+})

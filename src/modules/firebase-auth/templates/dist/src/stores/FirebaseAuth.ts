@@ -1,7 +1,12 @@
 import { userRoles } from 'models/firebase-auth'
 // Main
 import { ref, computed } from 'vue'
-import { defineStore, acceptHMRUpdate } from 'pinia'
+import {
+  // <% if (config.hasModule('vite')) { %>Start mnapp.vite module
+  acceptHMRUpdate,
+  // End<% } else { %>No<% } %> mnapp.vite module
+  defineStore
+} from 'pinia'
 // Types
 import type { User } from 'firebase/auth'
 import type { UserRole, UserClaims } from 'models/firebase-auth'
@@ -40,6 +45,8 @@ export const useFirebaseAuthStore = defineStore('FirebaseAuth', () => {
   }
 })
 
+// <% if (config.hasModule('vite')) { %>Start mnapp.vite module
 if (import.meta.hot) {
   import.meta.hot.accept(acceptHMRUpdate(useFirebaseAuthStore, import.meta.hot))
 }
+// End<% } else { %>No<% } %> mnapp.vite module

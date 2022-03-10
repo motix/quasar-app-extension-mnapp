@@ -1,4 +1,4 @@
-import _ from 'lodash'
+import { cloneDeep } from 'lodash'
 import { defineGetters } from '.'
 // Types
 import type { Mapper } from '@automapper/core'
@@ -16,7 +16,7 @@ function buildGetters<T, TVm> (
         const doc = state.realtimeDocs[docKey].doc
 
         return doc
-          ? _.cloneDeep(doc)
+          ? cloneDeep(doc)
           : (() => { throw new Error(`Realtime doc '${docKey}' not available.`) })()
       },
 

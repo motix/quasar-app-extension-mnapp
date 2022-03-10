@@ -1,18 +1,18 @@
-const getExtensionConfig = require('../extension-config')
+/* eslint-env node */
+/* eslint-disable @typescript-eslint/no-var-requires */
 
-module.exports = function (api) {
-  const config = getExtensionConfig()
-  const prompts = config.prompts('firebase')
+const { config: dotenvConfig } = require('dotenv')
+const { defineIndex } = require('..')
 
-  api.extendQuasarConf((conf) => {
+module.exports = defineIndex(function (api) {
+  api.extendQuasarConf(conf => {
     conf.boot.push('firebase')
 
-    const dotenvPath = api.resolve.app('node_modules/dotenv')
     const dotenvConfigPath = api.resolve.app('.env')
-    const env = require(dotenvPath).config({ path: dotenvConfigPath }).parsed
+    const env = dotenvConfig({ path: dotenvConfigPath }).parsed
     const FIREBASE_ENV = process.env.FIREBASE_ENV
 
-    if (!['DEV', 'STAGE', 'PROD'].includes(FIREBASE_ENV)) {
+    if (!FIREBASE_ENV || !['DEV', 'STAGE', 'PROD'].includes(FIREBASE_ENV)) {
       throw Error('Unknonw or not supplied Firebase environment variable.')
     }
 
@@ -35,20 +35,4 @@ module.exports = function (api) {
       FIREBASE_CLIENT_ID
     }
   })
-
-  const features = prompts.features.split(',')
-
-  // Authentication
-  if (features.includes('aut')) {
-    api.extendQuasarConf((conf) => {
-      conf.boot.push('firebase-auth')
-    })
-  }
-
-  // Firestore
-  if (features.includes('str')) {
-    api.extendQuasarConf((conf) => {
-      conf.boot.push('firebase-firestore')
-    })
-  }
-}
+})

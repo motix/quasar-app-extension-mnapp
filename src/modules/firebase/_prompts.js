@@ -2,21 +2,6 @@
 module.exports = function firebase () {
   return [
     {
-      name: 'features',
-      type: 'input',
-      message: `[firebase] Which Firebase features to install?
-- [aut] Authentication
-- [str] Firestore
-`,
-      default: 'aut,str'
-    },
-    {
-      name: 'userRoles',
-      type: 'input',
-      message: '[firebase-auth] Please specify User Roles other than "admin" and "user" if Authentication was selected above.',
-      default: ''
-    },
-    {
       name: 'authEmulatorPort',
       type: 'input',
       message: '[firebase] emulators.auth.port',

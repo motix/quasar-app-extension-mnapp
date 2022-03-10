@@ -1,5 +1,10 @@
+/* eslint-env node */
+/* eslint-disable @typescript-eslint/no-var-requires */
+
+const { definePrompts } = require('..')
+
 // Give the function a name to identify the module when filling default values from app config
-module.exports = function vendors () {
+module.exports = definePrompts(function vendors () {
   return [
     {
       name: 'vendors',
@@ -13,9 +18,8 @@ module.exports = function vendors () {
 - [atm] AutoMapper TypeScript
 - [vld] vee-validate
 - [mkd] markdown-it
-- [jtv] json-tree-view-vue3
 `,
-      default: 'pin,fap,axs,lds,jgd,atm,vld,jtv'
+      default: 'pin,fap,axs,lds,jgd,atm,vld,mkd'
     }
   ]
-}
+})

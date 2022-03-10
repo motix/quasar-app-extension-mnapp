@@ -1,4 +1,4 @@
-import _ from 'lodash'
+import { findIndex } from 'lodash'
 import { Guid } from 'js-guid'
 import {
   doc,
@@ -15,9 +15,9 @@ import {
   runTransaction,
   onSnapshot
 } from 'firebase/firestore'
-import { requiredConfigEntries } from 'services/useConfig'
 import { getFirestore } from 'services/firebase'
 import { urlFriendlyNormalizeString } from 'utils/normalization'
+import { requiredConfigEntries } from 'composables/useConfig'
 import { defineActions } from '.'
 // Types
 import type { Mapper } from '@automapper/core'
@@ -325,12 +325,12 @@ function buildActions<T extends DocModel, TVm, TAm> (
         newDocAm, modelName, apiModelName, { extraArguments }
       )
 
-      const addedIndex = _.findIndex(this.recentlyAddedDocs, ['id', id])
+      const addedIndex = findIndex(this.recentlyAddedDocs, ['id', id])
 
       if (addedIndex > -1) {
         this.recentlyAddedDocs[addedIndex] = newDocM as UnwrapRef<DocStateInterface<T>>['recentlyAddedDocs'][number]
       } else {
-        const updatedIndex = _.findIndex(this.recentlyUpdatedDocs, ['id', id])
+        const updatedIndex = findIndex(this.recentlyUpdatedDocs, ['id', id])
 
         if (updatedIndex > -1) {
           this.recentlyUpdatedDocs[updatedIndex] = newDocM as UnwrapRef<DocStateInterface<T>>['recentlyUpdatedDocs'][number]

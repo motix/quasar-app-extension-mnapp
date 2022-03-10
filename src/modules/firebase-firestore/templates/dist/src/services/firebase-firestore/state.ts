@@ -1,4 +1,4 @@
-import { requiredConfigEntries } from 'services/useConfig'
+import { requiredConfigEntries } from 'composables/useConfig'
 // Types
 import type { RealtimeDocIndex } from '.'
 

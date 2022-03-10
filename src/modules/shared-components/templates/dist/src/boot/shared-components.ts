@@ -1,4 +1,4 @@
-import useConfig from 'services/useConfig'
+import useConfig from 'composables/useConfig'
 import FadeTransition from 'components/shared/transitions/FadeTransition.vue'
 import ListTransition from 'components/shared/transitions/ListTransition.vue'
 import TopTooltip from 'components/shared/TopTooltip.vue'

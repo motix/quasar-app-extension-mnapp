@@ -3,15 +3,12 @@ import { nextTick } from 'vue'
 
 // Props
 
-const props = defineProps({
-  gutter: {
-    type: Number,
-    default: 0
-  },
-  colorEffect: {
-    type: Boolean,
-    default: false
-  }
+const props = withDefaults(defineProps<{
+  gutter?: number;
+  colorEffect?: boolean;
+}>(), {
+  gutter: 0,
+  colorEffect: false
 })
 
 // Methods

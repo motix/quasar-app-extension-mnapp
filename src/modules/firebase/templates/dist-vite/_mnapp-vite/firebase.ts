@@ -1,9 +1,9 @@
-import { config as dotenv } from 'dotenv'
+import { config as dotenvConfig } from 'dotenv'
 // Types
 import type { UserConfig } from 'vite'
 
 export function defineConfig (config: UserConfig) {
-  const env = dotenv({ path: '.env' }).parsed
+  const env = dotenvConfig({ path: '.env' }).parsed
 
   if (!env) {
     throw Error('Unable to parse .env.')
