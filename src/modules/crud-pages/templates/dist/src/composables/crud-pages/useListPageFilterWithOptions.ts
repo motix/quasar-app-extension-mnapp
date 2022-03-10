@@ -11,10 +11,10 @@ export default function useListPageFilterWithOptions<FilterType> (
   initialFilter: FilterType,
   loadItems: () => Promise<void>,
   ...options: {
-    type: FilterType,
-    label: string,
-    selectedLabel?: string,
-    queryConstraints: QueryConstraint[]
+    type: FilterType;
+    label: string;
+    selectedLabel?: string;
+    queryConstraints: QueryConstraint[];
   }[]
 ) {
   // Composables
@@ -40,7 +40,7 @@ export default function useListPageFilterWithOptions<FilterType> (
   // Computed
 
   const filterOptions = computed(() => {
-    const ret: {type: FilterType, label: string}[] = []
+    const ret: {type: FilterType; label: string}[] = []
 
     options.forEach(option => {
       if (option.type !== listPageFilter.currentFilter.value) {

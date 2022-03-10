@@ -35,10 +35,10 @@ export default function useListPageFilterWithOptionsAndStore<T extends DocModel,
   loadFirstPage: ReturnType<typeof useListPage>['loadFirstPage'],
   resetItems: UseListPageHelper<T>['Return']['resetItems'],
   ...options: {
-    type: FilterType,
-    label: string,
-    selectedLabel?: string,
-    queryConstraints: QueryConstraint[]
+    type: FilterType;
+    label: string;
+    selectedLabel?: string;
+    queryConstraints: QueryConstraint[];
   }[]
 ) {
   return useListPageFilterWithOptions<FilterType>(

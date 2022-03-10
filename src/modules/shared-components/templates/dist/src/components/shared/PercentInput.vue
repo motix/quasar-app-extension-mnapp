@@ -19,7 +19,7 @@ const props = defineProps<{
 
 // eslint-disable-next-line func-call-spacing
 const emit = defineEmits<{
-  (e: 'update:modelValue', value: string | number | null): void
+  (e: 'update:modelValue', value: string | number | null): void;
 }>()
 
 // Computed

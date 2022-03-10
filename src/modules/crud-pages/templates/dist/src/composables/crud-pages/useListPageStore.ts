@@ -36,9 +36,9 @@ export default function useListPageStore<T extends DocModel> (
   appendItems: UseListPageHelper<T>['Return']['appendItems'],
   updateItems: UseListPageHelper<T>['Return']['updateItems'],
   loadOnMounted?: {
-    ready: ReturnType<typeof useListPage>['ready'],
-    loadFirstPage: ReturnType<typeof useListPage>['loadFirstPage'],
-    resetItems: UseListPageHelper<T>['Return']['resetItems']
+    ready: ReturnType<typeof useListPage>['ready'];
+    loadFirstPage: ReturnType<typeof useListPage>['loadFirstPage'];
+    resetItems: UseListPageHelper<T>['Return']['resetItems'];
   }
 ) {
   // Methods

@@ -22,7 +22,7 @@ module.exports = {
 
   env: {
     browser: true,
-    "vue/setup-compiler-macros": true
+    'vue/setup-compiler-macros': true
   },
 
   // Rules order is important, please avoid shuffling them
@@ -97,18 +97,30 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
 
     // alphabetical
-    "vue/attributes-order": ['warn', {
+    'vue/attributes-order': ['warn', {
       'alphabetical': true
     }],
 
     // Avoid "Cannot read property 'loc' of undefined" issue
     // and take care of multiline generic type parameters.
     // https://github.com/typescript-eslint/typescript-eslint/issues/455#issuecomment-580636221
-    "indent": "off",
-    "@typescript-eslint/indent": ["error", 2, {
+    'indent': 'off',
+    '@typescript-eslint/indent': ['error', 2, {
       ignoredNodes: ['TSTypeParameterInstantiation']
     }],
 
-    "vue/multi-word-component-names": "off"
+    'vue/multi-word-component-names': 'off',
+
+    '@typescript-eslint/member-delimiter-style': ['error', {
+      'multiline': {
+      'delimiter': 'semi',
+      'requireLast': true
+      },
+      'singleline': {
+        'delimiter': 'semi',
+        'requireLast': false
+      },
+      'multilineDetection': 'brackets'
+    }]
   }
 }

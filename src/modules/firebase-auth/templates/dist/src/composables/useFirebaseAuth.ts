@@ -18,7 +18,7 @@ export default function () {
   const router = useRouter()
   const route = useRoute()
   const store = useFirebaseAuthStore()
-  const remoteWindows: Record<string, { remoteWindow: Window, token: string } | undefined> = {}
+  const remoteWindows: Record<string, { remoteWindow: Window; token: string } | undefined> = {}
 
   // Computed
 

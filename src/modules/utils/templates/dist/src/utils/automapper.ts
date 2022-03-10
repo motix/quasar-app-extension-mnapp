@@ -394,10 +394,10 @@ type FieldType = 'required' | 'optional' | 'readOptionalWriteRequired'
 type ResolverDataTypes = Partial<Record<DataType, (fieldName: string) => Resolver>>
 type ResolverFieldTypes = Record<FieldType, ResolverDataTypes>
 type Resolvers = {
-  apiModelToModel: ResolverFieldTypes,
-  modelToViewModel: ResolverFieldTypes,
-  modelToApiModel: ResolverFieldTypes,
-  viewModelToApiModel: ResolverFieldTypes
+  apiModelToModel: ResolverFieldTypes;
+  modelToViewModel: ResolverFieldTypes;
+  modelToApiModel: ResolverFieldTypes;
+  viewModelToApiModel: ResolverFieldTypes;
 }
 
 const resolvers :Resolvers = {
@@ -495,7 +495,10 @@ const resolvers :Resolvers = {
   }
 }
 
-export type FieldConfig = { dataType: DataType, fieldType: FieldType }
+export type FieldConfig = {
+  dataType: DataType;
+  fieldType: FieldType;
+}
 
 export function configureMembers<T extends { id: string }, TVm, TAm> (
   apiModelToModelMapper: CreateMapFluentFunction<TAm, T> | null,

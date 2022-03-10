@@ -44,7 +44,7 @@ class GettersHelper<T, TVm> {
 
 type G<T, TVm> = GettersHelper<T, TVm>['Return']
 
-type ActionFlag<T, TVm, TAm> = { __flag: (model: T, viewModel: TVm, apiModel: TAm) => { model: T, viewModel: TVm, apiModel: TAm } }
+type ActionFlag<T, TVm, TAm> = { __flag: (model: T, viewModel: TVm, apiModel: TAm) => { model: T; viewModel: TVm; apiModel: TAm } }
 
 export function defineActions<T, TVm, TAm, A> (actions: ActionFlag<T, TVm, TAm> & A & ThisType<A & UnwrapRef<S<T>> & _StoreWithState<string, S<T>, G<T, TVm>, A> & _StoreWithGetters<G<T, TVm>> & PiniaCustomProperties>) {
   const ret = actions as Omit<A, '__flag'> & Partial<ActionFlag<T, TVm, TAm>>

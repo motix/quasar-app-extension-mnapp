@@ -3,27 +3,47 @@ import { computed } from 'vue'
 
 // Props
 
-const props = defineProps<{
+const props = withDefaults(defineProps<{
+  // eslint-disable-next-line vue/require-default-prop
   headerBackgroundColor?: string;
   headerDark: boolean;
+  // eslint-disable-next-line vue/require-default-prop
   externalLinkUrl?: string;
   avatarTop: boolean;
+  // eslint-disable-next-line vue/require-default-prop
   avatarColor?: string;
+  // eslint-disable-next-line vue/require-default-prop
   avatarIcon?: string;
+  // eslint-disable-next-line vue/require-default-prop
   avatarImage?: string;
   useGravatar: boolean;
+  // eslint-disable-next-line vue/require-default-prop
   gravatarId?: string;
   titleTop: boolean;
+  // eslint-disable-next-line vue/require-default-prop
   titleColor?: string;
   titleNoWrap: boolean;
+  // eslint-disable-next-line vue/require-default-prop
   title?: string;
+  // eslint-disable-next-line vue/require-default-prop
   subtitleIcon?: string;
+  // eslint-disable-next-line vue/require-default-prop
   subtitleColor?: string;
+  // eslint-disable-next-line vue/require-default-prop
   subtitle?: string;
+  // eslint-disable-next-line vue/require-default-prop
   subtitleTooltip?: string;
+  // eslint-disable-next-line vue/require-default-prop
   caption?: string;
   sideTop: boolean;
-}>()
+}>(), {
+  headerDark: false,
+  avatarTop: false,
+  useGravatar: false,
+  titleTop: false,
+  titleNoWrap: false,
+  sideTop: false
+})
 
 // Computed
 

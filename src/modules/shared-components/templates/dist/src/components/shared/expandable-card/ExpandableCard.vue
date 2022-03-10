@@ -46,7 +46,18 @@ const props = withDefaults(defineProps<{
   gutterColBody: boolean;
   gutterRowBody: boolean;
 }>(), {
-  bodyBackgroundColor: 'grey-1'
+  expandable: false,
+  clickable: false,
+  bodyBackgroundColor: 'grey-1',
+  headerDark: false,
+  avatarTop: false,
+  useGravatar: false,
+  titleTop: false,
+  titleNoWrap: false,
+  sideTop: false,
+  headerSeparator: false,
+  gutterColBody: false,
+  gutterRowBody: false
 })
 
 // Data
