@@ -6,23 +6,23 @@ import { computed } from 'vue'
 const props = withDefaults(defineProps<{
   // eslint-disable-next-line vue/require-default-prop
   headerBackgroundColor?: string;
-  headerDark: boolean;
+  headerDark?: boolean;
   // eslint-disable-next-line vue/require-default-prop
   externalLinkUrl?: string;
-  avatarTop: boolean;
+  avatarTop?: boolean;
   // eslint-disable-next-line vue/require-default-prop
   avatarColor?: string;
   // eslint-disable-next-line vue/require-default-prop
   avatarIcon?: string;
   // eslint-disable-next-line vue/require-default-prop
   avatarImage?: string;
-  useGravatar: boolean;
+  useGravatar?: boolean;
   // eslint-disable-next-line vue/require-default-prop
   gravatarId?: string;
-  titleTop: boolean;
+  titleTop?: boolean;
   // eslint-disable-next-line vue/require-default-prop
   titleColor?: string;
-  titleNoWrap: boolean;
+  titleNoWrap?: boolean;
   // eslint-disable-next-line vue/require-default-prop
   title?: string;
   // eslint-disable-next-line vue/require-default-prop
@@ -35,7 +35,7 @@ const props = withDefaults(defineProps<{
   subtitleTooltip?: string;
   // eslint-disable-next-line vue/require-default-prop
   caption?: string;
-  sideTop: boolean;
+  sideTop?: boolean;
 }>(), {
   headerDark: false,
   avatarTop: false,

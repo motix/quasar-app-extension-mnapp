@@ -5,7 +5,7 @@
 withDefaults(defineProps<{
   // eslint-disable-next-line vue/require-default-prop
   gravatarId?: string;
-  dark: boolean;
+  dark?: boolean;
 }>(), {
   dark: false
 })

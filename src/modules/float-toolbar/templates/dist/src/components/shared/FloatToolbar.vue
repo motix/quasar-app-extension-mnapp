@@ -8,7 +8,7 @@ import type { QFab } from 'quasar'
 // Props
 
 const props = withDefaults(defineProps<{
-  position:
+  position?:
   | 'top-right'
   | 'top-left'
   | 'bottom-right'
@@ -17,11 +17,11 @@ const props = withDefaults(defineProps<{
   | 'right'
   | 'bottom'
   | 'left';
-  minMarginY: number;
+  minMarginY?: number;
   // eslint-disable-next-line vue/require-default-prop
   fabButtonsVisibility?: Record<string, boolean>;
-  fabButtonsSpaceIgnored: number;
-  offset: { x?: number; y?: number };
+  fabButtonsSpaceIgnored?: number;
+  offset?: { x?: number; y?: number };
 }>(), {
   position: 'bottom-right',
   minMarginY: 2,
