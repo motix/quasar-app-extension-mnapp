@@ -12,7 +12,7 @@ function percentRound (value: number) {
 // Props
 
 const props = defineProps<{
-  modelValue?: string | number;
+  modelValue?: string | number | null;
 }>()
 
 // Emit
@@ -26,7 +26,7 @@ const emit = defineEmits<{
 
 const displayValue = computed(() => isFinite(props.modelValue)
   ? percentRound(props.modelValue as number * 100).toString()
-  : ''
+  : (props.modelValue?.toString() || '')
 )
 
 // Methods

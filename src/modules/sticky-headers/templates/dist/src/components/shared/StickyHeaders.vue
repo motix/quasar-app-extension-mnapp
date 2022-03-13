@@ -161,9 +161,7 @@ function onDestTableScroll (info: OnScrollDetail) {
       v-show="containerVisible"
       ref="container"
       class="scroll container"
-      :style="{ width: '100%',
-                top: containerTop,
-                left: '0px' }"
+      :style="{ top: containerTop }"
     >
       <div>
         <table
@@ -187,6 +185,10 @@ function onDestTableScroll (info: OnScrollDetail) {
   position: fixed;
   z-index: 1;
   background: white;
+  width: 100%;
+  left: 0px;
+  padding-top: 1px;
+  padding-bottom: 1px;
 
   :deep() th {
     color: $grey;

@@ -9,9 +9,9 @@ import useDeleting from './useDeleting'
 import usePageTitle from './usePageTitle'
 import useToolbar from './useToolbar'
 // Main
-import { onUnmounted } from 'vue'
+import { ref, onUnmounted } from 'vue'
 
-function newScope<T = unknown, TVm = unknown> () {
+function newScope<T, TVm> () {
   const {
     defaultReturnUrl: backUrl,
     returnUrl,
@@ -26,6 +26,8 @@ function newScope<T = unknown, TVm = unknown> () {
     pageStatus.muteViewerWatch,
     pageStatus.isDirty
   )
+
+  const extraInitialized = ref(false)
 
   return {
     backUrl,
@@ -68,18 +70,19 @@ function newScope<T = unknown, TVm = unknown> () {
       pageFeatures.hasDeleting,
       pageStatus.ready,
       pageStatus.editMode
-    )
+    ),
+    extraInitialized
   }
 }
 
-class NewScopeHelper< T = unknown, TVm = unknown> {
+class NewScopeHelper< T, TVm> {
   Return = newScope<T, TVm>()
 }
 
-export default function useViewPage<T = unknown, TVm = unknown> (
+export default function useViewPage<T = unknown, TVm = unknown, TExtra = Record<string, never>> (
   scopeName: string,
   hitUseCount?: boolean
-): NewScopeHelper<T, TVm>['Return'] {
+): NewScopeHelper<T, TVm>['Return'] & TExtra {
   const store = useSingleScopeComposableStore()
 
   !store.hasScope(scopeName) && store.setScope(scopeName, newScope<T, TVm>())

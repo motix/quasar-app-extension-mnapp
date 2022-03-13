@@ -30,12 +30,21 @@ export default function useEditor<TVm = unknown> (
   type UseFormResult<K extends keyof TVm> = UseFormHelper<K>['Return']
 
   let internalValidate: UseFormResult<never>['validate'] | null = null
+  let internalCustomValidate: (() => Promise<boolean>) | null = null
 
   async function validate () {
-    !internalValidate && (() => { throw new Error('internalValidate not specified') })()
+    let isValid = true
 
-    const validation = await internalValidate()
-    return validation.valid
+    if (internalValidate) {
+      const validation = await internalValidate()
+      isValid &&= validation.valid
+    }
+
+    if (internalCustomValidate) {
+      isValid &&= await internalCustomValidate()
+    }
+
+    return isValid
   }
 
   // Data
@@ -59,6 +68,10 @@ export default function useEditor<TVm = unknown> (
     const result = callUseForm(initialValues)
 
     internalValidate = result.validate
+  }
+
+  function useCustomValidation (customValidate: typeof internalCustomValidate) {
+    internalCustomValidate = customValidate
   }
 
   async function save () {
@@ -110,6 +123,7 @@ export default function useEditor<TVm = unknown> (
     saving,
     initiallyFilled,
     useValidation,
+    useCustomValidation,
     save
   }
 }

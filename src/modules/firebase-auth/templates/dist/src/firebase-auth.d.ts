@@ -3,8 +3,7 @@ import type { UserRole, UserClaims } from 'models/firebase-auth'
 declare module '@firebase/auth' {
   // ParsedToken is augmented so it actually has more members
   // eslint-disable-next-line @typescript-eslint/no-empty-interface
-  interface ParsedToken extends UserClaims {
-  }
+  interface ParsedToken extends UserClaims { }
 }
 
 declare module 'vue-router' {

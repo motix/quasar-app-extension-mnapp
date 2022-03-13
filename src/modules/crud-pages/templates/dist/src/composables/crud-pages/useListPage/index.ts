@@ -7,11 +7,13 @@ import usePageData from './usePageData'
 import useNavigateToViewPage from './useNavigateToViewPage'
 import useNavigateToNewPage from './useNavigateToNewPage'
 // Main
-import { onUnmounted } from 'vue'
+import { ref, onUnmounted } from 'vue'
 
-function newScope<T = unknown> () {
+function newScope<T> () {
   const pageStatus = usePageStatus()
   const pageData = usePageData<T>(pageStatus.ready)
+
+  const extraInitialized = ref(false)
 
   return {
     ...useGenericConvert<T>(),
@@ -20,20 +22,21 @@ function newScope<T = unknown> () {
     ...useCardsView(),
     ...pageData,
     ...useNavigateToViewPage<T>(pageData.modelFindKeyField),
-    ...useNavigateToNewPage()
+    ...useNavigateToNewPage(),
+    extraInitialized
   }
 }
 
-class NewScopeHelper<T = unknown> {
+class NewScopeHelper<T> {
   Return = newScope<T>()
 }
 
 export * from './useTableView'
 
-export default function useListPage<T = unknown> (
+export default function useListPage<T = unknown, TExtra = Record<string, never>> (
   scopeName: string,
   hitUseCount?: boolean
-): NewScopeHelper<T>['Return'] {
+): NewScopeHelper<T>['Return'] & TExtra {
   const store = useSingleScopeComposableStore()
 
   !store.hasScope(scopeName) && store.setScope(scopeName, newScope<T>())

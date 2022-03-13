@@ -5,11 +5,13 @@ import useEditor from './useEditor'
 import useNavigateToListPage from './useNavigateToListPage'
 import useToolbar from './useToolbar'
 // Main
-import { onUnmounted } from 'vue'
+import { ref, onUnmounted } from 'vue'
 
-function newScope<TVm = unknown> () {
+function newScope<TVm> () {
   const pageStatus = usePageStatus()
   const pageData = usePageData<TVm>()
+
+  const extraInitialized = ref(false)
 
   return {
     ...pageStatus,
@@ -22,18 +24,19 @@ function newScope<TVm = unknown> () {
     ...useNavigateToListPage(
       pageStatus.isDirty
     ),
-    ...useToolbar()
+    ...useToolbar(),
+    extraInitialized
   }
 }
 
-class NewScopeHelper<TVm = unknown> {
+class NewScopeHelper<TVm> {
   Return = newScope<TVm>()
 }
 
-export default function useNewPage<TVm = unknown> (
+export default function useNewPage<TVm = unknown, TExtra = Record<string, never>> (
   scopeName: string,
   hitUseCount?: boolean
-): NewScopeHelper<TVm>['Return'] {
+): NewScopeHelper<TVm>['Return'] & TExtra {
   const store = useSingleScopeComposableStore()
 
   !store.hasScope(scopeName) && store.setScope(scopeName, newScope<TVm>())
