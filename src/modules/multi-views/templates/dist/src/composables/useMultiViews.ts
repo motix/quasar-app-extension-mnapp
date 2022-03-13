@@ -4,7 +4,7 @@ import useScroll from 'composables/useScroll'
 import { computed, reactive } from 'vue'
 
 const data = reactive({
-  viewType: Platform.is.desktop ? 'table' : 'cards'
+  viewType: Platform.is.desktop ? 'table' : 'cards' as 'table' | 'cards'
 })
 
 export default function () {
@@ -24,7 +24,7 @@ export default function () {
       data.viewType = 'table'
       break
     default:
-      throw new Error(`viewType '${data.viewType}' not implemented`)
+      throw new Error(`viewType '${String(data.viewType)}' not implemented`)
     }
   }
 

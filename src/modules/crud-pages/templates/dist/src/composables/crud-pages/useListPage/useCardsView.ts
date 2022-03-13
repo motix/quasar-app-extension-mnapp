@@ -3,7 +3,7 @@ import { requiredConfigEntries } from 'composables/useConfig'
 import { ref, readonly } from 'vue'
 
 export default function useCardsView () {
-  // Data
+  // Composables
 
   const listItemCardWidth = readonly(ref(requiredConfigEntries('listItemCardWidth').listItemCardWidth))
 
