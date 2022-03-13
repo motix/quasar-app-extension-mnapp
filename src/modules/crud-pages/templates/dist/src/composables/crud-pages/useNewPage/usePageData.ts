@@ -1,5 +1,5 @@
 // Main
-import { ref, Ref } from 'vue'
+import { ref, computed, Ref } from 'vue'
 // Types
 import type { CreateDocActionPayload } from 'services/firebase-firestore'
 
@@ -12,9 +12,14 @@ export default function usePageData<TVm = unknown> () {
 
   const createModel = ref<((payload: CreateDocActionPayload<TVm>) => Promise<TVm>) | null>(null)
 
+  // Computed
+
+  const vm = computed(() => viewModel.value || (() => { throw new Error('viewModel not ready') })())
+
   return {
     viewModel,
-    createModel
+    createModel,
+    vm
   }
 }
 

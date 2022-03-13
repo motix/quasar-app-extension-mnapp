@@ -19,9 +19,9 @@ const {
   freezed,
   isDirty,
   // useEditor
-  saving,
+  editorSaving,
   initiallyFilled,
-  save,
+  editorSave,
   // useNavigateToListPage
   confirmAndGoBack,
   // useToolbar
@@ -97,10 +97,10 @@ watch(freezed, value => {
               color="grey-3"
               :disable="freezed || (!isDirty && !initiallyFilled)"
               icon="fal fa-save"
-              :loading="saving"
+              :loading="editorSaving"
               round
               text-color="primary"
-              @click="hideSaveTooltip(); save()"
+              @click="hideSaveTooltip(); editorSave()"
             >
               <top-tooltip ref="saveTooltip">
                 Save

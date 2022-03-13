@@ -51,7 +51,7 @@ export default function useEditor<TVm = unknown> (
 
   const viewUrl = ref<string | null>(null)
   const modelFindKeyField = ref<keyof TVm>('id' as keyof TVm) as Ref<keyof TVm>
-  const saving = ref(false)
+  const editorSaving = ref(false)
   const initiallyFilled = ref(false)
 
   // Methods
@@ -74,20 +74,20 @@ export default function useEditor<TVm = unknown> (
     internalCustomValidate = customValidate
   }
 
-  async function save () {
+  async function editorSave () {
     viewModel.value === null && (() => { throw new Error('viewModel not specified') })()
     createModel.value === null && (() => { throw new Error('createModel not specified') })()
     viewUrl.value === null && (() => { throw new Error('viewUrl not specified') })()
 
     freezed.value = true
-    saving.value = true
+    editorSaving.value = true
 
     const isValid = await validate()
 
     if (!isValid) {
       notifyValidationError()
 
-      saving.value = false
+      editorSaving.value = false
       freezed.value = false
       return
     }
@@ -104,14 +104,14 @@ export default function useEditor<TVm = unknown> (
       notifyCreateDataError()
       notifyErrorDebug(error)
 
-      saving.value = false
+      editorSaving.value = false
       freezed.value = false
       return
     }
 
     notifyCreateDataSuccessAndRedirect()
 
-    saving.value = false
+    editorSaving.value = false
 
     const newFindKey = String(newModel[modelFindKeyField.value])
     void router.push(viewUrl.value + newFindKey)
@@ -120,10 +120,10 @@ export default function useEditor<TVm = unknown> (
   return {
     viewUrl,
     modelFindKeyField,
-    saving,
+    editorSaving,
     initiallyFilled,
     useValidation,
     useCustomValidation,
-    save
+    editorSave
   }
 }

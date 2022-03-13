@@ -3,7 +3,7 @@ import { useRouter, useRoute } from 'vue-router'
 import useNotifications from 'composables/useNotifications'
 import useReturnUrl from 'composables/useReturnUrl'
 // Main
-import { ref, nextTick, Ref } from 'vue'
+import { ref, computed, nextTick, Ref } from 'vue'
 // Types
 import type {
   LoadRealtimeDocActionPayload,
@@ -46,6 +46,11 @@ export default function usePageData<T = unknown, TVm = unknown> (
   const releaseModel = ref<(() => void) | null>(null)
   const updateModel = ref<((payload: UpdateDocActionPayload<T | TVm>) => Promise<void>) | null>(null)
   const deleteModel = ref<((payload: DeleteDocActionPayload) => Promise<void>) | null>(null)
+
+  // Computed
+
+  const m = computed(() => model.value || (() => { throw new Error('model not ready') })())
+  const vm = computed(() => viewModel.value || (() => { throw new Error('viewModel not ready') })())
 
   // Methods
 
@@ -144,6 +149,8 @@ export default function usePageData<T = unknown, TVm = unknown> (
     releaseModel,
     updateModel,
     deleteModel,
+    m,
+    vm,
     loadModel,
     getModelAndViewModel
   }
