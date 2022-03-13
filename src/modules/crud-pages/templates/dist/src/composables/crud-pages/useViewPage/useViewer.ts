@@ -18,12 +18,6 @@ export default function useViewer<T = unknown> (
 ) {
   // Private
 
-  const {
-    notifyErrorDebug,
-    notifySaveDataSuccess,
-    notifySaveDataError
-  } = useNotifications()
-
   async function viewerSave () {
     docKey.value === null && (() => { throw new Error('docKey not specified') })()
     model.value === null && (() => { throw new Error('model not specified') })()
@@ -53,6 +47,14 @@ export default function useViewer<T = unknown> (
     notifySaveDataSuccess()
     freezed.value = false
   }
+
+  // Composables
+
+  const {
+    notifyErrorDebug,
+    notifySaveDataSuccess,
+    notifySaveDataError
+  } = useNotifications()
 
   // Methods
 

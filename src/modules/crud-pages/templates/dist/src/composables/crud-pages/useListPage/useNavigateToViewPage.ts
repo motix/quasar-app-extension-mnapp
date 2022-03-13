@@ -7,7 +7,7 @@ import type { UsePageDataHelper } from './usePageData'
 export default function useNavigateToViewPage<T = unknown> (
   modelFindKeyField: UsePageDataHelper<T>['Return']['modelFindKeyField']
 ) {
-  // Private
+  // Composables
 
   const router = useRouter()
 

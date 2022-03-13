@@ -3,11 +3,10 @@ import { useRouter, useRoute } from 'vue-router'
 import { ref, computed } from 'vue'
 
 export default function () {
-  // Private
+  // Composables
 
   const router = useRouter()
-  const route = useRoute()
-  const meta = route.meta
+  const { meta } = useRoute()
 
   // Data
 

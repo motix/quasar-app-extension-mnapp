@@ -15,10 +15,13 @@ import type { UserRole } from 'models/firebase-auth'
 export default function () {
   // Private
 
+  const remoteWindows: Record<string, { remoteWindow: Window; token: string } | undefined> = {}
+
+  // Composables
+
   const router = useRouter()
   const route = useRoute()
   const store = useFirebaseAuthStore()
-  const remoteWindows: Record<string, { remoteWindow: Window; token: string } | undefined> = {}
 
   // Computed
 

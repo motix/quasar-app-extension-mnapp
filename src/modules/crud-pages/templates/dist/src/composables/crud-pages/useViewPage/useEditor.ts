@@ -2,6 +2,8 @@ import { Dialog } from 'quasar'
 import { useForm } from 'vee-validate'
 import { useRouter, useRoute } from 'vue-router'
 import useNotifications from 'composables/useNotifications'
+import useScroll from 'composables/useScroll'
+
 // Main
 import { ref } from 'vue'
 // Types
@@ -23,16 +25,6 @@ export default function useEditor<TVm = unknown> (
   getModelAndViewModel: ReturnType<typeof usePageData>['getModelAndViewModel']
 ) {
   // Private
-
-  const router = useRouter()
-  const route = useRoute()
-
-  const {
-    notifyErrorDebug,
-    notifyValidationError,
-    notifySaveDataSuccess,
-    notifySaveDataError
-  } = useNotifications()
 
   class UseFormHelper<K extends keyof TVm> {
     Return = useForm<Pick<TVm, K>>()
@@ -56,6 +48,22 @@ export default function useEditor<TVm = unknown> (
 
     return isValid
   }
+
+  // Composables
+
+  const router = useRouter()
+  const route = useRoute()
+
+  const {
+    notifyErrorDebug,
+    notifyValidationError,
+    notifySaveDataSuccess,
+    notifySaveDataError
+  } = useNotifications()
+
+  const {
+    toTop: scrollToTop
+  } = useScroll()
 
   // Data
 
@@ -83,11 +91,13 @@ export default function useEditor<TVm = unknown> (
 
   function edit () {
     editMode.value = true
+    scrollToTop()
   }
 
   function exitEditMode () {
     isDirty.value = false
     editMode.value = false
+    scrollToTop()
   }
 
   async function editorSave () {

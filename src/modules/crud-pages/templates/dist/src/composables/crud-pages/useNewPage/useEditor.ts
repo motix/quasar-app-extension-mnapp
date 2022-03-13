@@ -15,15 +15,6 @@ export default function useEditor<TVm = unknown> (
 ) {
   // Private
 
-  const router = useRouter()
-
-  const {
-    notifyErrorDebug,
-    notifyValidationError,
-    notifyCreateDataSuccessAndRedirect,
-    notifyCreateDataError
-  } = useNotifications()
-
   class UseFormHelper<K extends keyof TVm> {
     Return = useForm<Pick<TVm, K>>()
   }
@@ -46,6 +37,17 @@ export default function useEditor<TVm = unknown> (
 
     return isValid
   }
+
+  // Composables
+
+  const router = useRouter()
+
+  const {
+    notifyErrorDebug,
+    notifyValidationError,
+    notifyCreateDataSuccessAndRedirect,
+    notifyCreateDataError
+  } = useNotifications()
 
   // Data
 

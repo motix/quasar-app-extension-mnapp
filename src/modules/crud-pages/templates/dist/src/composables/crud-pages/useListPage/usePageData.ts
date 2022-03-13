@@ -13,7 +13,7 @@ import type usePageStatus from './usePageStatus'
 export default function usePageData<T = unknown> (
   ready: ReturnType<typeof usePageStatus>['ready']
 ) {
-  // Private
+  // Composables
 
   const {
     notifyErrorDebug,

@@ -21,7 +21,7 @@ export default function usePageData<T = unknown, TVm = unknown> (
   muteViewerWatch: ReturnType<typeof usePageStatus>['muteViewerWatch'],
   isDirty: ReturnType<typeof usePageStatus>['isDirty']
 ) {
-  // Private
+  // Composables
 
   const router = useRouter()
   const route = useRoute()

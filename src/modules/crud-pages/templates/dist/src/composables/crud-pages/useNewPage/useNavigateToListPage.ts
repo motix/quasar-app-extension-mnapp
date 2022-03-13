@@ -7,11 +7,9 @@ import type usePageStatus from './usePageStatus'
 export default function navigateToListPage (
   isDirty: ReturnType<typeof usePageStatus>['isDirty']
 ) {
-  // Private
+  // Composables
 
   const router = useRouter()
-
-  // Composables
 
   const {
     returnUrl,

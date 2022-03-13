@@ -7,8 +7,6 @@ import { ref, computed, readonly, watch } from 'vue'
 export default function () {
   // Private
 
-  const route = useRoute()
-
   const metaData = computed(() => {
     let title = pageTitle.value || appName.value
 
@@ -22,6 +20,10 @@ export default function () {
       title
     }
   })
+
+  // Composables
+
+  const route = useRoute()
 
   // Data
 
