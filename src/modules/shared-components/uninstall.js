@@ -11,7 +11,7 @@ module.exports = defineUninstall(function (api) {
   api.removePath('src/components/shared/Gravatar.vue')
   api.removePath('src/components/shared/PercentInput.vue')
   api.removePath('src/components/shared/TopTooltip.vue')
-  api.removePath('src/components/shared/QPageWithToolbar.vue')
+  api.removePath('src/components/shared/QPagePadding.vue')
 
   if (api.appDir.endsWith('\\dev')) {
     api.removePath('src/boot/shared-components-dev.ts')
