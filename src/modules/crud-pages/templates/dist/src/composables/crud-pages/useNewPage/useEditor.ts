@@ -4,7 +4,7 @@ import useNotifications from 'composables/useNotifications'
 // Main
 import { ref, Ref } from 'vue'
 // Types
-import type { CreateDocActionPayload } from 'services/firebase-firestore'
+import type { CreateDocActionPayload } from 'stores/firebase-firestore'
 import type usePageStatus from './usePageStatus'
 import type { UsePageDataHelper } from './usePageData'
 

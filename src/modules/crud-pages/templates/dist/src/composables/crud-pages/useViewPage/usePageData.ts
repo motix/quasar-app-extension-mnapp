@@ -10,7 +10,7 @@ import type {
   LoadRealtimeDocActionResult,
   UpdateDocActionPayload,
   DeleteDocActionPayload
-} from 'services/firebase-firestore'
+} from 'stores/firebase-firestore'
 import type usePageFeatures from './usePageFeatures'
 import type usePageStatus from './usePageStatus'
 

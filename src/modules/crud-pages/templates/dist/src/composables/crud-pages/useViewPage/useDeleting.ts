@@ -3,7 +3,7 @@ import useNotifications from 'composables/useNotifications'
 // Main
 import { ref } from 'vue'
 // Types
-import type { DeleteDocActionPayload } from 'services/firebase-firestore'
+import type { DeleteDocActionPayload } from 'stores/firebase-firestore'
 import type useReturnUrl from 'composables/useReturnUrl'
 import type usePageStatus from './usePageStatus'
 import type usePageData from './usePageData'

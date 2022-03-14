@@ -7,7 +7,7 @@ import useScroll from 'composables/useScroll'
 // Main
 import { ref } from 'vue'
 // Types
-import type { UpdateDocActionPayload } from 'services/firebase-firestore'
+import type { UpdateDocActionPayload } from 'stores/firebase-firestore'
 import type usePageStatus from './usePageStatus'
 import type usePageData from './usePageData'
 import type { UsePageDataHelper } from './usePageData'

@@ -7,7 +7,7 @@ import type { QueryConstraint } from 'firebase/firestore'
 import type {
   LoadDocsPageActionPayload,
   LoadDocsPageActionMethod
-} from 'services/firebase-firestore'
+} from 'stores/firebase-firestore'
 import type usePageStatus from './usePageStatus'
 
 export default function usePageData<T = unknown> (
