@@ -42,7 +42,8 @@
     "vee-validate": "^4.5.10",
     "vite": "^2.8.6",
     "vue": "^3.2.31",
-    "vue-router": "^4.0.13"
+    "vue-router": "^4.0.13",
+    "yup": "^0.32.11"
   },
   "engines": {
     "node": ">= 8.9.0",
