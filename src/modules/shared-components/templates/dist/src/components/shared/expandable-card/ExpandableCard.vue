@@ -41,6 +41,8 @@ const props = withDefaults(defineProps<{
   subtitleTooltip?: string;
   // eslint-disable-next-line vue/require-default-prop
   caption?: string;
+  // eslint-disable-next-line vue/require-default-prop
+  captionTooltip?: string;
   sideTop?: boolean;
   headerSeparator?: boolean;
   gutterColBody?: boolean;

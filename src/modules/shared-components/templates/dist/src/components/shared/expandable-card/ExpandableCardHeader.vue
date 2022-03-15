@@ -35,6 +35,8 @@ const props = withDefaults(defineProps<{
   subtitleTooltip?: string;
   // eslint-disable-next-line vue/require-default-prop
   caption?: string;
+  // eslint-disable-next-line vue/require-default-prop
+  captionTooltip?: string;
   sideTop?: boolean;
 }>(), {
   headerDark: false,
@@ -147,7 +149,12 @@ const subtitleCssClass = computed(() => {
         v-if="caption"
         caption
       >
-        {{ caption }}
+        <span>
+          {{ caption }}
+          <top-tooltip v-if="captionTooltip">
+            {{ captionTooltip }}
+          </top-tooltip>
+        </span>
       </q-item-label>
 
       <slot name="main" />

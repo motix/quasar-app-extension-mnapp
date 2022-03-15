@@ -19,7 +19,12 @@ const getSourceTable = () => document.querySelector(`${sourceTableScrollTarget.v
 
 // Props
 
-const props = defineProps<{ target: string }>()
+const props = withDefaults(defineProps<{
+  target: string;
+  markupTable?: boolean;
+}>(), {
+  markupTable: false
+})
 
 // Composables
 
@@ -42,7 +47,7 @@ const sourceTableScrollObserverEnabled = ref(false)
 
 // Computed
 
-const sourceTableScrollTarget = computed(() => `${props.target}>.q-table__middle.scroll`)
+const sourceTableScrollTarget = computed(() => props.markupTable ? props.target : `${props.target}>.q-table__middle.scroll`)
 
 // Methods
 
