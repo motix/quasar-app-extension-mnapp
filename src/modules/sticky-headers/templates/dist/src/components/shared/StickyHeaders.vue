@@ -40,7 +40,8 @@ const { stickyHeadersPosition } = useStickyHeadersResult()
 const container = ref<HTMLElement | null>(null)
 const containerVisible = ref(false)
 const containerTop = ref('0px')
-const headersPadding = ref('0px')
+const headersPaddingLeft = ref('0px')
+const headersPaddingRight = ref('0px')
 const headersWidth = ref('100%')
 
 const sourceTableScrollObserverEnabled = ref(false)
@@ -53,17 +54,24 @@ const sourceTableScrollTarget = computed(() => props.markupTable ? props.target 
 
 function onResize () {
   const source = getSourceTable()
+  const sourceScroll = document.querySelector(sourceTableScrollTarget.value)
 
-  if (!source) {
+  if (!source || !sourceScroll) {
     return
   }
 
   // Update headers size
 
-  const padding = source.getBoundingClientRect().left
+  const scrollLeft = sourceScroll.scrollLeft
+  sourceScroll.scrollTo({ left: 0 })
+  const paddingLeft = source.getBoundingClientRect().left
+  sourceScroll.scrollTo({ left: 1000000 })
+  const paddingRight = window.innerWidth - source.getBoundingClientRect().right
+  sourceScroll.scrollTo({ left: scrollLeft })
 
-  headersPadding.value = `${padding}px`
-  headersWidth.value = `${source.getBoundingClientRect().width + (padding * 2)}px`
+  headersPaddingLeft.value = `${paddingLeft}px`
+  headersPaddingRight.value = `${paddingRight}px`
+  headersWidth.value = `${source.getBoundingClientRect().width + paddingLeft + paddingRight}px`
 
   // Update headers content
 
@@ -173,8 +181,8 @@ function onDestTableScroll (info: OnScrollDetail) {
           class="q-table"
           :style="{ width: headersWidth,
                     'max-width': headersWidth,
-                    'padding-left': headersPadding,
-                    'padding-right': headersPadding }"
+                    'padding-left': headersPaddingLeft,
+                    'padding-right': headersPaddingRight }"
         >
           <thead>
             <tr />
