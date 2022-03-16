@@ -1,11 +1,16 @@
 import useConfig from 'composables/useConfig'
-import FadeTransition from 'components/shared/transitions/FadeTransition.vue'
-import ListTransition from 'components/shared/transitions/ListTransition.vue'
+import FadeTransition from 'components/shared/transition/FadeTransition.vue'
+import ListTransition from 'components/shared/transition/ListTransition.vue'
 import TopTooltip from 'components/shared/TopTooltip.vue'
 import Gravatar from 'components/shared/Gravatar.vue'
 import ExpandableCard from 'components/shared/expandable-card/ExpandableCard.vue'
-import PercentInput from 'components/shared/PercentInput.vue'
 import QPagePadding from 'components/shared/QPagePadding.vue'
+import PercentInput from 'components/shared/PercentInput.vue'
+import QInputVal from 'components/shared/validation/QInputVal.vue'
+import PercentInputVal from 'components/shared/validation/PercentInputVal.vue'
+import QSelectVal from 'components/shared/validation/QSelectVal.vue'
+import QDateVal from 'components/shared/validation/QDateVal.vue'
+import QDateInputVal from 'components/shared/validation/QDateInputVal.vue'
 // Main
 import { boot } from 'quasar/wrappers'
 
@@ -23,6 +28,11 @@ export default boot(({ app }) => {
   app.component('TopTooltip', TopTooltip)
   app.component('Gravatar', Gravatar)
   app.component('ExpandableCard', ExpandableCard)
-  app.component('PercentInput', PercentInput)
   app.component('QPagePadding', QPagePadding)
+  app.component('PercentInput', PercentInput)
+  app.component('QInputVal', QInputVal)
+  app.component('PercentInputVal', PercentInputVal)
+  app.component('QSelectVal', QSelectVal)
+  app.component('QDateVal', QDateVal)
+  app.component('QDateInputVal', QDateInputVal)
 })

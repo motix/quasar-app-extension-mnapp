@@ -2,11 +2,12 @@
 import { requiredConfigEntries } from 'composables/useConfig'
 // Props
 
-const props = defineProps<{
+type Props = {
   fixedPadding?: number;
   topFloatPadding?: number;
   bottomFloatPadding?: number;
-}>()
+}
+const props = defineProps<Props>()
 
 // Data
 

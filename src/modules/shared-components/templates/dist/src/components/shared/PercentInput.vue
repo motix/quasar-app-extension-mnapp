@@ -11,9 +11,8 @@ function percentRound (value: number) {
 
 // Props
 
-const props = defineProps<{
-  modelValue?: string | number | null;
-}>()
+type Props = { modelValue: string | number | null | undefined }
+const props = defineProps<Props>()
 
 // Emit
 
