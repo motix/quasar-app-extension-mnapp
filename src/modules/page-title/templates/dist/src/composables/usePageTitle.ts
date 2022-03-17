@@ -1,7 +1,6 @@
 import { useRoute } from 'vue-router'
 import { useMeta } from 'quasar'
 import { requiredConfigEntries } from 'composables/useConfig'
-// Main
 import { ref, computed, readonly, watch } from 'vue'
 
 export default function () {

@@ -11,7 +11,6 @@ import PercentInputVal from 'components/shared/validation/PercentInputVal.vue'
 import QSelectVal from 'components/shared/validation/QSelectVal.vue'
 import QDateVal from 'components/shared/validation/QDateVal.vue'
 import QDateInputVal from 'components/shared/validation/QDateInputVal.vue'
-// Main
 import { boot } from 'quasar/wrappers'
 
 export default boot(({ app }) => {

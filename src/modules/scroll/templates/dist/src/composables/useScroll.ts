@@ -1,6 +1,5 @@
 import { scroll } from 'quasar'
 import { requiredConfigEntries } from 'composables/useConfig'
-// Main
 import { ComponentPublicInstance } from 'vue'
 
 const { getScrollTarget, setVerticalScrollPosition } = scroll

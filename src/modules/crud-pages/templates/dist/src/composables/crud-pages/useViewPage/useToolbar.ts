@@ -1,4 +1,3 @@
-// Main
 import { ref, computed } from 'vue'
 // Types
 import type usePageFeatures from './usePageFeatures'

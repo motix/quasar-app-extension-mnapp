@@ -1,5 +1,4 @@
 import { requiredConfigEntries } from 'composables/useConfig'
-// Main
 import { ref, readonly } from 'vue'
 
 export default function useCardsView () {

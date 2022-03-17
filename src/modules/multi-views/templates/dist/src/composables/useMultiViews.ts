@@ -1,6 +1,5 @@
 import { Platform } from 'quasar'
 import useScroll from 'composables/useScroll'
-// Main
 import { computed, reactive } from 'vue'
 
 const data = reactive({

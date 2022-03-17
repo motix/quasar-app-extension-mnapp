@@ -1,6 +1,7 @@
 import useListPage from './useListPage'
-// Main
-import { ref, computed, onMounted, nextTick, Ref } from 'vue'
+import { ref, computed, onMounted, nextTick } from 'vue'
+// Types
+import type { Ref } from 'vue'
 
 export default function useListPageFilter<FilterType> (
   ready: ReturnType<typeof useListPage>['ready'],

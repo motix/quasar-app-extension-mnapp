@@ -3,7 +3,6 @@ import { pojos } from '@automapper/pojos'
 import buildState, { DocStateInterface } from './state'
 import buildGetters from './getters'
 import buildActions from './actions'
-// Main
 import {
   // <% if (config.hasModule('vite')) { %>Start mnapp.vite module
   acceptHMRUpdate,

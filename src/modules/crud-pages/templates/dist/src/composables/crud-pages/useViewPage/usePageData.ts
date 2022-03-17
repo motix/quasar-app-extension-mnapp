@@ -2,7 +2,6 @@ import { Dialog } from 'quasar'
 import { useRouter, useRoute } from 'vue-router'
 import useNotifications from 'composables/useNotifications'
 import useReturnUrl from 'composables/useReturnUrl'
-// Main
 import { ref, computed, nextTick, Ref } from 'vue'
 // Types
 import type {

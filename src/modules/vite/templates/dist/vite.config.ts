@@ -1,7 +1,6 @@
 import { fileURLToPath, URL } from 'url'
 import vue from '@vitejs/plugin-vue'
 import { quasar, transformAssetUrls } from '@quasar/vite-plugin'
-// Main
 import { defineConfig, UserConfig } from 'vite'
 
 // https://vitejs.dev/config/

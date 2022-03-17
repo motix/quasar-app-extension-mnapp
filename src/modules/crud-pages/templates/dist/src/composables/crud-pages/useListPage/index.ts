@@ -6,7 +6,6 @@ import useCardsView from './useCardsView'
 import usePageData from './usePageData'
 import useNavigateToViewPage from './useNavigateToViewPage'
 import useNavigateToNewPage from './useNavigateToNewPage'
-// Main
 import { ref, onUnmounted } from 'vue'
 
 function newScope<T> () {

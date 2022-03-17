@@ -1,6 +1,5 @@
 import { differenceBy, findIndex } from 'lodash'
 import useNotifications from 'composables/useNotifications'
-// Main
 import { ref, computed, Ref } from 'vue'
 // Types
 import type { QueryConstraint } from 'firebase/firestore'

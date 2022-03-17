@@ -8,7 +8,6 @@ import useEditor from './useEditor'
 import useDeleting from './useDeleting'
 import usePageTitle from './usePageTitle'
 import useToolbar from './useToolbar'
-// Main
 import { ref, onUnmounted } from 'vue'
 
 function newScope<T, TVm> () {

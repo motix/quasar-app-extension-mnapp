@@ -1,5 +1,4 @@
 import { userRoles } from 'models/firebase-auth'
-// Main
 import { ref, computed } from 'vue'
 import {
   // <% if (config.hasModule('vite')) { %>Start mnapp.vite module

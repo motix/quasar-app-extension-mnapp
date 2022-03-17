@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { isFinite } from 'lodash'
-// Main
 import { computed } from 'vue'
 
 // Private

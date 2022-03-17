@@ -1,6 +1,5 @@
 import { useMeta } from 'quasar'
 import { requiredConfigEntries } from 'composables/useConfig'
-// Main
 import { ref, computed, Ref } from 'vue'
 // Types
 import type { UsePageDataHelper } from './usePageData'

@@ -1,4 +1,3 @@
-// Main
 import { ref, computed, Ref } from 'vue'
 // Types
 import type { CreateDocActionPayload } from 'stores/firebase-firestore'

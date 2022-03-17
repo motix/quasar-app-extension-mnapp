@@ -3,7 +3,6 @@ import useViewPage from 'composables/crud-pages/useViewPage'
 import TopTooltip from 'components/shared/TopTooltip.vue'
 import FloatToolbar from 'components/shared/FloatToolbar.vue'
 import SwitchViewButton from 'components/shared/SwitchViewButton.vue'
-// Main
 import { ref, watch } from 'vue'
 // Types
 import type { QAjaxBar } from 'quasar'

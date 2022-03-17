@@ -1,5 +1,4 @@
 import useConfig from 'composables/useConfig'
-// Main
 import { boot } from 'quasar/wrappers'
 
 export default boot(() => {

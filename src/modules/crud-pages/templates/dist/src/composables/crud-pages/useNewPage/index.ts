@@ -4,7 +4,6 @@ import usePageData from './usePageData'
 import useEditor from './useEditor'
 import useNavigateToListPage from './useNavigateToListPage'
 import useToolbar from './useToolbar'
-// Main
 import { ref, onUnmounted } from 'vue'
 
 function newScope<TVm> () {

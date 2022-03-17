@@ -4,7 +4,6 @@ import { useRouter, useRoute } from 'vue-router'
 import useNotifications from 'composables/useNotifications'
 import useScroll from 'composables/useScroll'
 
-// Main
 import { ref } from 'vue'
 // Types
 import type { UpdateDocActionPayload } from 'stores/firebase-firestore'

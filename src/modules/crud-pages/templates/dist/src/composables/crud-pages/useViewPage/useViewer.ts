@@ -1,5 +1,4 @@
 import useNotifications from 'composables/useNotifications'
-// Main
 import { watch, WatchSource } from 'vue'
 // Types
 import type { UpdateDocActionPayload } from 'stores/firebase-firestore'

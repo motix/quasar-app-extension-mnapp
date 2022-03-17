@@ -1,5 +1,4 @@
 import { useRouter, useRoute } from 'vue-router'
-// Main
 import { ref, computed } from 'vue'
 
 export default function () {

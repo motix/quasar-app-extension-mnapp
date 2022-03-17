@@ -1,4 +1,3 @@
-// Main
 import { ref, markRaw, Ref } from 'vue'
 import {
   // <% if (config.hasModule('vite')) { %>Start mnapp.vite module

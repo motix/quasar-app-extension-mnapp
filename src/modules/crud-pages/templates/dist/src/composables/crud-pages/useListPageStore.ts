@@ -2,7 +2,6 @@ import { createMapper } from '@automapper/core'
 import { pojos } from '@automapper/pojos'
 import { useStore } from 'stores/firebase-firestore'
 import useListPage from './useListPage'
-// Main
 import { onMounted, onActivated, onUnmounted } from 'vue'
 // Types
 import type { DocModel } from 'stores/firebase-firestore'

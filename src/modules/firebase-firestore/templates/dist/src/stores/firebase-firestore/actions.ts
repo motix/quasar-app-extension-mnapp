@@ -15,8 +15,8 @@ import {
   runTransaction,
   onSnapshot
 } from 'firebase/firestore'
-import { getFirestore } from 'services/firebase'
 import { urlFriendlyNormalizeString } from 'utils/normalization'
+import { getFirestore } from 'services/firebase'
 import { requiredConfigEntries } from 'composables/useConfig'
 import { defineActions } from '.'
 // Types

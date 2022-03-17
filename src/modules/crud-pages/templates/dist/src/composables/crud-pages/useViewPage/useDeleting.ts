@@ -1,6 +1,5 @@
 import { Dialog } from 'quasar'
 import useNotifications from 'composables/useNotifications'
-// Main
 import { ref } from 'vue'
 // Types
 import type { DeleteDocActionPayload } from 'stores/firebase-firestore'

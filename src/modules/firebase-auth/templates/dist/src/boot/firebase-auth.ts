@@ -3,7 +3,6 @@ import { adminRole, userRole } from 'models/firebase-auth'
 import { getAuth } from 'services/firebase'
 import { ensureAuthInitialized, handleAuthStateChanged, isAuthenticated } from 'services/firebase-auth'
 import { useFirebaseAuthStore } from 'stores/FirebaseAuth'
-// Main
 import { boot } from 'quasar/wrappers'
 
 export default boot(({ router }) => {

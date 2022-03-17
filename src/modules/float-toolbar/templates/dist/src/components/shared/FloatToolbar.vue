@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { useFloatToolbarResult } from 'composables/useFloatToolbar'
-// Main
 import { ref, computed, useSlots, Comment } from 'vue'
 // Types
 import type { QFab } from 'quasar'

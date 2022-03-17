@@ -1,5 +1,4 @@
 import { useRouter } from 'vue-router'
-// Main
 import { ref } from 'vue'
 // Types
 import type { UsePageDataHelper } from './usePageData'

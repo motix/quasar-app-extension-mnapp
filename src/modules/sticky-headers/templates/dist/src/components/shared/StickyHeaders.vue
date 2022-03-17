@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { scroll } from 'quasar'
 import { useStickyHeadersResult } from 'composables/useStickyHeaders'
-// Main
 import { ref, computed, nextTick } from 'vue'
 // Types
 import type { QScrollObserverProps } from 'quasar'

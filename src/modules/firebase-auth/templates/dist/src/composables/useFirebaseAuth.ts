@@ -7,7 +7,6 @@ import { getAuth } from 'services/firebase'
 import { isAuthenticated, signOut, createRemoteSignInToken } from 'services/firebase-auth'
 import { useRouter, useRoute } from 'vue-router'
 import { useFirebaseAuthStore } from 'stores/FirebaseAuth'
-// Main
 import { computed } from 'vue'
 // Types
 import type { UserRole } from 'models/firebase-auth'
