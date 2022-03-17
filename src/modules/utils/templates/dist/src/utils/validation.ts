@@ -2,6 +2,8 @@ import { date } from 'quasar'
 import { requiredConfigEntries } from 'composables/useConfig'
 import { mixed, number, string } from 'yup'
 
+const { editDateFormat } = requiredConfigEntries('editDateFormat')
+
 export function stringRequired (label: string) {
   return string().required().label(label)
 }
@@ -42,8 +44,6 @@ export function percentRequiredMinMax (label: string) {
 }
 
 export function dateRequired (label:string) {
-  const { editDateFormat } = requiredConfigEntries('editDateFormat')
-
   return stringRequired(label)
     .test({
       message: `${label} must be a date`,
@@ -54,8 +54,6 @@ export function dateRequired (label:string) {
 }
 
 export function dateOptional (label:string) {
-  const { editDateFormat } = requiredConfigEntries('editDateFormat')
-
   return string().notRequired().default('').label(label)
     .test({
       message: `${label} must be a date`,
