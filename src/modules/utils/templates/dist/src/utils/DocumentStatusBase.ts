@@ -1,34 +1,33 @@
 import { intersection } from 'lodash'
 
-import { UserRole } from 'models/firebase-auth'
-
-export interface ButtonBase<TActionName extends string> {
+export interface ButtonBase<TUserRole, TActionName> {
   label: string;
   color: string;
   icon: string;
-  roles: UserRole[];
+  roles: TUserRole[];
   action: TActionName;
 }
 
-export interface StatusBase<TActionName extends string> {
+export interface StatusBase<TUserRole, TActionName> {
   text: string;
   textColor: string;
   backgroundColor: string;
-  buttons: ButtonBase<TActionName>[];
+  buttons: ButtonBase<TUserRole, TActionName>[];
 }
 
 export default abstract class DocumentStatus<
   T,
+  TUserRole extends string,
   TStatusName extends string,
   TButtonName extends string,
   TActionName extends string
 > {
   protected container: T
-  protected userRoles: UserRole[] = []
-  protected abstract allButtons: Record<TButtonName, ButtonBase<TActionName>>
-  protected abstract allStatuses: Record<TStatusName, StatusBase<TActionName>>
+  protected userRoles: TUserRole[] = []
+  protected abstract allButtons: Record<TButtonName, ButtonBase<TUserRole, TActionName>>
+  protected abstract allStatuses: Record<TStatusName, StatusBase<TUserRole, TActionName>>
 
-  constructor (container: T, userRoles: UserRole[]) {
+  constructor (container: T, userRoles: TUserRole[]) {
     this.container = container
     this.userRoles = userRoles
   }
@@ -52,12 +51,12 @@ export default abstract class DocumentStatus<
   }
 
   get buttons () {
-    return this.userRoles.includes('admin')
+    return this.userRoles.includes('admin' as TUserRole)
       ? this.status.buttons
       : this.status.buttons.filter(button => intersection(this.userRoles, button.roles).length > 0)
   }
 
-  setUserRoles (userRoles: UserRole[]) {
+  setUserRoles (userRoles: TUserRole[]) {
     this.userRoles = userRoles
   }
 }

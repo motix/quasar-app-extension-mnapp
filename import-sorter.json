@@ -2,6 +2,9 @@
   "importSorter.importStringConfiguration.hasSemicolon": false,
   "importSorter.generalConfiguration.exclude": [
     "vite.config.ts",
+    "src/stores/FirebaseAuth.ts",
+    "src/stores/SingleScopeComposable.ts",
+    "src/stores/firebase-firestore/index.ts",
     "src/modules/firebase-auth/templates/dist/src/stores/FirebaseAuth.ts",
     "src/modules/firebase-firestore/templates/dist/src/stores/firebase-firestore/index.ts",
     "src/modules/single-scope-composable/templates/dist/src/stores/SingleScopeComposable.ts"
@@ -22,6 +25,10 @@
     {
       "regex": ".css$",
       "orderLevel": 15
+    },
+    {
+      "regex": "^@fortawesome",
+      "orderLevel": 20
     },
     {
       "regex": "^@automapper",
