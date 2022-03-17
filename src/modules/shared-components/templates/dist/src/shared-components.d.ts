@@ -8,7 +8,7 @@ import ExpandableCard from 'components/shared/expandable-card/ExpandableCard.vue
 import QPagePadding from 'components/shared/QPagePadding.vue'
 import PercentInput from 'components/shared/PercentInput.vue'
 import QInputVal from 'components/shared/validation/QInputVal.vue'
-import QPercentInputVal from 'components/shared/validation/QPercentInputVal.vue'
+import PercentInputVal from 'components/shared/validation/PercentInputVal.vue'
 import QSelectVal from 'components/shared/validation/QSelectVal.vue'
 import QDateVal from 'components/shared/validation/QDateVal.vue'
 import QDateInputVal from 'components/shared/validation/QDateInputVal.vue'
@@ -23,7 +23,7 @@ declare module '@vue/runtime-core' {
     QPagePadding: typeof QPagePadding;
     PercentInput: typeof PercentInput;
     QInputVal: typeof QInputVal;
-    QPercentInputVal: typeof QPercentInputVal;
+    PercentInputVal: typeof PercentInputVal;
     QSelectVal: typeof QSelectVal;
     QDateVal: typeof QDateVal;
     QDateInputVal: typeof QDateInputVal;

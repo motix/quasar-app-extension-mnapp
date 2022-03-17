@@ -13,7 +13,6 @@ type Props = {
   modelValue: string;
   optional?: boolean;
 }
-
 const props = withDefaults(defineProps<Props>(), {
   optional: false
 })
