@@ -1,5 +1,5 @@
 import { fileURLToPath, URL } from 'url'
-// Types
+
 import type { UserConfig } from 'vite'
 
 export function defineConfig (config: UserConfig) {

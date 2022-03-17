@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import useScroll from 'composables/useScroll'
 import { ref } from 'vue'
-// Types
+
 import type { QCard } from 'quasar'
 
 // Composables

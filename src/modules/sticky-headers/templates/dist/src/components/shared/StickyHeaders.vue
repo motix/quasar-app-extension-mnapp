@@ -2,7 +2,7 @@
 import { scroll } from 'quasar'
 import { useStickyHeadersResult } from 'composables/useStickyHeaders'
 import { ref, computed, nextTick } from 'vue'
-// Types
+
 import type { QScrollObserverProps } from 'quasar'
 
 type OnScrollDetail = Parameters<Exclude<QScrollObserverProps['onScroll'], undefined>>[0]

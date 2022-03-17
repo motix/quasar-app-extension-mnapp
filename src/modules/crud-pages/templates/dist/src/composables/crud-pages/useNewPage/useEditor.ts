@@ -2,7 +2,7 @@ import { useForm } from 'vee-validate'
 import { useRouter } from 'vue-router'
 import useNotifications from 'composables/useNotifications'
 import { ref, Ref } from 'vue'
-// Types
+
 import type { CreateDocActionPayload } from 'stores/firebase-firestore'
 import type usePageStatus from './usePageStatus'
 import type { UsePageDataHelper } from './usePageData'

@@ -3,7 +3,7 @@ import { pojos } from '@automapper/pojos'
 import { useStore } from 'stores/firebase-firestore'
 import useListPage from './useListPage'
 import { onMounted, onActivated, onUnmounted } from 'vue'
-// Types
+
 import type { DocModel } from 'stores/firebase-firestore'
 
 class UseStoreHelper<T extends DocModel> {

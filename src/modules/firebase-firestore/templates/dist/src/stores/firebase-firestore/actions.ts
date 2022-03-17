@@ -19,7 +19,7 @@ import { urlFriendlyNormalizeString } from 'utils/normalization'
 import { getFirestore } from 'services/firebase'
 import { requiredConfigEntries } from 'composables/useConfig'
 import { defineActions } from '.'
-// Types
+
 import type { Mapper } from '@automapper/core'
 import type {
   DocumentReference,

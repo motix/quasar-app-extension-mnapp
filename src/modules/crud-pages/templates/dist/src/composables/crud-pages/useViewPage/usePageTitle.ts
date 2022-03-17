@@ -1,7 +1,7 @@
 import { useMeta } from 'quasar'
 import { requiredConfigEntries } from 'composables/useConfig'
 import { ref, computed, Ref } from 'vue'
-// Types
+
 import type { UsePageDataHelper } from './usePageData'
 
 export default function usePageTitle<T = unknown> (

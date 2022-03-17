@@ -3,7 +3,7 @@ import { pojos } from '@automapper/pojos'
 import { useStore } from 'stores/firebase-firestore'
 import useListPage from './useListPage'
 import useListPageFilterWithOptions from './useListPageFilterWithOptions'
-// Types
+
 import type { QueryConstraint } from 'firebase/firestore'
 import type { DocModel } from 'stores/firebase-firestore'
 

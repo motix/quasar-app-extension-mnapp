@@ -3,7 +3,7 @@ import useNewPage from 'composables/crud-pages/useNewPage'
 import TopTooltip from 'components/shared/TopTooltip.vue'
 import FloatToolbar from 'components/shared/FloatToolbar.vue'
 import { ref, watch } from 'vue'
-// Types
+
 import type { QAjaxBar } from 'quasar'
 
 // Props

@@ -5,7 +5,7 @@ import {
   // End<% } else { %>No<% } %> mnapp.vite module
   defineStore
 } from 'pinia'
-// Types
+
 import type { ScopeRecord } from 'models/single-scope-composable'
 
 export const useSingleScopeComposableStore = defineStore('SingleScopeComposable', () => {

@@ -1,6 +1,6 @@
 import useNotifications from 'composables/useNotifications'
 import { watch, WatchSource } from 'vue'
-// Types
+
 import type { UpdateDocActionPayload } from 'stores/firebase-firestore'
 import type usePageStatus from './usePageStatus'
 import type usePageData from './usePageData'

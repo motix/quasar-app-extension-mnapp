@@ -9,7 +9,7 @@ import {
   // End<% } else { %>No<% } %> mnapp.vite module
   defineStore
 } from 'pinia'
-// Types
+
 import type { Mapper, MapAction } from '@automapper/core'
 import type {
   _GettersTree,

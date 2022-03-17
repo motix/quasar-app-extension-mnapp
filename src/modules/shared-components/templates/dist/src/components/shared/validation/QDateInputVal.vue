@@ -2,7 +2,7 @@
 import { useField } from 'vee-validate'
 import { requiredConfigEntries } from 'composables/useConfig'
 import { computed, ref, watch } from 'vue'
-// Types
+
 import type { QPopupProxy } from 'quasar'
 
 // Props

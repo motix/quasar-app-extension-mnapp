@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-// Types
+
 import type { QTooltip } from 'quasar'
 
 // Data

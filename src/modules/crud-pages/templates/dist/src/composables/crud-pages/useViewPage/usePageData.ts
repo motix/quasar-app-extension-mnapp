@@ -3,7 +3,7 @@ import { useRouter, useRoute } from 'vue-router'
 import useNotifications from 'composables/useNotifications'
 import useReturnUrl from 'composables/useReturnUrl'
 import { ref, computed, nextTick, Ref } from 'vue'
-// Types
+
 import type {
   LoadRealtimeDocActionPayload,
   LoadRealtimeDocActionResult,

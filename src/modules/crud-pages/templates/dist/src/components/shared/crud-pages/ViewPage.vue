@@ -4,7 +4,7 @@ import TopTooltip from 'components/shared/TopTooltip.vue'
 import FloatToolbar from 'components/shared/FloatToolbar.vue'
 import SwitchViewButton from 'components/shared/SwitchViewButton.vue'
 import { ref, watch } from 'vue'
-// Types
+
 import type { QAjaxBar } from 'quasar'
 
 // Props

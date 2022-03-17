@@ -1,5 +1,5 @@
 import { config as dotenvConfig } from 'dotenv'
-// Types
+
 import type { UserConfig } from 'vite'
 
 export function defineConfig (config: UserConfig) {

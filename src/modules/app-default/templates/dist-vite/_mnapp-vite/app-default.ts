@@ -2,7 +2,7 @@
 import { readFileSync } from 'fs'
 import { resolve } from 'path'
 // End<% } else { %>No<% } %> HTTPS
-// Types
+
 import type { UserConfig } from 'vite'
 
 export function defineConfig (config: UserConfig) {

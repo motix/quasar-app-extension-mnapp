@@ -6,7 +6,7 @@ import {
   // End<% } else { %>No<% } %> mnapp.vite module
   defineStore
 } from 'pinia'
-// Types
+
 import type { User } from 'firebase/auth'
 import type { UserRole, UserClaims } from 'models/firebase-auth'
 

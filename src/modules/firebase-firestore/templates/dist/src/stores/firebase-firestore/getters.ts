@@ -1,6 +1,6 @@
 import { cloneDeep } from 'lodash'
 import { defineGetters } from '.'
-// Types
+
 import type { Mapper } from '@automapper/core'
 
 function buildGetters<T, TVm> (

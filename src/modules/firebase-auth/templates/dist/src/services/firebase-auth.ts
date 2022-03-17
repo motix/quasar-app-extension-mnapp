@@ -4,7 +4,7 @@ import { Router } from 'vue-router'
 import { useFirebaseAuthStore } from 'stores/FirebaseAuth'
 import { userRoles } from 'models/firebase-auth'
 import { getAuth, getFunctions } from 'services/firebase'
-// Types
+
 import type { User } from 'firebase/auth'
 import type { UserClaims } from 'models/firebase-auth'
 

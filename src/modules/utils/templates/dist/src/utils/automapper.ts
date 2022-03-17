@@ -5,7 +5,7 @@ import {
 } from '@automapper/core'
 import { date } from 'quasar'
 import { requiredConfigEntries } from 'composables/useConfig'
-// Types
+
 import type { CreateMapFluentFunction } from '@automapper/core'
 
 export interface DateDataConverter {

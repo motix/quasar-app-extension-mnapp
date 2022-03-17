@@ -1,6 +1,6 @@
 import { useRouter } from 'vue-router'
 import { ref } from 'vue'
-// Types
+
 import type { UsePageDataHelper } from './usePageData'
 
 export default function useNavigateToViewPage<T = unknown> (
