@@ -11,7 +11,7 @@ import {
   defineStore
 } from 'pinia'
 // Types
-import type { Mapper } from '@automapper/core'
+import type { Mapper, MapAction } from '@automapper/core'
 import type {
   _GettersTree,
   _StoreWithGetters,
@@ -22,6 +22,10 @@ import type { UnwrapRef } from 'vue'
 import type { DocModel } from '.'
 
 export * from './types'
+
+export type MapOptions<T, TAm> = {
+  apiModelToModelAfterMap?: MapAction<TAm[], T[]>;
+}
 
 type S<T> = DocStateInterface<T>
 
@@ -58,7 +62,8 @@ export function useStore<T extends DocModel, TVm, TAm> (
   mapper: Mapper,
   modelName: string,
   viewModelName: string,
-  apiModelName: string
+  apiModelName: string,
+  mapOptions?: MapOptions<T, TAm>
 ) {
   const state = () => buildState<T>()
 
@@ -73,7 +78,8 @@ export function useStore<T extends DocModel, TVm, TAm> (
     mapper,
     modelName,
     viewModelName,
-    apiModelName
+    apiModelName,
+    mapOptions
   )
 
   const store = defineStore(id, {

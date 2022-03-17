@@ -15,7 +15,7 @@ export default function useDeleting (
   docKey: ReturnType<typeof usePageData>['docKey'],
   deleteModel: ReturnType<typeof usePageData>['deleteModel']
 ) {
-  // Private
+  // Composables
 
   const {
     notifyErrorDebug,

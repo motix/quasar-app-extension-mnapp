@@ -25,6 +25,7 @@
       ],
       "stores/*": [
         "src/modules/firebase-auth/templates/dist/src/stores/*",
+        "src/modules/firebase-firestore/templates/dist/src/stores/*",
         "src/modules/single-scope-composable/templates/dist/src/stores/*"
       ],
       "composables/*": [

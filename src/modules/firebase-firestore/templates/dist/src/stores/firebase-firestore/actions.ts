@@ -38,7 +38,8 @@ import type {
   ReleaseRealtimeDocActionPayload,
   CreateDocActionPayload,
   UpdateDocActionPayload,
-  DeleteDocActionPayload
+  DeleteDocActionPayload,
+  MapOptions
 } from '.'
 import type { DocStateInterface } from './state'
 
@@ -47,7 +48,8 @@ function buildActions<T extends DocModel, TVm, TAm> (
   mapper: Mapper,
   modelName: string,
   viewModelName: string,
-  apiModelName: string
+  apiModelName: string,
+  mapOptions: MapOptions<T, TAm> | undefined
 ) {
   const { releaseDocsTimeout } = requiredConfigEntries('releaseDocsTimeout')
 
@@ -372,7 +374,11 @@ function buildActions<T extends DocModel, TVm, TAm> (
 
       state.docs = state.docs.concat(
         mapper.mapArray<TAm, T, typeof extraArguments>(
-          docs, modelName, apiModelName, { extraArguments }
+          docs, modelName, apiModelName,
+          {
+            extraArguments,
+            afterMap: mapOptions?.apiModelToModelAfterMap
+          }
         ) as UnwrapRef<T[]>
       )
     }
