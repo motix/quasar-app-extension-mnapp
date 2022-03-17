@@ -1,4 +1,5 @@
-import { ref, markRaw, Ref } from 'vue'
+import { markRaw, ref, Ref } from 'vue'
+
 import {
   // <% if (config.hasModule('vite')) { %>Start mnapp.vite module
   acceptHMRUpdate,
@@ -6,7 +7,7 @@ import {
   defineStore
 } from 'pinia'
 
-import type { ScopeRecord } from 'models/single-scope-composable'
+import { ScopeRecord } from 'models/single-scope-composable'
 
 export const useSingleScopeComposableStore = defineStore('SingleScopeComposable', () => {
   // Private

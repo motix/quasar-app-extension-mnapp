@@ -1,5 +1,6 @@
 import { intersection } from 'lodash'
-import type { UserRole } from 'models/firebase-auth'
+
+import { UserRole } from 'models/firebase-auth'
 
 export interface ButtonBase<TActionName extends string> {
   label: string;

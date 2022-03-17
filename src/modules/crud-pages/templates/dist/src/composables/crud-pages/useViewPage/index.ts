@@ -1,14 +1,17 @@
+import { onUnmounted, ref } from 'vue'
+
 import { useSingleScopeComposableStore } from 'stores/SingleScopeComposable'
+
 import useReturnUrl from 'composables/useReturnUrl'
+
+import useDeleting from './useDeleting'
+import useEditor from './useEditor'
+import usePageData from './usePageData'
 import usePageFeatures from './usePageFeatures'
 import usePageStatus from './usePageStatus'
-import usePageData from './usePageData'
-import useViewer from './useViewer'
-import useEditor from './useEditor'
-import useDeleting from './useDeleting'
 import usePageTitle from './usePageTitle'
 import useToolbar from './useToolbar'
-import { ref, onUnmounted } from 'vue'
+import useViewer from './useViewer'
 
 function newScope<T, TVm> () {
   const {

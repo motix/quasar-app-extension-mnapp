@@ -1,5 +1,5 @@
-import { useRouter, useRoute } from 'vue-router'
-import { ref, computed } from 'vue'
+import { computed, ref } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 
 export default function () {
   // Composables

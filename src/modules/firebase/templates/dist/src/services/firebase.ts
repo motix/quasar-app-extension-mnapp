@@ -1,12 +1,10 @@
 import firebaseConfig from 'app/firebase.json'
-import useConfig from 'composables/useConfig'
-import { getAuth, connectAuthEmulator } from 'firebase/auth'
-import { getFirestore, connectFirestoreEmulator } from 'firebase/firestore'
-import { getFunctions, connectFunctionsEmulator } from 'firebase/functions'
 
-import type { Auth } from 'firebase/auth'
-import type { Firestore } from 'firebase/firestore'
-import type { Functions } from 'firebase/functions'
+import { Auth, connectAuthEmulator, getAuth } from 'firebase/auth'
+import { connectFirestoreEmulator, Firestore, getFirestore } from 'firebase/firestore'
+import { connectFunctionsEmulator, Functions, getFunctions } from 'firebase/functions'
+
+import useConfig from 'composables/useConfig'
 
 let auth: Auth
 function getAuthOrEmulator () {

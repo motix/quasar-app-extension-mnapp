@@ -1,6 +1,8 @@
-import { Timestamp } from 'firebase/firestore'
-import useConfig from 'composables/useConfig'
 import { boot } from 'quasar/wrappers'
+
+import { Timestamp } from 'firebase/firestore'
+
+import useConfig from 'composables/useConfig'
 
 export default boot(() => {
   const config = useConfig()

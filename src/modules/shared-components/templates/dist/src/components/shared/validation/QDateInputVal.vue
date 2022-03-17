@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { useField } from 'vee-validate'
-import { requiredConfigEntries } from 'composables/useConfig'
+
 import { computed, ref, watch } from 'vue'
 
-import type { QPopupProxy } from 'quasar'
+import { QPopupProxy } from 'quasar'
+
+import { requiredConfigEntries } from 'composables/useConfig'
 
 // Props
 

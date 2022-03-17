@@ -1,6 +1,6 @@
-import percent from './formats/percent'
 import currency from './formats/currency'
 import date from './formats/date'
+import percent from './formats/percent'
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface FormatsInstance { } // To be augmented

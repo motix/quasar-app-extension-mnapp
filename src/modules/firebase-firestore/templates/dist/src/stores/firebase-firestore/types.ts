@@ -1,4 +1,4 @@
-import type { QueryConstraint, Unsubscribe } from 'firebase/firestore'
+import { QueryConstraint, Unsubscribe } from 'firebase/firestore'
 
 // Models
 

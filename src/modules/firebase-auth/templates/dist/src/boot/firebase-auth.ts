@@ -1,9 +1,15 @@
-import { onAuthStateChanged } from 'firebase/auth'
-import { adminRole, userRole } from 'models/firebase-auth'
-import { getAuth } from 'services/firebase'
-import { ensureAuthInitialized, handleAuthStateChanged, isAuthenticated } from 'services/firebase-auth'
-import { useFirebaseAuthStore } from 'stores/FirebaseAuth'
 import { boot } from 'quasar/wrappers'
+
+import { onAuthStateChanged } from 'firebase/auth'
+
+import { adminRole, userRole } from 'models/firebase-auth'
+
+import { useFirebaseAuthStore } from 'stores/FirebaseAuth'
+
+import { getAuth } from 'services/firebase'
+import {
+  ensureAuthInitialized, handleAuthStateChanged, isAuthenticated
+} from 'services/firebase-auth'
 
 export default boot(({ router }) => {
   // Router

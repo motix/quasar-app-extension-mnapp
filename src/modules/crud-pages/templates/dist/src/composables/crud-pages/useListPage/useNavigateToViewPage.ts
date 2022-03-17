@@ -1,7 +1,7 @@
-import { useRouter } from 'vue-router'
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
-import type { UsePageDataHelper } from './usePageData'
+import { UsePageDataHelper } from './usePageData'
 
 export default function useNavigateToViewPage<T = unknown> (
   modelFindKeyField: UsePageDataHelper<T>['Return']['modelFindKeyField']

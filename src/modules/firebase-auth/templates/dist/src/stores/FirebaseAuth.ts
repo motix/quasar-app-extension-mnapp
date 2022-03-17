@@ -1,5 +1,5 @@
-import { userRoles } from 'models/firebase-auth'
-import { ref, computed } from 'vue'
+import { computed, ref } from 'vue'
+
 import {
   // <% if (config.hasModule('vite')) { %>Start mnapp.vite module
   acceptHMRUpdate,
@@ -7,8 +7,9 @@ import {
   defineStore
 } from 'pinia'
 
-import type { User } from 'firebase/auth'
-import type { UserRole, UserClaims } from 'models/firebase-auth'
+import { User } from 'firebase/auth'
+
+import { UserClaims, UserRole, userRoles } from 'models/firebase-auth'
 
 export const useFirebaseAuthStore = defineStore('FirebaseAuth', () => {
   // State

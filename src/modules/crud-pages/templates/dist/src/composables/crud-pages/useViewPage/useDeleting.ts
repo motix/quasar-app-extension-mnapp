@@ -1,11 +1,14 @@
-import { Dialog } from 'quasar'
-import useNotifications from 'composables/useNotifications'
 import { ref } from 'vue'
 
-import type { DeleteDocActionPayload } from 'stores/firebase-firestore'
-import type useReturnUrl from 'composables/useReturnUrl'
-import type usePageStatus from './usePageStatus'
-import type usePageData from './usePageData'
+import { Dialog } from 'quasar'
+
+import { DeleteDocActionPayload } from 'stores/firebase-firestore'
+
+import useNotifications from 'composables/useNotifications'
+import useReturnUrl from 'composables/useReturnUrl'
+
+import usePageData from './usePageData'
+import usePageStatus from './usePageStatus'
 
 export default function useDeleting (
   goBack: ReturnType<typeof useReturnUrl>['goBack'],

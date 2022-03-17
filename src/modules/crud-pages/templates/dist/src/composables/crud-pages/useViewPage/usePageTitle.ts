@@ -1,8 +1,10 @@
-import { useMeta } from 'quasar'
-import { requiredConfigEntries } from 'composables/useConfig'
-import { ref, computed, Ref } from 'vue'
+import { computed, ref, Ref } from 'vue'
 
-import type { UsePageDataHelper } from './usePageData'
+import { useMeta } from 'quasar'
+
+import { requiredConfigEntries } from 'composables/useConfig'
+
+import { UsePageDataHelper } from './usePageData'
 
 export default function usePageTitle<T = unknown> (
   model: UsePageDataHelper<T, never>['Return']['model']

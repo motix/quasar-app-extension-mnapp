@@ -1,5 +1,5 @@
 declare module 'components/shared/transitions/FadeTransition.vue' {
-  import type { TransitionProps, FunctionalComponent } from 'vue'
+  import type { FunctionalComponent, TransitionProps } from 'vue'
 
   type Component = FunctionalComponent<TransitionProps>
   const component: Component

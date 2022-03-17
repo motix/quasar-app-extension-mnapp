@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { useFloatToolbarResult } from 'composables/useFloatToolbar'
-import { ref, computed, useSlots, Comment } from 'vue'
+import { Comment, computed, ref, useSlots } from 'vue'
 
-import type { QFab } from 'quasar'
+import { QFab } from 'quasar'
+
+import { useFloatToolbarResult } from 'composables/useFloatToolbar'
 
 // Props
 

@@ -1,6 +1,6 @@
 declare module 'components/shared/validation/QDateInputVal.vue' {
-  import type { ComponentConstructor, QInputProps } from 'quasar'
   import type { ComponentPublicInstance } from 'vue'
+  import type { ComponentConstructor, QInputProps } from 'quasar'
 
   type Props = {
     name: string;

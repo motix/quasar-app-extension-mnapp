@@ -1,15 +1,17 @@
-import { Dialog } from 'quasar'
 import { useForm } from 'vee-validate'
-import { useRouter, useRoute } from 'vue-router'
+
+import { ref } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+
+import { Dialog } from 'quasar'
+
+import { UpdateDocActionPayload } from 'stores/firebase-firestore'
+
 import useNotifications from 'composables/useNotifications'
 import useScroll from 'composables/useScroll'
 
-import { ref } from 'vue'
-
-import type { UpdateDocActionPayload } from 'stores/firebase-firestore'
-import type usePageStatus from './usePageStatus'
-import type usePageData from './usePageData'
-import type { UsePageDataHelper } from './usePageData'
+import usePageData, { UsePageDataHelper } from './usePageData'
+import usePageStatus from './usePageStatus'
 
 export default function useEditor<TVm = unknown> (
   freezed: ReturnType<typeof usePageStatus>['freezed'],

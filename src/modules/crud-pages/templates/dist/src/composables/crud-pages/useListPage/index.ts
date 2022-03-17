@@ -1,12 +1,14 @@
+import { onUnmounted, ref } from 'vue'
+
 import { useSingleScopeComposableStore } from 'stores/SingleScopeComposable'
+
+import useCardsView from './useCardsView'
 import useGenericConvert from './useGenericConvert'
+import useNavigateToNewPage from './useNavigateToNewPage'
+import useNavigateToViewPage from './useNavigateToViewPage'
+import usePageData from './usePageData'
 import usePageStatus from './usePageStatus'
 import useTableView from './useTableView'
-import useCardsView from './useCardsView'
-import usePageData from './usePageData'
-import useNavigateToViewPage from './useNavigateToViewPage'
-import useNavigateToNewPage from './useNavigateToNewPage'
-import { ref, onUnmounted } from 'vue'
 
 function newScope<T> () {
   const pageStatus = usePageStatus()

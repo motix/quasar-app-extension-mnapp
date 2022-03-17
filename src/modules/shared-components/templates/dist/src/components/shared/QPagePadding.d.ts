@@ -1,6 +1,6 @@
 declare module 'components/shared/QPagePadding.vue' {
-  import type { ComponentConstructor, QPageProps } from 'quasar'
   import type { ComponentPublicInstance } from 'vue'
+  import type { ComponentConstructor, QPageProps } from 'quasar'
 
   type Props = {
     fixedPadding?: number;

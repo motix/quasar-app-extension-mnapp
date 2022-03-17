@@ -1,12 +1,13 @@
-import { onAuthStateChanged } from 'firebase/auth'
-import { httpsCallable } from 'firebase/functions'
 import { Router } from 'vue-router'
-import { useFirebaseAuthStore } from 'stores/FirebaseAuth'
-import { userRoles } from 'models/firebase-auth'
-import { getAuth, getFunctions } from 'services/firebase'
 
-import type { User } from 'firebase/auth'
-import type { UserClaims } from 'models/firebase-auth'
+import { onAuthStateChanged, User } from 'firebase/auth'
+import { httpsCallable } from 'firebase/functions'
+
+import { UserClaims, userRoles } from 'models/firebase-auth'
+
+import { useFirebaseAuthStore } from 'stores/FirebaseAuth'
+
+import { getAuth, getFunctions } from 'services/firebase'
 
 function waitForUserClaims () {
   const store = useFirebaseAuthStore()

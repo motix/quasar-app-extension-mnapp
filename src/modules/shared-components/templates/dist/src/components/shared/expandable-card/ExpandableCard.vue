@@ -1,7 +1,9 @@
 <script setup lang="ts">
+import { computed, readonly, ref } from 'vue'
+
 import { requiredConfigEntries } from 'composables/useConfig'
+
 import ExpandableCardHeader from './ExpandableCardHeader.vue'
-import { ref, readonly, computed } from 'vue'
 
 // Props
 

@@ -1,6 +1,8 @@
-import { date } from 'quasar'
-import { requiredConfigEntries } from 'composables/useConfig'
 import { mixed, number, string } from 'yup'
+
+import { date } from 'quasar'
+
+import { requiredConfigEntries } from 'composables/useConfig'
 
 const { editDateFormat } = requiredConfigEntries('editDateFormat')
 

@@ -1,11 +1,14 @@
 import { useForm } from 'vee-validate'
-import { useRouter } from 'vue-router'
-import useNotifications from 'composables/useNotifications'
-import { ref, Ref } from 'vue'
 
-import type { CreateDocActionPayload } from 'stores/firebase-firestore'
-import type usePageStatus from './usePageStatus'
-import type { UsePageDataHelper } from './usePageData'
+import { ref, Ref } from 'vue'
+import { useRouter } from 'vue-router'
+
+import { CreateDocActionPayload } from 'stores/firebase-firestore'
+
+import useNotifications from 'composables/useNotifications'
+
+import { UsePageDataHelper } from './usePageData'
+import usePageStatus from './usePageStatus'
 
 export default function useEditor<TVm = unknown> (
   freezed: ReturnType<typeof usePageStatus>['freezed'],

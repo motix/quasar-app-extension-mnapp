@@ -1,15 +1,19 @@
 import { Guid } from 'js-guid'
+
+import { computed } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+
 import { Platform } from 'quasar'
+
 import { GoogleAuthProvider, signInWithCustomToken } from 'firebase/auth'
 import { auth } from 'firebaseui'
-import { adminRole } from 'models/firebase-auth'
-import { getAuth } from 'services/firebase'
-import { isAuthenticated, signOut, createRemoteSignInToken } from 'services/firebase-auth'
-import { useRouter, useRoute } from 'vue-router'
-import { useFirebaseAuthStore } from 'stores/FirebaseAuth'
-import { computed } from 'vue'
 
-import type { UserRole } from 'models/firebase-auth'
+import { adminRole, UserRole } from 'models/firebase-auth'
+
+import { useFirebaseAuthStore } from 'stores/FirebaseAuth'
+
+import { getAuth } from 'services/firebase'
+import { createRemoteSignInToken, isAuthenticated, signOut } from 'services/firebase-auth'
 
 export default function () {
   // Private

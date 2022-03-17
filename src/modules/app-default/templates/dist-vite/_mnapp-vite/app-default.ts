@@ -1,9 +1,9 @@
 // <% if (prompts.https) { %>Start HTTPS
 import { readFileSync } from 'fs'
 import { resolve } from 'path'
-// End<% } else { %>No<% } %> HTTPS
 
-import type { UserConfig } from 'vite'
+// End<% } else { %>No<% } %> HTTPS
+import { UserConfig } from 'vite'
 
 export function defineConfig (config: UserConfig) {
   if (config.define) {

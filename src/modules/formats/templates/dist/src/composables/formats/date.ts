@@ -1,4 +1,5 @@
 import { date as qdate } from 'quasar'
+
 import { requiredConfigEntries } from 'composables/useConfig'
 
 declare module '../useFormats' {

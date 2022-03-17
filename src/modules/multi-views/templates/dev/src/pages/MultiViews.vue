@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import useMultiViews from 'composables/useMultiViews'
+
 import SwitchViewButton from 'components/shared/SwitchViewButton.vue'
 
 // Composables

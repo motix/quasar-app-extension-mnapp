@@ -1,7 +1,7 @@
+import { Mapper } from '@automapper/core'
 import { cloneDeep } from 'lodash'
-import { defineGetters } from '.'
 
-import type { Mapper } from '@automapper/core'
+import { defineGetters } from './'
 
 function buildGetters<T, TVm> (
   mapper: Mapper,

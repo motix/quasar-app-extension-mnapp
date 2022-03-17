@@ -1,7 +1,9 @@
 import { fileURLToPath, URL } from 'url'
-import vue from '@vitejs/plugin-vue'
-import { quasar, transformAssetUrls } from '@quasar/vite-plugin'
+
 import { defineConfig, UserConfig } from 'vite'
+
+import { quasar, transformAssetUrls } from '@quasar/vite-plugin'
+import vue from '@vitejs/plugin-vue'
 
 // https://vitejs.dev/config/
 const config: UserConfig = {

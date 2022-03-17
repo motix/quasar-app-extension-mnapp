@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import 'firebaseui/dist/firebaseui.css'
+
+import { onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
+
 import useFirebaseAuth from 'composables/useFirebaseAuth'
-import { ref, onMounted } from 'vue'
 
 // Composables
 

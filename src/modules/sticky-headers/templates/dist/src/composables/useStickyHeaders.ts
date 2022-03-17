@@ -1,4 +1,4 @@
-import { computed, ref, provide, inject, Ref } from 'vue'
+import { computed, inject, provide, ref, Ref } from 'vue'
 
 const StickyHeadersResultSymbol = Symbol('stickyHeadersResult')
 

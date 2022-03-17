@@ -1,7 +1,6 @@
-import useListPage from './useListPage'
-import { ref, computed, onMounted, nextTick } from 'vue'
+import { computed, nextTick, onMounted, ref, Ref } from 'vue'
 
-import type { Ref } from 'vue'
+import useListPage from './useListPage'
 
 export default function useListPageFilter<FilterType> (
   ready: ReturnType<typeof useListPage>['ready'],

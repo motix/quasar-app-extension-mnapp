@@ -1,10 +1,12 @@
 <script setup lang="ts">
-import useNewPage from 'composables/crud-pages/useNewPage'
-import TopTooltip from 'components/shared/TopTooltip.vue'
-import FloatToolbar from 'components/shared/FloatToolbar.vue'
 import { ref, watch } from 'vue'
 
-import type { QAjaxBar } from 'quasar'
+import { QAjaxBar } from 'quasar'
+
+import useNewPage from 'composables/crud-pages/useNewPage'
+
+import FloatToolbar from 'components/shared/FloatToolbar.vue'
+import TopTooltip from 'components/shared/TopTooltip.vue'
 
 // Props
 

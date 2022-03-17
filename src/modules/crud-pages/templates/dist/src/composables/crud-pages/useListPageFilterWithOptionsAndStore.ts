@@ -1,11 +1,12 @@
 import { createMapper } from '@automapper/core'
 import { pojos } from '@automapper/pojos'
-import { useStore } from 'stores/firebase-firestore'
+
+import { QueryConstraint } from 'firebase/firestore'
+
+import { DocModel, useStore } from 'stores/firebase-firestore'
+
 import useListPage from './useListPage'
 import useListPageFilterWithOptions from './useListPageFilterWithOptions'
-
-import type { QueryConstraint } from 'firebase/firestore'
-import type { DocModel } from 'stores/firebase-firestore'
 
 class UseStoreHelper<T extends DocModel> {
   Return = useStore<T, never, never>(

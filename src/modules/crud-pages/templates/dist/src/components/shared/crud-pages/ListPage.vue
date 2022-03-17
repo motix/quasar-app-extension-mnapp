@@ -1,12 +1,14 @@
 <script lang="ts">
 export default {}
 
-import useMultiViews from 'composables/useMultiViews'
+import { computed, nextTick, ref, useSlots, watchEffect } from 'vue'
+
 import useListPage from 'composables/crud-pages/useListPage'
+import useMultiViews from 'composables/useMultiViews'
+
 import FloatToolbar from 'components/shared/FloatToolbar.vue'
 import StickyHeaders from 'components/shared/StickyHeaders.vue'
 import SwitchViewButton from 'components/shared/SwitchViewButton.vue'
-import { useSlots, ref, computed, watchEffect, nextTick } from 'vue'
 
 type ListPageType = ReturnType<typeof useListPage>
 

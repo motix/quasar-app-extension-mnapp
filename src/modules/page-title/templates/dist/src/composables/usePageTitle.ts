@@ -1,7 +1,9 @@
+import { computed, readonly, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
+
 import { useMeta } from 'quasar'
+
 import { requiredConfigEntries } from 'composables/useConfig'
-import { ref, computed, readonly, watch } from 'vue'
 
 export default function () {
   // Private

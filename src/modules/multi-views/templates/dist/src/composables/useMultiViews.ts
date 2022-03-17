@@ -1,6 +1,8 @@
-import { Platform } from 'quasar'
-import useScroll from 'composables/useScroll'
 import { computed, reactive } from 'vue'
+
+import { Platform } from 'quasar'
+
+import useScroll from 'composables/useScroll'
 
 const data = reactive({
   viewType: Platform.is.desktop ? 'table' : 'cards' as 'table' | 'cards'

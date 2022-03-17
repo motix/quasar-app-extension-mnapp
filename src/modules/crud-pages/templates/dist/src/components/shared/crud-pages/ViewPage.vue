@@ -1,11 +1,13 @@
 <script setup lang="ts">
-import useViewPage from 'composables/crud-pages/useViewPage'
-import TopTooltip from 'components/shared/TopTooltip.vue'
-import FloatToolbar from 'components/shared/FloatToolbar.vue'
-import SwitchViewButton from 'components/shared/SwitchViewButton.vue'
 import { ref, watch } from 'vue'
 
-import type { QAjaxBar } from 'quasar'
+import { QAjaxBar } from 'quasar'
+
+import useViewPage from 'composables/crud-pages/useViewPage'
+
+import FloatToolbar from 'components/shared/FloatToolbar.vue'
+import SwitchViewButton from 'components/shared/SwitchViewButton.vue'
+import TopTooltip from 'components/shared/TopTooltip.vue'
 
 // Props
 

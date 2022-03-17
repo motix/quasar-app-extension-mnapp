@@ -1,6 +1,6 @@
 import { requiredConfigEntries } from 'composables/useConfig'
 
-import type { RealtimeDocIndex } from '.'
+import { RealtimeDocIndex } from './'
 
 const { docsPageSize } = requiredConfigEntries('docsPageSize')
 

@@ -1,47 +1,27 @@
-import { findIndex } from 'lodash'
+import { Mapper } from '@automapper/core'
 import { Guid } from 'js-guid'
-import {
-  doc,
-  collection,
-  query,
-  where,
-  limit,
-  startAfter,
-  getDoc,
-  getDocs,
-  addDoc,
-  updateDoc,
-  deleteDoc,
-  runTransaction,
-  onSnapshot
-} from 'firebase/firestore'
-import { urlFriendlyNormalizeString } from 'utils/normalization'
-import { getFirestore } from 'services/firebase'
-import { requiredConfigEntries } from 'composables/useConfig'
-import { defineActions } from '.'
+import { findIndex } from 'lodash'
 
-import type { Mapper } from '@automapper/core'
-import type {
-  DocumentReference,
-  CollectionReference,
-  Query,
-  UpdateData
+import { UnwrapRef } from 'vue'
+
+import {
+  addDoc, collection, CollectionReference, deleteDoc, doc, DocumentReference, getDoc, getDocs,
+  limit, onSnapshot, query, Query, runTransaction, startAfter, UpdateData, updateDoc, where
 } from 'firebase/firestore'
-import type { UnwrapRef } from 'vue'
-import type {
-  RealtimeDocIndex,
-  DocModel,
-  LoadDocsPageActionPayload,
-  ReleaseDocsActionPayload,
-  LoadRealtimeDocActionPayload,
-  LoadRealtimeDocActionResult,
-  ReleaseRealtimeDocActionPayload,
-  CreateDocActionPayload,
-  UpdateDocActionPayload,
-  DeleteDocActionPayload,
-  MapOptions
-} from '.'
-import type { DocStateInterface } from './state'
+
+import { urlFriendlyNormalizeString } from 'utils/normalization'
+
+import { getFirestore } from 'services/firebase'
+
+import { requiredConfigEntries } from 'composables/useConfig'
+
+import {
+  CreateDocActionPayload, defineActions, DeleteDocActionPayload, DocModel,
+  LoadDocsPageActionPayload, LoadRealtimeDocActionPayload, LoadRealtimeDocActionResult, MapOptions,
+  RealtimeDocIndex, ReleaseDocsActionPayload, ReleaseRealtimeDocActionPayload,
+  UpdateDocActionPayload
+} from './'
+import { DocStateInterface } from './state'
 
 function buildActions<T extends DocModel, TVm, TAm> (
   collectionPath: string,

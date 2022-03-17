@@ -1,12 +1,8 @@
-import {
-  mapWithArguments,
-  mapFrom,
-  Resolver
-} from '@automapper/core'
-import { date } from 'quasar'
-import { requiredConfigEntries } from 'composables/useConfig'
+import { CreateMapFluentFunction, mapFrom, mapWithArguments, Resolver } from '@automapper/core'
 
-import type { CreateMapFluentFunction } from '@automapper/core'
+import { date } from 'quasar'
+
+import { requiredConfigEntries } from 'composables/useConfig'
 
 export interface DateDataConverter {
   fromDate: <T>(date: Date) => T;

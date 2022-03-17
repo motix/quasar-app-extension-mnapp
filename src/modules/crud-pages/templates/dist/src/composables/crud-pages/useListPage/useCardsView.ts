@@ -1,5 +1,6 @@
+import { readonly, ref } from 'vue'
+
 import { requiredConfigEntries } from 'composables/useConfig'
-import { ref, readonly } from 'vue'
 
 export default function useCardsView () {
   // Composables

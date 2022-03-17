@@ -1,24 +1,19 @@
-import { createMapper } from '@automapper/core'
+import { createMapper, MapAction, Mapper } from '@automapper/core'
 import { pojos } from '@automapper/pojos'
-import buildState, { DocStateInterface } from './state'
-import buildGetters from './getters'
-import buildActions from './actions'
+
+import { UnwrapRef } from 'vue'
+
 import {
   // <% if (config.hasModule('vite')) { %>Start mnapp.vite module
   acceptHMRUpdate,
   // End<% } else { %>No<% } %> mnapp.vite module
-  defineStore
+  _GettersTree, _StoreWithGetters, _StoreWithState, defineStore, PiniaCustomProperties
 } from 'pinia'
 
-import type { Mapper, MapAction } from '@automapper/core'
-import type {
-  _GettersTree,
-  _StoreWithGetters,
-  _StoreWithState,
-  PiniaCustomProperties
-} from 'pinia'
-import type { UnwrapRef } from 'vue'
-import type { DocModel } from '.'
+import { DocModel } from './'
+import buildActions from './actions'
+import buildGetters from './getters'
+import buildState, { DocStateInterface } from './state'
 
 export * from './types'
 

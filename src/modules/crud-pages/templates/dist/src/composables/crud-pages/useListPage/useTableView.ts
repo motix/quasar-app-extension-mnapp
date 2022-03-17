@@ -1,6 +1,6 @@
 import { ref } from 'vue'
 
-import type { QTable } from 'quasar'
+import { QTable } from 'quasar'
 
 type QTableColumnOriginal = NonNullable<QTable['columns']> extends readonly (infer ElementType)[] ? ElementType : never
 

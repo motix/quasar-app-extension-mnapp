@@ -1,6 +1,6 @@
 import { fileURLToPath, URL } from 'url'
 
-import type { UserConfig } from 'vite'
+import { UserConfig } from 'vite'
 
 export function defineConfig (config: UserConfig) {
   config.resolve?.alias && (config.resolve.alias = {

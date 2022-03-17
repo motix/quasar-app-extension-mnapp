@@ -1,17 +1,18 @@
+import { computed, nextTick, ref, Ref } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+
 import { Dialog } from 'quasar'
-import { useRouter, useRoute } from 'vue-router'
+
+import {
+  DeleteDocActionPayload, LoadRealtimeDocActionPayload, LoadRealtimeDocActionResult,
+  UpdateDocActionPayload
+} from 'stores/firebase-firestore'
+
 import useNotifications from 'composables/useNotifications'
 import useReturnUrl from 'composables/useReturnUrl'
-import { ref, computed, nextTick, Ref } from 'vue'
 
-import type {
-  LoadRealtimeDocActionPayload,
-  LoadRealtimeDocActionResult,
-  UpdateDocActionPayload,
-  DeleteDocActionPayload
-} from 'stores/firebase-firestore'
-import type usePageFeatures from './usePageFeatures'
-import type usePageStatus from './usePageStatus'
+import usePageFeatures from './usePageFeatures'
+import usePageStatus from './usePageStatus'
 
 export default function usePageData<T = unknown, TVm = unknown> (
   goBack: ReturnType<typeof useReturnUrl>['goBack'],

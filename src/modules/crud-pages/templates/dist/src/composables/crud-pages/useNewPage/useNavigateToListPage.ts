@@ -1,8 +1,10 @@
-import { Dialog } from 'quasar'
 import { useRouter } from 'vue-router'
+
+import { Dialog } from 'quasar'
+
 import useReturnUrl from 'composables/useReturnUrl'
 
-import type usePageStatus from './usePageStatus'
+import usePageStatus from './usePageStatus'
 
 export default function navigateToListPage (
   isDirty: ReturnType<typeof usePageStatus>['isDirty']

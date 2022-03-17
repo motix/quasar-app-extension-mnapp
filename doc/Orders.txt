@@ -1,14 +1,17 @@
 import order
-  json
-  vue
-  quasar
-  firebase
+  json, css...
 
-  models
-  services
+  lodash, yup...
+
+  vue, vue-router...
+  quasar, @quasar
+  firebase
+  vite, @vite
+
   utils
-  router
+  models
   store
+  services
   composables
   components
 

@@ -1,7 +1,7 @@
-import { ref, computed } from 'vue'
+import { computed, ref } from 'vue'
 
-import type usePageFeatures from './usePageFeatures'
-import type usePageStatus from './usePageStatus'
+import usePageFeatures from './usePageFeatures'
+import usePageStatus from './usePageStatus'
 
 export default function useToolbar (
   hasEditor: ReturnType<typeof usePageFeatures>['hasEditor'],

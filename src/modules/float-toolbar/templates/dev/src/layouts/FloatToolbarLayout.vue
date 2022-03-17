@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import useFloatToolbar from 'composables/useFloatToolbar'
-import EssentialLink from 'components/EssentialLink.vue'
 import { ref } from 'vue'
+
+import useFloatToolbar from 'composables/useFloatToolbar'
+
+import EssentialLink from 'components/EssentialLink.vue'
 
 // Composables
 
