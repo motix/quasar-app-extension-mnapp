@@ -4,7 +4,10 @@ import { scroll } from 'quasar'
 
 import { requiredConfigEntries } from 'composables/useConfig'
 
-const { getScrollTarget, setVerticalScrollPosition } = scroll
+const {
+  getScrollTarget,
+  setVerticalScrollPosition
+} = scroll
 
 export default function () {
   // Private

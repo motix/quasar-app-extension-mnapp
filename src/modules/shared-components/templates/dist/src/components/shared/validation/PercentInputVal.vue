@@ -10,7 +10,10 @@ const props = defineProps<Props>()
 
 // Composables
 
-const { errorMessage, value } = useField<string | number | null | undefined>(props.name)
+const {
+  errorMessage,
+  value
+} = useField<string | number | null | undefined>(props.name)
 
 // Watch
 

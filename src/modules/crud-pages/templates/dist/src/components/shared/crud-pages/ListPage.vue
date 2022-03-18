@@ -20,6 +20,7 @@ function useTableView (scopeName: string) {
   // Composables
 
   const {
+    // useTableView
     columns,
     pagination
   } = useListPage(scopeName)
@@ -50,6 +51,7 @@ function usePageData (
   // Composables
 
   const {
+    // usePageData
     items,
     allItemsLoaded,
     itemCountLabel
@@ -79,6 +81,7 @@ function useNavigateToViewPage (scopeName: string) {
   // Composables
 
   const {
+    // useNavigateToViewPage
     itemLink,
     onItemClick
   } = useListPage(scopeName)

@@ -62,9 +62,7 @@ export default function useEditor<TVm = unknown> (
     notifySaveDataError
   } = useNotifications()
 
-  const {
-    toTop: scrollToTop
-  } = useScroll()
+  const { toTop: scrollToTop } = useScroll()
 
   // Data
 

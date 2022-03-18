@@ -82,8 +82,12 @@ export default function () {
   }
 
   function setupRemoteSignIn () {
+    let remoteTokenTimeout: ReturnType<typeof setTimeout>
+
     const handleMessage = (ev: MessageEvent<Record<'type' | 'value', string>>) => {
       if (ev.data.type === 'loginToken') {
+        clearTimeout(remoteTokenTimeout)
+
         const loginToken = ev.data.value
         const auth = getAuth()
 
@@ -93,7 +97,7 @@ export default function () {
           })
           .catch(error => {
             console.error(error)
-            // TODO: Show error page
+            void router.replace({ name: 'SignIn' })
           })
       }
     }
@@ -107,6 +111,12 @@ export default function () {
         type: 'windowKey',
         value: key
       }, '*')
+
+      remoteTokenTimeout = setTimeout(() => {
+        void router.replace({ name: 'SignIn' })
+      }, 1000)
+    } else {
+      void router.replace({ name: 'SignIn' })
     }
   }
 
