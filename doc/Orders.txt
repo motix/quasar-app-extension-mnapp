@@ -1,0 +1,34 @@
+import order
+  json, css...
+
+  lodash, yup...
+
+  vue, vue-router...
+  quasar, @quasar
+  firebase
+  vite, @vite
+
+  utils
+  models
+  store
+  services
+  composables
+  components
+
+setup sections
+  Constants
+  Private
+  Props
+  Attrs
+  Slots
+  Emit
+  Composables
+  Data
+  Method Refs
+  Computed
+  Dependency Injection
+  Private Executions
+  Methods
+  Lifecycle Hooks
+  Watch
+  Expose
