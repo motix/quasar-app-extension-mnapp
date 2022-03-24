@@ -18,14 +18,14 @@ export default function () {
 
   function switchView() {
     switch (data.viewType) {
-    case 'table':
-      data.viewType = 'cards';
-      break;
-    case 'cards':
-      data.viewType = 'table';
-      break;
-    default:
-      throw new Error(`viewType '${String(data.viewType)}' not implemented`);
+      case 'table':
+        data.viewType = 'cards';
+        break;
+      case 'cards':
+        data.viewType = 'table';
+        break;
+      default:
+        throw new Error(`viewType '${String(data.viewType)}' not implemented`);
     }
   }
 

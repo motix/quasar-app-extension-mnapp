@@ -412,8 +412,8 @@ const viewModelToApiModelResolver = {
         return field === '' || field === null
           ? null
           : dateDataConverter.fromDate<DateDataType>(
-            date.extractDate(field, editDateFormat)
-          );
+              date.extractDate(field, editDateFormat)
+            );
       },
     };
   },

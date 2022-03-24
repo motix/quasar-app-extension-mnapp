@@ -49,11 +49,11 @@ export default function usePageData<T = unknown, TVm = unknown>(
   const viewModelGetter = ref<((docKey: string) => TVm | null) | null>(null);
   const releaseModel = ref<(() => void) | null>(null);
   const updateModel = ref<
-  ((payload: UpdateDocActionPayload<T | TVm>) => Promise<void>) | null
-    >(null);
+    ((payload: UpdateDocActionPayload<T | TVm>) => Promise<void>) | null
+  >(null);
   const deleteModel = ref<
-  ((payload: DeleteDocActionPayload) => Promise<void>) | null
-    >(null);
+    ((payload: DeleteDocActionPayload) => Promise<void>) | null
+  >(null);
 
   // Computed
 

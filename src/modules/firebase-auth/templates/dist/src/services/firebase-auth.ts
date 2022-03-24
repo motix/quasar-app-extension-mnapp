@@ -144,11 +144,14 @@ export function signOut() {
 
 export async function createRemoteSignInToken() {
   const functions = getFunctions();
-  const createAuthToken = httpsCallable(functions, 'auth-createAuthToken');
+  const createAuthToken = httpsCallable<undefined, string>(
+    functions,
+    'auth-createAuthToken'
+  );
 
   try {
     const result = await createAuthToken();
-    return result.data as string;
+    return result.data;
   } catch (error) {
     console.error(error);
     throw new Error('Calling to auth-createAuthToken failed.');

@@ -159,7 +159,6 @@ const props = defineProps<{ scopeName: string }>();
 
 // Emit
 
-// eslint-disable-next-line func-call-spacing
 const emit = defineEmits<{
   (e: 'loadNextPage', index: number, done: (stop: boolean) => void): void;
 }>();

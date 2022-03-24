@@ -23,10 +23,10 @@ export default function () {
 
   function toElement(
     destination:
-    | ComponentPublicInstance
-    | Element
-    | ComponentPublicInstance[]
-    | Element[],
+      | ComponentPublicInstance
+      | Element
+      | ComponentPublicInstance[]
+      | Element[],
     index?: number
   ) {
     let el: Element | undefined;

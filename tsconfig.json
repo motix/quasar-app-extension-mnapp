@@ -6,7 +6,10 @@
       "app/package.json": ["src/modules/page-title/package.json"],
       "app/firebase.json": ["src/modules/firebase/firebase.json"],
 
-      "utils/*": ["src/modules/utils/templates/dist/src/utils/*"],
+      "utils/*": [
+        "src/modules/utils/templates/dist/src/utils/*",
+        "src/modules/document-status/templates/dist/src/utils/*"
+      ],
 
       "models/*": [
         "src/modules/firebase-auth/templates/dist/src/models/*",

@@ -6,12 +6,16 @@ Modules:
 - config
 - formats
   Dependencies: map-paths, vendors, config
+- select-date-range
+  Dependencies: map-paths, vendors, config
 - utils
   Dependencies: map-paths, vendors, config, formats
 - pageTitle
   Dependencies: config
 - shared-components
   Dependencies: map-paths, vendors, config
+- document-status
+  Dependencies: map-paths, vendors
 - notifications
   Dependencies: frameworks
 - scroll

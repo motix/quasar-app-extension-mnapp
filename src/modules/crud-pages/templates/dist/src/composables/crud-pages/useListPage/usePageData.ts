@@ -32,8 +32,8 @@ export default function usePageData<T = unknown>(
   const itemCountLabel = computed(() =>
     items.value
       ? `${allItemsLoaded.value ? 'All ' : ''}${items.value.length} item${
-        items.value.length > 1 ? 's' : ''
-      } loaded`
+          items.value.length > 1 ? 's' : ''
+        } loaded`
       : undefined
   );
 

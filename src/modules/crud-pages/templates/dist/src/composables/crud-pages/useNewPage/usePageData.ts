@@ -10,8 +10,8 @@ export default function usePageData<TVm = unknown>() {
   // Method Refs
 
   const createModel = ref<
-  ((payload: CreateDocActionPayload<TVm>) => Promise<TVm>) | null
-    >(null);
+    ((payload: CreateDocActionPayload<TVm>) => Promise<TVm>) | null
+  >(null);
 
   // Computed
 

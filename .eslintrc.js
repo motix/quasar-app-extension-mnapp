@@ -108,17 +108,5 @@ module.exports = {
         alphabetical: true,
       },
     ],
-
-    // Avoid "Cannot read property 'loc' of undefined" issue
-    // and take care of multiline generic type parameters.
-    // https://github.com/typescript-eslint/typescript-eslint/issues/455#issuecomment-580636221
-    indent: 'off',
-    '@typescript-eslint/indent': [
-      'error',
-      2,
-      {
-        ignoredNodes: ['TSTypeParameterInstantiation'],
-      },
-    ],
   },
 };

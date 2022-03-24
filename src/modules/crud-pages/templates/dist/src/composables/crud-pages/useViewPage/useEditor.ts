@@ -82,8 +82,8 @@ export default function useEditor<TVm = unknown>(
     const viewModelValue = viewModel.value;
     const initialValues = viewModelValue
       ? (Object.fromEntries(
-        initialValuesKeys.map((key) => [key, viewModelValue[key]])
-      ) as Pick<TVm, K>)
+          initialValuesKeys.map((key) => [key, viewModelValue[key]])
+        ) as Pick<TVm, K>)
       : undefined;
 
     const result = callUseForm(initialValues);

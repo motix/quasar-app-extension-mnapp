@@ -17,8 +17,8 @@ function buildGetters<T, TVm>(
       return doc
         ? cloneDeep(doc)
         : (() => {
-          throw new Error(`Realtime doc '${docKey}' not available.`);
-        })();
+            throw new Error(`Realtime doc '${docKey}' not available.`);
+          })();
     },
 
     docVm: (state) => (docKey: string) => {
@@ -27,8 +27,8 @@ function buildGetters<T, TVm>(
       return doc
         ? mapper.map<T, TVm>(doc as T, viewModelName, modelName)
         : (() => {
-          throw new Error(`Realtime doc '${docKey}' not available.`);
-        })();
+            throw new Error(`Realtime doc '${docKey}' not available.`);
+          })();
     },
 
     docPage: (state) => (page: number) =>

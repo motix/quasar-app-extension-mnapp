@@ -10,14 +10,14 @@ import { useFloatToolbarResult } from 'composables/useFloatToolbar';
 const props = withDefaults(
   defineProps<{
     position?:
-    | 'top-right'
-    | 'top-left'
-    | 'bottom-right'
-    | 'bottom-left'
-    | 'top'
-    | 'right'
-    | 'bottom'
-    | 'left';
+      | 'top-right'
+      | 'top-left'
+      | 'bottom-right'
+      | 'bottom-left'
+      | 'top'
+      | 'right'
+      | 'bottom'
+      | 'left';
     minMarginY?: number;
     // eslint-disable-next-line vue/require-default-prop
     fabButtonsVisibility?: Record<string, boolean>;

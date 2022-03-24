@@ -29,9 +29,9 @@ type GettersFlag<T> = { __flag: () => { model: T } };
 
 export function defineGetters<T, G>(
   getters: GettersFlag<T> &
-  G &
-  ThisType<UnwrapRef<S<T>> & _StoreWithGetters<G> & PiniaCustomProperties> &
-  _GettersTree<S<T>>
+    G &
+    ThisType<UnwrapRef<S<T>> & _StoreWithGetters<G> & PiniaCustomProperties> &
+    _GettersTree<S<T>>
 ) {
   const ret = getters as Omit<G, '__flag'> & Partial<GettersFlag<T>>;
   delete ret.__flag;
@@ -61,13 +61,13 @@ type ActionFlag<T, TVm, TAm> = {
 
 export function defineActions<T, TVm, TAm, A>(
   actions: ActionFlag<T, TVm, TAm> &
-  A &
-  ThisType<
+    A &
+    ThisType<
       A &
-      UnwrapRef<S<T>> &
-      _StoreWithState<string, S<T>, G<T, TVm>, A> &
-      _StoreWithGetters<G<T, TVm>> &
-      PiniaCustomProperties
+        UnwrapRef<S<T>> &
+        _StoreWithState<string, S<T>, G<T, TVm>, A> &
+        _StoreWithGetters<G<T, TVm>> &
+        PiniaCustomProperties
     >
 ) {
   const ret = actions as Omit<A, '__flag'> & Partial<ActionFlag<T, TVm, TAm>>;
