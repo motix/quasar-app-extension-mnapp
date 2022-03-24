@@ -36,7 +36,7 @@ export default function useNavigateToViewPage<T = unknown>(
 
     const keyValue = item[modelFindKeyField.value];
 
-    if (event.ctrlKey) {
+    if (event.ctrlKey || event.metaKey) {
       window.open(itemLink(item), '_blank');
     } else {
       void router.push(viewUrl.value + String(keyValue));
