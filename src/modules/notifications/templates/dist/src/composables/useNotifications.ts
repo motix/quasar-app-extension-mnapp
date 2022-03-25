@@ -19,6 +19,7 @@ export default function () {
       message:
         'Load data error. Refresh the page to try again or contact support.',
       type: 'negative',
+      actions: [{ icon: 'close', color: 'white' }],
     });
   }
 
@@ -26,6 +27,7 @@ export default function () {
     Notify.create({
       message: 'Invalid data input. Please revise marked fields.',
       type: 'negative',
+      actions: [{ icon: 'close', color: 'white' }],
     });
   }
 
@@ -33,6 +35,7 @@ export default function () {
     Notify.create({
       message: 'Data created successfully. Redirected to details page.',
       type: 'positive',
+      actions: [{ icon: 'close', color: 'white' }],
     });
   }
 
@@ -41,6 +44,7 @@ export default function () {
       message:
         'Create data error. Refresh the page to try again or contact support.',
       type: 'negative',
+      actions: [{ icon: 'close', color: 'white' }],
     });
   }
 
@@ -48,6 +52,7 @@ export default function () {
     Notify.create({
       message: 'Data saved successfully.',
       type: 'positive',
+      actions: [{ icon: 'close', color: 'white' }],
     });
   }
 
@@ -56,6 +61,7 @@ export default function () {
       message:
         'Save data error. Refresh the page to try again or contact support.',
       type: 'negative',
+      actions: [{ icon: 'close', color: 'white' }],
     });
   }
 
@@ -63,6 +69,7 @@ export default function () {
     Notify.create({
       message: 'Data deleted successfully. Redirecting to list page.',
       type: 'positive',
+      actions: [{ icon: 'close', color: 'white' }],
     });
   }
 
@@ -71,6 +78,7 @@ export default function () {
       message:
         'Delete data error. Refresh the page to try again or contact support.',
       type: 'negative',
+      actions: [{ icon: 'close', color: 'white' }],
     });
   }
 
