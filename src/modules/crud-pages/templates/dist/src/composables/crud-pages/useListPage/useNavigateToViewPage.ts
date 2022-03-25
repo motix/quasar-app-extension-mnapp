@@ -38,7 +38,7 @@ export default function useNavigateToViewPage<T = unknown>(
 
     if (event.ctrlKey || event.metaKey) {
       window.open(itemLink(item), '_blank');
-    } else {
+    } else if (!event.altKey) {
       void router.push(viewUrl.value + String(keyValue));
     }
   }
