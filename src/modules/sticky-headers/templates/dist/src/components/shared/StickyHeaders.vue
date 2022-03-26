@@ -27,9 +27,11 @@ const props = withDefaults(
   defineProps<{
     target: string;
     markupTable?: boolean;
+    dense?: boolean;
   }>(),
   {
     markupTable: false,
+    dense: false,
   }
 );
 
@@ -199,6 +201,7 @@ function onDestTableScroll(info: OnScrollDetail) {
       v-show="containerVisible"
       ref="container"
       class="scroll container"
+      :class="{ 'q-table--dense': dense }"
       :style="{ top: containerTop }"
     >
       <div>
