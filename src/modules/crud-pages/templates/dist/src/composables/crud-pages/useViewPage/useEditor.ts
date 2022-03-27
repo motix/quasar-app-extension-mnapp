@@ -165,9 +165,10 @@ export default function useEditor<TVm = unknown>(
     if (newFindKey !== findKey.value) {
       let path = route.fullPath;
 
-      path = path.substring(0, path.length - findKey.value.length + 1);
+      path = path.substring(0, path.length - findKey.value.length);
       findKey.value = newFindKey;
       path += findKey.value;
+      route.meta.replaceRoute = true;
       void router.replace(path);
     }
 

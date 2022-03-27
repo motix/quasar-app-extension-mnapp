@@ -9,6 +9,7 @@ declare module 'vue-router' {
     // instead of the default page.
     // Commonly used in View page.
     returnRequired?: boolean;
+    replaceRoute?: boolean;
     history?: string[];
     goingBack?: boolean;
   }

@@ -18,15 +18,18 @@ export default boot(({ router }) => {
     if (to.meta.returnRequired) {
       const history = from.meta.history || [];
 
-      if (from.meta.goingBack) {
-        history.shift();
-      } else {
-        history.unshift(from.path);
+      if (!from.meta.replaceRoute) {
+        if (from.meta.goingBack) {
+          history.shift();
+        } else {
+          history.unshift(from.path);
+        }
       }
 
       to.meta.history = history;
     }
 
+    delete from.meta.replaceRoute;
     delete from.meta.goingBack;
 
     next();
