@@ -41,8 +41,9 @@ function onUpdate(value: string | null) {
         : value;
   }
 
-  if (roundedValue !== props.modelValue)
+  if (roundedValue !== props.modelValue) {
     emit('update:modelValue', roundedValue);
+  }
 }
 </script>
 

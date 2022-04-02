@@ -30,7 +30,7 @@ watch(
 <template>
   <percent-input
     v-bind="$attrs"
-    v-model.number="value"
+    v-model="value"
     :error="!!errorMessage"
     :error-message="errorMessage"
   >
