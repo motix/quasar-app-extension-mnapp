@@ -19,9 +19,13 @@ export function numberRequired(label: string) {
     .required()
     .label(label)
     .typeError(`${label} must be a number`)
-    .transform((value: unknown, originalValue) =>
-      originalValue === '' ? undefined : value
-    );
+    .transform((value: unknown, originalValue) => {
+      if (String(originalValue).endsWith('.')) {
+        return ' ';
+      }
+
+      return originalValue === '' ? undefined : value;
+    });
 }
 
 export function numberOptional(label: string) {
@@ -30,9 +34,13 @@ export function numberOptional(label: string) {
     .default(null)
     .label(label)
     .typeError(`${label} must be a number`)
-    .transform((value: unknown, originalValue) =>
-      originalValue === '' ? undefined : value
-    );
+    .transform((value: unknown, originalValue) => {
+      if (String(originalValue).endsWith('.')) {
+        return ' ';
+      }
+
+      return originalValue === '' ? undefined : value;
+    });
 }
 
 export function integerRequired(label: string) {
