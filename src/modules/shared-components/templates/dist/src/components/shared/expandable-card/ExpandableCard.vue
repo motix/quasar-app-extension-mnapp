@@ -42,6 +42,8 @@ const props = withDefaults(
     // eslint-disable-next-line vue/require-default-prop
     subtitleTooltip?: string;
     // eslint-disable-next-line vue/require-default-prop
+    captionColor?: string;
+    // eslint-disable-next-line vue/require-default-prop
     caption?: string;
     // eslint-disable-next-line vue/require-default-prop
     captionTooltip?: string;

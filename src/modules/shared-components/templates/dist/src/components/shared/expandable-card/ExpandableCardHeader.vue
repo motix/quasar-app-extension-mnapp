@@ -35,6 +35,8 @@ const props = withDefaults(
     // eslint-disable-next-line vue/require-default-prop
     subtitleTooltip?: string;
     // eslint-disable-next-line vue/require-default-prop
+    captionColor?: string;
+    // eslint-disable-next-line vue/require-default-prop
     caption?: string;
     // eslint-disable-next-line vue/require-default-prop
     captionTooltip?: string;
@@ -69,6 +71,16 @@ const subtitleCssClass = computed(() => {
 
   if (props.subtitleColor) {
     val[`text-${props.subtitleColor}`] = true;
+  }
+
+  return val;
+});
+
+const captionCssClass = computed(() => {
+  const val: { [key: string]: boolean } = {};
+
+  if (props.captionColor) {
+    val[`text-${props.captionColor}`] = true;
   }
 
   return val;
@@ -138,7 +150,7 @@ const subtitleCssClass = computed(() => {
         </span>
       </q-item-label>
 
-      <q-item-label v-if="caption" caption>
+      <q-item-label v-if="caption" caption :class="captionCssClass">
         <span>
           {{ caption }}
           <top-tooltip v-if="captionTooltip">
