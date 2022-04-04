@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 
+import { Dark } from 'quasar';
+
 // Props
 
 const props = withDefaults(
@@ -88,7 +90,7 @@ const captionCssClass = computed(() => {
 </script>
 
 <template>
-  <q-item :dark="headerDark">
+  <q-item :dark="headerDark || Dark.isActive">
     <q-btn
       v-if="externalLinkUrl"
       class="absolute"
@@ -113,11 +115,16 @@ const captionCssClass = computed(() => {
     >
       <q-avatar
         v-if="avatarIcon"
-        :color="avatarColor || (headerDark ? 'white' : 'grey-9')"
+        :color="
+          avatarColor || (headerDark || Dark.isActive ? 'white' : 'grey-9')
+        "
         size="56px"
       >
         <q-icon
-          :color="headerBackgroundColor || (headerDark ? 'grey-9' : 'white')"
+          :color="
+            headerBackgroundColor ||
+            (headerDark || Dark.isActive ? 'grey-9' : 'white')
+          "
           :name="avatarIcon"
         />
       </q-avatar>
@@ -126,7 +133,7 @@ const captionCssClass = computed(() => {
       </q-avatar>
       <gravatar-image
         v-if="useGravatar"
-        :dark="headerDark"
+        :dark="headerDark || Dark.isActive"
         :gravatar-id="gravatarId"
       />
     </q-item-section>

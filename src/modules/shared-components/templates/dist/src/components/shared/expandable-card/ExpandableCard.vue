@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { computed, readonly, ref } from 'vue';
 
+import { Dark } from 'quasar';
+
 import { requiredConfigEntries } from 'composables/useConfig';
 
 import ExpandableCardHeader from './ExpandableCardHeader.vue';
@@ -55,7 +57,7 @@ const props = withDefaults(
   {
     expandable: false,
     clickable: false,
-    bodyBackgroundColor: 'grey-1',
+    bodyBackgroundColor: Dark.isActive ? 'grey-10' : 'grey-1',
     headerDark: false,
     avatarTop: false,
     useGravatar: false,
@@ -92,7 +94,7 @@ cardCssClass.value[`bg-${props.bodyBackgroundColor}`] = true;
     <template v-if="expandable">
       <q-expansion-item
         :class="headerBackgroundColor ? `bg-${headerBackgroundColor}` : ''"
-        :dark="headerDark"
+        :dark="headerDark || Dark.isActive"
         expand-icon-class="q-pr-none"
         expand-separator
       >

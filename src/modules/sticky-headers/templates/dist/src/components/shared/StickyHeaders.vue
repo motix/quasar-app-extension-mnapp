@@ -101,14 +101,22 @@ function onResize() {
     });
   }
 
+  let textNodeCount = 0;
   sourceTr.childNodes.forEach((value, index) => {
     const sourceTh = value as HTMLElement;
-    const destTh = destTr.childNodes.item(index) as HTMLElement;
 
-    if (sourceTh.nodeName !== '#comment') {
-      destTh.style.width = `${sourceTh.getBoundingClientRect().width}px`;
+    // Text node will be generated when using <template v-if></template> to wrap headers
+    if (sourceTh.nodeName === '#comment' || sourceTh.nodeName === '#text') {
+      if (sourceTh.nodeName === '#text') {
+        textNodeCount++;
+      }
+
+      return;
     }
 
+    const destTh = destTr.childNodes.item(index - textNodeCount) as HTMLElement;
+
+    destTh.style.width = `${sourceTh.getBoundingClientRect().width}px`;
     sourceTh.onclick = () => {
       updateClassnames();
     };
@@ -227,14 +235,25 @@ function onDestTableScroll(info: OnScrollDetail) {
 .container {
   position: fixed;
   z-index: 1;
-  background: white;
   width: 100%;
   left: 0px;
   padding-top: 1px;
   padding-bottom: 1px;
+}
+
+.body--light .container {
+  background: white;
 
   :deep() th {
     color: $grey;
+  }
+}
+
+.body--dark .container {
+  background: $grey-9;
+
+  :deep() th {
+    color: white;
   }
 }
 
