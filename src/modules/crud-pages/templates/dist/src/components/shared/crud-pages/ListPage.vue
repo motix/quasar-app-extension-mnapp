@@ -83,9 +83,14 @@ function useNavigateToViewPage(scopeName: string) {
 
   const {
     // useNavigateToViewPage
+    viewUrl,
     itemLink,
     onItemClick,
   } = useListPage(scopeName);
+
+  // Computed
+
+  const hasViewPage = computed(() => viewUrl.value !== null);
 
   // Methods
 
@@ -97,6 +102,7 @@ function useNavigateToViewPage(scopeName: string) {
 
   return {
     itemLink,
+    hasViewPage,
     onRowClick,
   };
 }
@@ -180,7 +186,9 @@ const { items, allItemsLoaded, itemCountLabel, onLoadNextPage } = usePageData(
   emit
 );
 
-const { itemLink, onRowClick } = useNavigateToViewPage(props.scopeName);
+const { itemLink, hasViewPage, onRowClick } = useNavigateToViewPage(
+  props.scopeName
+);
 
 const { isTableView, isCardsView, hasTableView, hasCardsView, hasMultiViews } =
   usePageMultiViews(columns);
@@ -225,7 +233,7 @@ const { hideInfiniteScrollLoading } =
               v-model:pagination="pagination"
               :columns="columns || undefined"
               :rows="items"
-              @row-click="onRowClick"
+              v-on="hasViewPage ? { rowClick: onRowClick } : {}"
             >
               <template v-if="$slots.top" #top>
                 <slot name="top" />
@@ -258,7 +266,7 @@ const { hideInfiniteScrollLoading } =
 
                 <slot
                   v-for="item in items"
-                  :link="itemLink(item)"
+                  :link="() => itemLink(item)"
                   :model="item"
                   name="item-card"
                 />
@@ -300,7 +308,7 @@ const { hideInfiniteScrollLoading } =
           text-color="primary"
           :to="newUrl"
         >
-          <top-tooltip> Add </top-tooltip>
+          <top-tooltip>Add</top-tooltip>
         </q-btn>
       </template>
 
@@ -328,7 +336,7 @@ const { hideInfiniteScrollLoading } =
           text-color="primary"
           :to="newUrl"
         >
-          <top-tooltip> Add </top-tooltip>
+          <top-tooltip>Add</top-tooltip>
         </q-btn>
 
         <div
