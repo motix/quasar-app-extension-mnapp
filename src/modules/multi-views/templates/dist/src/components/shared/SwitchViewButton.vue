@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { Dark } from 'quasar';
+
 import useMultiViews from 'composables/useMultiViews';
 
 // Composables
@@ -8,7 +10,7 @@ const { isTableView, switchViewAndScroll } = useMultiViews();
 
 <template>
   <q-btn
-    color="grey-3"
+    :color="Dark.isActive ? 'grey-9' : 'grey-3'"
     :icon="`fal fa-${isTableView ? 'address-card' : 'table'}`"
     round
     text-color="primary"

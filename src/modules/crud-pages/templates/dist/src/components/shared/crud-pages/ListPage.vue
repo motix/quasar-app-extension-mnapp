@@ -3,6 +3,8 @@ export default {};
 
 import { computed, nextTick, ref, useSlots, watchEffect } from 'vue';
 
+import { Dark } from 'quasar';
+
 import useListPage from 'composables/crud-pages/useListPage';
 import useMultiViews from 'composables/useMultiViews';
 
@@ -302,7 +304,7 @@ const { hideInfiniteScrollLoading } =
       <template v-if="newButton" #fixed-buttons>
         <q-btn
           key="add"
-          color="grey-3"
+          :color="Dark.isActive ? 'grey-9' : 'grey-3'"
           icon="fal fa-plus"
           round
           text-color="primary"
@@ -330,7 +332,7 @@ const { hideInfiniteScrollLoading } =
         <q-btn
           v-if="newButton"
           key="add"
-          color="grey-3"
+          :color="Dark.isActive ? 'grey-9' : 'grey-3'"
           icon="fal fa-plus"
           round
           text-color="primary"

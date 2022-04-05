@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue';
 
-import { QAjaxBar } from 'quasar';
+import { Dark, QAjaxBar } from 'quasar';
 
 import useViewPage from 'composables/crud-pages/useViewPage';
 
@@ -81,7 +81,7 @@ watch(freezed, (value) => {
           <template #fixed-buttons>
             <q-btn
               key="back"
-              color="grey-3"
+              :color="Dark.isActive ? 'grey-9' : 'grey-3'"
               icon="fal fa-arrow-left"
               round
               text-color="accent"
@@ -110,7 +110,7 @@ watch(freezed, (value) => {
             <q-btn
               v-if="toolbarFixedButtonsVisibility.back"
               key="back"
-              color="grey-3"
+              :color="Dark.isActive ? 'grey-9' : 'grey-3'"
               :disable="freezed"
               icon="fal fa-arrow-left"
               round
@@ -129,7 +129,7 @@ watch(freezed, (value) => {
           <q-btn
             v-show="toolbarFabButtonsVisibility.trash"
             key="trash"
-            color="grey-3"
+            :color="Dark.isActive ? 'grey-9' : 'grey-3'"
             :disable="freezed"
             icon="fal fa-trash-alt"
             :loading="deleting"
@@ -143,7 +143,7 @@ watch(freezed, (value) => {
           <q-btn
             v-show="toolbarFabButtonsVisibility.edit"
             key="edit"
-            color="grey-3"
+            :color="Dark.isActive ? 'grey-9' : 'grey-3'"
             :disable="freezed"
             icon="fal fa-edit"
             round
@@ -156,7 +156,7 @@ watch(freezed, (value) => {
           <q-btn
             v-show="toolbarFabButtonsVisibility.revert"
             key="revert"
-            :color="isDirty ? 'warning' : 'grey-3'"
+            :color="isDirty ? 'warning' : Dark.isActive ? 'grey-9' : 'grey-3'"
             :disable="freezed"
             icon="fal fa-undo"
             round
@@ -169,7 +169,7 @@ watch(freezed, (value) => {
           <q-btn
             v-show="toolbarFabButtonsVisibility.save"
             key="save"
-            color="grey-3"
+            :color="Dark.isActive ? 'grey-9' : 'grey-3'"
             :disable="freezed || !isDirty"
             icon="fal fa-save"
             :loading="editorSaving"

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue';
 
-import { QAjaxBar } from 'quasar';
+import { Dark, QAjaxBar } from 'quasar';
 
 import useNewPage from 'composables/crud-pages/useNewPage';
 
@@ -67,7 +67,7 @@ watch(freezed, (value) => {
           <template #fixed-buttons>
             <q-btn
               key="back"
-              :color="isDirty ? 'accent' : 'grey-3'"
+              :color="isDirty ? 'accent' : Dark.isActive ? 'grey-9' : 'grey-3'"
               :disable="freezed"
               icon="fal fa-arrow-left"
               round
@@ -83,7 +83,7 @@ watch(freezed, (value) => {
           <template #fixed-buttons>
             <q-btn
               key="save"
-              color="grey-3"
+              :color="Dark.isActive ? 'grey-9' : 'grey-3'"
               :disable="freezed || (!isDirty && !initiallyFilled)"
               icon="fal fa-save"
               :loading="editorSaving"
