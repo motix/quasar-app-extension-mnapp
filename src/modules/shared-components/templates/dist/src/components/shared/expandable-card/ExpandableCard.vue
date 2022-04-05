@@ -118,7 +118,11 @@ const cardCssClass = computed<Record<string, unknown>>(() => {
           </expandable-card-header>
         </template>
 
-        <div :class="`bg-${bodyBackgroundColor}`">
+        <div
+          :class="`bg-${
+            bodyBackgroundColor || (Dark.isActive ? 'grey-10' : 'grey-1')
+          }`"
+        >
           <slot name="bezel-less-top" />
 
           <q-card-section v-if="$slots.body">
