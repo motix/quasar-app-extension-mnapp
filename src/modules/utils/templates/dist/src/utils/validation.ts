@@ -20,7 +20,16 @@ export function numberRequired(label: string) {
     .label(label)
     .typeError(`${label} must be a number`)
     .transform((value: unknown, originalValue) => {
-      if (String(originalValue).endsWith('.')) {
+      const originalValueAsString = String(originalValue);
+
+      if (
+        originalValueAsString.endsWith('.') ||
+        (originalValueAsString.length > 1 &&
+          originalValueAsString.startsWith('0') &&
+          originalValueAsString[1] !== '.') ||
+        (originalValueAsString.includes('.') &&
+          originalValueAsString.endsWith('0'))
+      ) {
         return ' ';
       }
 
@@ -35,7 +44,16 @@ export function numberOptional(label: string) {
     .label(label)
     .typeError(`${label} must be a number`)
     .transform((value: unknown, originalValue) => {
-      if (String(originalValue).endsWith('.')) {
+      const originalValueAsString = String(originalValue);
+
+      if (
+        originalValueAsString.endsWith('.') ||
+        (originalValueAsString.length > 1 &&
+          originalValueAsString.startsWith('0') &&
+          originalValueAsString[1] !== '.') ||
+        (originalValueAsString.includes('.') &&
+          originalValueAsString.endsWith('0'))
+      ) {
         return ' ';
       }
 

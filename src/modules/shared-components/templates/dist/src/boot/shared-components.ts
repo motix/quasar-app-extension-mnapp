@@ -6,6 +6,7 @@ import ExpandableCard from 'components/shared/expandable-card/ExpandableCard.vue
 import GravatarImage from 'components/shared/GravatarImage.vue';
 import PercentInput from 'components/shared/PercentInput.vue';
 import QPagePadding from 'components/shared/QPagePadding.vue';
+import ThousandInput from 'components/shared/ThousandInput.vue';
 import TopTooltip from 'components/shared/TopTooltip.vue';
 import FadeTransition from 'components/shared/transition/FadeTransition.vue';
 import ListTransition from 'components/shared/transition/ListTransition.vue';
@@ -14,6 +15,7 @@ import QDateInputVal from 'components/shared/validation/QDateInputVal.vue';
 import QDateVal from 'components/shared/validation/QDateVal.vue';
 import QInputVal from 'components/shared/validation/QInputVal.vue';
 import QSelectVal from 'components/shared/validation/QSelectVal.vue';
+import ThousandInputVal from 'components/shared/validation/ThousandInputVal.vue';
 
 export default boot(({ app }) => {
   const config = useConfig();
@@ -31,8 +33,10 @@ export default boot(({ app }) => {
   app.component('ExpandableCard', ExpandableCard);
   app.component('QPagePadding', QPagePadding);
   app.component('PercentInput', PercentInput);
+  app.component('ThousandInput', ThousandInput);
   app.component('QInputVal', QInputVal);
   app.component('PercentInputVal', PercentInputVal);
+  app.component('ThousandInputVal', ThousandInputVal);
   app.component('QSelectVal', QSelectVal);
   app.component('QDateVal', QDateVal);
   app.component('QDateInputVal', QDateInputVal);

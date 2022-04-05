@@ -4,6 +4,7 @@ import ExpandableCard from 'components/shared/expandable-card/ExpandableCard.vue
 import GravatarImage from 'components/shared/GravatarImage.vue';
 import PercentInput from 'components/shared/PercentInput.vue';
 import QPagePadding from 'components/shared/QPagePadding.vue';
+import ThousandInput from 'components/shared/ThousandInput.vue';
 import TopTooltip from 'components/shared/TopTooltip.vue';
 import FadeTransition from 'components/shared/transition/FadeTransition.vue';
 import ListTransition from 'components/shared/transition/ListTransition.vue';
@@ -12,6 +13,7 @@ import QDateInputVal from 'components/shared/validation/QDateInputVal.vue';
 import QDateVal from 'components/shared/validation/QDateVal.vue';
 import QInputVal from 'components/shared/validation/QInputVal.vue';
 import QSelectVal from 'components/shared/validation/QSelectVal.vue';
+import ThousandInputVal from 'components/shared/validation/ThousandInputVal.vue';
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
@@ -22,8 +24,10 @@ declare module '@vue/runtime-core' {
     ExpandableCard: typeof ExpandableCard;
     QPagePadding: typeof QPagePadding;
     PercentInput: typeof PercentInput;
+    ThousandInput: typeof ThousandInput;
     QInputVal: typeof QInputVal;
     PercentInputVal: typeof PercentInputVal;
+    ThousandInputVal: typeof ThousandInputVal;
     QSelectVal: typeof QSelectVal;
     QDateVal: typeof QDateVal;
     QDateInputVal: typeof QDateInputVal;

@@ -5,8 +5,8 @@ import { computed } from 'vue';
 
 // Private
 
-function percentRound(value: number) {
-  return Math.round(value * 10000) / 10000;
+function oneThousandRound(value: number) {
+  return Math.round(value / 1000) * 1000;
 }
 
 // Props
@@ -23,14 +23,14 @@ const emit = defineEmits<{
 // Computed
 
 const isValueValid = computed(() => {
-  const valueAsNumber = parseFloat(String(props.modelValue));
+  const valueAsNumber = parseInt(String(props.modelValue));
 
   return isFinite(props.modelValue) && valueAsNumber === props.modelValue;
 });
 
 const displayValue = computed(() =>
   isValueValid.value
-    ? (percentRound(props.modelValue as number) * 100).toString()
+    ? (oneThousandRound(props.modelValue as number) / 1000).toString()
     : props.modelValue?.toString() || ''
 );
 
@@ -40,10 +40,10 @@ function onUpdate(value: string | null) {
   let roundedValue: string | number | null = null;
 
   if (value != null) {
-    const valueAsNumber = parseFloat(value);
+    const valueAsNumber = parseInt(value);
     roundedValue =
       isFinite(valueAsNumber) && String(valueAsNumber) === value
-        ? percentRound(valueAsNumber / 100)
+        ? valueAsNumber * 1000
         : value;
   }
 
@@ -56,9 +56,8 @@ function onUpdate(value: string | null) {
 <template>
   <q-input
     v-bind="$attrs"
-    class="percent"
     :model-value="displayValue"
-    :suffix="isValueValid ? '%' : undefined"
+    :suffix="isValueValid && (modelValue as number) > 0 ? '000' : undefined"
     @update:model-value="onUpdate($event as string | null)"
   >
     <template v-if="$slots.loading" #loading>
@@ -66,9 +65,3 @@ function onUpdate(value: string | null) {
     </template>
   </q-input>
 </template>
-
-<style scoped lang="scss">
-.percent :deep() .q-field__suffix {
-  padding-left: 0;
-}
-</style>
