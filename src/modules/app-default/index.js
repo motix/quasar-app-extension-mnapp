@@ -15,6 +15,10 @@ module.exports = defineIndex(function (api) {
       };
     }
 
+    if (prompts.dark) {
+      conf.framework.config.dark = 'auto';
+    }
+
     conf.build.vueRouterMode = 'history';
     conf.boot.push('notify');
     conf.css.push('app-default.scss');

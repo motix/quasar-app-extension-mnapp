@@ -41,6 +41,7 @@ module.exports = {
     prompts: {
       devServerPort: 9000,
       https: true,
+      dark: true,
     },
   },
 };

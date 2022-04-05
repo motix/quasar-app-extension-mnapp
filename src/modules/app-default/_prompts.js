@@ -13,5 +13,11 @@ module.exports = function appDefault() {
       message: '[app-default] Use HTTPS?',
       default: false,
     },
+    {
+      name: 'dark',
+      type: 'confirm',
+      message: '[app-default] Quasar framework.config.dark',
+      default: false,
+    },
   ];
 };

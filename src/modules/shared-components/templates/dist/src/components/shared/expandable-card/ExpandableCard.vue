@@ -15,6 +15,7 @@ const props = withDefaults(
     clickable?: boolean;
     // eslint-disable-next-line vue/require-default-prop
     headerBackgroundColor?: string;
+    // eslint-disable-next-line vue/require-default-prop
     bodyBackgroundColor?: string;
     headerDark?: boolean;
     // eslint-disable-next-line vue/require-default-prop
@@ -57,7 +58,6 @@ const props = withDefaults(
   {
     expandable: false,
     clickable: false,
-    bodyBackgroundColor: Dark.isActive ? 'grey-10' : 'grey-1',
     headerDark: false,
     avatarTop: false,
     useGravatar: false,
@@ -76,13 +76,17 @@ const cardWidth = readonly(ref(requiredConfigEntries('cardWidth').cardWidth));
 
 // Computed
 
-const cardCssClass = computed<Record<string, unknown>>(() => ({
-  'cursor-pointer': props.clickable,
-}));
+const cardCssClass = computed<Record<string, unknown>>(() => {
+  const result: Record<string, unknown> = {
+    'cursor-pointer': props.clickable,
+  };
 
-//  Private Executions
+  result[
+    `bg-${props.bodyBackgroundColor || (Dark.isActive ? 'grey-10' : 'grey-1')}`
+  ] = true;
 
-cardCssClass.value[`bg-${props.bodyBackgroundColor}`] = true;
+  return result;
+});
 </script>
 
 <template>
