@@ -9,6 +9,7 @@
 | optional boolean                | ?: boolean | boolean \| null          | ?: boolean \| null   | x         |
 | - required when save            |            |                          | ?: boolean           | x         |
 | number                          | number     | number \| string         | number               | x         |
+| readonly number                 | number     | number                   | number               | x         |
 | optional number                 | ?: number  | number \| string \| null | ?: number \| null    | x         |
 | - required when save            |            |                          | ?: number            | x         |
 | date                            | Date       | string                   | Timestamp            | x         |
