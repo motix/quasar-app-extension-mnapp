@@ -53,7 +53,7 @@ function lsRemoveCard(index: number) {
     <h4>TopTooltip</h4>
     <q-btn>
       Top Tooltip
-      <top-tooltip> Top Tooltip </top-tooltip>
+      <top-tooltip>Top Tooltip</top-tooltip>
     </q-btn>
 
     <h4>Gravatar Image</h4>

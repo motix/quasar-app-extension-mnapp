@@ -74,7 +74,7 @@ watch(freezed, (value) => {
               :text-color="isDirty ? 'white' : 'accent'"
               @click="confirmAndGoBack"
             >
-              <top-tooltip> Back </top-tooltip>
+              <top-tooltip>Back</top-tooltip>
             </q-btn>
           </template>
         </float-toolbar>
@@ -94,7 +94,7 @@ watch(freezed, (value) => {
                 editorSave();
               "
             >
-              <top-tooltip ref="saveTooltip"> Save </top-tooltip>
+              <top-tooltip ref="saveTooltip">Save</top-tooltip>
             </q-btn>
           </template>
         </float-toolbar>

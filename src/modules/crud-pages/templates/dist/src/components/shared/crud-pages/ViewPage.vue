@@ -87,7 +87,7 @@ watch(freezed, (value) => {
               text-color="accent"
               @click="goBack"
             >
-              <top-tooltip> Back </top-tooltip>
+              <top-tooltip>Back</top-tooltip>
             </q-btn>
           </template>
         </float-toolbar>
@@ -117,7 +117,7 @@ watch(freezed, (value) => {
               text-color="accent"
               @click="goBack"
             >
-              <top-tooltip> Back </top-tooltip>
+              <top-tooltip>Back</top-tooltip>
             </q-btn>
           </template>
         </float-toolbar>
@@ -137,7 +137,7 @@ watch(freezed, (value) => {
             text-color="negative"
             @click="trash"
           >
-            <top-tooltip> Delete </top-tooltip>
+            <top-tooltip>Delete</top-tooltip>
           </q-btn>
 
           <q-btn
@@ -150,7 +150,7 @@ watch(freezed, (value) => {
             text-color="primary"
             @click="edit"
           >
-            <top-tooltip> Edit </top-tooltip>
+            <top-tooltip>Edit</top-tooltip>
           </q-btn>
 
           <q-btn
@@ -163,7 +163,7 @@ watch(freezed, (value) => {
             :text-color="isDirty ? 'white' : 'warning'"
             @click="revert"
           >
-            <top-tooltip> Revert </top-tooltip>
+            <top-tooltip>Revert</top-tooltip>
           </q-btn>
 
           <q-btn
@@ -180,7 +180,7 @@ watch(freezed, (value) => {
               editorSave();
             "
           >
-            <top-tooltip ref="saveTooltip"> Save </top-tooltip>
+            <top-tooltip ref="saveTooltip">Save</top-tooltip>
           </q-btn>
 
           <transition-group
