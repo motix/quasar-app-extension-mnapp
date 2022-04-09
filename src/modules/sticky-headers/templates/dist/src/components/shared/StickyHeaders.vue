@@ -92,30 +92,37 @@ function onResize() {
 
   destTr.innerHTML = sourceTr.innerHTML;
 
-  function updateClassnames() {
+  function forEachHeader(
+    callback: (sourceTh: HTMLElement, desetTh: HTMLElement) => void
+  ) {
+    let textNodeCount = 0;
     sourceTr.childNodes.forEach((value, index) => {
       const sourceTh = value as HTMLElement;
-      const destTh = destTr.childNodes.item(index) as HTMLElement;
 
+      // Text node will be generated when using <template v-if></template> to wrap headers
+      if (sourceTh.nodeName === '#comment' || sourceTh.nodeName === '#text') {
+        if (sourceTh.nodeName === '#text') {
+          textNodeCount++;
+        }
+
+        return;
+      }
+
+      const destTh = destTr.childNodes.item(
+        index - textNodeCount
+      ) as HTMLElement;
+
+      callback(sourceTh, destTh);
+    });
+  }
+
+  function updateClassnames() {
+    forEachHeader((sourceTh, destTh) => {
       destTh.className = sourceTh.className;
     });
   }
 
-  let textNodeCount = 0;
-  sourceTr.childNodes.forEach((value, index) => {
-    const sourceTh = value as HTMLElement;
-
-    // Text node will be generated when using <template v-if></template> to wrap headers
-    if (sourceTh.nodeName === '#comment' || sourceTh.nodeName === '#text') {
-      if (sourceTh.nodeName === '#text') {
-        textNodeCount++;
-      }
-
-      return;
-    }
-
-    const destTh = destTr.childNodes.item(index - textNodeCount) as HTMLElement;
-
+  forEachHeader((sourceTh, destTh) => {
     destTh.style.width = `${sourceTh.getBoundingClientRect().width}px`;
     sourceTh.onclick = () => {
       updateClassnames();
@@ -234,7 +241,7 @@ function onDestTableScroll(info: OnScrollDetail) {
 <style scoped lang="scss">
 .container {
   position: fixed;
-  z-index: 1;
+  z-index: 2;
   width: 100%;
   left: 0px;
   padding-top: 1px;
