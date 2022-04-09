@@ -120,8 +120,8 @@ function usePageMultiViews(columns: ListPageType['columns']) {
 
   // Computed
 
-  const hasTableView = computed(() => !!columns.value);
-  const hasCardsView = computed(() => !!slots['item-card']);
+  const hasTableView = computed(() => !!columns.value || !!slots['table']);
+  const hasCardsView = computed(() => !!slots['item-card'] || !!slots['cards']);
   const hasMultiViews = computed(
     () => hasTableView.value && hasCardsView.value
   );
@@ -217,70 +217,74 @@ const { hideInfiniteScrollLoading } =
 
       <div v-else key="ready">
         <!-- Ready -->
-        <sticky-headers
-          v-if="hasTableView && (isTableView || !hasCardsView)"
-          target="#mainTable"
-        />
-
         <q-infinite-scroll
           ref="ifiniteScroll"
           :offset="250"
           @load="onLoadNextPage"
         >
           <fade-transition>
-            <q-table
+            <slot
               v-if="hasTableView && (isTableView || !hasCardsView)"
-              id="mainTable"
-              key="tableView"
-              v-model:pagination="pagination"
-              :columns="columns || undefined"
-              :rows="items"
-              v-on="hasViewPage ? { rowClick: onRowClick } : {}"
+              name="table"
             >
-              <template v-if="$slots.top" #top>
-                <slot name="top" />
-              </template>
+              <div key="tableView">
+                <sticky-headers target="#mainTable" />
 
-              <template
-                v-for="slotName in scopedSlotNames"
-                #[slotName]="slotProps"
-              >
-                <slot :name="slotName" :props="slotProps" />
-              </template>
+                <q-table
+                  id="mainTable"
+                  v-model:pagination="pagination"
+                  :columns="columns || undefined"
+                  :rows="items"
+                  v-on="hasViewPage ? { rowClick: onRowClick } : {}"
+                >
+                  <template v-if="$slots.top" #top>
+                    <slot name="top" />
+                  </template>
 
-              <template #bottom>
-                <div class="text-center full-width">
+                  <template
+                    v-for="slotName in scopedSlotNames"
+                    #[slotName]="slotProps"
+                  >
+                    <slot :name="slotName" :props="slotProps" />
+                  </template>
+
+                  <template #bottom>
+                    <div class="text-center full-width">
+                      {{ itemCountLabel }}
+                    </div>
+                  </template>
+                </q-table>
+              </div>
+            </slot>
+
+            <slot
+              v-else-if="hasCardsView && (isCardsView || !hasTableView)"
+              name="cards"
+            >
+              <div key="cardsView">
+                <div class="row items-start justify-evenly q-gutter-md">
+                  <div>
+                    <slot name="top" />
+                  </div>
+
+                  <div class="flex-break q-mt-none" />
+
+                  <slot
+                    v-for="item in items"
+                    :link="() => itemLink(item)"
+                    :model="item"
+                    name="item-card"
+                  />
+                </div>
+
+                <div
+                  class="text-center q-mt-lg"
+                  :class="{ 'q-mb-md': allItemsLoaded }"
+                >
                   {{ itemCountLabel }}
                 </div>
-              </template>
-            </q-table>
-
-            <div
-              v-else-if="hasCardsView && (isCardsView || !hasTableView)"
-              key="cardsView"
-            >
-              <div class="row items-start justify-evenly q-gutter-md">
-                <div>
-                  <slot name="top" />
-                </div>
-
-                <div class="flex-break q-mt-none" />
-
-                <slot
-                  v-for="item in items"
-                  :link="() => itemLink(item)"
-                  :model="item"
-                  name="item-card"
-                />
               </div>
-
-              <div
-                class="text-center q-mt-lg"
-                :class="{ 'q-mb-md': allItemsLoaded }"
-              >
-                {{ itemCountLabel }}
-              </div>
-            </div>
+            </slot>
           </fade-transition>
 
           <!-- Smoothly hide loading template -->
