@@ -61,6 +61,7 @@ export default function usePageData<T = unknown>(
         ready.value = true;
       },
     };
+
     try {
       await loadPage(payload);
     } catch (error) {
@@ -90,6 +91,7 @@ export default function usePageData<T = unknown>(
         notifyErrorDebug(error);
       },
     };
+
     try {
       await loadPage(payload);
     } catch (error) {
