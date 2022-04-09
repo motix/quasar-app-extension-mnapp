@@ -18,6 +18,7 @@ import {
   query,
   Query,
   runTransaction,
+  setDoc,
   startAfter,
   UpdateData,
   updateDoc,
@@ -242,7 +243,7 @@ function buildActions<T extends DocModel, TVm, TAm>(
     async createDoc(payload: CreateDocActionPayload<TVm>) {
       options.beforeCreate && (await options.beforeCreate(payload));
 
-      const { doc: docVm, idField } = payload;
+      const { doc: docVm, id, idField } = payload;
 
       const docAm = mapper.map<TVm, TAm>(docVm, apiModelName, viewModelName);
 
@@ -253,9 +254,14 @@ function buildActions<T extends DocModel, TVm, TAm>(
       ) as CollectionReference<TAm>;
       let docRef: DocumentReference<TAm>;
 
-      if (idField) {
-        const id = urlFriendlyNormalizeString(String(docVm[idField])) as string;
+      if (id) {
         docRef = doc(collectionRef, id);
+        await setDoc(docRef, docAm);
+      } else if (idField) {
+        const idFromField = urlFriendlyNormalizeString(
+          String(docVm[idField])
+        ) as string;
+        docRef = doc(collectionRef, idFromField);
         await runTransaction(db, async (transaction) => {
           const existingDocSnapshot = await transaction.get(docRef);
 

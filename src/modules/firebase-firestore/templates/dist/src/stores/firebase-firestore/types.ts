@@ -47,6 +47,7 @@ export type ReleaseRealtimeDocActionPayload = {
 
 export type CreateDocActionPayload<T> = {
   doc: T;
+  id?: string;
   idField?: keyof T;
 };
 
