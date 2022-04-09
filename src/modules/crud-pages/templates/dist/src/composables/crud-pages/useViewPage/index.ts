@@ -21,6 +21,7 @@ function newScope<T, TVm>() {
     goBack,
     pageFeatures.hasEditor,
     pageStatus.muteNextRealtimeUpdate,
+    pageStatus.delayRealtimeUpdate,
     pageStatus.muteViewerWatch,
     pageStatus.isDirty
   );
@@ -46,6 +47,7 @@ function newScope<T, TVm>() {
     ...useEditor<TVm>(
       pageStatus.freezed,
       pageStatus.muteNextRealtimeUpdate,
+      pageStatus.delayRealtimeUpdate,
       pageStatus.editMode,
       pageStatus.isDirty,
       pageData.findKey,

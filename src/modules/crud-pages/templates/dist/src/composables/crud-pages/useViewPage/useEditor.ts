@@ -18,6 +18,7 @@ export default function useEditor<TVm = unknown>(
   muteNextRealtimeUpdate: ReturnType<
     typeof usePageStatus
   >['muteNextRealtimeUpdate'],
+  delayRealtimeUpdate: ReturnType<typeof usePageStatus>['delayRealtimeUpdate'],
   editMode: ReturnType<typeof usePageStatus>['editMode'],
   isDirty: ReturnType<typeof usePageStatus>['isDirty'],
   findKey: ReturnType<typeof usePageData>['findKey'],
@@ -121,7 +122,6 @@ export default function useEditor<TVm = unknown>(
       })();
 
     freezed.value = true;
-    muteNextRealtimeUpdate.value = true;
     editorSaving.value = true;
 
     const isValid = await validate();
@@ -130,10 +130,12 @@ export default function useEditor<TVm = unknown>(
       notifyValidationError();
 
       editorSaving.value = false;
-      muteNextRealtimeUpdate.value = false;
       freezed.value = false;
       return;
     }
+
+    muteNextRealtimeUpdate.value = true;
+    delayRealtimeUpdate.value = true;
 
     const payload: UpdateDocActionPayload<TVm> = {
       docKey: docKey.value,
@@ -148,8 +150,9 @@ export default function useEditor<TVm = unknown>(
       notifySaveDataError();
       notifyErrorDebug(error);
 
-      editorSaving.value = false;
       muteNextRealtimeUpdate.value = false;
+      delayRealtimeUpdate.value = false;
+      editorSaving.value = false;
       freezed.value = false;
       return;
     }
@@ -173,6 +176,7 @@ export default function useEditor<TVm = unknown>(
     }
 
     exitEditMode();
+    delayRealtimeUpdate.value = false;
   }
 
   function revert() {

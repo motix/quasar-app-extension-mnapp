@@ -1,4 +1,4 @@
-import { computed, nextTick, ref, Ref } from 'vue';
+import { computed, nextTick, ref, Ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
 import { Dialog } from 'quasar';
@@ -22,6 +22,7 @@ export default function usePageData<T = unknown, TVm = unknown>(
   muteNextRealtimeUpdate: ReturnType<
     typeof usePageStatus
   >['muteNextRealtimeUpdate'],
+  delayRealtimeUpdate: ReturnType<typeof usePageStatus>['delayRealtimeUpdate'],
   muteViewerWatch: ReturnType<typeof usePageStatus>['muteViewerWatch'],
   isDirty: ReturnType<typeof usePageStatus>['isDirty']
 ) {
@@ -112,7 +113,19 @@ export default function usePageData<T = unknown, TVm = unknown>(
             }
           } else {
             muteNextRealtimeUpdate.value = false;
-            getModelAndViewModel();
+
+            if (delayRealtimeUpdate.value) {
+              const stopWatch = watch(delayRealtimeUpdate, () => {
+                if (delayRealtimeUpdate.value === false) {
+                  stopWatch();
+
+                  getModelAndViewModel();
+                }
+              });
+            } else {
+              getModelAndViewModel();
+            }
+
             resolveOnce && resolveOnce();
             resolveOnce = null;
           }
@@ -172,6 +185,7 @@ export default function usePageData<T = unknown, TVm = unknown>(
         (() => {
           throw new Error('viewModelGetter not specified');
         })();
+
       viewModel.value = viewModelGetter.value(docKey.value);
     }
 
@@ -179,6 +193,25 @@ export default function usePageData<T = unknown, TVm = unknown>(
       muteViewerWatch.value = false;
     });
   }
+
+  // Watch
+
+  // hasEditor might be specified based on model's data.
+  // Load viewModel if not loaded.
+  watch(hasEditor, () => {
+    if (hasEditor.value && model.value && !viewModel.value) {
+      viewModelGetter.value === null &&
+        (() => {
+          throw new Error('viewModelGetter not specified');
+        })();
+      docKey.value === null &&
+        (() => {
+          throw new Error('docKey not specified');
+        })();
+
+      viewModel.value = viewModelGetter.value(docKey.value);
+    }
+  });
 
   return {
     findKey,
@@ -202,6 +235,7 @@ export default function usePageData<T = unknown, TVm = unknown>(
 export class UsePageDataHelper<T = unknown, TVm = unknown> {
   Return = usePageData<T, TVm>(
     () => undefined,
+    ref(false),
     ref(false),
     ref(false),
     ref(false),
