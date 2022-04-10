@@ -52,6 +52,15 @@ const value = computed<string>({
   },
 });
 
+// Private Executions
+
+// Update validation value when v-model set from container changed
+// after useForm is called and before this component is mounted
+if (valValue.value !== props.modelValue) {
+  // Wrapping in a computed to avoid vue/no-setup-props-destructure rule
+  value.value = computed(() => props.modelValue).value;
+}
+
 // Watch
 
 // Update validation value when v-model set from container changed

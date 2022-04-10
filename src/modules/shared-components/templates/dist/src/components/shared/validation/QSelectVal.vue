@@ -12,6 +12,15 @@ const props = defineProps<Props>();
 
 const { errorMessage, value } = useField(props.name);
 
+// Private Executions
+
+// Update validation value when v-model set from container changed
+// after useForm is called and before this component is mounted
+if (value.value !== props.modelValue) {
+  // Wrapping in a computed to avoid vue/no-setup-props-destructure rule
+  value.value = computed(() => props.modelValue).value;
+}
+
 // Watch
 
 // Update validation value when v-model set from container changed
