@@ -197,7 +197,7 @@ export default function usePageData<T = unknown, TVm = unknown>(
   // Watch
 
   // hasEditor might be specified based on model's data.
-  // Load viewModel if not loaded.
+  // Get viewModel if not already get.
   watch(hasEditor, () => {
     if (hasEditor.value && model.value && !viewModel.value) {
       viewModelGetter.value === null &&

@@ -45,8 +45,7 @@ export default function useEditor<TVm = unknown>(
     let isValid = true;
 
     if (internalValidate) {
-      const validation = await internalValidate();
-      isValid &&= validation.valid;
+      isValid &&= (await internalValidate()).valid;
     }
 
     if (internalCustomValidate) {

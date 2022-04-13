@@ -8,9 +8,10 @@ declare module '../useFormats' {
 }
 
 export default function date() {
-  const { dateFormat, editDateFormat } = requiredConfigEntries(
+  const { dateFormat, editDateFormat, monthDayFormat } = requiredConfigEntries(
     'dateFormat',
-    'editDateFormat'
+    'editDateFormat',
+    'monthDayFormat'
   );
 
   function formatDate(value: Date | null | undefined) {
@@ -28,8 +29,32 @@ export default function date() {
     return formatDate(qdate.extractDate(value, editDateFormat));
   }
 
+  function yearMonth(year: number, month: number) {
+    return `${year}-${month < 10 ? '0' : ''}${month}`;
+  }
+
+  function yearMonthViewModel(
+    year: number | string | null,
+    month: number | string | null,
+    defaultYearDisplay?: string,
+    defaultMonthDisplay?: string
+  ) {
+    return `${year === null || year === '' ? defaultYearDisplay : year}-${
+      month === null || month === ''
+        ? defaultMonthDisplay
+        : `${month < 10 ? '0' : ''}${month}`
+    }`;
+  }
+
+  function monthDay(month: number, day: number) {
+    return qdate.formatDate(new Date(2000, month - 1, day), monthDayFormat);
+  }
+
   return {
     date: formatDate,
     dateViewModel,
+    yearMonth,
+    yearMonthViewModel,
+    monthDay,
   };
 }

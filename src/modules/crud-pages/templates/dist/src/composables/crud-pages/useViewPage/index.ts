@@ -99,3 +99,13 @@ export default function useViewPage<
 
   return store.retrieveScope(scopeName);
 }
+
+class UseViewPageHelper<T, TVm, TExtra> {
+  Return = useViewPage<T, TVm, TExtra>('');
+}
+
+export type ViewPage<
+  T,
+  TVm,
+  TExtra = Record<string, never>
+> = UseViewPageHelper<T, TVm, TExtra>['Return'];

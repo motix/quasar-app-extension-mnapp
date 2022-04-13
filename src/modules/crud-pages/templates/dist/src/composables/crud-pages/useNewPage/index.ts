@@ -6,7 +6,6 @@ import useEditor from './useEditor';
 import useNavigateToListPage from './useNavigateToListPage';
 import usePageData from './usePageData';
 import usePageStatus from './usePageStatus';
-import useToolbar from './useToolbar';
 
 function newScope<TVm>() {
   const pageStatus = usePageStatus();
@@ -23,7 +22,6 @@ function newScope<TVm>() {
       pageData.createModel
     ),
     ...useNavigateToListPage(pageStatus.isDirty),
-    ...useToolbar(),
     extraInitialized,
   };
 }
@@ -50,3 +48,12 @@ export default function useNewPage<
 
   return store.retrieveScope(scopeName);
 }
+
+class UseNewPageHelper<TVm, TExtra> {
+  Return = useNewPage<TVm, TExtra>('');
+}
+
+export type NewPage<TVm, TExtra = Record<string, never>> = UseNewPageHelper<
+  TVm,
+  TExtra
+>['Return'];

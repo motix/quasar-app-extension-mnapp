@@ -5,5 +5,6 @@ declare module 'composables/useConfig' {
     dateFormat?: string;
     editDateFormat?: string;
     dateMask?: string;
+    monthDayFormat?: string;
   }
 }
