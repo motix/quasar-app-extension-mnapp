@@ -28,10 +28,12 @@ const props = withDefaults(
     target: string;
     markupTable?: boolean;
     dense?: boolean;
+    separated?: boolean;
   }>(),
   {
     markupTable: false,
     dense: false,
+    separated: false,
   }
 );
 
@@ -222,6 +224,7 @@ function onDestTableScroll(info: OnScrollDetail) {
       <div>
         <table
           class="q-table"
+          :class="{ 'q-table--vertical-separator': separated }"
           :style="{
             width: headersWidth,
             'max-width': headersWidth,
