@@ -7,7 +7,12 @@ import { requiredConfigEntries } from 'composables/useConfig';
 const { editDateFormat } = requiredConfigEntries('editDateFormat');
 
 export function stringRequired(label: string) {
-  return string().required().label(label);
+  return string()
+    .required()
+    .label(label)
+    .transform((value, originalValue) => {
+      return originalValue === null ? undefined : value;
+    });
 }
 
 export function emailRequired(label: string) {
@@ -19,7 +24,7 @@ export function numberRequired(label: string) {
     .required()
     .label(label)
     .typeError(`${label} must be a number`)
-    .transform((value: unknown, originalValue) => {
+    .transform((value, originalValue) => {
       const originalValueAsString = String(originalValue);
 
       if (
@@ -43,7 +48,7 @@ export function numberOptional(label: string) {
     .default(null)
     .label(label)
     .typeError(`${label} must be a number`)
-    .transform((value: unknown, originalValue) => {
+    .transform((value, originalValue) => {
       const originalValueAsString = String(originalValue);
 
       if (
