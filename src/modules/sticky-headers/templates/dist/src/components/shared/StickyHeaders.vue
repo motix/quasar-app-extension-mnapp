@@ -195,6 +195,14 @@ function onDestTableScroll(info: OnScrollDetail) {
     sourceScrollObserverPaused = false;
   }, 100);
 }
+
+function update() {
+  onResize();
+}
+
+defineExpose({
+  update,
+});
 </script>
 
 <template>
@@ -276,5 +284,9 @@ function onDestTableScroll(info: OnScrollDetail) {
 .container {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
+}
+
+.q-table--vertical-separator :deep() th {
+  border-bottom-width: 0px !important;
 }
 </style>

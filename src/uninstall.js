@@ -43,7 +43,7 @@ module.exports = defineUninstall(function (api) {
   const revertFiles = [...mergeRevertFiles(modules), 'package.json'];
 
   for (const file of revertFiles) {
-    const backupFile = `${file.substr(
+    const backupFile = `${file.substring(
       0,
       file.length - '.json'.length
     )}-bk.json`;
@@ -57,6 +57,6 @@ module.exports = defineUninstall(function (api) {
   }
 
   api.onExitLog(
-    '\x1b[32m              • \x1b[0mPlease remove \x1b[33mi-mnapp\x1b[0m and \x1b[33mu-mnapp\x1b[0m from \x1b[47m\x1b[30mpackage-bk.json\x1b[0m \x1b[33mscripts\x1b[0m if no longer used.'
+    '\x1b[32m              • \x1b[0mPlease remove \x1b[33mi-mnapp\x1b[0m from \x1b[47m\x1b[30mpackage-bk.json\x1b[0m \x1b[33mscripts\x1b[0m if no longer used.'
   );
 });

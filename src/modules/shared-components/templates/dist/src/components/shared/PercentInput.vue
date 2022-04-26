@@ -9,6 +9,11 @@ function percentRound(value: number) {
   return Math.round(value * 10000) / 10000;
 }
 
+// Without this, 110% will display as 110.00000000000001%
+function percentDisplayRound(value: number) {
+  return Math.round(value * 100) / 100;
+}
+
 // Props
 
 type Props = { modelValue: string | number | null | undefined };
@@ -30,7 +35,9 @@ const isValueValid = computed(() => {
 
 const displayValue = computed(() =>
   isValueValid.value
-    ? (percentRound(props.modelValue as number) * 100).toString()
+    ? percentDisplayRound(
+        percentRound(props.modelValue as number) * 100
+      ).toString()
     : props.modelValue?.toString() || ''
 );
 
@@ -62,7 +69,7 @@ function onUpdate(value: string | null) {
     @update:model-value="onUpdate($event as string | null)"
   >
     <template v-if="$slots.loading" #loading>
-      <slot name="loading" />
+      <slot name="loading"></slot>
     </template>
   </q-input>
 </template>

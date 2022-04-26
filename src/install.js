@@ -59,6 +59,7 @@ module.exports = defineInstall(function (api) {
         scripts: {
           'i-mnapp': 'quasar ext invoke @motinet/mnapp',
           'u-mnapp': 'quasar ext uninvoke @motinet/mnapp',
+          'r-mnapp': 'yarn u-mnapp && yarn i-mnapp',
         },
       },
       packageJson
@@ -74,14 +75,14 @@ module.exports = defineInstall(function (api) {
     api.extendPackageJson(packageJson);
 
     api.onExitLog(
-      '\x1b[32m              • \x1b[0mPlease manually add \x1b[33mi-mnapp\x1b[0m and \x1b[33mu-mnapp\x1b[0m to \x1b[47m\x1b[30mpackage-bk.json\x1b[0m \x1b[33mscripts\x1b[0m for later use.'
+      '\x1b[32m              • \x1b[0mPlease manually add \x1b[33mi-mnapp\x1b[0m to \x1b[47m\x1b[30mpackage-bk.json\x1b[0m \x1b[33mscripts\x1b[0m for later use.'
     );
 
     const jsonFiles = mergeExtendJsonFiles(modules);
     for (const file in jsonFiles) {
       const jsonFilePath = api.resolve.app(file);
       const jsonFileBackupPath = api.resolve.app(
-        `${file.substr(0, file.length - '.json'.length)}-bk.json`
+        `${file.substring(0, file.length - '.json'.length)}-bk.json`
       );
 
       if (!fs.existsSync(jsonFileBackupPath)) {

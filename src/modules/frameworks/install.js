@@ -7,6 +7,7 @@ module.exports = defineInstall(function () {
 module.exports.extendPackageJson = {
   scripts: {
     clean: 'yarn format && yarn lint --fix',
+    'r-mnapp': 'yarn u-mnapp && yarn i-mnapp && yarn clean',
   },
 
   dependencies: {
