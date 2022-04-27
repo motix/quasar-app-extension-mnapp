@@ -20,7 +20,7 @@ function newScope<T, TVm>() {
   const pageData = usePageData<T, TVm>(
     goBack,
     pageFeatures.hasEditor,
-    pageStatus.muteNextRealtimeUpdate,
+    pageStatus.muteRealtimeUpdate,
     pageStatus.delayRealtimeUpdate,
     pageStatus.muteViewerWatch,
     pageStatus.isDirty
@@ -37,7 +37,7 @@ function newScope<T, TVm>() {
     ...pageData,
     ...useViewer<T>(
       pageStatus.freezed,
-      pageStatus.muteNextRealtimeUpdate,
+      pageStatus.muteRealtimeUpdate,
       pageStatus.muteViewerWatch,
       pageStatus.editMode,
       pageData.docKey,
@@ -46,7 +46,7 @@ function newScope<T, TVm>() {
     ),
     ...useEditor<TVm>(
       pageStatus.freezed,
-      pageStatus.muteNextRealtimeUpdate,
+      pageStatus.muteRealtimeUpdate,
       pageStatus.delayRealtimeUpdate,
       pageStatus.editMode,
       pageStatus.isDirty,
@@ -60,7 +60,7 @@ function newScope<T, TVm>() {
     ...useDeleting(
       goBack,
       pageStatus.freezed,
-      pageStatus.muteNextRealtimeUpdate,
+      pageStatus.muteRealtimeUpdate,
       pageData.docKey,
       pageData.deleteModel
     ),

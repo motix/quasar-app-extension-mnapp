@@ -13,9 +13,7 @@ import usePageStatus from './usePageStatus';
 export default function useDeleting(
   goBack: ReturnType<typeof useReturnUrl>['goBack'],
   freezed: ReturnType<typeof usePageStatus>['freezed'],
-  muteNextRealtimeUpdate: ReturnType<
-    typeof usePageStatus
-  >['muteNextRealtimeUpdate'],
+  muteRealtimeUpdate: ReturnType<typeof usePageStatus>['muteRealtimeUpdate'],
   docKey: ReturnType<typeof usePageData>['docKey'],
   deleteModel: ReturnType<typeof usePageData>['deleteModel']
 ) {
@@ -59,7 +57,7 @@ export default function useDeleting(
         })();
 
       freezed.value = true;
-      muteNextRealtimeUpdate.value = true;
+      muteRealtimeUpdate.value = true;
       deleting.value = true;
 
       const payload: DeleteDocActionPayload = {
@@ -79,7 +77,7 @@ export default function useDeleting(
           notifyErrorDebug(error);
 
           deleting.value = false;
-          muteNextRealtimeUpdate.value = false;
+          muteRealtimeUpdate.value = false;
           freezed.value = false;
         });
     });

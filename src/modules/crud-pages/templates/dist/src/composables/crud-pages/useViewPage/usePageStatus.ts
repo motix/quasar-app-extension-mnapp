@@ -5,7 +5,7 @@ export default function usePageStatus() {
 
   const ready = ref(false);
   const freezed = ref(false);
-  const muteNextRealtimeUpdate = ref(false);
+  const muteRealtimeUpdate = ref(false);
   const delayRealtimeUpdate = ref(false);
   const muteViewerWatch = ref(false);
   const editMode = ref(false);
@@ -20,7 +20,7 @@ export default function usePageStatus() {
   return {
     ready,
     freezed,
-    muteNextRealtimeUpdate,
+    muteRealtimeUpdate,
     delayRealtimeUpdate,
     muteViewerWatch,
     editMode,

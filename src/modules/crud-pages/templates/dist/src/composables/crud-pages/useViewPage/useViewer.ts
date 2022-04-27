@@ -9,9 +9,7 @@ import usePageStatus from './usePageStatus';
 
 export default function useViewer<T = unknown>(
   freezed: ReturnType<typeof usePageStatus>['freezed'],
-  muteNextRealtimeUpdate: ReturnType<
-    typeof usePageStatus
-  >['muteNextRealtimeUpdate'],
+  muteRealtimeUpdate: ReturnType<typeof usePageStatus>['muteRealtimeUpdate'],
   muteViewerWatch: ReturnType<typeof usePageStatus>['muteViewerWatch'],
   editMode: ReturnType<typeof usePageStatus>['editMode'],
   docKey: ReturnType<typeof usePageData>['docKey'],
@@ -35,7 +33,7 @@ export default function useViewer<T = unknown>(
       })();
 
     freezed.value = true;
-    muteNextRealtimeUpdate.value = true;
+    muteRealtimeUpdate.value = true;
 
     const payload: UpdateDocActionPayload<T> = {
       docKey: docKey.value,
@@ -50,7 +48,7 @@ export default function useViewer<T = unknown>(
       notifySaveDataError();
       notifyErrorDebug(error);
 
-      muteNextRealtimeUpdate.value = false;
+      muteRealtimeUpdate.value = false;
       freezed.value = false;
       return;
     }

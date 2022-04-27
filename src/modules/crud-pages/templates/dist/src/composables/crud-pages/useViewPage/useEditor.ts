@@ -1,7 +1,6 @@
 import { useForm } from 'vee-validate';
 
 import { ref } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
 
 import { Dialog } from 'quasar';
 
@@ -15,9 +14,7 @@ import usePageStatus from './usePageStatus';
 
 export default function useEditor<TVm = unknown>(
   freezed: ReturnType<typeof usePageStatus>['freezed'],
-  muteNextRealtimeUpdate: ReturnType<
-    typeof usePageStatus
-  >['muteNextRealtimeUpdate'],
+  muteRealtimeUpdate: ReturnType<typeof usePageStatus>['muteRealtimeUpdate'],
   delayRealtimeUpdate: ReturnType<typeof usePageStatus>['delayRealtimeUpdate'],
   editMode: ReturnType<typeof usePageStatus>['editMode'],
   isDirty: ReturnType<typeof usePageStatus>['isDirty'],
@@ -56,9 +53,6 @@ export default function useEditor<TVm = unknown>(
   }
 
   // Composables
-
-  const router = useRouter();
-  const route = useRoute();
 
   const {
     notifyErrorDebug,
@@ -133,7 +127,7 @@ export default function useEditor<TVm = unknown>(
       return;
     }
 
-    muteNextRealtimeUpdate.value = true;
+    muteRealtimeUpdate.value = true;
     delayRealtimeUpdate.value = true;
 
     const payload: UpdateDocActionPayload<TVm> = {
@@ -149,7 +143,7 @@ export default function useEditor<TVm = unknown>(
       notifySaveDataError();
       notifyErrorDebug(error);
 
-      muteNextRealtimeUpdate.value = false;
+      muteRealtimeUpdate.value = false;
       delayRealtimeUpdate.value = false;
       editorSaving.value = false;
       freezed.value = false;
@@ -159,20 +153,8 @@ export default function useEditor<TVm = unknown>(
     notifySaveDataSuccess();
 
     editorSaving.value = false;
-    muteNextRealtimeUpdate.value = false;
+    muteRealtimeUpdate.value = false;
     freezed.value = false;
-
-    const newFindKey = String(viewModel.value[modelFindKeyField.value]);
-
-    if (newFindKey !== findKey.value) {
-      let path = route.fullPath;
-
-      path = path.substring(0, path.length - findKey.value.length);
-      findKey.value = newFindKey;
-      path += findKey.value;
-      route.meta.replaceRoute = true;
-      void router.replace(path);
-    }
 
     exitEditMode();
     delayRealtimeUpdate.value = false;

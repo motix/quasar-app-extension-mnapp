@@ -1,7 +1,7 @@
 import { createMapper } from '@automapper/core';
 import { pojos } from '@automapper/pojos';
 
-import { onUnmounted, ref, watch } from 'vue';
+import { onMounted, onUnmounted, ref, watch } from 'vue';
 
 import { DocModel, useStore } from 'stores/firebase-firestore';
 import { LoadDocsPageActionPayload } from 'stores/firebase-firestore/types';
@@ -60,9 +60,11 @@ export default function useEditorDependencies(
 
   // Private Executions
 
-  // useNewPage
+  // useNewPage or used in editor component
   if (!editMode) {
-    loadEditorDepencencies();
+    onMounted(() => {
+      loadEditorDepencencies();
+    });
 
     onUnmounted(() => {
       releaseEditorDependencies();

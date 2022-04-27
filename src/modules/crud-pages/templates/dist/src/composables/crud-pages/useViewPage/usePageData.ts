@@ -19,9 +19,7 @@ import usePageStatus from './usePageStatus';
 export default function usePageData<T = unknown, TVm = unknown>(
   goBack: ReturnType<typeof useReturnUrl>['goBack'],
   hasEditor: ReturnType<typeof usePageFeatures>['hasEditor'],
-  muteNextRealtimeUpdate: ReturnType<
-    typeof usePageStatus
-  >['muteNextRealtimeUpdate'],
+  muteRealtimeUpdate: ReturnType<typeof usePageStatus>['muteRealtimeUpdate'],
   delayRealtimeUpdate: ReturnType<typeof usePageStatus>['delayRealtimeUpdate'],
   muteViewerWatch: ReturnType<typeof usePageStatus>['muteViewerWatch'],
   isDirty: ReturnType<typeof usePageStatus>['isDirty']
@@ -91,7 +89,7 @@ export default function usePageData<T = unknown, TVm = unknown>(
             ? undefined
             : String(modelFindKeyField.value),
         done: () => {
-          if (model.value && !muteNextRealtimeUpdate.value) {
+          if (model.value && !muteRealtimeUpdate.value) {
             if (!reloadDialogShowing.value) {
               reloadDialogShowing.value = true;
 
@@ -112,8 +110,6 @@ export default function usePageData<T = unknown, TVm = unknown>(
               });
             }
           } else {
-            muteNextRealtimeUpdate.value = false;
-
             if (delayRealtimeUpdate.value) {
               const stopWatch = watch(delayRealtimeUpdate, () => {
                 if (delayRealtimeUpdate.value === false) {
@@ -134,7 +130,7 @@ export default function usePageData<T = unknown, TVm = unknown>(
           void router.replace('/ErrorNotFound');
         },
         deleted: () => {
-          !muteNextRealtimeUpdate.value &&
+          !muteRealtimeUpdate.value &&
             Dialog.create({
               title: 'Deleted',
               message:
@@ -187,6 +183,20 @@ export default function usePageData<T = unknown, TVm = unknown>(
         })();
 
       viewModel.value = viewModelGetter.value(docKey.value);
+    }
+
+    if (viewModel.value) {
+      const newFindKey = String(viewModel.value[modelFindKeyField.value]);
+
+      if (newFindKey !== findKey.value) {
+        let path = route.fullPath;
+
+        path = path.substring(0, path.length - findKey.value.length);
+        findKey.value = newFindKey;
+        path += findKey.value;
+        route.meta.replaceRoute = true;
+        void router.replace(path);
+      }
     }
 
     void nextTick(() => {
