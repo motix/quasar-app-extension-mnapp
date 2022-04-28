@@ -26,6 +26,7 @@ export default function usePageData<T = unknown>(
   const items = ref(null) as Ref<T[] | null>;
   const allItemsLoaded = ref(false);
   const modelFindKeyField = ref<keyof T>('id' as keyof T) as Ref<keyof T>;
+  const newItemsOnTop = ref(false);
 
   // Computed
 
@@ -125,7 +126,11 @@ export default function usePageData<T = unknown>(
   ) {
     const itemsValue = items.value;
     if (itemsValue) {
-      itemsValue.push(...recentlyAddedDocs);
+      if (newItemsOnTop.value) {
+        itemsValue.unshift(...[...recentlyAddedDocs].reverse());
+      } else {
+        itemsValue.push(...recentlyAddedDocs);
+      }
 
       recentlyUpdatedDocs.forEach((doc) => {
         const index = findIndex(itemsValue, [
@@ -155,6 +160,7 @@ export default function usePageData<T = unknown>(
     items,
     allItemsLoaded,
     modelFindKeyField,
+    newItemsOnTop,
     itemCountLabel,
     loadFirstPage,
     loadPage,
