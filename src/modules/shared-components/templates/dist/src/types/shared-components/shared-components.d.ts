@@ -8,6 +8,7 @@ import ThousandInput from 'components/shared/ThousandInput.vue';
 import TopTooltip from 'components/shared/TopTooltip.vue';
 import FadeTransition from 'components/shared/transition/FadeTransition.vue';
 import ListTransition from 'components/shared/transition/ListTransition.vue';
+import DateArrayFieldVal from 'components/shared/validation/DateArrayFieldVal.vue';
 import PercentInputVal from 'components/shared/validation/PercentInputVal.vue';
 import QDateInputVal from 'components/shared/validation/QDateInputVal.vue';
 import QDateVal from 'components/shared/validation/QDateVal.vue';
@@ -31,6 +32,7 @@ declare module '@vue/runtime-core' {
     QSelectVal: typeof QSelectVal;
     QDateVal: typeof QDateVal;
     QDateInputVal: typeof QDateInputVal;
+    DateArrayFieldVal: typeof DateArrayFieldVal;
   }
 }
 
