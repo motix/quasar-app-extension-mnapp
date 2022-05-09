@@ -33,6 +33,19 @@ const apiModelToModelResolver = {
     };
   },
 
+  dateArrayRequired: function <
+    Key extends string,
+    DateDataType,
+    TSource extends HasProp<Key, DateDataType[]>
+  >(key: Key) {
+    return {
+      resolve: (source: TSource): Date[] =>
+        source[key].map((value) =>
+          dateDataConverter.toDate<DateDataType>(value)
+        ),
+    };
+  },
+
   asIsRequired: function <
     Key extends string,
     Type,
@@ -43,7 +56,7 @@ const apiModelToModelResolver = {
     };
   },
 
-  optional: function <
+  mixedOptional: function <
     Key extends string,
     Type extends string | boolean | number,
     TSource extends Partial<HasProp<Key, Type | null>>
@@ -63,6 +76,21 @@ const apiModelToModelResolver = {
       resolve: (source: TSource): Date | undefined => {
         const field: DateDataType | null | undefined = source[key];
         return field == null ? undefined : dateDataConverter.toDate(field);
+      },
+    };
+  },
+
+  dateArrayOptional: function <
+    Key extends string,
+    DateDataType,
+    TSource extends Partial<HasProp<Key, DateDataType[] | null>>
+  >(key: Key) {
+    return {
+      resolve: (source: TSource): Date[] | undefined => {
+        const field: DateDataType[] | null | undefined = source[key];
+        return field == null
+          ? undefined
+          : field.map((value) => dateDataConverter.toDate(value));
       },
     };
   },
@@ -89,6 +117,16 @@ const modelToViewModelResolver = {
     return {
       resolve: (source: TSource): string =>
         date.formatDate(source[key], editDateFormat),
+    };
+  },
+
+  dateArrayRequired: function <
+    Key extends string,
+    TSource extends HasProp<Key, Date[]>
+  >(key: Key) {
+    return {
+      resolve: (source: TSource): string[] =>
+        source[key].map((value) => date.formatDate(value, editDateFormat)),
     };
   },
 
@@ -151,6 +189,20 @@ const modelToViewModelResolver = {
       },
     };
   },
+
+  dateArrayOptional: function <
+    Key extends string,
+    TSource extends Partial<HasProp<Key, Date[]>>
+  >(key: Key) {
+    return {
+      resolve: (source: TSource): string[] | null => {
+        const field = source[key];
+        return field === undefined
+          ? null
+          : field.map((value) => date.formatDate(value, editDateFormat));
+      },
+    };
+  },
 };
 
 const modelToApiModelResolver = {
@@ -165,17 +217,38 @@ const modelToApiModelResolver = {
     };
   },
 
+  dateArrayRequired: function <
+    Key extends string,
+    DateDataType,
+    TSource extends HasProp<Key, Date[]>
+  >(key: Key) {
+    return {
+      resolve: (source: TSource): DateDataType[] =>
+        source[key].map((value) => dateDataConverter.fromDate(value)),
+    };
+  },
+
   asIsRequired: function <
     Key extends string,
     Type,
     TSource extends HasProp<Key, Type>
   >(key: Key) {
     return {
-      resolve: (source: TSource): Type => source[key],
+      resolve: (source: TSource): Type => {
+        const field = source[key];
+
+        for (const key in field) {
+          if (field[key] === undefined) {
+            delete field[key];
+          }
+        }
+
+        return field;
+      },
     };
   },
 
-  optional: function <
+  mixedOptional: function <
     Key extends string,
     Type extends string | boolean | number,
     TSource extends Partial<HasProp<Key, Type>>
@@ -220,6 +293,23 @@ const modelToApiModelResolver = {
     };
   },
 
+  dateArrayOptional: function <
+    Key extends string,
+    DateDataType,
+    TSource extends Partial<HasProp<Key, Date[]>>
+  >(key: Key) {
+    return {
+      resolve: (source: TSource): DateDataType[] | null => {
+        const field = source[key];
+        return field === undefined
+          ? null
+          : field.map((value) =>
+              dateDataConverter.fromDate<DateDataType>(value)
+            );
+      },
+    };
+  },
+
   dateReadOptionalWriteRequired: function <
     Key extends string,
     DateDataType,
@@ -233,6 +323,23 @@ const modelToApiModelResolver = {
             throw new Error(`${key} is required for saving`);
           })();
         return dateDataConverter.fromDate(field);
+      },
+    };
+  },
+
+  dateArrayReadOptionalWriteRequired: function <
+    Key extends string,
+    DateDataType,
+    TSource extends Partial<HasProp<Key, Date[]>>
+  >(key: Key) {
+    return {
+      resolve: (source: TSource): DateDataType[] => {
+        const field = source[key];
+        field === undefined &&
+          (() => {
+            throw new Error(`${key} is required for saving`);
+          })();
+        return field.map((value) => dateDataConverter.fromDate(value));
       },
     };
   },
@@ -302,6 +409,19 @@ const viewModelToApiModelResolver = {
     };
   },
 
+  dateArrayRequired: function <
+    Key extends string,
+    DateDataType,
+    TSource extends HasProp<Key, string[]>
+  >(key: Key) {
+    return {
+      resolve: (source: TSource): DateDataType[] =>
+        source[key].map((value) =>
+          dateDataConverter.fromDate(date.extractDate(value, editDateFormat))
+        ),
+    };
+  },
+
   asIsRequired: function <
     Key extends string,
     Type,
@@ -314,6 +434,13 @@ const viewModelToApiModelResolver = {
           (() => {
             throw new Error(`${key} is required`);
           })();
+
+        for (const key in field) {
+          if (field[key] === undefined) {
+            delete field[key];
+          }
+        }
+
         return field;
       },
     };
@@ -418,6 +545,25 @@ const viewModelToApiModelResolver = {
     };
   },
 
+  dateArrayOptional: function <
+    Key extends string,
+    DateDataType,
+    TSource extends HasProp<Key, string[] | null>
+  >(key: Key) {
+    return {
+      resolve: (source: TSource): DateDataType[] | null => {
+        const field = source[key];
+        return field === null
+          ? null
+          : field.map((value) =>
+              dateDataConverter.fromDate<DateDataType>(
+                date.extractDate(value, editDateFormat)
+              )
+            );
+      },
+    };
+  },
+
   dateReadOptionalWriteRequired: function <
     Key extends string,
     DateDataType,
@@ -436,9 +582,28 @@ const viewModelToApiModelResolver = {
       },
     };
   },
+
+  dateArrayReadOptionalWriteRequired: function <
+    Key extends string,
+    DateDataType,
+    TSource extends HasProp<Key, string[] | null>
+  >(key: Key) {
+    return {
+      resolve: (source: TSource): DateDataType[] => {
+        const field = source[key];
+        field === null &&
+          (() => {
+            throw new Error(`${key} is required for saving`);
+          })();
+        return field.map((value) =>
+          dateDataConverter.fromDate(date.extractDate(value, editDateFormat))
+        );
+      },
+    };
+  },
 };
 
-type DataType = 'string' | 'boolean' | 'number' | 'date' | 'asIs';
+type DataType = 'string' | 'boolean' | 'number' | 'date' | 'dateArray' | 'asIs';
 type FieldType = 'required' | 'optional' | 'readOptionalWriteRequired';
 
 type ResolverDataTypes = Partial<
@@ -459,20 +624,23 @@ const resolvers: Resolvers = {
       boolean: undefined,
       number: undefined,
       date: apiModelToModelResolver.dateRequired,
+      dateArray: apiModelToModelResolver.dateArrayRequired,
       asIs: apiModelToModelResolver.asIsRequired,
     },
     optional: {
-      string: apiModelToModelResolver.optional,
-      boolean: apiModelToModelResolver.optional,
-      number: apiModelToModelResolver.optional,
+      string: apiModelToModelResolver.mixedOptional,
+      boolean: apiModelToModelResolver.mixedOptional,
+      number: apiModelToModelResolver.mixedOptional,
       date: apiModelToModelResolver.dateOptional,
+      dateArray: apiModelToModelResolver.dateArrayOptional,
       asIs: apiModelToModelResolver.asIsOptional,
     },
     readOptionalWriteRequired: {
-      string: apiModelToModelResolver.optional,
-      boolean: apiModelToModelResolver.optional,
-      number: apiModelToModelResolver.optional,
+      string: apiModelToModelResolver.mixedOptional,
+      boolean: apiModelToModelResolver.mixedOptional,
+      number: apiModelToModelResolver.mixedOptional,
       date: apiModelToModelResolver.dateOptional,
+      dateArray: apiModelToModelResolver.dateArrayOptional,
       asIs: undefined, // TODO:
     },
   },
@@ -482,6 +650,7 @@ const resolvers: Resolvers = {
       boolean: undefined,
       number: undefined,
       date: modelToViewModelResolver.dateRequired,
+      dateArray: modelToViewModelResolver.dateArrayRequired,
       asIs: modelToViewModelResolver.asIsRequired,
     },
     optional: {
@@ -489,6 +658,7 @@ const resolvers: Resolvers = {
       boolean: modelToViewModelResolver.booleanOptional,
       number: modelToViewModelResolver.numberOptional,
       date: modelToViewModelResolver.dateOptional,
+      dateArray: modelToViewModelResolver.dateArrayOptional,
       asIs: undefined, // TODO:
     },
     readOptionalWriteRequired: {
@@ -496,6 +666,7 @@ const resolvers: Resolvers = {
       boolean: modelToViewModelResolver.booleanOptional,
       number: modelToViewModelResolver.numberOptional,
       date: modelToViewModelResolver.dateOptional,
+      dateArray: modelToViewModelResolver.dateArrayOptional,
       asIs: undefined, // TODO:
     },
   },
@@ -505,13 +676,15 @@ const resolvers: Resolvers = {
       boolean: undefined,
       number: undefined,
       date: modelToApiModelResolver.dateRequired,
+      dateArray: modelToApiModelResolver.dateArrayRequired,
       asIs: modelToApiModelResolver.asIsRequired,
     },
     optional: {
-      string: modelToApiModelResolver.optional,
-      boolean: modelToApiModelResolver.optional,
-      number: modelToApiModelResolver.optional,
+      string: modelToApiModelResolver.mixedOptional,
+      boolean: modelToApiModelResolver.mixedOptional,
+      number: modelToApiModelResolver.mixedOptional,
       date: modelToApiModelResolver.dateOptional,
+      dateArray: modelToApiModelResolver.dateArrayOptional,
       asIs: modelToApiModelResolver.asIsOptional,
     },
     readOptionalWriteRequired: {
@@ -519,6 +692,7 @@ const resolvers: Resolvers = {
       boolean: modelToApiModelResolver.readOptionalWriteRequired,
       number: modelToApiModelResolver.readOptionalWriteRequired,
       date: modelToApiModelResolver.dateReadOptionalWriteRequired,
+      dateArray: modelToApiModelResolver.dateArrayReadOptionalWriteRequired,
       asIs: undefined, // TODO:
     },
   },
@@ -528,6 +702,7 @@ const resolvers: Resolvers = {
       boolean: undefined,
       number: viewModelToApiModelResolver.numberRequired,
       date: viewModelToApiModelResolver.dateRequired,
+      dateArray: viewModelToApiModelResolver.dateArrayRequired,
       asIs: viewModelToApiModelResolver.asIsRequired,
     },
     optional: {
@@ -535,6 +710,7 @@ const resolvers: Resolvers = {
       boolean: undefined,
       number: viewModelToApiModelResolver.numberOptional,
       date: viewModelToApiModelResolver.dateOptional,
+      dateArray: viewModelToApiModelResolver.dateArrayOptional,
       asIs: undefined, // TODO:
     },
     readOptionalWriteRequired: {
@@ -542,6 +718,7 @@ const resolvers: Resolvers = {
       boolean: viewModelToApiModelResolver.booleanReadOptionalWriteRequired,
       number: viewModelToApiModelResolver.numberReadOptionalWriteRequired,
       date: viewModelToApiModelResolver.dateReadOptionalWriteRequired,
+      dateArray: viewModelToApiModelResolver.dateArrayReadOptionalWriteRequired,
       asIs: undefined, // TODO:
     },
   },

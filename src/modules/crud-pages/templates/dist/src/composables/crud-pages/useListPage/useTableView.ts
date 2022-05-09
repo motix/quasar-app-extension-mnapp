@@ -20,10 +20,12 @@ export type QTablePagination = NonNullable<QTable['pagination']>;
 export default function useTableView<T = unknown>() {
   // Data
 
+  const wrapCells = ref(false);
   const columns = ref<QTableColumn<T>[] | null>(null);
   const pagination = ref<QTablePagination>({ rowsPerPage: 0 });
 
   return {
+    wrapCells,
     columns,
     pagination,
   };

@@ -53,9 +53,17 @@ export default function useDetailsEditor<
     dirty();
 
     if (isCardsView.value) {
-      void nextTick(() => {
-        scrollToDetailEditor(index);
-      });
+      const unwatch = watch(
+        computed(() => detailEditorRefs.value.length),
+        (value) => {
+          if (value >= getDetails(vm.value).length) {
+            unwatch();
+            nextTick(() => {
+              scrollToDetailEditor(index);
+            });
+          }
+        }
+      );
     }
   }
 

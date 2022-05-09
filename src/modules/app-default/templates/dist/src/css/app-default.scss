@@ -29,9 +29,20 @@ body {
 .row .flex-break {
   height: 0 !important;
 }
+.row .q-separator--horizontal.flex-break {
+  height: 1px !important;
+}
 
 .column .flex-break {
   width: 0 !important;
+}
+.column .q-separator--vertical.flex-break {
+  width: 1px !important;
+}
+
+.q-separator--horizontal.outset {
+  margin-left: -16px;
+  margin-right: -16px;
 }
 
 .right-toggle {

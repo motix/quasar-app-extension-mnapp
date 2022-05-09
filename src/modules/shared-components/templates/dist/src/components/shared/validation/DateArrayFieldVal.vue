@@ -3,7 +3,7 @@ import { useField } from 'vee-validate';
 
 import { computed, watch } from 'vue';
 
-import { date } from 'quasar';
+import { date, Platform } from 'quasar';
 
 import { requiredConfigEntries } from 'composables/useConfig';
 
@@ -80,8 +80,8 @@ watch(
       <template #control>
         <q-date
           v-model="value"
-          class="q-mt-sm"
-          landscape
+          class="q-mt-sm full-width"
+          :landscape="Platform.is.desktop"
           :mask="editDateFormat"
           multiple
         />

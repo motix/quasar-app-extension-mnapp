@@ -102,7 +102,7 @@ const offsetY = computed(() => {
   }
 });
 
-const marginStyle = computed(() => {
+const containerMargin = computed(() => {
   const style: Record<string, unknown> = {};
 
   if (props.position.includes('top')) {
@@ -121,18 +121,111 @@ const marginStyle = computed(() => {
   return style;
 });
 
+const direction = computed(() => {
+  if (
+    props.position === 'top-left' ||
+    props.position === 'bottom-left' ||
+    props.position === 'left'
+  ) {
+    return 'right';
+  } else if (
+    props.position === 'top-right' ||
+    props.position === 'bottom-right' ||
+    props.position === 'right'
+  ) {
+    return 'left';
+  } else if (props.position === 'top') {
+    return 'down';
+  } else if (props.position === 'bottom') {
+    return 'up';
+  } else {
+    const _exhaustiveCheck: never = props.position;
+    return _exhaustiveCheck;
+  }
+});
+
+const reverseOrder = computed(() => {
+  if (
+    props.position === 'top-left' ||
+    props.position === 'bottom-left' ||
+    props.position === 'left' ||
+    props.position === 'top' ||
+    props.position === 'bottom'
+  ) {
+    return false;
+  } else if (
+    props.position === 'top-right' ||
+    props.position === 'bottom-right' ||
+    props.position === 'right'
+  ) {
+    return true;
+  } else {
+    const _exhaustiveCheck: never = props.position;
+    return _exhaustiveCheck;
+  }
+});
+
+const secondRowPosition = computed(() => {
+  if (
+    props.position === 'top-left' ||
+    props.position === 'top-right' ||
+    props.position === 'top' ||
+    props.position === 'left' ||
+    props.position === 'right'
+  ) {
+    return 'bottom';
+  } else if (
+    props.position === 'bottom-left' ||
+    props.position === 'bottom-right' ||
+    props.position === 'bottom'
+  ) {
+    return 'top';
+  } else {
+    const _exhaustiveCheck: never = props.position;
+    return _exhaustiveCheck;
+  }
+});
+
+const fabContentMargin = computed(() => {
+  if (
+    props.position === 'top-left' ||
+    props.position === 'top-right' ||
+    props.position === 'left' ||
+    props.position === 'right'
+  ) {
+    return { 'margin-top': `${buttonSpace.value}px` };
+  } else if (
+    props.position === 'bottom-left' ||
+    props.position === 'bottom-right'
+  ) {
+    return { 'margin-bottom': `${buttonSpace.value}px` };
+  } else if (props.position === 'top' || props.position === 'bottom') {
+    return {};
+  } else {
+    const _exhaustiveCheck: never = props.position;
+    return _exhaustiveCheck;
+  }
+});
+
+const buttonSpace = computed(() => QBTN_SIZE + QBTN_MARGIN * 2);
+
 const fixedButtonsPosition = computed(() => {
   if (!showFab.value) {
     return 0;
   }
 
+  if (props.position === 'top' || props.position === 'bottom') {
+    return QFAB_ACTIONS_MARGIN;
+  }
+
   return (
-    QFAB_ACTIONS_PADDING +
-    QFAB_ACTIONS_MARGIN +
-    (fabOpened.value
-      ? (QBTN_SIZE + QBTN_MARGIN * 2) *
-        (fabButtonsCount.value - props.fabButtonsSpaceIgnored)
-      : 0)
+    (reverseOrder.value ? -1 : 1) *
+    (QFAB_ACTIONS_PADDING +
+      QFAB_ACTIONS_MARGIN +
+      (fabOpened.value
+        ? buttonSpace.value *
+          (fabButtonsCount.value - props.fabButtonsSpaceIgnored)
+        : 0))
   );
 });
 
@@ -162,34 +255,71 @@ defineExpose({
     :offset="[offsetX, offsetY]"
     :position="position"
     style="z-index: 2500"
-    :style="marginStyle"
+    :style="containerMargin"
   >
     <div class="flex flex-center">
       <transition-group
+        v-if="reverseOrder"
         class="fixed-buttons z-top row reverse"
         name="float-toolbar-transition"
-        :style="{ transform: `translateX(-${fixedButtonsPosition}px)` }"
+        :style="{ transform: `translateX(${fixedButtonsPosition}px)` }"
         tag="div"
       >
         <slot name="fixed-buttons" />
       </transition-group>
+
       <q-fab
         v-if="showFab"
         ref="fab"
         color="accent"
-        direction="left"
+        :direction="direction"
         icon="fal fa-ellipsis-h-alt"
         @before-hide="onBeforeHide"
         @before-show="onBeforeShow"
       >
-        <transition-group
-          class="no-wrap row reverse"
-          name="float-toolbar-transition"
-          tag="div"
-        >
-          <slot />
-        </transition-group>
+        <div :style="fabContentMargin">
+          <transition-group
+            v-if="secondRowPosition === 'top'"
+            class="no-wrap row"
+            :class="{ reverse: reverseOrder }"
+            name="float-toolbar-transition"
+            :style="{ 'min-height': `${buttonSpace}px` }"
+            tag="div"
+          >
+            <slot name="second-row-buttons" />
+          </transition-group>
+
+          <transition-group
+            class="no-wrap row"
+            :class="{ reverse: reverseOrder }"
+            name="float-toolbar-transition"
+            tag="div"
+          >
+            <slot />
+          </transition-group>
+
+          <transition-group
+            v-if="secondRowPosition === 'bottom'"
+            class="no-wrap row"
+            :class="{ reverse: reverseOrder }"
+            name="float-toolbar-transition"
+            :style="{ 'min-height': `${buttonSpace}px` }"
+            tag="div"
+          >
+            <slot name="second-row-buttons" />
+          </transition-group>
+        </div>
       </q-fab>
+
+      <transition-group
+        v-if="!reverseOrder"
+        class="fixed-buttons z-top row"
+        name="float-toolbar-transition"
+        :style="{ transform: `translateX(${fixedButtonsPosition}px)` }"
+        tag="div"
+      >
+        <slot name="fixed-buttons" />
+      </transition-group>
     </div>
   </q-page-sticky>
 </template>

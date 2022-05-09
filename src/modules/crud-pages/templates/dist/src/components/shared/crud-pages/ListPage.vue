@@ -23,6 +23,7 @@ function useTableView(scopeName: string) {
 
   const {
     // useTableView
+    wrapCells,
     columns,
     pagination,
   } = useListPage(scopeName);
@@ -40,6 +41,7 @@ function useTableView(scopeName: string) {
   });
 
   return {
+    wrapCells,
     columns,
     pagination,
     scopedSlotNames,
@@ -181,7 +183,9 @@ const {
   newButton,
 } = useListPage(props.scopeName);
 
-const { columns, pagination, scopedSlotNames } = useTableView(props.scopeName);
+const { wrapCells, columns, pagination, scopedSlotNames } = useTableView(
+  props.scopeName
+);
 
 const { items, allItemsLoaded, itemCountLabel, onLoadNextPage } = usePageData(
   props.scopeName,
@@ -235,6 +239,7 @@ const { hideInfiniteScrollLoading } =
                   v-model:pagination="pagination"
                   :columns="columns || undefined"
                   :rows="items"
+                  :wrap-cells="wrapCells"
                   v-on="hasViewPage ? { rowClick: onRowClick } : {}"
                 >
                   <template v-if="$slots.top" #top>

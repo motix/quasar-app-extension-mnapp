@@ -198,6 +198,10 @@ watch(freezed, (value) => {
 
             <slot name="toolbar-extra" />
           </transition-group>
+
+          <template #second-row-buttons>
+            <slot name="toolbar-second-row" />
+          </template>
         </float-toolbar>
       </div>
     </fade-transition>

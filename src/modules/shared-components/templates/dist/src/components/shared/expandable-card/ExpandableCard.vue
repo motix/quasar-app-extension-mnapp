@@ -52,8 +52,11 @@ const props = withDefaults(
     captionTooltip?: string;
     sideTop?: boolean;
     headerSeparator?: boolean;
-    gutterColBody?: boolean;
-    gutterRowBody?: boolean;
+    // eslint-disable-next-line vue/require-default-prop
+    bodyClass?: string;
+    bodyColGutter?: boolean;
+    bodyRowGutter?: boolean;
+    bodyCellGutter?: boolean;
   }>(),
   {
     expandable: false,
@@ -65,14 +68,17 @@ const props = withDefaults(
     titleNoWrap: false,
     sideTop: false,
     headerSeparator: false,
-    gutterColBody: false,
-    gutterRowBody: false,
+    bodyColGutter: false,
+    bodyRowGutter: false,
+    bodyCellGutter: false,
   }
 );
 
 // Data
 
 const cardWidth = readonly(ref(requiredConfigEntries('cardWidth').cardWidth));
+
+const cardExpanded = ref(false);
 
 // Computed
 
@@ -87,6 +93,28 @@ const cardCssClass = computed<Record<string, unknown>>(() => {
 
   return result;
 });
+
+const bodyCssClass = computed<Record<string, unknown>>(() => {
+  const result: Record<string, unknown> = {
+    'q-col-gutter-x-md row': props.bodyColGutter,
+    'q-gutter-y-md': props.bodyRowGutter,
+    'q-col-gutter-md row': props.bodyCellGutter,
+  };
+
+  if (props.bodyClass) {
+    result[props.bodyClass] = true;
+  }
+
+  return result;
+});
+
+const expanded = computed(() => props.expandable && cardExpanded.value);
+
+// Expose
+
+defineExpose({
+  expanded,
+});
 </script>
 
 <template>
@@ -97,6 +125,7 @@ const cardCssClass = computed<Record<string, unknown>>(() => {
   >
     <template v-if="expandable">
       <q-expansion-item
+        v-model="cardExpanded"
         :class="headerBackgroundColor ? `bg-${headerBackgroundColor}` : ''"
         :dark="headerDark || Dark.isActive"
         expand-icon-class="q-pr-none"
@@ -119,23 +148,16 @@ const cardCssClass = computed<Record<string, unknown>>(() => {
         </template>
 
         <div
+          class="rounded-borders"
           :class="`bg-${
             bodyBackgroundColor || (Dark.isActive ? 'grey-10' : 'grey-1')
           }`"
+          style="border-top-left-radius: 0; border-top-right-radius: 0"
         >
           <slot name="bezel-less-top" />
 
-          <q-card-section v-if="$slots.body">
-            <div
-              v-if="gutterColBody || gutterRowBody"
-              :class="{
-                'q-gutter-y-md': gutterColBody,
-                'q-col-gutter-md row items-start': gutterRowBody,
-              }"
-            >
-              <slot name="body" />
-            </div>
-            <slot v-else name="body" />
+          <q-card-section v-if="$slots.body" :class="bodyCssClass">
+            <slot name="body" />
           </q-card-section>
 
           <slot name="bezel-less" />
@@ -162,17 +184,8 @@ const cardCssClass = computed<Record<string, unknown>>(() => {
 
       <slot name="bezel-less-top" />
 
-      <q-card-section v-if="$slots.body">
-        <div
-          v-if="gutterColBody || gutterRowBody"
-          :class="{
-            'q-gutter-y-md': gutterColBody,
-            'q-col-gutter-md row items-start': gutterRowBody,
-          }"
-        >
-          <slot name="body" />
-        </div>
-        <slot v-else name="body" />
+      <q-card-section v-if="$slots.body" :class="bodyCssClass">
+        <slot name="body" />
       </q-card-section>
 
       <slot name="bezel-less" />
