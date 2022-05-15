@@ -6,6 +6,7 @@ import useScroll from 'composables/useScroll';
 import { NewPage } from './useNewPage';
 import { ViewPage } from './useViewPage';
 
+// useNewPage | useViewPage
 export default function useDetailsEditor<
   TVm,
   TDetailVm,

@@ -15,6 +15,7 @@ const props = withDefaults(
     avatarTop?: boolean;
     // eslint-disable-next-line vue/require-default-prop
     avatarColor?: string;
+    avatarSize?: string;
     // eslint-disable-next-line vue/require-default-prop
     avatarIcon?: string;
     // eslint-disable-next-line vue/require-default-prop
@@ -47,6 +48,7 @@ const props = withDefaults(
   {
     headerDark: false,
     avatarTop: false,
+    avatarSize: '56px',
     useGravatar: false,
     titleTop: false,
     titleNoWrap: false,
@@ -118,7 +120,7 @@ const captionCssClass = computed(() => {
         :color="
           avatarColor || (headerDark || Dark.isActive ? 'white' : 'grey-9')
         "
-        size="56px"
+        :size="avatarSize"
       >
         <q-icon
           :color="
@@ -128,7 +130,7 @@ const captionCssClass = computed(() => {
           :name="avatarIcon"
         />
       </q-avatar>
-      <q-avatar v-if="avatarImage" size="56px">
+      <q-avatar v-if="avatarImage" :size="avatarSize">
         <q-img :src="avatarImage" />
       </q-avatar>
       <gravatar-image

@@ -23,6 +23,7 @@ const props = withDefaults(
     avatarTop?: boolean;
     // eslint-disable-next-line vue/require-default-prop
     avatarColor?: string;
+    avatarSize?: string;
     // eslint-disable-next-line vue/require-default-prop
     avatarIcon?: string;
     // eslint-disable-next-line vue/require-default-prop
@@ -63,6 +64,7 @@ const props = withDefaults(
     clickable: false,
     headerDark: false,
     avatarTop: false,
+    avatarSize: '56px',
     useGravatar: false,
     titleTop: false,
     titleNoWrap: false,

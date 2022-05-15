@@ -29,8 +29,9 @@ type StoreType<T extends DocModel> = Pick<
   'loadDocsPage' | 'releaseDocs'
 >;
 
+// useNewPage | useViewPage
 export default function useEditorDependencies(
-  editMode: ReturnType<typeof useViewPage>['editMode'] | undefined
+  editMode: undefined | ReturnType<typeof useViewPage>['editMode']
 ) {
   // Private
 
