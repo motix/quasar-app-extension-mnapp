@@ -147,12 +147,19 @@ function onDocumentScroll() {
     return;
   }
 
-  const { top: sourceTop, height: sourceHeight } =
-    source.getBoundingClientRect();
+  const {
+    top: sourceTop,
+    bottom: sourceBottom,
+    height: sourceHeight,
+  } = source.getBoundingClientRect();
+  const sourceTr = source.querySelector(':scope>thead>tr') as HTMLElement;
 
   containerTop.value = `${stickyHeadersPosition.value}px`;
   containerVisible.value =
-    sourceHeight > 0 && sourceTop <= stickyHeadersPosition.value;
+    sourceHeight > 0 &&
+    sourceTop <= stickyHeadersPosition.value &&
+    sourceBottom >=
+      stickyHeadersPosition.value + sourceTr.getBoundingClientRect().height * 2;
 
   const left = getHorizontalScrollPosition(
     document.querySelector(sourceTableScrollTarget.value) as HTMLElement

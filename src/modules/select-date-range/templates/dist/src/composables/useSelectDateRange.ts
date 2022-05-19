@@ -5,7 +5,11 @@ import { computed } from 'vue';
 import { requiredConfigEntries } from 'composables/useConfig';
 
 export default function useSelectDateRange() {
+  // Private
+
   const { firstYear } = requiredConfigEntries('firstYear');
+
+  // Computed
 
   const yearOptions = computed(() =>
     range(new Date().getFullYear(), firstYear - 1)

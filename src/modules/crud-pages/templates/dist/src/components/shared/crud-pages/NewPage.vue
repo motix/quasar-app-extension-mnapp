@@ -96,6 +96,17 @@ watch(freezed, (value) => {
             >
               <top-tooltip ref="saveTooltip">Save</top-tooltip>
             </q-btn>
+
+            <transition-group
+              v-show="$slots['toolbar-extra']"
+              key="extra"
+              class="no-wrap row reverse"
+              name="float-toolbar-transition"
+              style="margin-right: 7px"
+              tag="div"
+            >
+              <slot name="toolbar-extra" />
+            </transition-group>
           </template>
         </float-toolbar>
       </div>
