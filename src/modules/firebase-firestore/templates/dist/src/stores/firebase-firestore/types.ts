@@ -11,6 +11,10 @@ export type RealtimeDocIndex<T> = {
 
 // Actions
 
+export type LoadAllDocsActionPayload = {
+  queryConstraints: QueryConstraint[];
+};
+
 export type LoadDocsPageActionPayload = {
   page: number;
   queryConstraints: QueryConstraint[];

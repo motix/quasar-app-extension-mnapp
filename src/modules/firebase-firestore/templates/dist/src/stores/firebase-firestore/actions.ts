@@ -36,6 +36,7 @@ import {
   defineActions,
   DeleteDocActionPayload,
   DocModel,
+  LoadAllDocsActionPayload,
   LoadDocsPageActionPayload,
   LoadRealtimeDocActionPayload,
   LoadRealtimeDocActionResult,
@@ -65,6 +66,20 @@ function buildActions<T extends DocModel, TVm, TAm>(
       viewModel,
       apiModel,
     }),
+
+    loadAllDocs({ queryConstraints }: LoadAllDocsActionPayload) {
+      return new Promise<void>((resolve, reject) => {
+        void this.loadDocsPage({
+          page: 1000,
+          queryConstraints,
+          done: () => {
+            reject('Maximum data pages 1000 reached.');
+          },
+          outOfRange: () => resolve(),
+          error: (err) => reject(err),
+        });
+      });
+    },
 
     async loadDocsPage({
       page,

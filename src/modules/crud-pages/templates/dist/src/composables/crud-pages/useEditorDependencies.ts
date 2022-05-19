@@ -4,7 +4,7 @@ import { pojos } from '@automapper/pojos';
 import { onMounted, onUnmounted, ref, watch } from 'vue';
 
 import { DocModel, useStore } from 'stores/firebase-firestore';
-import { LoadDocsPageActionPayload } from 'stores/firebase-firestore/types';
+import { LoadAllDocsActionPayload } from 'stores/firebase-firestore/types';
 
 import useNotifications from 'composables/useNotifications';
 
@@ -26,7 +26,7 @@ class UseStoreHelper<T extends DocModel> {
 
 type StoreType<T extends DocModel> = Pick<
   ReturnType<UseStoreHelper<T>['Return']>,
-  'loadDocsPage' | 'releaseDocs'
+  'loadAllDocs' | 'releaseDocs'
 >;
 
 // useNewPage | useViewPage
@@ -55,7 +55,7 @@ export default function useEditorDependencies(
   const editorDependenciesStores = ref<
     {
       store: StoreType<never>;
-      payload: Partial<LoadDocsPageActionPayload>;
+      payload: Partial<LoadAllDocsActionPayload>;
     }[]
   >([]);
 
@@ -81,27 +81,18 @@ export default function useEditorDependencies(
     onDependenciesLoaded();
 
     editorDependenciesStores.value.forEach((value) => {
-      const payload: LoadDocsPageActionPayload = {
-        // TODO: Implement load all docs
-        page: 1000,
-        queryConstraints: [],
-        done: () => {
-          // Never get called, use outOfRange instead
-        },
-        outOfRange: () => {
+      value.store
+        .loadAllDocs({ queryConstraints: value.payload.queryConstraints || [] })
+        .then(() => {
           dependenciesLoading--;
           onDependenciesLoaded();
-        },
-        error: (error) => {
+        })
+        .catch((error) => {
           console.error(error);
           notifyLoadDataError();
           notifyErrorDebug(error);
           editorReady.value = true;
-        },
-        ...value.payload,
-      };
-
-      void value.store.loadDocsPage(payload);
+        });
     });
   }
 
