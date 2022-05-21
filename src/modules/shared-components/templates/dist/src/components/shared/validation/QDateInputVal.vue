@@ -11,7 +11,7 @@ import { requiredConfigEntries } from 'composables/useConfig';
 
 type Props = {
   name: string;
-  modelValue: string;
+  modelValue: string | null | undefined;
   optional?: boolean;
 };
 const props = withDefaults(defineProps<Props>(), {
@@ -21,7 +21,7 @@ const props = withDefaults(defineProps<Props>(), {
 // Emits
 
 const emit = defineEmits<{
-  (e: 'update:modelValue', value: string): void;
+  (e: 'update:modelValue', value: string | null | undefined): void;
 }>();
 
 // Composables
@@ -42,7 +42,7 @@ const popupProxy = ref<QPopupProxy | null>(null);
 
 // Computed
 
-const value = computed<string>({
+const value = computed<string | null | undefined>({
   get() {
     return props.modelValue;
   },
