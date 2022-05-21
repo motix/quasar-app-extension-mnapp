@@ -18,6 +18,12 @@ export default function useDetailsEditor<
   getDetails: (vm: TVm) => TDetailVm[],
   newDetail: (...params: TNewDetailParams) => TDetailVm
 ) {
+  // Private
+
+  function scrollToDetailEditor(index: number) {
+    scrollToElement(detailEditorRefs.value[index]);
+  }
+
   // Composables
 
   const { toTop: scrollToTop, toElement: scrollToElement } = useScroll();
@@ -48,8 +54,8 @@ export default function useDetailsEditor<
   }
 
   function insertDetail(index: number, ...params: TNewDetailParams) {
-    const item = newDetail(...params);
-    getDetails(vm.value).splice(index, 0, item);
+    const detail = newDetail(...params);
+    getDetails(vm.value).splice(index, 0, detail);
 
     dirty();
 
@@ -84,10 +90,6 @@ export default function useDetailsEditor<
     );
 
     return !results.includes(false);
-  }
-
-  function scrollToDetailEditor(index: number) {
-    scrollToElement(detailEditorRefs.value[index]);
   }
 
   // Watch
