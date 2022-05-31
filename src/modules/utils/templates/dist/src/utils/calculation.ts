@@ -18,3 +18,7 @@ export function oneThousandRound(value: number) {
 export function percentRound(value: number) {
   return Math.round(value * 10000) / 10000;
 }
+
+export function pointTenRound(value: number) {
+  return Math.round(value * 10) / 10;
+}

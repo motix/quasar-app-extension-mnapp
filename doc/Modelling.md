@@ -19,5 +19,6 @@
 | required, auto generated client | string     | ?: string                | string               | x                    |
 | required, auto generated server | string     | ?: string                | ?: string            | x                    |
 | asIs                            | asIsM      | ?: asIsM                 | asIsM                | x                    |
+| readonly asIs                   | asIsM      | asIsM                    | asIsM                | x                    |
 | optional asIs                   | ?: asIsM   | asIsM \| null            | ?: asIsM \| null     | x                    |
 | - required when save            |            |                          | ?: asIsM             | x                    |

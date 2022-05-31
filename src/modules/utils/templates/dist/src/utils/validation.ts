@@ -84,6 +84,16 @@ export function percentRequiredMinMax(label: string) {
     .max(1, `${label} must be between 1% and 100%`);
 }
 
+export function percentOptionalMin(label: string) {
+  return numberOptional(label).min(0.01, `${label} must be at least 1%`);
+}
+
+export function percentOptionalMinMax(label: string) {
+  return numberOptional(label)
+    .min(0.01, `${label} must be between 1% and 100%`)
+    .max(1, `${label} must be between 1% and 100%`);
+}
+
 export function dateRequired(label: string) {
   return stringRequired(label).test({
     message: `${label} must be a date`,

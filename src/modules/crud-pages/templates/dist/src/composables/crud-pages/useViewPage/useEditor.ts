@@ -1,4 +1,5 @@
 import { useForm } from 'vee-validate';
+import { SchemaOf } from 'yup';
 
 import { ref } from 'vue';
 
@@ -69,18 +70,32 @@ export default function useEditor<TVm = unknown>(
 
   // Methods
 
-  function useValidation<K extends keyof TVm>(
-    callUseForm: (initialValues?: Pick<TVm, K>) => UseFormResult<K>,
+  function useValidationForm<T, K extends keyof T>(
+    validationSchema: SchemaOf<Pick<T, K>>,
+    values: T | null,
     ...initialValuesKeys: K[]
   ) {
-    const viewModelValue = viewModel.value;
-    const initialValues = viewModelValue
+    const initialValues = values
       ? (Object.fromEntries(
-          initialValuesKeys.map((key) => [key, viewModelValue[key]])
-        ) as Pick<TVm, K>)
+          initialValuesKeys.map((key) => [key, values[key]])
+        ) as Pick<T, K>)
       : undefined;
 
-    const result = callUseForm(initialValues);
+    return useForm<Pick<T, K>>({
+      validationSchema,
+      initialValues,
+    });
+  }
+
+  function useValidation<K extends keyof TVm>(
+    validationSchema: SchemaOf<Pick<TVm, K>>,
+    ...initialValuesKeys: K[]
+  ) {
+    const result = useValidationForm(
+      validationSchema,
+      viewModel.value,
+      ...initialValuesKeys
+    );
 
     internalValidate = result.validate;
   }
@@ -178,6 +193,7 @@ export default function useEditor<TVm = unknown>(
 
   return {
     editorSaving,
+    useValidationForm,
     useValidation,
     useCustomValidation,
     edit,
