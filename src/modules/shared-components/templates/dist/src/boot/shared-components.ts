@@ -6,6 +6,7 @@ import ExpandableCard from 'components/shared/expandable-card/ExpandableCard.vue
 import GravatarImage from 'components/shared/GravatarImage.vue';
 import PercentInput from 'components/shared/PercentInput.vue';
 import QPagePadding from 'components/shared/QPagePadding.vue';
+import TextField from 'components/shared/TextField.vue';
 import ThousandInput from 'components/shared/ThousandInput.vue';
 import TopTooltip from 'components/shared/TopTooltip.vue';
 import FadeTransition from 'components/shared/transition/FadeTransition.vue';
@@ -33,6 +34,7 @@ export default boot(({ app }) => {
   app.component('GravatarImage', GravatarImage);
   app.component('ExpandableCard', ExpandableCard);
   app.component('QPagePadding', QPagePadding);
+  app.component('TextField', TextField);
   app.component('PercentInput', PercentInput);
   app.component('ThousandInput', ThousandInput);
   app.component('QInputVal', QInputVal);

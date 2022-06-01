@@ -4,6 +4,7 @@ import ExpandableCard from 'components/shared/expandable-card/ExpandableCard.vue
 import GravatarImage from 'components/shared/GravatarImage.vue';
 import PercentInput from 'components/shared/PercentInput.vue';
 import QPagePadding from 'components/shared/QPagePadding.vue';
+import TextField from 'components/shared/TextField.vue';
 import ThousandInput from 'components/shared/ThousandInput.vue';
 import TopTooltip from 'components/shared/TopTooltip.vue';
 import FadeTransition from 'components/shared/transition/FadeTransition.vue';
@@ -24,6 +25,7 @@ declare module '@vue/runtime-core' {
     GravatarImage: typeof GravatarImage;
     ExpandableCard: typeof ExpandableCard;
     QPagePadding: typeof QPagePadding;
+    TextField: typeof TextField;
     PercentInput: typeof PercentInput;
     ThousandInput: typeof ThousandInput;
     QInputVal: typeof QInputVal;
