@@ -1,5 +1,6 @@
 import currency from './formats/currency';
 import date from './formats/date';
+import editor from './formats/editor';
 import percent from './formats/percent';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -10,6 +11,7 @@ export default function useFormats() {
     percent,
     currency,
     ...date(),
+    ...editor(),
   };
 
   return formats;

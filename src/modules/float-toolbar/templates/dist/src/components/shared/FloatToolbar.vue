@@ -277,10 +277,10 @@ defineExpose({
         @before-hide="onBeforeHide"
         @before-show="onBeforeShow"
       >
-        <div :style="fabContentMargin">
+        <div style="pointer-events: none" :style="fabContentMargin">
           <transition-group
             v-if="secondRowPosition === 'top'"
-            class="no-wrap row"
+            class="no-wrap row children-clickable"
             :class="{ reverse: reverseOrder }"
             name="float-toolbar-transition"
             :style="{ 'min-height': `${buttonSpace}px` }"
@@ -290,7 +290,7 @@ defineExpose({
           </transition-group>
 
           <transition-group
-            class="no-wrap row"
+            class="no-wrap row children-clickable"
             :class="{ reverse: reverseOrder }"
             name="float-toolbar-transition"
             tag="div"
@@ -300,7 +300,7 @@ defineExpose({
 
           <transition-group
             v-if="secondRowPosition === 'bottom'"
-            class="no-wrap row"
+            class="no-wrap row children-clickable"
             :class="{ reverse: reverseOrder }"
             name="float-toolbar-transition"
             :style="{ 'min-height': `${buttonSpace}px` }"
@@ -331,6 +331,10 @@ defineExpose({
   .q-btn {
     margin: 0 5px;
   }
+}
+
+.children-clickable > * {
+  pointer-events: auto;
 }
 
 .float-toolbar-transition-enter-active,
