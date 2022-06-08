@@ -4,6 +4,7 @@ import {
   mapWithArguments,
   Resolver,
 } from '@automapper/core';
+import { isArray, isObject } from 'lodash';
 
 import { date } from 'quasar';
 
@@ -48,7 +49,7 @@ const apiModelToModelResolver = {
 
   asIsRequired: function <
     Key extends string,
-    Type,
+    Type extends object,
     TSource extends HasProp<Key, Type>
   >(key: Key) {
     return {
@@ -97,7 +98,7 @@ const apiModelToModelResolver = {
 
   asIsOptional: function <
     Key extends string,
-    Type,
+    Type extends object,
     TSource extends Partial<HasProp<Key, Type | null>>
   >(key: Key) {
     return {
@@ -132,7 +133,7 @@ const modelToViewModelResolver = {
 
   asIsRequired: function <
     Key extends string,
-    Type,
+    Type extends object,
     TSource extends HasProp<Key, Type>
   >(key: Key) {
     return {
@@ -206,7 +207,7 @@ const modelToViewModelResolver = {
 
   asIsOptional: function <
     Key extends string,
-    Type,
+    Type extends object,
     TSource extends Partial<HasProp<Key, Type>>
   >(key: Key) {
     return {
@@ -243,20 +244,13 @@ const modelToApiModelResolver = {
 
   asIsRequired: function <
     Key extends string,
-    Type,
+    Type extends object,
     TSource extends HasProp<Key, Type>
   >(key: Key) {
     return {
       resolve: (source: TSource): Type => {
-        const field = source[key];
-
-        for (const key in field) {
-          if (field[key] === undefined) {
-            delete field[key];
-          }
-        }
-
-        return field;
+        deleteUndefined(source[key]);
+        return source[key];
       },
     };
   },
@@ -359,7 +353,7 @@ const modelToApiModelResolver = {
 
   asIsOptional: function <
     Key extends string,
-    Type,
+    Type extends object,
     TSource extends Partial<HasProp<Key, Type>>
   >(key: Key) {
     return {
@@ -437,7 +431,7 @@ const viewModelToApiModelResolver = {
 
   asIsRequired: function <
     Key extends string,
-    Type,
+    Type extends object,
     TSource extends Partial<HasProp<Key, Type>>
   >(key: Key) {
     return {
@@ -448,11 +442,7 @@ const viewModelToApiModelResolver = {
             throw new Error(`${key} is required`);
           })();
 
-        for (const key in field) {
-          if (field[key] === undefined) {
-            delete field[key];
-          }
-        }
+        deleteUndefined(field);
 
         return field;
       },
@@ -617,7 +607,7 @@ const viewModelToApiModelResolver = {
 
   asIsOptional: function <
     Key extends string,
-    Type,
+    Type extends object,
     TSource extends HasProp<Key, Type | null>
   >(key: Key) {
     return {
@@ -628,17 +618,29 @@ const viewModelToApiModelResolver = {
           return null;
         }
 
-        for (const key in field) {
-          if (field[key] === undefined) {
-            delete field[key];
-          }
-        }
+        deleteUndefined(field);
 
         return field;
       },
     };
   },
 };
+
+function deleteUndefined<T extends object>(value: T) {
+  for (const key in value) {
+    const field = value[key];
+
+    if (field === undefined) {
+      delete value[key];
+    } else if (isObject(field)) {
+      if (isArray(field)) {
+        field.forEach((item) => deleteUndefined(item));
+      } else {
+        deleteUndefined(field);
+      }
+    }
+  }
+}
 
 type DataType = 'string' | 'boolean' | 'number' | 'date' | 'dateArray' | 'asIs';
 type FieldType = 'required' | 'optional' | 'readOptionalWriteRequired';
