@@ -31,7 +31,7 @@ defineEmits<{
     <template #label>
       <q-spinner v-if="freezed" class="q-mr-xs" />
       <q-icon v-else class="q-mr-xs" name="fal fa-thermometer-half" />
-      <span class="text-weight-regular">{{ status.text }}</span>
+      <span class="text-weight-bold">{{ status.text }}</span>
     </template>
 
     <q-list>

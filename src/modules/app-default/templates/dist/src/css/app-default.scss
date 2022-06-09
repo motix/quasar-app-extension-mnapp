@@ -8,6 +8,10 @@ $muted: $grey;
   background-color: $muted;
 }
 
+.text-wrap {
+  white-space: normal !important;
+}
+
 body {
   font-size: 1rem;
 }
