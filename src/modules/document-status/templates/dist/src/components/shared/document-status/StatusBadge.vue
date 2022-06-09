@@ -24,6 +24,6 @@ withDefaults(
     unelevated
   >
     <q-icon class="q-mr-xs" name="fal fa-thermometer-half" />
-    <span class="text-weight-regular q-mr-xs">{{ status.text }}</span>
+    <span class="text-weight-bold q-mr-xs">{{ status.text }}</span>
   </q-btn>
 </template>

@@ -265,7 +265,7 @@ defineExpose({
         :style="{ transform: `translateX(${fixedButtonsPosition}px)` }"
         tag="div"
       >
-        <slot name="fixed-buttons" />
+        <slot name="fixed-buttons"></slot>
       </transition-group>
 
       <q-fab
@@ -286,7 +286,7 @@ defineExpose({
             :style="{ 'min-height': `${buttonSpace}px` }"
             tag="div"
           >
-            <slot name="second-row-buttons" />
+            <slot name="second-row-buttons"></slot>
           </transition-group>
 
           <transition-group
@@ -295,7 +295,7 @@ defineExpose({
             name="float-toolbar-transition"
             tag="div"
           >
-            <slot />
+            <slot></slot>
           </transition-group>
 
           <transition-group
@@ -306,7 +306,7 @@ defineExpose({
             :style="{ 'min-height': `${buttonSpace}px` }"
             tag="div"
           >
-            <slot name="second-row-buttons" />
+            <slot name="second-row-buttons"></slot>
           </transition-group>
         </div>
       </q-fab>
@@ -318,7 +318,7 @@ defineExpose({
         :style="{ transform: `translateX(${fixedButtonsPosition}px)` }"
         tag="div"
       >
-        <slot name="fixed-buttons" />
+        <slot name="fixed-buttons"></slot>
       </transition-group>
     </div>
   </q-page-sticky>
@@ -333,7 +333,7 @@ defineExpose({
   }
 }
 
-.children-clickable > * {
+.q-fab__actions--opened .children-clickable > * {
   pointer-events: auto;
 }
 
