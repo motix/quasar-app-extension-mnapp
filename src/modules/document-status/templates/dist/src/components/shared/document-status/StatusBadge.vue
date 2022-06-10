@@ -14,7 +14,7 @@ withDefaults(
 
 <template>
   <q-btn
-    class="shadow-2 cursor-inherit"
+    class="shadow-2 no-pointer-events"
     :color="revertColor ? status.textColor : status.backgroundColor"
     no-wrap
     padding="xs"
