@@ -168,7 +168,7 @@ const captionCssClass = computed(() => {
         </span>
       </q-item-label>
 
-      <slot name="main" />
+      <slot name="main"></slot>
     </q-item-section>
 
     <q-item-section
@@ -178,7 +178,7 @@ const captionCssClass = computed(() => {
       side
       :top="sideTop"
     >
-      <slot name="side" />
+      <slot name="side"></slot>
     </q-item-section>
   </q-item>
 </template>

@@ -84,18 +84,6 @@ const cardExpanded = ref(false);
 
 // Computed
 
-const cardCssClass = computed<Record<string, unknown>>(() => {
-  const result: Record<string, unknown> = {
-    'cursor-pointer': props.clickable,
-  };
-
-  result[
-    `bg-${props.bodyBackgroundColor || (Dark.isActive ? 'grey-10' : 'grey-1')}`
-  ] = true;
-
-  return result;
-});
-
 const bodyCssClass = computed<Record<string, unknown>>(() => {
   const result: Record<string, unknown> = {
     'q-col-gutter-x-md row': props.bodyColGutter,
@@ -121,30 +109,39 @@ defineExpose({
 
 <template>
   <q-card
-    :class="cardCssClass"
+    :class="`bg-${
+      bodyBackgroundColor || (Dark.isActive ? 'grey-10' : 'grey-1')
+    }`"
     style="width: 100%"
     :style="{ maxWidth: cardWidth + 'px' }"
   >
     <template v-if="expandable">
       <q-expansion-item
         v-model="cardExpanded"
-        :class="headerBackgroundColor ? `bg-${headerBackgroundColor}` : ''"
+        :class="
+          (headerBackgroundColor ? `bg-${headerBackgroundColor}` : '') +
+          ' ' +
+          (clickable ? 'cursor-pointer' : '')
+        "
         :dark="headerDark || Dark.isActive"
         expand-icon-class="q-pr-none"
+        :expand-icon-toggle="clickable"
         expand-separator
+        @click.stop
       >
         <template #header>
           <!-- Refer to this issue for v-bind="$props": https://giters.com/johnsoncodehk/volar/issues/556 -->
           <expandable-card-header
             v-bind="{ ...$props, ref: undefined }"
             class="q-pl-none full-width"
+            :clickable="false"
           >
             <template v-if="$slots.main" #main>
-              <slot name="main" />
+              <slot name="main"></slot>
             </template>
 
             <template v-if="$slots.side" #side>
-              <slot name="side" />
+              <slot name="side"></slot>
             </template>
           </expandable-card-header>
         </template>
@@ -154,15 +151,20 @@ defineExpose({
           :class="`bg-${
             bodyBackgroundColor || (Dark.isActive ? 'grey-10' : 'grey-1')
           }`"
-          style="border-top-left-radius: 0; border-top-right-radius: 0"
+          style="
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+            cursor: default;
+          "
+          @click.stop
         >
-          <slot name="bezel-less-top" />
+          <slot name="bezel-less-top"></slot>
 
           <q-card-section v-if="$slots.body" :class="bodyCssClass">
-            <slot name="body" />
+            <slot name="body"></slot>
           </q-card-section>
 
-          <slot name="bezel-less" />
+          <slot name="bezel-less"></slot>
         </div>
       </q-expansion-item>
     </template>
@@ -174,23 +176,25 @@ defineExpose({
         :class="headerBackgroundColor ? `bg-${headerBackgroundColor}` : ''"
       >
         <template v-if="$slots.main" #main>
-          <slot name="main" />
+          <slot name="main"></slot>
         </template>
 
         <template v-if="$slots.side" #side>
-          <slot name="side" />
+          <slot name="side"></slot>
         </template>
       </expandable-card-header>
 
-      <q-separator v-if="headerSeparator" />
+      <div @click.stop>
+        <q-separator v-if="headerSeparator" />
 
-      <slot name="bezel-less-top" />
+        <slot name="bezel-less-top"></slot>
 
-      <q-card-section v-if="$slots.body" :class="bodyCssClass">
-        <slot name="body" />
-      </q-card-section>
+        <q-card-section v-if="$slots.body" :class="bodyCssClass">
+          <slot name="body"></slot>
+        </q-card-section>
 
-      <slot name="bezel-less" />
+        <slot name="bezel-less"></slot>
+      </div>
     </template>
   </q-card>
 </template>
