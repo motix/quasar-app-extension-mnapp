@@ -37,6 +37,7 @@ const {
   trash,
   // useToolbar
   toolbar,
+  toolbarPersistent,
   toolbarFabButtonsVisibility,
   toolbarFixedButtonsVisibility,
 } = useViewPage(props.scopeName);
@@ -97,11 +98,11 @@ watch(freezed, (value) => {
         <!-- Ready -->
         <fade-transition>
           <div v-if="!editMode" key="viewer">
-            <slot name="viewer" />
+            <slot name="viewer"></slot>
           </div>
 
           <div v-else key="editor">
-            <slot name="editor" />
+            <slot name="editor"></slot>
           </div>
         </fade-transition>
 
@@ -125,6 +126,7 @@ watch(freezed, (value) => {
         <float-toolbar
           ref="toolbar"
           :fab-buttons-visibility="toolbarFabButtonsVisibility"
+          :persistent="toolbarPersistent"
         >
           <q-btn
             v-show="toolbarFabButtonsVisibility.trash"
@@ -183,6 +185,8 @@ watch(freezed, (value) => {
             <top-tooltip ref="saveTooltip">Save</top-tooltip>
           </q-btn>
 
+          <slot name="toolbar-main"></slot>
+
           <transition-group
             v-show="hasMultiViews || $slots['toolbar-extra']"
             key="extra"
@@ -196,11 +200,11 @@ watch(freezed, (value) => {
               key="switchView"
             />
 
-            <slot name="toolbar-extra" />
+            <slot name="toolbar-extra"></slot>
           </transition-group>
 
           <template #second-row-buttons>
-            <slot name="toolbar-second-row" />
+            <slot name="toolbar-second-row"></slot>
           </template>
         </float-toolbar>
       </div>

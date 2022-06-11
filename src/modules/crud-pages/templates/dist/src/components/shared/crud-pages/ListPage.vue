@@ -214,7 +214,7 @@ const { hideInfiniteScrollLoading } =
       <div v-else-if="!items || items.length === 0" key="empty">
         <!-- Empty -->
         <div>
-          <slot name="top" />
+          <slot name="top"></slot>
         </div>
         <div class="q-my-md text-center">There is no data in this list.</div>
       </div>
@@ -243,14 +243,14 @@ const { hideInfiniteScrollLoading } =
                   v-on="hasViewPage ? { rowClick: onRowClick } : {}"
                 >
                   <template v-if="$slots.top" #top>
-                    <slot name="top" />
+                    <slot name="top"></slot>
                   </template>
 
                   <template
                     v-for="slotName in scopedSlotNames"
                     #[slotName]="slotProps"
                   >
-                    <slot :name="slotName" :props="slotProps" />
+                    <slot :name="slotName" :props="slotProps"></slot>
                   </template>
 
                   <template #bottom>
@@ -269,17 +269,17 @@ const { hideInfiniteScrollLoading } =
               <div key="cardsView">
                 <div class="row items-start justify-evenly q-gutter-md">
                   <div>
-                    <slot name="top" />
+                    <slot name="top"></slot>
                   </div>
 
-                  <div class="flex-break q-mt-none" />
+                  <div class="flex-break q-mt-none"></div>
 
                   <slot
                     v-for="item in items"
                     :link="() => itemLink(item)"
                     :model="item"
                     name="item-card"
-                  />
+                  ></slot>
                 </div>
 
                 <div
@@ -294,7 +294,7 @@ const { hideInfiniteScrollLoading } =
 
           <!-- Smoothly hide loading template -->
           <q-slide-transition v-if="allItemsLoaded">
-            <div v-show="!hideInfiniteScrollLoading" style="height: 72px" />
+            <div v-show="!hideInfiniteScrollLoading" style="height: 72px"></div>
           </q-slide-transition>
 
           <template #loading>
@@ -332,7 +332,7 @@ const { hideInfiniteScrollLoading } =
       >
         <switch-view-button v-if="hasMultiViews" key="switchView" />
 
-        <slot name="toolbar-extra" />
+        <slot name="toolbar-extra"></slot>
       </transition-group>
     </float-toolbar>
 

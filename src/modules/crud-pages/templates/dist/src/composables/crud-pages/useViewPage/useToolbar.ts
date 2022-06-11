@@ -15,6 +15,7 @@ export default function useToolbar(
   // Data
 
   const toolbar = ref<InstanceType<typeof FloatToolbar> | null>(null);
+  const toolbarPersistent = ref(false);
 
   // Computed
 
@@ -38,6 +39,7 @@ export default function useToolbar(
 
   return {
     toolbar,
+    toolbarPersistent,
     toolbarFabButtonsVisibility,
     toolbarFixedButtonsVisibility,
     openToolbar,

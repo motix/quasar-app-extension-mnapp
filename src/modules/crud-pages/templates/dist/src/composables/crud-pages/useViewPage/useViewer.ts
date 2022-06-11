@@ -54,6 +54,7 @@ export default function useViewer<T = unknown>(
     }
 
     notifySaveDataSuccess();
+    muteRealtimeUpdate.value = false;
     freezed.value = false;
   }
 

@@ -23,12 +23,14 @@ const props = withDefaults(
     fabButtonsVisibility?: Record<string, boolean>;
     fabButtonsSpaceIgnored?: number;
     offset?: { x?: number; y?: number };
+    persistent?: boolean;
   }>(),
   {
     position: 'bottom-right',
     minMarginY: 2,
     fabButtonsSpaceIgnored: 0,
     offset: () => ({}),
+    persistent: false,
   }
 );
 
@@ -274,6 +276,7 @@ defineExpose({
         color="accent"
         :direction="direction"
         icon="fal fa-ellipsis-h-alt"
+        :persistent="persistent"
         @before-hide="onBeforeHide"
         @before-show="onBeforeShow"
       >

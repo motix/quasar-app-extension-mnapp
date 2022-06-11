@@ -25,8 +25,6 @@ const {
   editorSave,
   // useNavigateToListPage
   confirmAndGoBack,
-  // useToolbar
-  toolbar,
 } = useNewPage(props.scopeName);
 
 // Data
@@ -61,7 +59,7 @@ watch(freezed, (value) => {
 
       <div v-else key="ready">
         <!-- Ready -->
-        <slot />
+        <slot></slot>
 
         <float-toolbar position="bottom-left">
           <template #fixed-buttons>
@@ -79,7 +77,7 @@ watch(freezed, (value) => {
           </template>
         </float-toolbar>
 
-        <float-toolbar ref="toolbar">
+        <float-toolbar>
           <template #fixed-buttons>
             <q-btn
               key="save"
@@ -97,6 +95,8 @@ watch(freezed, (value) => {
               <top-tooltip ref="saveTooltip">Save</top-tooltip>
             </q-btn>
 
+            <slot name="toolbar-main"></slot>
+
             <transition-group
               v-show="$slots['toolbar-extra']"
               key="extra"
@@ -105,7 +105,7 @@ watch(freezed, (value) => {
               style="margin-right: 7px"
               tag="div"
             >
-              <slot name="toolbar-extra" />
+              <slot name="toolbar-extra"></slot>
             </transition-group>
           </template>
         </float-toolbar>
