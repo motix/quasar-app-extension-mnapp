@@ -23,6 +23,7 @@ const props = withDefaults(
     useGravatar?: boolean;
     // eslint-disable-next-line vue/require-default-prop
     gravatarId?: string;
+    titleFullWidth?: boolean;
     titleTop?: boolean;
     // eslint-disable-next-line vue/require-default-prop
     titleColor?: string;
@@ -50,6 +51,7 @@ const props = withDefaults(
     avatarTop: false,
     avatarSize: '56px',
     useGravatar: false,
+    titleFullWidth: false,
     titleTop: false,
     titleNoWrap: false,
     sideTop: false,
@@ -145,34 +147,42 @@ const captionCssClass = computed(() => {
         {{ title }}
       </q-item-label>
 
-      <q-item-label
-        v-if="subtitle"
-        class="text-subtitle2 q-pt-xs"
-        :class="subtitleCssClass"
-      >
-        <q-icon v-if="subtitleIcon" :name="subtitleIcon" />
-        <span>
-          {{ subtitle }}
-          <top-tooltip v-if="subtitleTooltip">
-            {{ subtitleTooltip }}
-          </top-tooltip>
-        </span>
-      </q-item-label>
+      <div class="row justify-between">
+        <div>
+          <q-item-label
+            v-if="subtitle"
+            class="text-subtitle2 q-pt-xs"
+            :class="subtitleCssClass"
+          >
+            <q-icon v-if="subtitleIcon" :name="subtitleIcon" />
+            <span>
+              {{ subtitle }}
+              <top-tooltip v-if="subtitleTooltip">
+                {{ subtitleTooltip }}
+              </top-tooltip>
+            </span>
+          </q-item-label>
 
-      <q-item-label v-if="caption" caption :class="captionCssClass">
-        <span>
-          {{ caption }}
-          <top-tooltip v-if="captionTooltip">
-            {{ captionTooltip }}
-          </top-tooltip>
-        </span>
-      </q-item-label>
+          <q-item-label v-if="caption" caption :class="captionCssClass">
+            <span>
+              {{ caption }}
+              <top-tooltip v-if="captionTooltip">
+                {{ captionTooltip }}
+              </top-tooltip>
+            </span>
+          </q-item-label>
 
-      <slot name="main"></slot>
+          <slot name="main"></slot>
+        </div>
+
+        <div v-if="$slots.side && titleFullWidth">
+          <slot name="side"></slot>
+        </div>
+      </div>
     </q-item-section>
 
     <q-item-section
-      v-if="$slots.side"
+      v-if="$slots.side && !titleFullWidth"
       class="text-right"
       :class="{ 'q-pt-xs': sideTop }"
       side

@@ -31,6 +31,7 @@ const props = withDefaults(
     useGravatar?: boolean;
     // eslint-disable-next-line vue/require-default-prop
     gravatarId?: string;
+    titleFullWidth?: boolean;
     titleTop?: boolean;
     // eslint-disable-next-line vue/require-default-prop
     titleColor?: string;
@@ -66,6 +67,7 @@ const props = withDefaults(
     avatarTop: false,
     avatarSize: '56px',
     useGravatar: false,
+    titleFullWidth: false,
     titleTop: false,
     titleNoWrap: false,
     sideTop: false,
