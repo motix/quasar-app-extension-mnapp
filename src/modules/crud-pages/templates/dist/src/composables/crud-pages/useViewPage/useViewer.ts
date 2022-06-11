@@ -18,7 +18,7 @@ export default function useViewer<T = unknown>(
 ) {
   // Private
 
-  async function viewerSave() {
+  async function viewerSave(cb?: () => void) {
     docKey.value === null &&
       (() => {
         throw new Error('docKey not specified');
@@ -56,6 +56,8 @@ export default function useViewer<T = unknown>(
     notifySaveDataSuccess();
     muteRealtimeUpdate.value = false;
     freezed.value = false;
+
+    cb && cb();
   }
 
   // Composables
@@ -77,7 +79,20 @@ export default function useViewer<T = unknown>(
     }
   }
 
+  function watchViewerAndRun(cb: () => void, ...sources: WatchSource[]) {
+    for (const source of sources) {
+      watch(source, async (_newValue, oldValue) => {
+        if (muteViewerWatch.value || editMode.value || oldValue === undefined) {
+          return;
+        }
+
+        await viewerSave(cb);
+      });
+    }
+  }
+
   return {
     watchViewer,
+    watchViewerAndRun,
   };
 }
