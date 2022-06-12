@@ -4,11 +4,12 @@ import {
   mapWithArguments,
   Resolver,
 } from '@automapper/core';
-import { isArray, isObject } from 'lodash';
+import { isArray, isDate, isObject } from 'lodash';
 
 import { date } from 'quasar';
 
 import { requiredConfigEntries } from 'composables/useConfig';
+import { Timestamp } from '@firebase/firestore';
 
 export interface DateDataConverter {
   fromDate: <T>(date: Date) => T;
@@ -53,7 +54,7 @@ const apiModelToModelResolver = {
     TSource extends HasProp<Key, Type>
   >(key: Key) {
     return {
-      resolve: (source: TSource): Type => source[key],
+      resolve: (source: TSource): Type => replaceTimestamp(source[key]),
     };
   },
 
@@ -104,7 +105,7 @@ const apiModelToModelResolver = {
     return {
       resolve: (source: TSource): Type | undefined => {
         const field: Type | null | undefined = source[key];
-        return field == null ? undefined : field;
+        return field == null ? undefined : replaceTimestamp(field);
       },
     };
   },
@@ -248,10 +249,7 @@ const modelToApiModelResolver = {
     TSource extends HasProp<Key, Type>
   >(key: Key) {
     return {
-      resolve: (source: TSource): Type => {
-        deleteUndefined(source[key]);
-        return source[key];
-      },
+      resolve: (source: TSource): Type => deleteUndefined(source[key]),
     };
   },
 
@@ -359,7 +357,7 @@ const modelToApiModelResolver = {
     return {
       resolve: (source: TSource): Type | null => {
         const field: Type | undefined = source[key];
-        return field === undefined ? null : field;
+        return field === undefined ? null : deleteUndefined(field);
       },
     };
   },
@@ -441,10 +439,7 @@ const viewModelToApiModelResolver = {
           (() => {
             throw new Error(`${key} is required`);
           })();
-
-        deleteUndefined(field);
-
-        return field;
+        return deleteUndefined(field);
       },
     };
   },
@@ -613,14 +608,7 @@ const viewModelToApiModelResolver = {
     return {
       resolve: (source: TSource): Type | null => {
         const field: Type | null = source[key];
-
-        if (field === null) {
-          return null;
-        }
-
-        deleteUndefined(field);
-
-        return field;
+        return field === null ? null : deleteUndefined(field);
       },
     };
   },
@@ -640,6 +628,41 @@ function deleteUndefined<T extends object>(value: T) {
       }
     }
   }
+
+  return value;
+}
+
+function isTimestamp(value: unknown): value is Timestamp {
+  return (
+    typeof (value as Timestamp).toDate === 'function' &&
+    isDate((value as Timestamp).toDate())
+  );
+}
+
+function replaceTimestamp<T extends object>(value: T) {
+  for (const key in value) {
+    const field = value[key];
+
+    if (field == null) {
+      return value;
+    }
+
+    if (isTimestamp(field)) {
+      value[key] = field.toDate() as unknown as T[Extract<keyof T, string>];
+    } else if (isObject(field)) {
+      if (isArray(field)) {
+        field.forEach((item, index) => {
+          field[index] = isTimestamp(item)
+            ? item.toDate()
+            : replaceTimestamp(item);
+        });
+      } else {
+        replaceTimestamp(field);
+      }
+    }
+  }
+
+  return value;
 }
 
 type DataType = 'string' | 'boolean' | 'number' | 'date' | 'dateArray' | 'asIs';
