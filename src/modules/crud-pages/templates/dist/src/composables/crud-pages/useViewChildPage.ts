@@ -28,6 +28,7 @@ export default function useViewChildPage<
   // Data
 
   const hasChildDeleting = ref(true);
+  const parentFindKey = ref(route.params.parentFindKey as string);
   const parentModel = ref(null) as Ref<TParent | null>;
   const parentViewModel = ref(null) as Ref<TParentVm | null>;
   const viewUrl = ref<string | null>(null);
@@ -100,17 +101,18 @@ export default function useViewChildPage<
       return null;
     }
 
-    const modelFindKey = route.params[$p.modelFindKeyField.value] as string;
-
-    if (!modelFindKey) {
-      return children[children.length - 1];
+    if (!$p.findKey.value) {
+      $p.findKey.value = String(
+        children[children.length - 1][$p.modelFindKeyField.value]
+      );
+    } else {
+      $p.findKey.value = $p.findKey.value.replaceAll('_', '.');
     }
 
     return (
       children.find(
         (value) =>
-          String(value[$p.modelFindKeyField.value]) ===
-          modelFindKey.replaceAll('_', '.')
+          String(value[$p.modelFindKeyField.value]) === $p.findKey.value
       ) || null
     );
   };
@@ -136,17 +138,18 @@ export default function useViewChildPage<
       return null;
     }
 
-    const modelFindKey = route.params[$p.modelFindKeyField.value] as string;
-
-    if (!modelFindKey) {
-      return children[children.length - 1];
+    if (!$p.findKey.value) {
+      $p.findKey.value = String(
+        children[children.length - 1][$p.modelFindKeyField.value]
+      );
+    } else {
+      $p.findKey.value = $p.findKey.value.replaceAll('_', '.');
     }
 
     return (
       children.find(
         (value) =>
-          String(value[$p.modelFindKeyField.value]) ===
-          modelFindKey.replaceAll('_', '.')
+          String(value[$p.modelFindKeyField.value]) === $p.findKey.value
       ) || null
     );
   };
@@ -278,7 +281,7 @@ export default function useViewChildPage<
 
     route.meta.replaceRoute = true;
     router.replace(
-      `${viewUrl.value}${route.params['findKey']}${
+      `${viewUrl.value}${parentFindKey.value}${
         value
           ? '/' + String(value[$p.modelFindKeyField.value]).replaceAll('.', '_')
           : ''
@@ -288,6 +291,7 @@ export default function useViewChildPage<
 
   return {
     hasChildDeleting,
+    parentFindKey,
     parentModel,
     parentViewModel,
     viewUrl,
