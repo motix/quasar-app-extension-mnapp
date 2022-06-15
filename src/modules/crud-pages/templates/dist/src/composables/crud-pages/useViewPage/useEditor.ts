@@ -163,7 +163,6 @@ export default function useEditor<TVm = unknown>(
     notifySaveDataSuccess();
 
     editorSaving.value = false;
-    muteRealtimeUpdate.value = false;
     freezed.value = false;
 
     exitEditMode();

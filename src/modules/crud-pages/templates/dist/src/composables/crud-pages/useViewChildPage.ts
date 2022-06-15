@@ -234,7 +234,6 @@ export default function useViewChildPage<
           if (modelChildrenGetter.value(parentModel.value).length === 0) {
             $p.goBack();
           } else {
-            $p.muteRealtimeUpdate.value = false;
             $p.freezed.value = false;
           }
         })
