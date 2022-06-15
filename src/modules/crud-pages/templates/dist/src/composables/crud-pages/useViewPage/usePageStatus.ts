@@ -7,7 +7,7 @@ export default function usePageStatus() {
   const freezed = ref(false);
   const muteRealtimeUpdate = ref(false);
   const delayRealtimeUpdate = ref(false);
-  const muteViewerWatch = ref(false);
+  const ignoreViewerWatch = ref(false);
   const editMode = ref(false);
   const isDirty = ref(false);
 
@@ -22,7 +22,7 @@ export default function usePageStatus() {
     freezed,
     muteRealtimeUpdate,
     delayRealtimeUpdate,
-    muteViewerWatch,
+    ignoreViewerWatch,
     editMode,
     isDirty,
     dirty,

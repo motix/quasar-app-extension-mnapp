@@ -19,11 +19,6 @@ export default function useEditor<TVm = unknown>(
   delayRealtimeUpdate: ReturnType<typeof usePageStatus>['delayRealtimeUpdate'],
   editMode: ReturnType<typeof usePageStatus>['editMode'],
   isDirty: ReturnType<typeof usePageStatus>['isDirty'],
-  findKey: ReturnType<typeof usePageData>['findKey'],
-  modelFindKeyField: UsePageDataHelper<
-    never,
-    TVm
-  >['Return']['modelFindKeyField'],
   docKey: ReturnType<typeof usePageData>['docKey'],
   viewModel: UsePageDataHelper<never, TVm>['Return']['viewModel'],
   updateModel: UsePageDataHelper<never, TVm>['Return']['updateModel'],

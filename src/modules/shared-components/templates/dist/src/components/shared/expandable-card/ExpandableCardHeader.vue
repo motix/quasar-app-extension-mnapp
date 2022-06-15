@@ -147,8 +147,9 @@ const captionCssClass = computed(() => {
         {{ title }}
       </q-item-label>
 
-      <div class="row justify-between">
-        <div>
+      <!-- Setting max-width to support ellipsis in main slot -->
+      <q-item class="q-pa-none" style="max-width: 100%">
+        <q-item-section>
           <q-item-label
             v-if="subtitle"
             class="text-subtitle2 q-pt-xs"
@@ -172,13 +173,21 @@ const captionCssClass = computed(() => {
             </span>
           </q-item-label>
 
-          <slot name="main"></slot>
-        </div>
+          <!-- Use a div to prevent content from spreading to full width -->
+          <div style="max-width: 100%">
+            <slot name="main"></slot>
+          </div>
+        </q-item-section>
 
-        <div v-if="$slots.side && titleFullWidth">
+        <q-item-section
+          v-if="$slots.side && titleFullWidth"
+          class="text-right"
+          side
+          :top="sideTop"
+        >
           <slot name="side"></slot>
-        </div>
-      </div>
+        </q-item-section>
+      </q-item>
     </q-item-section>
 
     <q-item-section

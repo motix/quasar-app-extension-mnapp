@@ -22,7 +22,8 @@ function newScope<T, TVm>() {
     pageFeatures.hasEditor,
     pageStatus.muteRealtimeUpdate,
     pageStatus.delayRealtimeUpdate,
-    pageStatus.muteViewerWatch,
+    pageStatus.ignoreViewerWatch,
+    pageStatus.editMode,
     pageStatus.isDirty
   );
 
@@ -38,7 +39,7 @@ function newScope<T, TVm>() {
     ...useViewer<T>(
       pageStatus.freezed,
       pageStatus.muteRealtimeUpdate,
-      pageStatus.muteViewerWatch,
+      pageStatus.ignoreViewerWatch,
       pageStatus.editMode,
       pageData.docKey,
       pageData.model,
@@ -50,8 +51,6 @@ function newScope<T, TVm>() {
       pageStatus.delayRealtimeUpdate,
       pageStatus.editMode,
       pageStatus.isDirty,
-      pageData.findKey,
-      pageData.modelFindKeyField,
       pageData.docKey,
       pageData.viewModel,
       pageData.updateModel,
@@ -100,7 +99,7 @@ export default function useViewPage<
   return store.retrieveScope(scopeName);
 }
 
-class UseViewPageHelper<T, TVm, TExtra> {
+export class UseViewPageHelper<T, TVm, TExtra> {
   Return = useViewPage<T, TVm, TExtra>('');
 }
 

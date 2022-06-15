@@ -2,6 +2,7 @@ export {};
 
 import ExpandableCard from 'components/shared/expandable-card/ExpandableCard.vue';
 import GravatarImage from 'components/shared/GravatarImage.vue';
+import ObjectLink from 'components/shared/ObjectLink.vue';
 import PercentInput from 'components/shared/PercentInput.vue';
 import QPagePadding from 'components/shared/QPagePadding.vue';
 import TextField from 'components/shared/TextField.vue';
@@ -25,6 +26,7 @@ declare module '@vue/runtime-core' {
     GravatarImage: typeof GravatarImage;
     ExpandableCard: typeof ExpandableCard;
     QPagePadding: typeof QPagePadding;
+    ObjectLink: typeof ObjectLink;
     TextField: typeof TextField;
     PercentInput: typeof PercentInput;
     ThousandInput: typeof ThousandInput;

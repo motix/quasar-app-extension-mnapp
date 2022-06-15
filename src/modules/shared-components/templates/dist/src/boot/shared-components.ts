@@ -4,6 +4,7 @@ import useConfig from 'composables/useConfig';
 
 import ExpandableCard from 'components/shared/expandable-card/ExpandableCard.vue';
 import GravatarImage from 'components/shared/GravatarImage.vue';
+import ObjectLink from 'components/shared/ObjectLink.vue';
 import PercentInput from 'components/shared/PercentInput.vue';
 import QPagePadding from 'components/shared/QPagePadding.vue';
 import TextField from 'components/shared/TextField.vue';
@@ -34,6 +35,7 @@ export default boot(({ app }) => {
   app.component('GravatarImage', GravatarImage);
   app.component('ExpandableCard', ExpandableCard);
   app.component('QPagePadding', QPagePadding);
+  app.component('ObjectLink', ObjectLink);
   app.component('TextField', TextField);
   app.component('PercentInput', PercentInput);
   app.component('ThousandInput', ThousandInput);

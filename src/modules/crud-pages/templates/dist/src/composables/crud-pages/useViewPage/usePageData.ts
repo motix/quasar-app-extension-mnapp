@@ -1,7 +1,7 @@
 import { computed, nextTick, ref, Ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
-import { Dialog } from 'quasar';
+import { Dialog, Notify } from 'quasar';
 
 import {
   DeleteDocActionPayload,
@@ -21,7 +21,8 @@ export default function usePageData<T = unknown, TVm = unknown>(
   hasEditor: ReturnType<typeof usePageFeatures>['hasEditor'],
   muteRealtimeUpdate: ReturnType<typeof usePageStatus>['muteRealtimeUpdate'],
   delayRealtimeUpdate: ReturnType<typeof usePageStatus>['delayRealtimeUpdate'],
-  muteViewerWatch: ReturnType<typeof usePageStatus>['muteViewerWatch'],
+  ignoreViewerWatch: ReturnType<typeof usePageStatus>['ignoreViewerWatch'],
+  editMode: ReturnType<typeof usePageStatus>['editMode'],
   isDirty: ReturnType<typeof usePageStatus>['isDirty']
 ) {
   // Composables
@@ -34,9 +35,9 @@ export default function usePageData<T = unknown, TVm = unknown>(
   // Data
 
   const findKey = ref(route.params.findKey as string);
-  const modelFindKeyField = ref<keyof T & keyof TVm>(
-    'id' as keyof T & keyof TVm
-  ) as Ref<keyof T & keyof TVm>;
+  const modelFindKeyField = ref<Extract<keyof T & keyof TVm, string>>(
+    'id' as Extract<keyof T & keyof TVm, string>
+  ) as Ref<Extract<keyof T & keyof TVm, string>>;
   const docKey = ref<string | null>(null);
   const model = ref(null) as Ref<T | null>;
   const viewModel = ref(null) as Ref<TVm | null>;
@@ -87,9 +88,33 @@ export default function usePageData<T = unknown, TVm = unknown>(
         findKeyField:
           modelFindKeyField.value === 'id'
             ? undefined
-            : String(modelFindKeyField.value),
+            : modelFindKeyField.value,
         done: () => {
-          if (model.value && !muteRealtimeUpdate.value) {
+          const notifyRefreshDataSuccessIfNotMuted = () => {
+            if (muteRealtimeUpdate.value) {
+              muteRealtimeUpdate.value = false;
+            } else {
+              Notify.create({
+                message: 'The page has just been refreshed with latest data.',
+                type: 'info',
+                actions: [{ icon: 'close', color: 'white' }],
+              });
+            }
+          };
+
+          if (!model.value) {
+            getModelAndViewModel();
+          } else if (delayRealtimeUpdate.value) {
+            const stopWatch = watch(delayRealtimeUpdate, () => {
+              if (delayRealtimeUpdate.value === false) {
+                stopWatch();
+
+                isDirty.value = false;
+                getModelAndViewModel();
+                notifyRefreshDataSuccessIfNotMuted();
+              }
+            });
+          } else if (editMode.value) {
             if (!reloadDialogShowing.value) {
               reloadDialogShowing.value = true;
 
@@ -102,29 +127,22 @@ export default function usePageData<T = unknown, TVm = unknown>(
                 ok: {
                   color: 'primary',
                 },
-              }).onOk(() => {
-                reloadDialogShowing.value = false;
-
-                isDirty.value = false;
-                getModelAndViewModel();
-              });
+              })
+                .onOk(() => {
+                  isDirty.value = false;
+                  getModelAndViewModel();
+                })
+                .onDismiss(() => {
+                  reloadDialogShowing.value = false;
+                });
             }
           } else {
-            if (delayRealtimeUpdate.value) {
-              const stopWatch = watch(delayRealtimeUpdate, () => {
-                if (delayRealtimeUpdate.value === false) {
-                  stopWatch();
-
-                  getModelAndViewModel();
-                }
-              });
-            } else {
-              getModelAndViewModel();
-            }
-
-            resolveOnce && resolveOnce();
-            resolveOnce = null;
+            getModelAndViewModel();
+            notifyRefreshDataSuccessIfNotMuted();
           }
+
+          resolveOnce && resolveOnce();
+          resolveOnce = null;
         },
         notFound: () => {
           void router.replace('/ErrorNotFound');
@@ -173,7 +191,7 @@ export default function usePageData<T = unknown, TVm = unknown>(
         throw new Error('docKey not specified');
       })();
 
-    muteViewerWatch.value = true;
+    ignoreViewerWatch.value = true;
     model.value = modelGetter.value(docKey.value);
 
     if (hasEditor.value) {
@@ -200,7 +218,7 @@ export default function usePageData<T = unknown, TVm = unknown>(
     }
 
     void nextTick(() => {
-      muteViewerWatch.value = false;
+      ignoreViewerWatch.value = false;
     });
   }
 
@@ -245,6 +263,7 @@ export default function usePageData<T = unknown, TVm = unknown>(
 export class UsePageDataHelper<T = unknown, TVm = unknown> {
   Return = usePageData<T, TVm>(
     () => undefined,
+    ref(false),
     ref(false),
     ref(false),
     ref(false),

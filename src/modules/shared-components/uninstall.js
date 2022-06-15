@@ -6,10 +6,11 @@ module.exports = defineUninstall(function (api) {
   api.removePath('src/components/shared/transition');
   api.removePath('src/components/shared/validation');
   api.removePath('src/components/shared/GravatarImage.vue');
-  api.removePath('src/components/shared/TextField.vue');
+  api.removePath('src/components/shared/ObjectLink.vue');
   api.removePath('src/components/shared/PercentInput.vue');
-  api.removePath('src/components/shared/ThousandInput.vue');
   api.removePath('src/components/shared/QPagePadding.vue');
+  api.removePath('src/components/shared/TextField.vue');
+  api.removePath('src/components/shared/ThousandInput.vue');
   api.removePath('src/components/shared/TopTooltip.vue');
   api.removePath('src/types/shared-components');
 

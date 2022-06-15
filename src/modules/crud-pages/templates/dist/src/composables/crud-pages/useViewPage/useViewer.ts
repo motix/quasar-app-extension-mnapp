@@ -10,7 +10,7 @@ import usePageStatus from './usePageStatus';
 export default function useViewer<T = unknown>(
   freezed: ReturnType<typeof usePageStatus>['freezed'],
   muteRealtimeUpdate: ReturnType<typeof usePageStatus>['muteRealtimeUpdate'],
-  muteViewerWatch: ReturnType<typeof usePageStatus>['muteViewerWatch'],
+  ignoreViewerWatch: ReturnType<typeof usePageStatus>['ignoreViewerWatch'],
   editMode: ReturnType<typeof usePageStatus>['editMode'],
   docKey: ReturnType<typeof usePageData>['docKey'],
   model: UsePageDataHelper<T, never>['Return']['model'],
@@ -70,7 +70,11 @@ export default function useViewer<T = unknown>(
   function watchViewer(...sources: WatchSource[]) {
     for (const source of sources) {
       watch(source, async (_newValue, oldValue) => {
-        if (muteViewerWatch.value || editMode.value || oldValue === undefined) {
+        if (
+          ignoreViewerWatch.value ||
+          editMode.value ||
+          oldValue === undefined
+        ) {
           return;
         }
 
@@ -82,7 +86,11 @@ export default function useViewer<T = unknown>(
   function watchViewerAndRun(cb: () => void, ...sources: WatchSource[]) {
     for (const source of sources) {
       watch(source, async (_newValue, oldValue) => {
-        if (muteViewerWatch.value || editMode.value || oldValue === undefined) {
+        if (
+          ignoreViewerWatch.value ||
+          editMode.value ||
+          oldValue === undefined
+        ) {
           return;
         }
 

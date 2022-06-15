@@ -802,7 +802,10 @@ export function configureMembers<T extends { id: string }, TVm, TAm>(
     apiModelToModelMapper.forMember(
       (d) => d.id,
       mapWithArguments<TAm, T, string>((s, { idMap }) => {
-        const id = (idMap as Map<TAm, string>).get(s);
+        // Allow a model to be used with or without id
+        const id =
+          (s as typeof s & Partial<{ id: string }>).id ||
+          (idMap as Map<TAm, string>).get(s);
 
         !id &&
           (() => {
