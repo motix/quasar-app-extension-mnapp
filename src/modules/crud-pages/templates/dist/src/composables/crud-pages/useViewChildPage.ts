@@ -32,6 +32,23 @@ export default function useViewChildPage<
   const parentViewModel = ref(null) as Ref<TParentVm | null>;
   const viewUrl = ref<string | null>(null);
 
+  // Computed
+
+  const pm = computed(
+    () =>
+      parentModel.value ||
+      (() => {
+        throw new Error('parentModel not ready');
+      })()
+  );
+  const pvm = computed(
+    () =>
+      parentViewModel.value ||
+      (() => {
+        throw new Error('parentViewModel not ready');
+      })()
+  );
+
   // Method Refs
 
   const parentModelGetter = ref<((docKey: string) => TParent | null) | null>(
@@ -274,6 +291,8 @@ export default function useViewChildPage<
     parentModel,
     parentViewModel,
     viewUrl,
+    pm,
+    pvm,
     parentModelGetter,
     parentViewModelGetter,
     modelChildrenGetter,
