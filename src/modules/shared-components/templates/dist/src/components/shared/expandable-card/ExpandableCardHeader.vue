@@ -148,8 +148,8 @@ const captionCssClass = computed(() => {
       </q-item-label>
 
       <!-- Setting max-width to support ellipsis in main slot -->
-      <q-item class="q-pa-none" style="max-width: 100%">
-        <q-item-section>
+      <q-item class="q-pa-none" style="max-width: 100%; min-height: 0">
+        <q-item-section top>
           <q-item-label
             v-if="subtitle"
             class="text-subtitle2 q-pt-xs"
