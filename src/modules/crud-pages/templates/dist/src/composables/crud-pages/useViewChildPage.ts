@@ -1,4 +1,11 @@
-import { ComponentPublicInstance, computed, Ref, ref, watch } from 'vue';
+import {
+  ComponentPublicInstance,
+  computed,
+  nextTick,
+  Ref,
+  ref,
+  watch,
+} from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
 import { Dialog } from 'quasar';
@@ -316,11 +323,13 @@ export default function useViewChildPage<
       return;
     }
 
-    if (childViewerRef.value) {
-      scrollToElement(childViewerRef.value);
-    } else {
-      scrollToTop();
-    }
+    nextTick(() => {
+      if (childViewerRef.value) {
+        scrollToElement(childViewerRef.value);
+      } else {
+        scrollToTop();
+      }
+    });
 
     $p.findKey.value = newFindKey;
 
