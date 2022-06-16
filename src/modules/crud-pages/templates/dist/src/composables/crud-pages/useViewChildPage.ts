@@ -277,15 +277,26 @@ export default function useViewChildPage<
         throw new Error('viewUrl not specified');
       })();
 
+    if (!value) {
+      return;
+    }
+
+    const newFindKey = String(value[$p.modelFindKeyField.value]);
+
+    if (newFindKey === $p.findKey.value) {
+      return;
+    }
+
     scrollToTop();
 
+    $p.findKey.value = newFindKey;
+
+    console.log('r2');
     route.meta.replaceRoute = true;
     router.replace(
-      `${viewUrl.value}${parentFindKey.value}${
-        value
-          ? '/' + String(value[$p.modelFindKeyField.value]).replaceAll('.', '_')
-          : ''
-      }`
+      `${viewUrl.value}${parentFindKey.value}/${String(
+        value[$p.modelFindKeyField.value]
+      ).replaceAll('.', '_')}`
     );
   });
 
