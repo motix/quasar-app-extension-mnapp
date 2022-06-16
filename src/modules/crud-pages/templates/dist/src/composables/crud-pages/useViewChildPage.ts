@@ -316,8 +316,11 @@ export default function useViewChildPage<
       return;
     }
 
-    (childViewerRef.value && scrollToElement(childViewerRef.value)) ||
+    if (childViewerRef.value) {
+      scrollToElement(childViewerRef.value);
+    } else {
       scrollToTop();
+    }
 
     $p.findKey.value = newFindKey;
 
