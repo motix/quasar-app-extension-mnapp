@@ -178,7 +178,7 @@ export default function useEditor<TVm = unknown>(
         persistent: true,
       }).onOk(() => {
         exitEditMode();
-        getModelAndViewModel();
+        getModelAndViewModel(false);
       });
     } else {
       exitEditMode();

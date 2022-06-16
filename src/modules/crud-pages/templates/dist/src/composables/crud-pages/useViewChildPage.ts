@@ -1,4 +1,4 @@
-import { computed, Ref, ref, watch } from 'vue';
+import { ComponentPublicInstance, computed, Ref, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
 import { Dialog } from 'quasar';
@@ -23,7 +23,7 @@ export default function useViewChildPage<
   const { notifyErrorDebug, notifySaveDataSuccess, notifySaveDataError } =
     useNotifications();
 
-  const { toTop: scrollToTop } = useScroll();
+  const { toTop: scrollToTop, toElement: scrollToElement } = useScroll();
 
   // Data
 
@@ -32,6 +32,7 @@ export default function useViewChildPage<
   const parentModel = ref(null) as Ref<TParent | null>;
   const parentViewModel = ref(null) as Ref<TParentVm | null>;
   const viewUrl = ref<string | null>(null);
+  const childViewerRef = ref<ComponentPublicInstance | null>(null);
 
   // Computed
 
@@ -79,7 +80,7 @@ export default function useViewChildPage<
   // Private Executions
 
   // usePageData
-  $p.modelGetter.value = (docKey) => {
+  $p.modelGetter.value = (docKey, realtimeUpdate) => {
     parentModelGetter.value === null &&
       (() => {
         throw new Error('parentModelGetter not specified');
@@ -98,6 +99,19 @@ export default function useViewChildPage<
     const children = modelChildrenGetter.value(parentModel.value);
 
     if (children.length === 0) {
+      realtimeUpdate &&
+        Dialog.create({
+          title: 'Deleted',
+          message:
+            "This page's data is deleted. You will be redireted to previous page.",
+          persistent: true,
+          ok: {
+            color: 'primary',
+          },
+        }).onOk(() => {
+          $p.goBack();
+        });
+
       return null;
     }
 
@@ -109,12 +123,25 @@ export default function useViewChildPage<
       $p.findKey.value = $p.findKey.value.replaceAll('_', '.');
     }
 
-    return (
-      children.find(
-        (value) =>
-          String(value[$p.modelFindKeyField.value]) === $p.findKey.value
-      ) || null
+    const child = children.find(
+      (value) => String(value[$p.modelFindKeyField.value]) === $p.findKey.value
     );
+
+    !child &&
+      realtimeUpdate &&
+      Dialog.create({
+        title: 'Deleted',
+        message:
+          "This page's data is deleted. You will be redireted to previous page.",
+        persistent: true,
+        ok: {
+          color: 'primary',
+        },
+      }).onOk(() => {
+        $p.goBack();
+      });
+
+    return child || null;
   };
   $p.viewModelGetter.value = (docKey) => {
     parentViewModelGetter.value === null &&
@@ -226,6 +253,8 @@ export default function useViewChildPage<
           ? children.filter((value) => value !== model)[children.length - 2]
           : null;
 
+      $p.exitEditMode();
+
       if (removeChildMethod.value) {
         removeChildMethod.value(model);
       } else {
@@ -287,11 +316,11 @@ export default function useViewChildPage<
       return;
     }
 
-    scrollToTop();
+    (childViewerRef.value && scrollToElement(childViewerRef.value)) ||
+      scrollToTop();
 
     $p.findKey.value = newFindKey;
 
-    console.log('r2');
     route.meta.replaceRoute = true;
     router.replace(
       `${viewUrl.value}${parentFindKey.value}/${String(
@@ -306,6 +335,7 @@ export default function useViewChildPage<
     parentModel,
     parentViewModel,
     viewUrl,
+    childViewerRef,
     pm,
     pvm,
     parentModelGetter,

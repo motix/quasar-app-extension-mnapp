@@ -45,8 +45,12 @@ export default function usePageData<T = unknown, TVm = unknown>(
 
   // Method Refs
 
-  const modelGetter = ref<((docKey: string) => T | null) | null>(null);
-  const viewModelGetter = ref<((docKey: string) => TVm | null) | null>(null);
+  const modelGetter = ref<
+    ((docKey: string, realtimeUpdate: boolean) => T | null) | null
+  >(null);
+  const viewModelGetter = ref<
+    ((docKey: string, realtimeUpdate: boolean) => TVm | null) | null
+  >(null);
   const releaseModel = ref<(() => void) | null>(null);
   const updateModel = ref<
     ((payload: UpdateDocActionPayload<T | TVm>) => Promise<void>) | null
@@ -103,14 +107,14 @@ export default function usePageData<T = unknown, TVm = unknown>(
           };
 
           if (!model.value) {
-            getModelAndViewModel();
+            getModelAndViewModel(false);
           } else if (delayRealtimeUpdate.value) {
             const stopWatch = watch(delayRealtimeUpdate, () => {
               if (delayRealtimeUpdate.value === false) {
                 stopWatch();
 
                 isDirty.value = false;
-                getModelAndViewModel();
+                getModelAndViewModel(true);
                 notifyRefreshDataSuccessIfNotMuted();
               }
             });
@@ -130,14 +134,14 @@ export default function usePageData<T = unknown, TVm = unknown>(
               })
                 .onOk(() => {
                   isDirty.value = false;
-                  getModelAndViewModel();
+                  getModelAndViewModel(true);
                 })
                 .onDismiss(() => {
                   reloadDialogShowing.value = false;
                 });
             }
           } else {
-            getModelAndViewModel();
+            getModelAndViewModel(true);
             notifyRefreshDataSuccessIfNotMuted();
           }
 
@@ -181,7 +185,7 @@ export default function usePageData<T = unknown, TVm = unknown>(
     });
   }
 
-  function getModelAndViewModel() {
+  function getModelAndViewModel(realtimeUpdate: boolean) {
     modelGetter.value === null &&
       (() => {
         throw new Error('modelGetter not specified');
@@ -192,7 +196,7 @@ export default function usePageData<T = unknown, TVm = unknown>(
       })();
 
     ignoreViewerWatch.value = true;
-    model.value = modelGetter.value(docKey.value);
+    model.value = modelGetter.value(docKey.value, realtimeUpdate);
 
     if (hasEditor.value) {
       viewModelGetter.value === null &&
@@ -200,7 +204,7 @@ export default function usePageData<T = unknown, TVm = unknown>(
           throw new Error('viewModelGetter not specified');
         })();
 
-      viewModel.value = viewModelGetter.value(docKey.value);
+      viewModel.value = viewModelGetter.value(docKey.value, realtimeUpdate);
     }
 
     if (viewModel.value) {
@@ -237,7 +241,7 @@ export default function usePageData<T = unknown, TVm = unknown>(
           throw new Error('docKey not specified');
         })();
 
-      viewModel.value = viewModelGetter.value(docKey.value);
+      viewModel.value = viewModelGetter.value(docKey.value, false);
     }
   });
 
