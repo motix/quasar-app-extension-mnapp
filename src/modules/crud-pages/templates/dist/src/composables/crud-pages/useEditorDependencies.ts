@@ -61,7 +61,7 @@ export default function useEditorDependencies(
 
   // Private Executions
 
-  // useNewPage or used in editor component
+  // useNewPage or anywhere doesn't need to wait for switching to editMode
   if (!editMode) {
     onMounted(() => {
       loadEditorDepencencies();

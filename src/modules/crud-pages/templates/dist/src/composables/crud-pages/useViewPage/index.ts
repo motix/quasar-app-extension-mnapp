@@ -99,7 +99,7 @@ export default function useViewPage<
   return store.retrieveScope(scopeName);
 }
 
-export class UseViewPageHelper<T, TVm, TExtra> {
+class UseViewPageHelper<T, TVm, TExtra> {
   Return = useViewPage<T, TVm, TExtra>('');
 }
 

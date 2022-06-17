@@ -342,6 +342,7 @@ export default function useViewChildPage<
   });
 
   return {
+    viewChildPageInitialized: undefined as boolean | undefined,
     hasChildDeleting,
     parentFindKey,
     parentModel,
