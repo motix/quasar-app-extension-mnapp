@@ -12,9 +12,10 @@ export default function useDetailsEditor<
   TDetailVm,
   TNewDetailParams extends Array<unknown>
 >(
-  dirty: NewPage<TVm>['dirty'] | ViewPage<never, TVm>['dirty'],
-  viewModel: NewPage<TVm>['viewModel'] | ViewPage<never, TVm>['viewModel'],
-  vm: NewPage<TVm>['vm'] | ViewPage<never, TVm>['vm'],
+  $p: Pick<
+    ViewPage<never, TVm> | NewPage<TVm>,
+    'ready' | 'editMode' | 'dirty' | 'viewModel' | 'vm'
+  >,
   getDetails: (vm: TVm) => TDetailVm[],
   newDetail: (...params: TNewDetailParams) => TDetailVm
 ) {
@@ -38,6 +39,16 @@ export default function useDetailsEditor<
     })[]
   >([]);
 
+  // Computed
+
+  const showAddDetailButton = computed(
+    () =>
+      $p.ready.value &&
+      $p.editMode.value &&
+      isCardsView.value &&
+      getDetails($p.vm.value).length > 0
+  );
+
   // Methods
 
   function setDetailEditorRef(
@@ -50,20 +61,20 @@ export default function useDetailsEditor<
   }
 
   function addDetail(...params: TNewDetailParams) {
-    insertDetail(getDetails(vm.value).length, ...params);
+    insertDetail(getDetails($p.vm.value).length, ...params);
   }
 
   function insertDetail(index: number, ...params: TNewDetailParams) {
     const detail = newDetail(...params);
-    getDetails(vm.value).splice(index, 0, detail);
+    getDetails($p.vm.value).splice(index, 0, detail);
 
-    dirty();
+    $p.dirty();
 
     if (isCardsView.value) {
       const unwatch = watch(
         computed(() => detailEditorRefs.value.length),
         (value) => {
-          if (value >= getDetails(vm.value).length) {
+          if (value >= getDetails($p.vm.value).length) {
             unwatch();
             nextTick(() => {
               scrollToDetailEditor(index);
@@ -75,11 +86,11 @@ export default function useDetailsEditor<
   }
 
   function removeDetail(index: number) {
-    getDetails(vm.value).splice(index, 1);
+    getDetails($p.vm.value).splice(index, 1);
 
-    dirty();
+    $p.dirty();
 
-    if (isCardsView.value && getDetails(vm.value).length === 0) {
+    if (isCardsView.value && getDetails($p.vm.value).length === 0) {
       scrollToTop();
     }
   }
@@ -96,7 +107,7 @@ export default function useDetailsEditor<
 
   watch(
     computed(() =>
-      viewModel.value ? getDetails(viewModel.value).length : undefined
+      $p.viewModel.value ? getDetails($p.viewModel.value).length : undefined
     ),
     () => {
       detailEditorRefs.value = [];
@@ -106,6 +117,7 @@ export default function useDetailsEditor<
   return {
     detailsEditorInitialized: undefined as boolean | undefined,
     detailEditorRefs,
+    showAddDetailButton,
     setDetailEditorRef,
     addDetail,
     insertDetail,

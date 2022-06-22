@@ -30,7 +30,17 @@ function useTableView(scopeName: string) {
 
   // Computed
 
-  const scopedSlotNames = computed(() => {
+  const headerSlotNames = computed(() => {
+    const names = [];
+
+    for (const name in slots) {
+      name.startsWith('header-cell-') && names.push(name);
+    }
+
+    return names as `header-cell-${string}`[];
+  });
+
+  const bodySlotNames = computed(() => {
     const names = [];
 
     for (const name in slots) {
@@ -44,7 +54,8 @@ function useTableView(scopeName: string) {
     wrapCells,
     columns,
     pagination,
-    scopedSlotNames,
+    headerSlotNames,
+    bodySlotNames,
   };
 }
 
@@ -183,9 +194,8 @@ const {
   newButton,
 } = useListPage(props.scopeName);
 
-const { wrapCells, columns, pagination, scopedSlotNames } = useTableView(
-  props.scopeName
-);
+const { wrapCells, columns, pagination, headerSlotNames, bodySlotNames } =
+  useTableView(props.scopeName);
 
 const { items, allItemsLoaded, itemCountLabel, onLoadNextPage } = usePageData(
   props.scopeName,
@@ -247,7 +257,14 @@ const { hideInfiniteScrollLoading } =
                   </template>
 
                   <template
-                    v-for="slotName in scopedSlotNames"
+                    v-for="slotName in headerSlotNames"
+                    #[slotName]="slotProps"
+                  >
+                    <slot :name="slotName" :props="slotProps"></slot>
+                  </template>
+
+                  <template
+                    v-for="slotName in bodySlotNames"
                     #[slotName]="slotProps"
                   >
                     <slot :name="slotName" :props="slotProps"></slot>

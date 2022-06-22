@@ -54,11 +54,13 @@ const props = withDefaults(
     captionTooltip?: string;
     sideTop?: boolean;
     headerSeparator?: boolean;
+    bodyLoading?: boolean;
     // eslint-disable-next-line vue/require-default-prop
     bodyClass?: string;
     bodyColGutter?: boolean;
     bodyRowGutter?: boolean;
     bodyCellGutter?: boolean;
+    bezelLessLoading?: boolean;
   }>(),
   {
     expandable: false,
@@ -72,9 +74,11 @@ const props = withDefaults(
     titleNoWrap: false,
     sideTop: false,
     headerSeparator: false,
+    bodyLoading: false,
     bodyColGutter: false,
     bodyRowGutter: false,
     bodyCellGutter: false,
+    bezelLessLoading: false,
   }
 );
 
@@ -160,13 +164,29 @@ defineExpose({
           "
           @click.stop
         >
+          <!-- Fix background error when the following templates use q-gutter classes -->
+          <div style="height: 1px"></div>
+
           <slot name="bezel-less-top"></slot>
 
-          <q-card-section v-if="$slots.body" :class="bodyCssClass">
-            <slot name="body"></slot>
-          </q-card-section>
+          <q-linear-progress v-if="bodyLoading" color="warning" indeterminate />
+          <q-slide-transition>
+            <q-card-section
+              v-if="$slots.body && !bodyLoading"
+              :class="bodyCssClass"
+            >
+              <slot name="body"></slot>
+            </q-card-section>
+          </q-slide-transition>
 
-          <slot name="bezel-less"></slot>
+          <q-linear-progress
+            v-if="bezelLessLoading"
+            color="warning"
+            indeterminate
+          />
+          <q-slide-transition>
+            <slot v-if="!bezelLessLoading" name="bezel-less"></slot>
+          </q-slide-transition>
         </div>
       </q-expansion-item>
     </template>
@@ -191,12 +211,25 @@ defineExpose({
 
         <slot name="bezel-less-top"></slot>
 
-        <q-card-section v-if="$slots.body" :class="bodyCssClass">
-          <slot name="body"></slot>
-        </q-card-section>
+        <q-linear-progress v-if="bodyLoading" color="warning" indeterminate />
+        <q-slide-transition>
+          <q-card-section
+            v-if="$slots.body && !bodyLoading"
+            :class="bodyCssClass"
+          >
+            <slot name="body"></slot>
+          </q-card-section>
+        </q-slide-transition>
 
         <slot name="bezel-less"></slot>
       </div>
     </template>
   </q-card>
 </template>
+
+<style lang="scss" scoped>
+// Fix focus error when the following templates use q-gutter classes
+:deep() .q-expansion-item > .q-expansion-item__container > .q-hoverable {
+  z-index: 1;
+}
+</style>

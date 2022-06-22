@@ -373,7 +373,7 @@ const viewModelToApiModelResolver = {
         const field = source[key];
         field === '' &&
           (() => {
-            throw new Error(`${key} is required for saving`);
+            throw new Error(`${key} is required`);
           })();
         return field;
       },

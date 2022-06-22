@@ -58,6 +58,15 @@ export default function useViewChildPage<
       })()
   );
 
+  const childrenOptions = computed(() =>
+    modelChildrenGetter.value && parentModel.value
+      ? modelChildrenGetter.value(parentModel.value).map((value) => ({
+          value,
+          slot: String(value[$p.modelFindKeyField.value]),
+        })) || []
+      : []
+  );
+
   // Method Refs
 
   const parentModelGetter = ref<((docKey: string) => TParent | null) | null>(
@@ -351,6 +360,7 @@ export default function useViewChildPage<
     childViewerRef,
     pm,
     pvm,
+    childrenOptions,
     parentModelGetter,
     parentViewModelGetter,
     modelChildrenGetter,

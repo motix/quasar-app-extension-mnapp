@@ -14,6 +14,8 @@ import {
 
 import useConfig from 'composables/useConfig';
 
+const host = window.location.hostname;
+
 let auth: Auth;
 function getAuthOrEmulator() {
   if (auth) {
@@ -25,7 +27,7 @@ function getAuthOrEmulator() {
   if (process.env.FIREBASE_ENV === 'DEV') {
     connectAuthEmulator(
       auth,
-      `http://localhost:${firebaseConfig.emulators.auth.port}`,
+      `http://${host}:${firebaseConfig.emulators.auth.port}`,
       { disableWarnings: !!process.env.DEBUGGING }
     );
   }
@@ -44,7 +46,7 @@ function getFirestoreOrEmulator() {
   if (process.env.FIREBASE_ENV === 'DEV') {
     connectFirestoreEmulator(
       firestore,
-      'localhost',
+      host,
       firebaseConfig.emulators.firestore.port
     );
   }
@@ -68,7 +70,7 @@ function getFunctionsOrEmulator() {
   if (process.env.FIREBASE_ENV === 'DEV') {
     connectFunctionsEmulator(
       functions,
-      'localhost',
+      host,
       firebaseConfig.emulators.functions.port
     );
   }

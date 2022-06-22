@@ -13,9 +13,7 @@ export default function useSubDetailsEditor<
   TSubDetailVm,
   TNewSubDetailParams extends Array<unknown>
 >(
-  dirty: NewPage<TVm>['dirty'] | ViewPage<never, TVm>['dirty'],
-  viewModel: NewPage<TVm>['viewModel'] | ViewPage<never, TVm>['viewModel'],
-  vm: NewPage<TVm>['vm'] | ViewPage<never, TVm>['vm'],
+  $p: Pick<ViewPage<never, TVm> | NewPage<TVm>, 'dirty' | 'viewModel' | 'vm'>,
   getDetails: (vm: TVm) => TDetailVm[],
   getSubDetails: (vm: TVm, detailIndex: number) => TSubDetailVm[],
   newSubDetail: (...params: TNewSubDetailParams) => TSubDetailVm
@@ -59,7 +57,7 @@ export default function useSubDetailsEditor<
   function addSubDetail(detailIndex: number, ...params: TNewSubDetailParams) {
     insertSubDetail(
       detailIndex,
-      getSubDetails(vm.value, detailIndex).length,
+      getSubDetails($p.vm.value, detailIndex).length,
       ...params
     );
   }
@@ -70,15 +68,19 @@ export default function useSubDetailsEditor<
     ...params: TNewSubDetailParams
   ) {
     const subDetail = newSubDetail(...params);
-    getSubDetails(vm.value, detailIndex).splice(subDetailIndex, 0, subDetail);
+    getSubDetails($p.vm.value, detailIndex).splice(
+      subDetailIndex,
+      0,
+      subDetail
+    );
 
-    dirty();
+    $p.dirty();
 
     if (isCardsView.value) {
       const unwatch = watch(
         computed(() => (subDetailEditorRefs.value[detailIndex] || []).length),
         (value) => {
-          if (value >= getSubDetails(vm.value, detailIndex).length) {
+          if (value >= getSubDetails($p.vm.value, detailIndex).length) {
             unwatch();
             nextTick(() => {
               scrollToSubDetailEditor(detailIndex, subDetailIndex);
@@ -90,9 +92,9 @@ export default function useSubDetailsEditor<
   }
 
   function removeSubDetail(detailIndex: number, subDetailIndex: number) {
-    getSubDetails(vm.value, detailIndex).splice(subDetailIndex, 1);
+    getSubDetails($p.vm.value, detailIndex).splice(subDetailIndex, 1);
 
-    dirty();
+    $p.dirty();
   }
 
   async function validateSubDetailsEditor(detailIndex: number) {
@@ -109,7 +111,7 @@ export default function useSubDetailsEditor<
 
   watch(
     computed(() =>
-      viewModel.value ? getDetails(viewModel.value).length : undefined
+      $p.viewModel.value ? getDetails($p.viewModel.value).length : undefined
     ),
     () => {
       subDetailEditorRefs.value = [];
@@ -120,8 +122,8 @@ export default function useSubDetailsEditor<
     // Check for detail availability to avoid error throwed when an detail is deleted
     watch(
       computed(() =>
-        viewModel.value && getDetails(viewModel.value)[detailIndex]
-          ? getSubDetails(viewModel.value, detailIndex).length
+        $p.viewModel.value && getDetails($p.viewModel.value)[detailIndex]
+          ? getSubDetails($p.viewModel.value, detailIndex).length
           : undefined
       ),
       () => {
