@@ -36,3 +36,9 @@ withDefaults(
     </div>
   </q-btn>
 </template>
+
+<style lang="scss" scoped>
+.q-btn {
+  line-height: $body-line-height;
+}
+</style>

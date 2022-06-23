@@ -143,7 +143,7 @@ export default function useEditor<TVm = unknown>(
     editorSaving.value = false;
 
     const newFindKey = String(newModel[modelFindKeyField.value]);
-    void router.push(viewUrl.value + newFindKey);
+    void router.push(viewUrl.value + newFindKey.replaceAll('.', '_'));
   }
 
   return {

@@ -23,7 +23,9 @@ export default function useNavigateToViewPage<T = unknown>(
       })();
 
     const keyValue = item[modelFindKeyField.value];
-    const routeLocation = router.resolve(viewUrl.value + String(keyValue));
+    const routeLocation = router.resolve(
+      viewUrl.value + String(keyValue).replaceAll('.', '_')
+    );
 
     return routeLocation.href;
   }
@@ -39,7 +41,7 @@ export default function useNavigateToViewPage<T = unknown>(
     if (event.ctrlKey || event.metaKey) {
       window.open(itemLink(item), '_blank');
     } else if (!event.altKey) {
-      void router.push(viewUrl.value + String(keyValue));
+      void router.push(viewUrl.value + String(keyValue).replaceAll('.', '_'));
     }
   }
 

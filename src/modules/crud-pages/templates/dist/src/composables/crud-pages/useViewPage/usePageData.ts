@@ -34,7 +34,9 @@ export default function usePageData<T = unknown, TVm = unknown>(
 
   // Data
 
-  const findKey = ref(route.params.findKey as string);
+  const findKey = ref(
+    ((route.params.findKey as string) || '').replaceAll('_', '.')
+  );
   const modelFindKeyField = ref<Extract<keyof T & keyof TVm, string>>(
     'id' as Extract<keyof T & keyof TVm, string>
   ) as Ref<Extract<keyof T & keyof TVm, string>>;
@@ -186,13 +188,13 @@ export default function usePageData<T = unknown, TVm = unknown>(
   }
 
   function getModelAndViewModel(realtimeUpdate: boolean) {
-    modelGetter.value === null &&
-      (() => {
-        throw new Error('modelGetter not specified');
-      })();
     docKey.value === null &&
       (() => {
         throw new Error('docKey not specified');
+      })();
+    modelGetter.value === null &&
+      (() => {
+        throw new Error('modelGetter not specified');
       })();
 
     ignoreViewerWatch.value = true;
@@ -207,16 +209,24 @@ export default function usePageData<T = unknown, TVm = unknown>(
       viewModel.value = viewModelGetter.value(docKey.value, realtimeUpdate);
     }
 
-    if (viewModel.value) {
-      const newFindKey = String(viewModel.value[modelFindKeyField.value]);
+    if (model.value) {
+      const newFindKey = String(model.value[modelFindKeyField.value]);
 
       if (newFindKey !== findKey.value) {
         let path = route.fullPath;
 
-        path = path.substring(0, path.length - findKey.value.length);
+        if (path.endsWith(findKey.value.replaceAll('.', '_'))) {
+          path =
+            path.substring(0, path.length - findKey.value.length) +
+            newFindKey.replaceAll('.', '_');
+        } else {
+          path = path.replace(
+            `/${findKey.value}/`,
+            `/${newFindKey.replaceAll('.', '_')}/`
+          );
+        }
         findKey.value = newFindKey;
-        path += findKey.value;
-        route.meta.replaceRoute = true;
+        delete route.meta.history;
         void router.replace(path);
       }
     }

@@ -35,7 +35,14 @@ export default function useViewChildPage<
   // Data
 
   const hasChildDeleting = ref(true);
-  const parentFindKey = ref(route.params.parentFindKey as string);
+  const parentFindKey = ref(
+    ((route.params.parentFindKey as string) || '').replaceAll('_', '.')
+  );
+  const parentModelFindKeyField = ref<
+    Extract<keyof TParent & keyof TParentVm, string>
+  >('id' as Extract<keyof TParent & keyof TParentVm, string>) as Ref<
+    Extract<keyof TParent & keyof TParentVm, string>
+  >;
   const parentModel = ref(null) as Ref<TParent | null>;
   const parentViewModel = ref(null) as Ref<TParentVm | null>;
   const viewUrl = ref<string | null>(null);
@@ -81,7 +88,7 @@ export default function useViewChildPage<
   const viewModelChildrenGetter = ref<
     ((parentViewModel: TParentVm) => TChildVm[]) | null
   >(null);
-  const removeChildMethod = ref<((child: TChild) => void) | null>(null);
+  const removeChild = ref<((child: TChild) => void) | null>(null);
   const updateParentModel = ref<
     | ((payload: UpdateDocActionPayload<TParent | TParentVm>) => Promise<void>)
     | null
@@ -112,6 +119,28 @@ export default function useViewChildPage<
       return null;
     }
 
+    const newParentFindKey = String(
+      parentModel.value[parentModelFindKeyField.value]
+    );
+
+    if (newParentFindKey !== parentFindKey.value) {
+      let path = route.fullPath;
+
+      if (path.endsWith(parentFindKey.value.replaceAll('.', '_'))) {
+        path =
+          path.substring(0, path.length - parentFindKey.value.length) +
+          newParentFindKey.replaceAll('.', '_');
+      } else {
+        path = path.replace(
+          `/${parentFindKey.value}/`,
+          `/${newParentFindKey.replaceAll('.', '_')}/`
+        );
+      }
+      parentFindKey.value = newParentFindKey;
+      delete route.meta.history;
+      void router.replace(path);
+    }
+
     const children = modelChildrenGetter.value(parentModel.value);
 
     if (children.length === 0) {
@@ -135,8 +164,6 @@ export default function useViewChildPage<
       $p.findKey.value = String(
         children[children.length - 1][$p.modelFindKeyField.value]
       );
-    } else {
-      $p.findKey.value = $p.findKey.value.replaceAll('_', '.');
     }
 
     const child = children.find(
@@ -181,14 +208,6 @@ export default function useViewChildPage<
       return null;
     }
 
-    if (!$p.findKey.value) {
-      $p.findKey.value = String(
-        children[children.length - 1][$p.modelFindKeyField.value]
-      );
-    } else {
-      $p.findKey.value = $p.findKey.value.replaceAll('_', '.');
-    }
-
     return (
       children.find(
         (value) =>
@@ -202,27 +221,9 @@ export default function useViewChildPage<
         throw new Error('updateParentModel not specified');
       })();
 
-    if (payload.isViewModel) {
-      parentViewModel.value === null &&
-        (() => {
-          throw new Error('parentViewModel not specified');
-        })();
-
-      return updateParentModel.value({
-        docKey: payload.docKey,
-        doc: parentViewModel.value,
-        isViewModel: payload.isViewModel,
-      });
-    }
-
-    parentModel.value === null &&
-      (() => {
-        throw new Error('parentModel not specified');
-      })();
-
     return updateParentModel.value({
       docKey: payload.docKey,
-      doc: parentModel.value,
+      doc: payload.isViewModel ? pvm.value : pm.value,
       isViewModel: payload.isViewModel,
     });
   };
@@ -240,14 +241,6 @@ export default function useViewChildPage<
         (() => {
           throw new Error('docKey not specified');
         })();
-      $p.model.value === null &&
-        (() => {
-          throw new Error('model not specified');
-        })();
-      parentModel.value === null &&
-        (() => {
-          throw new Error('parentModel not specified');
-        })();
       modelChildrenGetter.value === null &&
         (() => {
           throw new Error('modelChildrenGetter not specified');
@@ -261,8 +254,8 @@ export default function useViewChildPage<
       $p.muteRealtimeUpdate.value = true;
       $p.deleting.value = true;
 
-      const model = $p.model.value;
-      const children = modelChildrenGetter.value(parentModel.value);
+      const model = $p.m.value;
+      const children = modelChildrenGetter.value(pm.value);
 
       $p.model.value =
         children.length > 1
@@ -271,8 +264,8 @@ export default function useViewChildPage<
 
       $p.exitEditMode();
 
-      if (removeChildMethod.value) {
-        removeChildMethod.value(model);
+      if (removeChild.value) {
+        removeChild.value(model);
       } else {
         children.splice(children.indexOf(model), 1);
       }
@@ -280,14 +273,10 @@ export default function useViewChildPage<
       updateParentModel
         .value({
           docKey: $p.docKey.value,
-          doc: parentModel.value,
+          doc: pm.value,
           isViewModel: false,
         })
         .then(() => {
-          parentModel.value === null &&
-            (() => {
-              throw new Error('parentModel not specified');
-            })();
           modelChildrenGetter.value === null &&
             (() => {
               throw new Error('modelChildrenGetter not specified');
@@ -296,7 +285,7 @@ export default function useViewChildPage<
           notifySaveDataSuccess();
           $p.deleting.value = false;
 
-          if (modelChildrenGetter.value(parentModel.value).length === 0) {
+          if (modelChildrenGetter.value(pm.value).length === 0) {
             $p.goBack();
           } else {
             $p.freezed.value = false;
@@ -344,9 +333,10 @@ export default function useViewChildPage<
 
     route.meta.replaceRoute = true;
     router.replace(
-      `${viewUrl.value}${parentFindKey.value}/${String(
-        value[$p.modelFindKeyField.value]
-      ).replaceAll('.', '_')}`
+      `${viewUrl.value}${parentFindKey.value}/${newFindKey.replaceAll(
+        '.',
+        '_'
+      )}`
     );
   });
 
@@ -354,6 +344,7 @@ export default function useViewChildPage<
     viewChildPageInitialized: undefined as boolean | undefined,
     hasChildDeleting,
     parentFindKey,
+    parentModelFindKeyField,
     parentModel,
     parentViewModel,
     viewUrl,
@@ -365,7 +356,7 @@ export default function useViewChildPage<
     parentViewModelGetter,
     modelChildrenGetter,
     viewModelChildrenGetter,
-    removeChildMethod,
+    removeChild,
     updateParentModel,
     showDeleteButton,
     deleteChild,
