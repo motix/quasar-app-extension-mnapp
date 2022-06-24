@@ -35,6 +35,8 @@ export default function useViewChildPage<
   // Data
 
   const hasChildDeleting = ref(true);
+  // Used as a secondary findKey
+  const childListKey = ref<string | null>(null);
   const parentFindKey = ref(
     ((route.params.parentFindKey as string) || '').replaceAll('_', '.')
   );
@@ -150,9 +152,23 @@ export default function useViewChildPage<
       );
     }
 
-    const child = children.find(
+    let child = children.find(
       (value) => String(value[$p.modelFindKeyField.value]) === $p.findKey.value
     );
+
+    // Supports retreiving the model even when its key was changed
+    if (child) {
+      childListKey.value = (child as { listKey?: string }).listKey || null;
+    } else if (realtimeUpdate && !!childListKey.value) {
+      child = children.find(
+        (value) =>
+          (value as { listKey?: string }).listKey === childListKey.value
+      );
+
+      if (child) {
+        $p.findKey.value = String(child[$p.modelFindKeyField.value]);
+      }
+    }
 
     !child &&
       realtimeUpdate &&
@@ -326,6 +342,7 @@ export default function useViewChildPage<
   return {
     viewChildPageInitialized: undefined as boolean | undefined,
     hasChildDeleting,
+    childListKey,
     parentFindKey,
     parentModelFindKeyField,
     parentModel,
