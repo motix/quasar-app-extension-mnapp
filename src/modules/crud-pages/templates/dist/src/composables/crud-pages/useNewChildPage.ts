@@ -1,4 +1,4 @@
-import { computed, Ref, ref } from 'vue';
+import { computed, Ref, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
 import { Dialog, Notify } from 'quasar';
@@ -182,29 +182,39 @@ export default function useNewChildPage<
     parentViewModel.value = parentViewModelGetter.value(parentDocKey.value);
 
     if (parentViewModel.value) {
-      const newParentFindKey = String(
+      // Update parentFindKey and path if changed
+      parentFindKey.value = String(
         parentViewModel.value[parentModelFindKeyField.value]
       );
-
-      if (newParentFindKey !== parentFindKey.value) {
-        let path = route.fullPath;
-
-        if (path.endsWith(parentFindKey.value.replaceAll('.', '_'))) {
-          path =
-            path.substring(0, path.length - parentFindKey.value.length) +
-            newParentFindKey.replaceAll('.', '_');
-        } else {
-          path = path.replace(
-            `/${parentFindKey.value}/`,
-            `/${newParentFindKey.replaceAll('.', '_')}/`
-          );
-        }
-        parentFindKey.value = newParentFindKey;
-        delete route.meta.history;
-        void router.replace(path);
-      }
     }
   }
+
+  function updatePath(oldFindKey: string, newFindKey: string) {
+    let path = route.fullPath;
+
+    if (path.endsWith(oldFindKey.replaceAll('.', '_'))) {
+      path =
+        path.substring(0, path.length - oldFindKey.length) +
+        newFindKey.replaceAll('.', '_');
+    } else {
+      path = path.replace(
+        `/${oldFindKey.replaceAll('.', '_')}/`,
+        `/${newFindKey.replaceAll('.', '_')}/`
+      );
+    }
+
+    delete route.meta.history;
+
+    return router.replace(path);
+  }
+
+  // Watch
+
+  watch(parentFindKey, (value, oldValue) => {
+    if (value !== oldValue && !!value && !!oldValue) {
+      updatePath(oldValue, value);
+    }
+  });
 
   return {
     newChildPageInitialized: undefined as boolean | undefined,
@@ -219,5 +229,6 @@ export default function useNewChildPage<
     updateParentModel,
     loadParentModel,
     getParentViewModel,
+    updatePath,
   };
 }

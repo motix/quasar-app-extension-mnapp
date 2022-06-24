@@ -210,25 +210,8 @@ export default function usePageData<T = unknown, TVm = unknown>(
     }
 
     if (model.value) {
-      const newFindKey = String(model.value[modelFindKeyField.value]);
-
-      if (newFindKey !== findKey.value) {
-        let path = route.fullPath;
-
-        if (path.endsWith(findKey.value.replaceAll('.', '_'))) {
-          path =
-            path.substring(0, path.length - findKey.value.length) +
-            newFindKey.replaceAll('.', '_');
-        } else {
-          path = path.replace(
-            `/${findKey.value}/`,
-            `/${newFindKey.replaceAll('.', '_')}/`
-          );
-        }
-        findKey.value = newFindKey;
-        delete route.meta.history;
-        void router.replace(path);
-      }
+      // Update findKey and path if changed
+      findKey.value = String(model.value[modelFindKeyField.value]);
     }
 
     void nextTick(() => {
@@ -236,7 +219,32 @@ export default function usePageData<T = unknown, TVm = unknown>(
     });
   }
 
+  function updatePath(oldFindKey: string, newFindKey: string) {
+    let path = route.fullPath;
+
+    if (path.endsWith(oldFindKey.replaceAll('.', '_'))) {
+      path =
+        path.substring(0, path.length - oldFindKey.length) +
+        newFindKey.replaceAll('.', '_');
+    } else {
+      path = path.replace(
+        `/${oldFindKey.replaceAll('.', '_')}/`,
+        `/${newFindKey.replaceAll('.', '_')}/`
+      );
+    }
+
+    delete route.meta.history;
+
+    return router.replace(path);
+  }
+
   // Watch
+
+  watch(findKey, (value, oldValue) => {
+    if (value !== oldValue && !!value && !!oldValue) {
+      updatePath(oldValue, value);
+    }
+  });
 
   // hasEditor might be specified based on model's data.
   // Get viewModel if not already get.
@@ -271,6 +279,7 @@ export default function usePageData<T = unknown, TVm = unknown>(
     vm,
     loadModel,
     getModelAndViewModel,
+    updatePath,
   };
 }
 

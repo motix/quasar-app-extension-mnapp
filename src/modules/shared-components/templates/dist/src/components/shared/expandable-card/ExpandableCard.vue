@@ -172,7 +172,8 @@ defineExpose({
           <q-linear-progress v-if="bodyLoading" color="warning" indeterminate />
           <q-slide-transition>
             <q-card-section
-              v-if="$slots.body && !bodyLoading"
+              v-if="$slots.body"
+              v-show="!bodyLoading"
               :class="bodyCssClass"
             >
               <slot name="body"></slot>
@@ -185,7 +186,9 @@ defineExpose({
             indeterminate
           />
           <q-slide-transition>
-            <slot v-if="!bezelLessLoading" name="bezel-less"></slot>
+            <div v-if="$slots['bezel-less']" v-show="!bezelLessLoading">
+              <slot name="bezel-less"></slot>
+            </div>
           </q-slide-transition>
         </div>
       </q-expansion-item>
@@ -214,14 +217,24 @@ defineExpose({
         <q-linear-progress v-if="bodyLoading" color="warning" indeterminate />
         <q-slide-transition>
           <q-card-section
-            v-if="$slots.body && !bodyLoading"
+            v-if="$slots.body"
+            v-show="!bodyLoading"
             :class="bodyCssClass"
           >
             <slot name="body"></slot>
           </q-card-section>
         </q-slide-transition>
 
-        <slot name="bezel-less"></slot>
+        <q-linear-progress
+          v-if="bezelLessLoading"
+          color="warning"
+          indeterminate
+        />
+        <q-slide-transition>
+          <div v-if="$slots['bezel-less']" v-show="!bezelLessLoading">
+            <slot name="bezel-less"></slot>
+          </div>
+        </q-slide-transition>
       </div>
     </template>
   </q-card>

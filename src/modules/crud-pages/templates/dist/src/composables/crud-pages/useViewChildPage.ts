@@ -8,7 +8,7 @@ import {
 } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
-import { Dialog } from 'quasar';
+import { Dialog, Platform } from 'quasar';
 
 import { UpdateDocActionPayload } from 'stores/firebase-firestore';
 
@@ -65,11 +65,12 @@ export default function useViewChildPage<
       })()
   );
 
-  const childrenOptions = computed(() =>
+  const findKeyOptions = computed(() =>
     modelChildrenGetter.value && parentModel.value
       ? modelChildrenGetter.value(parentModel.value).map((value) => ({
-          value,
+          value: String(value[$p.modelFindKeyField.value]),
           slot: String(value[$p.modelFindKeyField.value]),
+          data: value,
         })) || []
       : []
   );
@@ -119,27 +120,10 @@ export default function useViewChildPage<
       return null;
     }
 
-    const newParentFindKey = String(
+    // Update parentFindKey and path if changed
+    parentFindKey.value = String(
       parentModel.value[parentModelFindKeyField.value]
     );
-
-    if (newParentFindKey !== parentFindKey.value) {
-      let path = route.fullPath;
-
-      if (path.endsWith(parentFindKey.value.replaceAll('.', '_'))) {
-        path =
-          path.substring(0, path.length - parentFindKey.value.length) +
-          newParentFindKey.replaceAll('.', '_');
-      } else {
-        path = path.replace(
-          `/${parentFindKey.value}/`,
-          `/${newParentFindKey.replaceAll('.', '_')}/`
-        );
-      }
-      parentFindKey.value = newParentFindKey;
-      delete route.meta.history;
-      void router.replace(path);
-    }
 
     const children = modelChildrenGetter.value(parentModel.value);
 
@@ -305,39 +289,38 @@ export default function useViewChildPage<
 
   // Watch
 
-  watch($p.model, (value) => {
+  watch($p.findKey, (value, oldValue) => {
     viewUrl.value === null &&
       (() => {
         throw new Error('viewUrl not specified');
       })();
 
-    if (!value) {
-      return;
+    if (oldValue === '') {
+      route.meta.replaceRoute = true;
+      void router.replace(
+        `${viewUrl.value}${parentFindKey.value}/${value.replaceAll('.', '_')}`
+      );
     }
 
-    const newFindKey = String(value[$p.modelFindKeyField.value]);
+    $p.getModelAndViewModel(false);
 
-    if (newFindKey === $p.findKey.value) {
-      return;
+    if (Platform.is.mobile) {
+      nextTick(() => {
+        if (childViewerRef.value) {
+          scrollToElement(childViewerRef.value);
+        } else {
+          scrollToTop();
+        }
+      });
+    } else {
+      scrollToTop();
     }
+  });
 
-    nextTick(() => {
-      if (childViewerRef.value) {
-        scrollToElement(childViewerRef.value);
-      } else {
-        scrollToTop();
-      }
-    });
-
-    $p.findKey.value = newFindKey;
-
-    route.meta.replaceRoute = true;
-    router.replace(
-      `${viewUrl.value}${parentFindKey.value}/${newFindKey.replaceAll(
-        '.',
-        '_'
-      )}`
-    );
+  watch(parentFindKey, (value, oldValue) => {
+    if (value !== oldValue && !!value && !!oldValue) {
+      $p.updatePath(oldValue, value);
+    }
   });
 
   return {
@@ -351,7 +334,7 @@ export default function useViewChildPage<
     childViewerRef,
     pm,
     pvm,
-    childrenOptions,
+    findKeyOptions,
     parentModelGetter,
     parentViewModelGetter,
     modelChildrenGetter,

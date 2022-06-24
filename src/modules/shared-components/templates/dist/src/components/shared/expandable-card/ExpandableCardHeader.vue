@@ -98,7 +98,7 @@ const captionCssClass = computed(() => {
     <q-btn
       v-if="externalLinkUrl"
       class="absolute"
-      color="primary"
+      :color="headerDark ? 'white' : 'primary'"
       flat
       :href="externalLinkUrl"
       icon="fal fa-external-link"
