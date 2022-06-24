@@ -29,9 +29,6 @@ withDefaults(
 
       <span>
         {{ label }}
-        <top-tooltip>
-          {{ label }}
-        </top-tooltip>
       </span>
     </div>
   </q-btn>
