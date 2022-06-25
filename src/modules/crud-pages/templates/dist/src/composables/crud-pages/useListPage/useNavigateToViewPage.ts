@@ -30,7 +30,7 @@ export default function useNavigateToViewPage<T = unknown>(
     return routeLocation.href;
   }
 
-  function onItemClick(event: MouseEvent, item: T) {
+  function onItemClick(event: MouseEvent, item: T, delay: boolean) {
     viewUrl.value === null &&
       (() => {
         throw new Error('viewUrl not specified');
@@ -41,7 +41,16 @@ export default function useNavigateToViewPage<T = unknown>(
     if (event.ctrlKey || event.metaKey) {
       window.open(itemLink(item), '_blank');
     } else if (!event.altKey) {
-      void router.push(viewUrl.value + String(keyValue).replaceAll('.', '_'));
+      if (delay) {
+        // Wait for the ripple
+        setTimeout(() => {
+          void router.push(
+            viewUrl.value + String(keyValue).replaceAll('.', '_')
+          );
+        }, 300);
+      } else {
+        void router.push(viewUrl.value + String(keyValue).replaceAll('.', '_'));
+      }
     }
   }
 

@@ -111,7 +111,7 @@ function useNavigateToViewPage(scopeName: string) {
 
   function onRowClick(evt: Event, row: unknown) {
     if ((evt.target as Element).localName === 'td') {
-      onItemClick(evt as MouseEvent, row);
+      onItemClick(evt as MouseEvent, row, false);
     }
   }
 
@@ -223,7 +223,11 @@ const { hideInfiniteScrollLoading } =
 
       <div v-else-if="!items || items.length === 0" key="empty">
         <!-- Empty -->
-        <div>
+        <div
+          :class="{
+            'text-center': hasCardsView && (isCardsView || !hasTableView),
+          }"
+        >
           <slot name="top"></slot>
         </div>
         <div class="q-my-md text-center">There is no data in this list.</div>

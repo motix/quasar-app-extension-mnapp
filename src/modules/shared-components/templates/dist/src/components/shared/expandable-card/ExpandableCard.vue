@@ -196,6 +196,7 @@ defineExpose({
     <template v-else>
       <!-- Refer to this issue for v-bind="$props": https://giters.com/johnsoncodehk/volar/issues/556 -->
       <expandable-card-header
+        v-ripple="clickable"
         v-bind="{ ...$props, ref: undefined }"
         class="q-pa-md"
         :class="headerBackgroundColor ? `bg-${headerBackgroundColor}` : ''"
