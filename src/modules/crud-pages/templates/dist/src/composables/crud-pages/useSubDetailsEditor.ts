@@ -133,7 +133,6 @@ export default function useSubDetailsEditor<
   }
 
   return {
-    subDetailsEditorInitialized: undefined as boolean | undefined,
     subDetailEditorRefs,
     setSubDetailEditorRef,
     addSubDetail,

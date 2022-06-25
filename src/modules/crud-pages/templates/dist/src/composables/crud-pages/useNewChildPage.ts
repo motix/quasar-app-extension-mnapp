@@ -217,7 +217,6 @@ export default function useNewChildPage<
   });
 
   return {
-    newChildPageInitialized: undefined as boolean | undefined,
     parentFindKey,
     parentModelFindKeyField,
     parentDocKey,

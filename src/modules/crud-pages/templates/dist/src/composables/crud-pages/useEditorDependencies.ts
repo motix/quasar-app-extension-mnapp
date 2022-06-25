@@ -118,7 +118,6 @@ export default function useEditorDependencies(
   }
 
   return {
-    editorDependenciesInitialized: undefined as boolean | undefined,
     editorReady,
     editorDependenciesStores,
     loadEditorDepencencies,

@@ -115,7 +115,6 @@ export default function useDetailsEditor<
   );
 
   return {
-    detailsEditorInitialized: undefined as boolean | undefined,
     detailEditorRefs,
     showAddDetailButton,
     setDetailEditorRef,
