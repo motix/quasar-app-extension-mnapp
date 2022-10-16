@@ -118,7 +118,7 @@ export default function useViewChildPage<
 
     parentModel.value = parentModelGetter.value(docKey);
 
-    if (parentModel.value === null) {
+    if (!parentModel.value) {
       return null;
     }
 
@@ -361,15 +361,3 @@ export default function useViewChildPage<
     deleteChild,
   };
 }
-
-class UseViewChildPageHelper<TChild, TChildVm, TParent> {
-  Return = useViewChildPage<TChild, TChildVm, TParent>(
-    {} as ViewPage<TChild, TChildVm, Record<string, unknown>>
-  );
-}
-
-export type ViewChildPage<TChild, TChildVm, TParent> = UseViewChildPageHelper<
-  TChild,
-  TChildVm,
-  TParent
->['Return'];
