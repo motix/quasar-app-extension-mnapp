@@ -3,19 +3,15 @@ import { ComponentPublicInstance, computed, nextTick, ref, watch } from 'vue';
 import useMultiViews from 'composables/useMultiViews';
 import useScroll from 'composables/useScroll';
 
-import { NewPage } from './useNewPage';
-import { ViewPage } from './useViewPage';
+import { EditPage } from './useEditPage';
 
 // useNewPage | useViewPage
 export default function useDetailsEditor<
-  TVm,
-  TDetailVm,
+  TVm extends NonNullable<unknown>,
+  TDetailVm extends NonNullable<unknown>,
   TNewDetailParams extends Array<unknown>
 >(
-  $p: Pick<
-    ViewPage<never, TVm> | NewPage<TVm>,
-    'ready' | 'editMode' | 'dirty' | 'viewModel' | 'vm'
-  >,
+  $p: EditPage<never, TVm, NonNullable<unknown>>,
   getDetails: (vm: TVm) => TDetailVm[],
   newDetail: (...params: TNewDetailParams) => TDetailVm
 ) {
@@ -44,7 +40,7 @@ export default function useDetailsEditor<
   const showAddDetailButton = computed(
     () =>
       $p.ready.value &&
-      $p.editMode.value &&
+      (!$p.editMode || $p.editMode.value) &&
       isCardsView.value &&
       getDetails($p.vm.value).length > 0
   );

@@ -4,18 +4,11 @@ import useNotifications from 'composables/useNotifications';
 
 import StickyHeaders from 'components/shared/StickyHeaders.vue';
 
-import useNewPage from './useNewPage';
-import useViewPage from './useViewPage';
+import { EditPage } from './useEditPage';
 
 // useNewPage | useViewPage
-export default function useEditorLiteMode(
-  ready:
-    | ReturnType<typeof useNewPage>['ready']
-    | ReturnType<typeof useViewPage>['ready'],
-  editMode: undefined | ReturnType<typeof useViewPage>['editMode'],
-  dirty:
-    | ReturnType<typeof useNewPage>['dirty']
-    | ReturnType<typeof useViewPage>['dirty'],
+export default function useEditorLiteMode<TVm extends NonNullable<unknown>>(
+  $p: EditPage<never, TVm, NonNullable<unknown>>,
   validateFullModeEditor: () => Promise<boolean>,
   validateLiteModeEditor: () => Promise<boolean>,
   resetInputs: () => void
@@ -33,7 +26,7 @@ export default function useEditorLiteMode(
   // Computed
 
   const showToggleLiteModeButton = computed(
-    () => ready.value && (!editMode || editMode.value)
+    () => $p.ready.value && (!$p.editMode || $p.editMode.value)
   );
 
   // Methods
@@ -54,7 +47,7 @@ export default function useEditorLiteMode(
     if (await validateLiteModeEditor()) {
       assignValues();
 
-      dirty();
+      $p.dirty();
       nextTick(() => stickyHeadersRef.value?.update());
     } else {
       showLiteModeInputs.value = true;
@@ -63,8 +56,8 @@ export default function useEditorLiteMode(
 
   // Watch
 
-  if (editMode) {
-    watch(editMode, () => {
+  if ($p.editMode) {
+    watch($p.editMode, () => {
       liteMode.value = true;
       showLiteModeInputs.value = false;
       resetInputs();

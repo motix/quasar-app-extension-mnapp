@@ -3,7 +3,7 @@ import { useRouter } from 'vue-router';
 
 import { UsePageDataHelper } from './usePageData';
 
-export default function useNavigateToViewPage<T = unknown>(
+export default function useNavigateToViewPage<T extends NonNullable<unknown>>(
   modelFindKeyField: UsePageDataHelper<T>['Return']['modelFindKeyField']
 ) {
   // Composables

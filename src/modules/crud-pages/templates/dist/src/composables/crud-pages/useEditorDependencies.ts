@@ -8,7 +8,7 @@ import { LoadAllDocsActionPayload } from 'stores/firebase-firestore/types';
 
 import useNotifications from 'composables/useNotifications';
 
-import useViewPage from './useViewPage';
+import { ViewPage } from './useViewPage';
 
 class UseStoreHelper<T extends DocModel> {
   Return = useStore<T, never, never>(
@@ -29,9 +29,9 @@ type StoreType<T extends DocModel> = Pick<
   'loadAllDocs' | 'releaseDocs'
 >;
 
-// useNewPage | useViewPage
+// useNewPage or useViewPage that doesn't need to wait for switching to editMode | useViewPage that needs to wait for switching to editMode
 export default function useEditorDependencies(
-  editMode: undefined | ReturnType<typeof useViewPage>['editMode']
+  editMode: undefined | ViewPage<never, never>['editMode']
 ) {
   // Private
 
@@ -61,7 +61,7 @@ export default function useEditorDependencies(
 
   // Private Executions
 
-  // useNewPage or anywhere doesn't need to wait for switching to editMode
+  // useNewPage or useViewPage that doesn't need to wait for switching to editMode
   if (!editMode) {
     onMounted(() => {
       loadEditorDepencencies();
@@ -104,7 +104,7 @@ export default function useEditorDependencies(
 
   // Watch
 
-  // useViewPage
+  // useViewPage that needs to wait for switching to editMode
   if (editMode) {
     watch(editMode, (newValue) => {
       editorReady.value = false;

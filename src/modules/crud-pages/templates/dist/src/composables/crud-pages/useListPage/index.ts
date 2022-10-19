@@ -10,7 +10,7 @@ import usePageData from './usePageData';
 import usePageStatus from './usePageStatus';
 import useTableView from './useTableView';
 
-function newScope<T>() {
+function newScope<T extends NonNullable<unknown>>() {
   const pageStatus = usePageStatus();
   const pageData = usePageData<T>(pageStatus.ready);
 
@@ -28,15 +28,15 @@ function newScope<T>() {
   };
 }
 
-class NewScopeHelper<T> {
+class NewScopeHelper<T extends NonNullable<unknown>> {
   Return = newScope<T>();
 }
 
 export * from './useTableView';
 
 export default function useListPage<
-  T = unknown,
-  TExtra = Record<string, never>
+  T extends NonNullable<unknown>,
+  TExtra extends NonNullable<unknown> = Record<string, never>
 >(
   scopeName: string,
   hitUseCount?: boolean
@@ -52,3 +52,15 @@ export default function useListPage<
 
   return store.retrieveScope(scopeName);
 }
+
+class UseListPageHelper<
+  T extends NonNullable<unknown>,
+  TExtra extends NonNullable<unknown>
+> {
+  Return = useListPage<T, TExtra>('');
+}
+
+export type ListPage<
+  T extends NonNullable<unknown>,
+  TExtra extends NonNullable<unknown> = Record<string, never>
+> = UseListPageHelper<T, TExtra>['Return'];

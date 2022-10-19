@@ -17,11 +17,11 @@ import useNotifications from 'composables/useNotifications';
 import useScroll from 'composables/useScroll';
 
 export default function useViewChildPage<
-  TChild = unknown,
-  TChildVm = unknown,
-  TParent = unknown,
-  TParentVm = unknown
->($p: ViewPage<TChild, TChildVm, Record<string, unknown>>) {
+  TChild extends NonNullable<unknown>,
+  TChildVm extends NonNullable<unknown>,
+  TParent extends NonNullable<unknown>,
+  TParentVm extends NonNullable<unknown>
+>($p: ViewPage<TChild, TChildVm, NonNullable<unknown>>) {
   // Private
 
   const route = useRoute();
@@ -118,7 +118,7 @@ export default function useViewChildPage<
 
     parentModel.value = parentModelGetter.value(docKey);
 
-    if (!parentModel.value) {
+    if (parentModel.value === null) {
       return null;
     }
 

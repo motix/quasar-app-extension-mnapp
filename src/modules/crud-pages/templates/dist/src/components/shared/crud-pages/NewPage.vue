@@ -25,7 +25,7 @@ const {
   editorSave,
   // useNavigateToListPage
   confirmAndGoBack,
-} = useNewPage(props.scopeName);
+} = useNewPage<NonNullable<unknown>>(props.scopeName);
 
 // Data
 

@@ -7,7 +7,7 @@ import useNavigateToListPage from './useNavigateToListPage';
 import usePageData from './usePageData';
 import usePageStatus from './usePageStatus';
 
-function newScope<TVm>() {
+function newScope<TVm extends NonNullable<unknown>>() {
   const pageStatus = usePageStatus();
   const pageData = usePageData<TVm>();
 
@@ -26,13 +26,13 @@ function newScope<TVm>() {
   };
 }
 
-class NewScopeHelper<TVm> {
+class NewScopeHelper<TVm extends NonNullable<unknown>> {
   Return = newScope<TVm>();
 }
 
 export default function useNewPage<
-  TVm = unknown,
-  TExtra = Record<string, never>
+  TVm extends NonNullable<unknown>,
+  TExtra extends NonNullable<unknown> = Record<string, never>
 >(
   scopeName: string,
   hitUseCount?: boolean
@@ -49,11 +49,14 @@ export default function useNewPage<
   return store.retrieveScope(scopeName);
 }
 
-class UseNewPageHelper<TVm, TExtra> {
+class UseNewPageHelper<
+  TVm extends NonNullable<unknown>,
+  TExtra extends NonNullable<unknown>
+> {
   Return = useNewPage<TVm, TExtra>('');
 }
 
-export type NewPage<TVm, TExtra = Record<string, never>> = UseNewPageHelper<
-  TVm,
-  TExtra
->['Return'];
+export type NewPage<
+  TVm extends NonNullable<unknown>,
+  TExtra extends NonNullable<unknown> = Record<string, never>
+> = UseNewPageHelper<TVm, TExtra>['Return'];

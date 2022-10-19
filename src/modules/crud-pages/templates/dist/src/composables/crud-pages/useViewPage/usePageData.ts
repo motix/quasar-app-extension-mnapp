@@ -16,7 +16,10 @@ import useReturnUrl from 'composables/useReturnUrl';
 import usePageFeatures from './usePageFeatures';
 import usePageStatus from './usePageStatus';
 
-export default function usePageData<T = unknown, TVm = unknown>(
+export default function usePageData<
+  T extends NonNullable<unknown>,
+  TVm extends NonNullable<unknown>
+>(
   goBack: ReturnType<typeof useReturnUrl>['goBack'],
   hasEditor: ReturnType<typeof usePageFeatures>['hasEditor'],
   muteRealtimeUpdate: ReturnType<typeof usePageStatus>['muteRealtimeUpdate'],
@@ -209,7 +212,7 @@ export default function usePageData<T = unknown, TVm = unknown>(
       viewModel.value = viewModelGetter.value(docKey.value, realtimeUpdate);
     }
 
-    if (model.value) {
+    if (model.value !== null) {
       // Update findKey and path if changed
       findKey.value = String(model.value[modelFindKeyField.value]);
     }
@@ -283,7 +286,10 @@ export default function usePageData<T = unknown, TVm = unknown>(
   };
 }
 
-export class UsePageDataHelper<T = unknown, TVm = unknown> {
+export class UsePageDataHelper<
+  T extends NonNullable<unknown>,
+  TVm extends NonNullable<unknown>
+> {
   Return = usePageData<T, TVm>(
     () => undefined,
     ref(false),

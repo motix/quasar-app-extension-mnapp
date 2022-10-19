@@ -2,7 +2,7 @@ import { computed, ref, Ref } from 'vue';
 
 import { CreateDocActionPayload } from 'stores/firebase-firestore';
 
-export default function usePageData<TVm = unknown>() {
+export default function usePageData<TVm extends NonNullable<unknown>>() {
   // Data
 
   const viewModel = ref(null) as Ref<TVm | null>;
@@ -30,6 +30,6 @@ export default function usePageData<TVm = unknown>() {
   };
 }
 
-export class UsePageDataHelper<TVm = unknown> {
+export class UsePageDataHelper<TVm extends NonNullable<unknown>> {
   Return = usePageData<TVm>();
 }

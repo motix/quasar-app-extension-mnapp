@@ -1,4 +1,4 @@
-export default function useGenericConvert<T = unknown>() {
+export default function useGenericConvert<T extends NonNullable<unknown>>() {
   // Methods
 
   function c(model: unknown) {

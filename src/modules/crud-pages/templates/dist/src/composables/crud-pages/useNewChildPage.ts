@@ -13,9 +13,9 @@ import { NewPage } from 'composables/crud-pages/useNewPage';
 import useNotifications from 'composables/useNotifications';
 
 export default function useNewChildPage<
-  TChildVm = unknown,
-  TParentVm = unknown
->($p: NewPage<TChildVm, Record<string, unknown>>) {
+  TChildVm extends NonNullable<unknown>,
+  TParentVm extends NonNullable<unknown>
+>($p: NewPage<TChildVm, NonNullable<unknown>>) {
   // Private
 
   const router = useRouter();
@@ -181,7 +181,7 @@ export default function useNewChildPage<
 
     parentViewModel.value = parentViewModelGetter.value(parentDocKey.value);
 
-    if (parentViewModel.value) {
+    if (parentViewModel.value !== null) {
       // Update parentFindKey and path if changed
       parentFindKey.value = String(
         parentViewModel.value[parentModelFindKeyField.value]

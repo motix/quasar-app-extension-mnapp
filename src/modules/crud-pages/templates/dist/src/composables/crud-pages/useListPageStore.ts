@@ -5,7 +5,7 @@ import { onActivated, onMounted, onUnmounted } from 'vue';
 
 import { DocModel, useStore } from 'stores/firebase-firestore';
 
-import useListPage from './useListPage';
+import { ListPage } from './useListPage';
 
 class UseStoreHelper<T extends DocModel> {
   Return = useStore<T, never, never>(
@@ -31,19 +31,15 @@ type StoreType<T extends DocModel> = Pick<
   | 'releaseDocs'
 >;
 
-class UseListPageHelper<T> {
-  Return = useListPage<T>('');
-}
-
 export default function useListPageStore<T extends DocModel>(
   store: StoreType<T>,
-  loadPage: ReturnType<typeof useListPage>['loadPage'],
-  appendItems: UseListPageHelper<T>['Return']['appendItems'],
-  updateItems: UseListPageHelper<T>['Return']['updateItems'],
+  loadPage: ListPage<never>['loadPage'],
+  appendItems: ListPage<T>['appendItems'],
+  updateItems: ListPage<T>['updateItems'],
   loadOnMounted?: {
-    ready: ReturnType<typeof useListPage>['ready'];
-    loadFirstPage: ReturnType<typeof useListPage>['loadFirstPage'];
-    resetItems: UseListPageHelper<T>['Return']['resetItems'];
+    ready: ListPage<never>['ready'];
+    loadFirstPage: ListPage<never>['loadFirstPage'];
+    resetItems: ListPage<T>['resetItems'];
   }
 ) {
   // Methods

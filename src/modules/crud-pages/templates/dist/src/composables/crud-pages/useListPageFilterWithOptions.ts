@@ -2,12 +2,12 @@ import { computed } from 'vue';
 
 import { QueryConstraint } from 'firebase/firestore';
 
-import useListPage from './useListPage';
+import { ListPage } from './useListPage';
 import useListPageFilter from './useListPageFilter';
 
 export default function useListPageFilterWithOptions<FilterType>(
-  ready: ReturnType<typeof useListPage>['ready'],
-  queryConstraints: ReturnType<typeof useListPage>['queryConstraints'],
+  ready: ListPage<never>['ready'],
+  queryConstraints: ListPage<never>['queryConstraints'],
   initialFilter: FilterType,
   loadItems: () => Promise<void>,
   ...options: {

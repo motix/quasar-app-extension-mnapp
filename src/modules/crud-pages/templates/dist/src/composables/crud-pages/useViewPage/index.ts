@@ -13,7 +13,10 @@ import usePageTitle from './usePageTitle';
 import useToolbar from './useToolbar';
 import useViewer from './useViewer';
 
-function newScope<T, TVm>() {
+function newScope<
+  T extends NonNullable<unknown>,
+  TVm extends NonNullable<unknown>
+>() {
   const { defaultReturnUrl: backUrl, returnUrl, goBack } = useReturnUrl();
   const pageFeatures = usePageFeatures();
   const pageStatus = usePageStatus();
@@ -75,14 +78,17 @@ function newScope<T, TVm>() {
   };
 }
 
-class NewScopeHelper<T, TVm> {
+class NewScopeHelper<
+  T extends NonNullable<unknown>,
+  TVm extends NonNullable<unknown>
+> {
   Return = newScope<T, TVm>();
 }
 
 export default function useViewPage<
-  T = unknown,
-  TVm = unknown,
-  TExtra = Record<string, never>
+  T extends NonNullable<unknown>,
+  TVm extends NonNullable<unknown>,
+  TExtra extends NonNullable<unknown> = Record<string, never>
 >(
   scopeName: string,
   hitUseCount?: boolean
@@ -99,12 +105,16 @@ export default function useViewPage<
   return store.retrieveScope(scopeName);
 }
 
-class UseViewPageHelper<T, TVm, TExtra> {
+class UseViewPageHelper<
+  T extends NonNullable<unknown>,
+  TVm extends NonNullable<unknown>,
+  TExtra extends NonNullable<unknown>
+> {
   Return = useViewPage<T, TVm, TExtra>('');
 }
 
 export type ViewPage<
-  T,
-  TVm,
-  TExtra = Record<string, never>
+  T extends NonNullable<unknown>,
+  TVm extends NonNullable<unknown>,
+  TExtra extends NonNullable<unknown> = Record<string, never>
 > = UseViewPageHelper<T, TVm, TExtra>['Return'];

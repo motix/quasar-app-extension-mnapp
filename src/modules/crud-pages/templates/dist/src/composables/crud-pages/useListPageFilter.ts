@@ -1,9 +1,9 @@
 import { computed, nextTick, onMounted, ref, Ref } from 'vue';
 
-import useListPage from './useListPage';
+import { ListPage } from './useListPage';
 
 export default function useListPageFilter<FilterType>(
-  ready: ReturnType<typeof useListPage>['ready'],
+  ready: ListPage<never>['ready'],
   initialFilter: FilterType,
   generateFilterLabel: (filter: FilterType) => string,
   loadFilteredItems: (filter: FilterType) => Promise<void>

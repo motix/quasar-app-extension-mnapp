@@ -11,7 +11,7 @@ import useNotifications from 'composables/useNotifications';
 import { UsePageDataHelper } from './usePageData';
 import usePageStatus from './usePageStatus';
 
-export default function useEditor<TVm = unknown>(
+export default function useEditor<TVm extends NonNullable<unknown>>(
   freezed: ReturnType<typeof usePageStatus>['freezed'],
   viewModel: UsePageDataHelper<TVm>['Return']['viewModel'],
   createModel: UsePageDataHelper<TVm>['Return']['createModel']
@@ -54,7 +54,9 @@ export default function useEditor<TVm = unknown>(
   // Data
 
   const viewUrl = ref<string | null>(null);
-  const modelFindKeyField = ref<keyof TVm>('id' as keyof TVm) as Ref<keyof TVm>;
+  const modelFindKeyField = ref<Extract<keyof TVm, string>>(
+    'id' as Extract<keyof TVm, string>
+  ) as Ref<Extract<keyof TVm, string>>;
   const editorSaving = ref(false);
   const initiallyFilled = ref(false);
 

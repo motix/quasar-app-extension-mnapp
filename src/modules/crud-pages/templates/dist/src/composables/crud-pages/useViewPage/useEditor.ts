@@ -13,7 +13,7 @@ import useScroll from 'composables/useScroll';
 import usePageData, { UsePageDataHelper } from './usePageData';
 import usePageStatus from './usePageStatus';
 
-export default function useEditor<TVm = unknown>(
+export default function useEditor<TVm extends NonNullable<unknown>>(
   freezed: ReturnType<typeof usePageStatus>['freezed'],
   muteRealtimeUpdate: ReturnType<typeof usePageStatus>['muteRealtimeUpdate'],
   delayRealtimeUpdate: ReturnType<typeof usePageStatus>['delayRealtimeUpdate'],

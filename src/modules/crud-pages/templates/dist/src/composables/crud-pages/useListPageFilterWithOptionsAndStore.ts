@@ -5,7 +5,7 @@ import { QueryConstraint } from 'firebase/firestore';
 
 import { DocModel, useStore } from 'stores/firebase-firestore';
 
-import useListPage from './useListPage';
+import { ListPage } from './useListPage';
 import useListPageFilterWithOptions from './useListPageFilterWithOptions';
 
 class UseStoreHelper<T extends DocModel> {
@@ -27,20 +27,16 @@ type StoreType<T extends DocModel> = Pick<
   'docPage' | 'loadDocsPage' | 'releaseDocs'
 >;
 
-class UseListPageHelper<T> {
-  Return = useListPage<T>('');
-}
-
 export default function useListPageFilterWithOptionsAndStore<
   T extends DocModel,
   FilterType
 >(
-  ready: ReturnType<typeof useListPage>['ready'],
-  queryConstraints: ReturnType<typeof useListPage>['queryConstraints'],
+  ready: ListPage<never>['ready'],
+  queryConstraints: ListPage<never>['queryConstraints'],
   initialFilter: FilterType,
   store: StoreType<T>,
-  loadFirstPage: ReturnType<typeof useListPage>['loadFirstPage'],
-  resetItems: UseListPageHelper<T>['Return']['resetItems'],
+  loadFirstPage: ListPage<never>['loadFirstPage'],
+  resetItems: ListPage<T>['resetItems'],
   ...options: {
     type: FilterType;
     label: string;

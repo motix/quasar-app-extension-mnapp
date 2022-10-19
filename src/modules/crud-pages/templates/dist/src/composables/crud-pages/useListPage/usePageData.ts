@@ -13,7 +13,7 @@ import useNotifications from 'composables/useNotifications';
 
 import usePageStatus from './usePageStatus';
 
-export default function usePageData<T = unknown>(
+export default function usePageData<T extends NonNullable<unknown>>(
   ready: ReturnType<typeof usePageStatus>['ready']
 ) {
   // Composables
@@ -25,7 +25,9 @@ export default function usePageData<T = unknown>(
   const queryConstraints = ref<QueryConstraint[]>([]);
   const items = ref(null) as Ref<T[] | null>;
   const allItemsLoaded = ref(false);
-  const modelFindKeyField = ref<keyof T>('id' as keyof T) as Ref<keyof T>;
+  const modelFindKeyField = ref<Extract<keyof T, string>>(
+    'id' as Extract<keyof T, string>
+  ) as Ref<Extract<keyof T, string>>;
   const newItemsOnTop = ref(false);
 
   // Computed
@@ -170,6 +172,6 @@ export default function usePageData<T = unknown>(
   };
 }
 
-export class UsePageDataHelper<T = unknown> {
+export class UsePageDataHelper<T extends NonNullable<unknown>> {
   Return = usePageData<T>(ref(false));
 }

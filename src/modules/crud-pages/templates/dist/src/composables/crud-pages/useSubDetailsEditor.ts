@@ -3,17 +3,16 @@ import { ComponentPublicInstance, computed, nextTick, ref, watch } from 'vue';
 import useMultiViews from 'composables/useMultiViews';
 import useScroll from 'composables/useScroll';
 
-import { NewPage } from './useNewPage';
-import { ViewPage } from './useViewPage';
+import { EditPage } from './useEditPage';
 
 // useNewPage | useViewPage
 export default function useSubDetailsEditor<
-  TVm,
-  TDetailVm,
-  TSubDetailVm,
+  TVm extends NonNullable<unknown>,
+  TDetailVm extends NonNullable<unknown>,
+  TSubDetailVm extends NonNullable<unknown>,
   TNewSubDetailParams extends Array<unknown>
 >(
-  $p: Pick<ViewPage<never, TVm> | NewPage<TVm>, 'dirty' | 'viewModel' | 'vm'>,
+  $p: EditPage<never, TVm, NonNullable<unknown>>,
   getDetails: (vm: TVm) => TDetailVm[],
   getSubDetails: (vm: TVm, detailIndex: number) => TSubDetailVm[],
   newSubDetail: (...params: TNewSubDetailParams) => TSubDetailVm

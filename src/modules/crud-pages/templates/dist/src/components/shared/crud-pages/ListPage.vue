@@ -12,8 +12,6 @@ import FloatToolbar from 'components/shared/FloatToolbar.vue';
 import StickyHeaders from 'components/shared/StickyHeaders.vue';
 import SwitchViewButton from 'components/shared/SwitchViewButton.vue';
 
-type ListPageType = ReturnType<typeof useListPage>;
-
 function useTableView(scopeName: string) {
   // Slots
 
@@ -26,7 +24,7 @@ function useTableView(scopeName: string) {
     wrapCells,
     columns,
     pagination,
-  } = useListPage(scopeName);
+  } = useListPage<NonNullable<unknown>>(scopeName);
 
   // Computed
 
@@ -74,7 +72,7 @@ function usePageData(
     items,
     allItemsLoaded,
     itemCountLabel,
-  } = useListPage(scopeName);
+  } = useListPage<NonNullable<unknown>>(scopeName);
 
   // Methods
 
@@ -101,7 +99,7 @@ function useNavigateToViewPage(scopeName: string) {
     viewUrl,
     itemLink,
     onItemClick,
-  } = useListPage(scopeName);
+  } = useListPage<NonNullable<unknown>>(scopeName);
 
   // Computed
 
@@ -109,7 +107,7 @@ function useNavigateToViewPage(scopeName: string) {
 
   // Methods
 
-  function onRowClick(evt: Event, row: unknown) {
+  function onRowClick(evt: Event, row: NonNullable<unknown>) {
     if ((evt.target as Element).localName === 'td') {
       onItemClick(evt as MouseEvent, row, false);
     }
@@ -122,7 +120,7 @@ function useNavigateToViewPage(scopeName: string) {
   };
 }
 
-function usePageMultiViews(columns: ListPageType['columns']) {
+function usePageMultiViews(scopeName: string) {
   // Slots
 
   const slots = useSlots();
@@ -130,6 +128,11 @@ function usePageMultiViews(columns: ListPageType['columns']) {
   // Composables
 
   const { isTableView, isCardsView } = useMultiViews();
+
+  const {
+    // useTableView
+    columns,
+  } = useListPage<NonNullable<unknown>>(scopeName);
 
   // Computed
 
@@ -148,9 +151,14 @@ function usePageMultiViews(columns: ListPageType['columns']) {
   };
 }
 
-function useSmoothHideInfiniteScrollLoading(
-  allItemsLoaded: ReturnType<typeof useListPage>['allItemsLoaded']
-) {
+function useSmoothHideInfiniteScrollLoading(scopeName: string) {
+  // Composables
+
+  const {
+    // usePageData
+    allItemsLoaded,
+  } = useListPage<NonNullable<unknown>>(scopeName);
+
   // Data
 
   const hideInfiniteScrollLoading = ref(false);
@@ -192,7 +200,7 @@ const {
   // useNavigateToNewPage
   newUrl,
   newButton,
-} = useListPage(props.scopeName);
+} = useListPage<NonNullable<unknown>>(props.scopeName);
 
 const { wrapCells, columns, pagination, headerSlotNames, bodySlotNames } =
   useTableView(props.scopeName);
@@ -207,10 +215,11 @@ const { itemLink, hasViewPage, onRowClick } = useNavigateToViewPage(
 );
 
 const { isTableView, isCardsView, hasTableView, hasCardsView, hasMultiViews } =
-  usePageMultiViews(columns);
+  usePageMultiViews(props.scopeName);
 
-const { hideInfiniteScrollLoading } =
-  useSmoothHideInfiniteScrollLoading(allItemsLoaded);
+const { hideInfiniteScrollLoading } = useSmoothHideInfiniteScrollLoading(
+  props.scopeName
+);
 </script>
 
 <template>

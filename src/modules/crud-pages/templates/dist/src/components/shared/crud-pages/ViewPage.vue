@@ -40,7 +40,7 @@ const {
   toolbarPersistent,
   toolbarFabButtonsVisibility,
   toolbarFixedButtonsVisibility,
-} = useViewPage(props.scopeName);
+} = useViewPage<NonNullable<unknown>, NonNullable<unknown>>(props.scopeName);
 
 // Data
 

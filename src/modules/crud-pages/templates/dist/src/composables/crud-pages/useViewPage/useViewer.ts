@@ -7,7 +7,7 @@ import useNotifications from 'composables/useNotifications';
 import usePageData, { UsePageDataHelper } from './usePageData';
 import usePageStatus from './usePageStatus';
 
-export default function useViewer<T = unknown>(
+export default function useViewer<T extends NonNullable<unknown>>(
   freezed: ReturnType<typeof usePageStatus>['freezed'],
   muteRealtimeUpdate: ReturnType<typeof usePageStatus>['muteRealtimeUpdate'],
   ignoreViewerWatch: ReturnType<typeof usePageStatus>['ignoreViewerWatch'],
