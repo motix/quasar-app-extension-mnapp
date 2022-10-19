@@ -11,7 +11,10 @@ function oneThousandRound(value: number) {
 
 // Props
 
-type Props = { modelValue: string | number | null | undefined };
+type Props = {
+  modelValue: string | number | null | undefined;
+  suffix?: string;
+};
 const props = defineProps<Props>();
 
 // Emit
@@ -57,7 +60,7 @@ function onUpdate(value: string | null) {
   <q-input
     v-bind="$attrs"
     :model-value="displayValue"
-    :suffix="isValueValid && (modelValue as number) > 0 ? '000' : undefined"
+    :suffix="isValueValid && (modelValue as number) > 0 ? ('000' + (props.suffix || '')) : props.suffix"
     @update:model-value="onUpdate($event as string | null)"
   >
     <template v-if="$slots.loading" #loading>
