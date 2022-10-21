@@ -314,7 +314,10 @@ export default function useViewChildPage<
     if (oldValue === '') {
       route.meta.replaceRoute = true;
       void router.replace(
-        `${viewUrl.value}${parentFindKey.value}/${value.replaceAll('.', '_')}`
+        `${viewUrl.value}${parentFindKey.value.replaceAll(
+          '.',
+          '_'
+        )}/${value.replaceAll('.', '_')}`
       );
     }
 
