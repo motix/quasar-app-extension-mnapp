@@ -24,7 +24,7 @@ module.exports = defineInstall(function (api) {
       '@fortawesome/pro-light-svg-icons': '^6.1.0',
       '@fortawesome/pro-regular-svg-icons': '^6.1.0',
       '@fortawesome/pro-solid-svg-icons': '^6.1.0',
-      '@fortawesome/vue-fontawesome': '^3.0.0-5',
+      '@fortawesome/vue-fontawesome': '^3.0.1',
     };
   }
 
