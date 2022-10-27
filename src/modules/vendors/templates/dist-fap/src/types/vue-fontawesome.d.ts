@@ -59,9 +59,6 @@ declare module '@fortawesome/vue-fontawesome' {
     ComponentPublicInstance<Partial<FontAwesomeLayersProps>>
   >;
   export const FontAwesomeLayersText: ComponentConstructor<
-    ComponentPublicInstance<
-      Partial<Omit<FontAwesomeLayersTextProps, 'value'>> &
-        Pick<FontAwesomeLayersTextProps, 'value'>
-    >
+    ComponentPublicInstance<Partial<FontAwesomeLayersTextProps>>
   >;
 }
