@@ -36,7 +36,7 @@ export default function useSubDetailsEditor<
 
   const subDetailEditorRefs = ref<
     (ComponentPublicInstance & {
-      validateSubDetailEditor(): Promise<boolean>;
+      validate: () => Promise<boolean>;
     })[][]
   >([]);
 
@@ -99,7 +99,7 @@ export default function useSubDetailsEditor<
   async function validateSubDetailsEditor(detailIndex: number) {
     const results = await Promise.all(
       (subDetailEditorRefs.value[detailIndex] || []).map((value) =>
-        value.validateSubDetailEditor()
+        value.validate()
       )
     );
 

@@ -31,7 +31,7 @@ export default function useDetailsEditor<
 
   const detailEditorRefs = ref<
     (ComponentPublicInstance & {
-      validateDetailEditor(): Promise<boolean>;
+      validate: () => Promise<boolean>;
     })[]
   >([]);
 
@@ -93,7 +93,7 @@ export default function useDetailsEditor<
 
   async function validateDetailsEditor() {
     const results = await Promise.all(
-      detailEditorRefs.value.map((value) => value.validateDetailEditor())
+      detailEditorRefs.value.map((value) => value.validate())
     );
 
     return !results.includes(false);
