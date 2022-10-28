@@ -9,7 +9,10 @@ import { requiredConfigEntries } from 'composables/useConfig';
 
 // Props
 
-type Props = { name: string; modelValue: string[] | null };
+type Props = {
+  name: string;
+  modelValue: string[] | null;
+};
 const props = defineProps<Props>();
 
 // Emits

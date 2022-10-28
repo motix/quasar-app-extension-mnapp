@@ -5,7 +5,10 @@ import { computed, watch } from 'vue';
 
 // Props
 
-type Props = { name: string; modelValue: string | number | null | undefined };
+type Props = {
+  name: string;
+  modelValue: string | number | null | undefined;
+};
 const props = defineProps<Props>();
 
 // Composables

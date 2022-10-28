@@ -3,9 +3,7 @@ import { VueClassProp } from 'quasar';
 
 // Props
 
-type Props = {
-  fieldClass?: VueClassProp;
-};
+type Props = { fieldClass?: VueClassProp };
 defineProps<Props>();
 </script>
 
