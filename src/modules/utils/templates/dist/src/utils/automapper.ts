@@ -9,6 +9,7 @@ import { isArray, isDate, isObject } from 'lodash';
 import { date } from 'quasar';
 
 import { requiredConfigEntries } from 'composables/useConfig';
+
 import { Timestamp } from '@firebase/firestore';
 
 export interface DateDataConverter {
