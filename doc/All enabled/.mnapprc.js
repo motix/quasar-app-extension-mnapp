@@ -19,6 +19,7 @@ module.exports = {
   'sticky-headers': true,
   'multi-views': true,
   'return-url': true,
+  apexcharts: true,
   firebase: {
     prompts: {
       project: '',

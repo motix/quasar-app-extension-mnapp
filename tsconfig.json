@@ -36,6 +36,7 @@
         "src/modules/sticky-headers/templates/dist/src/composables/*",
         "src/modules/multi-views/templates/dist/src/composables/*",
         "src/modules/return-url/templates/dist/src/composables/*",
+        "src/modules/apexcharts/templates/dist/src/composables/*",
         "src/modules/firebase-auth/templates/dist/src/composables/*",
         "src/modules/crud-pages/templates/dist/src/composables/*"
       ],

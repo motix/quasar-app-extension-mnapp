@@ -24,6 +24,7 @@
     "@types/lodash": "^4.14.180",
     "@typescript-eslint/eslint-plugin": "^5.15.0",
     "@typescript-eslint/parser": "^5.15.0",
+    "apexcharts": "^3.36.1",
     "dotenv": "^16.0.0",
     "eslint": "^8.11.0",
     "eslint-config-prettier": "^8.5.0",
@@ -40,6 +41,7 @@
     "vee-validate": "^4.5.10",
     "vue": "^3.2.31",
     "vue-router": "^4.0.14",
+    "vue3-apexcharts": "^1.4.1",
     "yup": "^0.32.11"
   },
   "engines": {

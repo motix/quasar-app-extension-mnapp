@@ -15,6 +15,7 @@ module.exports = {
   'sticky-headers': false,
   'multi-views': false,
   'return-url': false,
+  apexcharts: false,
   firebase: false,
   'firebase-auth': false,
   'firebase-firestore': false,

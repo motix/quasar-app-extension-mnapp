@@ -27,6 +27,8 @@ Modules:
 - multi-views
   Dependencies: map-paths, vendors, shared-components, scroll
 - return-url
+- apexcharts
+  Dependencies: multi-views
 - firebase
   Dependencies: map-paths, config
 - firebase-auth
