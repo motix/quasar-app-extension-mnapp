@@ -475,7 +475,7 @@ function buildActions<T extends DocModel, TVm, TAm>(
   function loadDocById(
     id: string,
     docKey: string,
-    realtimeDocs: RealtimeDocIndex<UnwrapRef<T>>,
+    realtimeDocs: RealtimeDocIndex<T>,
     onDocUpdate: (id: string) => Promise<void>,
     onDocDelete: (id: string) => void,
     done: () => void,
@@ -500,7 +500,7 @@ function buildActions<T extends DocModel, TVm, TAm>(
             apiModelName,
             { extraArguments }
           );
-          realtimeDocs[docKey].doc = docM as UnwrapRef<T>;
+          realtimeDocs[docKey].doc = docM;
 
           done();
 
