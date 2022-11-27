@@ -6,8 +6,8 @@ import { ListPage } from './useListPage';
 import useListPageFilter from './useListPageFilter';
 
 export default function useListPageFilterWithOptions<FilterType>(
-  ready: ListPage<never>['ready'],
-  queryConstraints: ListPage<never>['queryConstraints'],
+  ready: ListPage<never, never>['ready'],
+  queryConstraints: ListPage<never, never>['queryConstraints'],
   initialFilter: FilterType,
   loadItems: () => Promise<void>,
   ...options: {

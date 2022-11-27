@@ -3,7 +3,7 @@ import { computed, nextTick, onMounted, ref, Ref } from 'vue';
 import { ListPage } from './useListPage';
 
 export default function useListPageFilter<FilterType>(
-  ready: ListPage<never>['ready'],
+  ready: ListPage<never, never>['ready'],
   initialFilter: FilterType,
   generateFilterLabel: (filter: FilterType) => string,
   loadFilteredItems: (filter: FilterType) => Promise<void>

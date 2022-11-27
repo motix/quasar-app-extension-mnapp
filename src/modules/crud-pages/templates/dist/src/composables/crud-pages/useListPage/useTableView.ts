@@ -1,6 +1,8 @@
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 
 import { QTable } from 'quasar';
+
+import { UseClientFilterHelper } from './useClientFilter';
 
 type QTableColumnOriginal = NonNullable<
   QTable['columns']
@@ -8,25 +10,48 @@ type QTableColumnOriginal = NonNullable<
   ? ElementType
   : never;
 
-export interface QTableColumn<T> extends QTableColumnOriginal {
-  field: string | ((row: T) => unknown);
-  format?: (val: unknown, row: T) => unknown;
-  style?: string | ((row: T) => string);
-  classes?: string | ((row: T) => string);
+export interface QTableColumn<TRow> extends QTableColumnOriginal {
+  field: string | ((row: TRow) => unknown);
+  format?: (val: unknown, row: TRow) => unknown;
+  style?: string | ((row: TRow) => string);
+  classes?: string | ((row: TRow) => string);
 }
 
 export type QTablePagination = NonNullable<QTable['pagination']>;
 
-export default function useTableView<T extends NonNullable<unknown>>() {
+export default function useTableView<
+  T extends NonNullable<unknown>,
+  TRow extends NonNullable<unknown>
+>(
+  clientFilteredItems: UseClientFilterHelper<T>['Return']['clientFilteredItems']
+) {
   // Data
 
   const wrapCells = ref(false);
-  const columns = ref<QTableColumn<T>[] | null>(null);
+  const columns = ref<QTableColumn<TRow>[] | null>(null);
   const pagination = ref<QTablePagination>({ rowsPerPage: 0 });
+
+  // Computed
+
+  const rows = computed(() =>
+    buildRows.value === null
+      ? (clientFilteredItems.value as TRow[] | null)
+      : clientFilteredItems.value === null
+      ? null
+      : buildRows.value(clientFilteredItems.value)
+  );
+
+  // Method Refs
+
+  const buildRows = ref<((items: T[]) => TRow[]) | null>(null);
+  const onRowClick = ref<((evt: Event, row: TRow) => void) | null>(null);
 
   return {
     wrapCells,
     columns,
     pagination,
+    rows,
+    buildRows,
+    onRowClick,
   };
 }

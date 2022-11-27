@@ -24,7 +24,8 @@ function useTableView(scopeName: string) {
     wrapCells,
     columns,
     pagination,
-  } = useListPage<NonNullable<unknown>>(scopeName);
+    rows,
+  } = useListPage<NonNullable<unknown>, NonNullable<unknown>>(scopeName);
 
   // Computed
 
@@ -52,6 +53,7 @@ function useTableView(scopeName: string) {
     wrapCells,
     columns,
     pagination,
+    rows,
     headerSlotNames,
     bodySlotNames,
   };
@@ -72,7 +74,10 @@ function usePageData(
     items,
     allItemsLoaded,
     itemCountLabel,
-  } = useListPage<NonNullable<unknown>>(scopeName);
+    // useClientFilter
+    clientFilteredItems,
+    clientFilteredItemCountLabel,
+  } = useListPage<NonNullable<unknown>, NonNullable<unknown>>(scopeName);
 
   // Methods
 
@@ -87,6 +92,8 @@ function usePageData(
     items,
     allItemsLoaded,
     itemCountLabel,
+    clientFilteredItems,
+    clientFilteredItemCountLabel,
     onLoadNextPage,
   };
 }
@@ -95,11 +102,13 @@ function useNavigateToViewPage(scopeName: string) {
   // Composables
 
   const {
+    // useTableView
+    onRowClick,
     // useNavigateToViewPage
     viewUrl,
     itemLink,
     onItemClick,
-  } = useListPage<NonNullable<unknown>>(scopeName);
+  } = useListPage<NonNullable<unknown>, NonNullable<unknown>>(scopeName);
 
   // Computed
 
@@ -107,8 +116,10 @@ function useNavigateToViewPage(scopeName: string) {
 
   // Methods
 
-  function onRowClick(evt: Event, row: NonNullable<unknown>) {
-    if ((evt.target as Element).localName === 'td') {
+  function handleRowClick(evt: Event, row: NonNullable<unknown>) {
+    if (onRowClick.value) {
+      onRowClick.value(evt, row);
+    } else if ((evt.target as Element).localName === 'td') {
       onItemClick(evt as MouseEvent, row, false);
     }
   }
@@ -116,7 +127,7 @@ function useNavigateToViewPage(scopeName: string) {
   return {
     itemLink,
     hasViewPage,
-    onRowClick,
+    onRowClick: handleRowClick,
   };
 }
 
@@ -132,7 +143,7 @@ function usePageMultiViews(scopeName: string) {
   const {
     // useTableView
     columns,
-  } = useListPage<NonNullable<unknown>>(scopeName);
+  } = useListPage<NonNullable<unknown>, NonNullable<unknown>>(scopeName);
 
   // Computed
 
@@ -157,7 +168,7 @@ function useSmoothHideInfiniteScrollLoading(scopeName: string) {
   const {
     // usePageData
     allItemsLoaded,
-  } = useListPage<NonNullable<unknown>>(scopeName);
+  } = useListPage<NonNullable<unknown>, NonNullable<unknown>>(scopeName);
 
   // Data
 
@@ -200,15 +211,19 @@ const {
   // useNavigateToNewPage
   newUrl,
   newButton,
-} = useListPage<NonNullable<unknown>>(props.scopeName);
+} = useListPage<NonNullable<unknown>, NonNullable<unknown>>(props.scopeName);
 
-const { wrapCells, columns, pagination, headerSlotNames, bodySlotNames } =
+const { wrapCells, columns, pagination, rows, headerSlotNames, bodySlotNames } =
   useTableView(props.scopeName);
 
-const { items, allItemsLoaded, itemCountLabel, onLoadNextPage } = usePageData(
-  props.scopeName,
-  emit
-);
+const {
+  items,
+  allItemsLoaded,
+  itemCountLabel,
+  clientFilteredItems,
+  clientFilteredItemCountLabel,
+  onLoadNextPage,
+} = usePageData(props.scopeName, emit);
 
 const { itemLink, hasViewPage, onRowClick } = useNavigateToViewPage(
   props.scopeName
@@ -230,7 +245,10 @@ const { hideInfiniteScrollLoading } = useSmoothHideInfiniteScrollLoading(
         <q-spinner-pie color="primary" size="6em" />
       </div>
 
-      <div v-else-if="!items || items.length === 0" key="empty">
+      <div
+        v-else-if="!items || !clientFilteredItems || items.length === 0"
+        key="empty"
+      >
         <!-- Empty -->
         <div
           :class="{
@@ -261,7 +279,7 @@ const { hideInfiniteScrollLoading } = useSmoothHideInfiniteScrollLoading(
                   id="mainTable"
                   v-model:pagination="pagination"
                   :columns="columns || undefined"
-                  :rows="items"
+                  :rows="rows || undefined"
                   :wrap-cells="wrapCells"
                   v-on="hasViewPage ? { rowClick: onRowClick } : {}"
                 >
@@ -286,6 +304,11 @@ const { hideInfiniteScrollLoading } = useSmoothHideInfiniteScrollLoading(
                   <template #bottom>
                     <div class="text-center full-width">
                       {{ itemCountLabel }}
+                      <template
+                        v-if="items.length > clientFilteredItems.length"
+                      >
+                        - {{ clientFilteredItemCountLabel }}
+                      </template>
                     </div>
                   </template>
                 </q-table>
@@ -298,14 +321,14 @@ const { hideInfiniteScrollLoading } = useSmoothHideInfiniteScrollLoading(
             >
               <div key="cardsView">
                 <div class="row items-start justify-evenly q-gutter-md">
-                  <div>
+                  <div class="col-12 text-center">
                     <slot name="top"></slot>
                   </div>
 
-                  <div class="flex-break q-mt-none"></div>
+                  <div class="flex-break"></div>
 
                   <slot
-                    v-for="item in items"
+                    v-for="item in clientFilteredItems"
                     :link="() => itemLink(item)"
                     :model="item"
                     name="item-card"
@@ -317,6 +340,9 @@ const { hideInfiniteScrollLoading } = useSmoothHideInfiniteScrollLoading(
                   :class="{ 'q-mb-md': allItemsLoaded }"
                 >
                   {{ itemCountLabel }}
+                  <template v-if="items.length > clientFilteredItems.length">
+                    - {{ clientFilteredItemCountLabel }}
+                  </template>
                 </div>
               </div>
             </slot>

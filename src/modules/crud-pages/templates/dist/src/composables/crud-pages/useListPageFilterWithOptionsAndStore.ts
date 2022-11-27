@@ -31,12 +31,12 @@ export default function useListPageFilterWithOptionsAndStore<
   T extends DocModel,
   FilterType
 >(
-  ready: ListPage<never>['ready'],
-  queryConstraints: ListPage<never>['queryConstraints'],
+  ready: ListPage<never, never>['ready'],
+  queryConstraints: ListPage<never, never>['queryConstraints'],
   initialFilter: FilterType,
   store: StoreType<T>,
-  loadFirstPage: ListPage<never>['loadFirstPage'],
-  resetItems: ListPage<T>['resetItems'],
+  loadFirstPage: ListPage<never, never>['loadFirstPage'],
+  resetItems: ListPage<T, never>['resetItems'],
   ...options: {
     type: FilterType;
     label: string;

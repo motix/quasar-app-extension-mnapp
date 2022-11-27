@@ -33,13 +33,13 @@ type StoreType<T extends DocModel> = Pick<
 
 export default function useListPageStore<T extends DocModel>(
   store: StoreType<T>,
-  loadPage: ListPage<never>['loadPage'],
-  appendItems: ListPage<T>['appendItems'],
-  updateItems: ListPage<T>['updateItems'],
+  loadPage: ListPage<never, never>['loadPage'],
+  appendItems: ListPage<T, never>['appendItems'],
+  updateItems: ListPage<T, never>['updateItems'],
   loadOnMounted?: {
-    ready: ListPage<never>['ready'];
-    loadFirstPage: ListPage<never>['loadFirstPage'];
-    resetItems: ListPage<T>['resetItems'];
+    ready: ListPage<never, never>['ready'];
+    loadFirstPage: ListPage<never, never>['loadFirstPage'];
+    resetItems: ListPage<T, never>['resetItems'];
   }
 ) {
   // Methods
