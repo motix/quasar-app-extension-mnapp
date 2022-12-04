@@ -35,6 +35,8 @@ Modules:
   Dependencies: map-paths, vendors, config, shared-components, firebase
 - firebase-firestore
   Dependencies: map-paths, vendors, config, formats, utils, firebase
+- slack
+  Dependencies: map-paths, config
 - single-scope-composable
   Dependencies: map-paths, vendors
 - crud-pages

@@ -3290,6 +3290,13 @@ signal-exit@^3.0.2:
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.7.tgz#a9a1767f8af84155114eaabd73f99273c8f59ad9"
   integrity sha512-wnD2ZE+l+SPC/uoS0vXeE9L1+0wuaMqKlfz9AMUo38JsyLSBWSFcHR1Rri62LZc12vLr1gb3jl7iwQhgwpAbGQ==
 
+slack@^11.0.2:
+  version "11.0.2"
+  resolved "https://registry.yarnpkg.com/slack/-/slack-11.0.2.tgz#30f68527c5d1712b7faa3141db7716f89ac6e911"
+  integrity sha512-rv842+S+AGyZCmMMd8xPtW5DvJ9LzWTAKfxi8Gw57oYlXgcKtFuHd4nqk6lTPpRKdUGn3tx/Drd0rjQR3dQPqw==
+  dependencies:
+    tiny-json-http "^7.0.2"
+
 slash@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/slash/-/slash-3.0.0.tgz#6539be870c165adbd5240220dbe361f1bc4d4634"
@@ -3462,6 +3469,11 @@ through@^2.3.6:
   version "2.3.8"
   resolved "https://registry.yarnpkg.com/through/-/through-2.3.8.tgz#0dd4c9ffaabc357960b1b724115d7e0e86a2e1f5"
   integrity sha512-w89qg7PI8wAdvX60bMDP+bFoD5Dvhm9oLheFp5O4a2QF0cSBGsBX4qZmadPMvVqlLJBBci+WqGGOAPvcDeNSVg==
+
+tiny-json-http@^7.0.2:
+  version "7.4.2"
+  resolved "https://registry.yarnpkg.com/tiny-json-http/-/tiny-json-http-7.4.2.tgz#2948d7a7f650d69df65f10982f126b5c5520ce3d"
+  integrity sha512-+3ns4PfQTLaF69zGASkAfDoOEVmwYTXSDrU6VR93h317uFOW7evFzKa7Ih9JzPHiYSee3lUXHLAGhws2wFSexQ==
 
 tmp@^0.0.33:
   version "0.0.33"

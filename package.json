@@ -36,6 +36,7 @@
     "pinia": "^2.0.12",
     "prettier": "^2.6.0",
     "quasar": "^2.6.1",
+    "slack": "^11.0.2",
     "ts-essentials": "^9.1.2",
     "typescript": "^4.6.2",
     "vee-validate": "^4.5.10",

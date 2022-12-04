@@ -19,6 +19,7 @@ module.exports = {
   firebase: false,
   'firebase-auth': false,
   'firebase-firestore': false,
+  slack: false,
   'single-scope-composable': false,
   'crud-pages': false,
   'app-default': false,

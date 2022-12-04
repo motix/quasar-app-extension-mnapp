@@ -14,6 +14,7 @@
       "models/*": [
         "src/modules/firebase-auth/templates/dist/src/models/*",
         "src/modules/firebase-firestore/templates/dist/src/models/*",
+        "src/modules/slack/templates/dist/src/models/*",
         "src/modules/single-scope-composable/templates/dist/src/models/*"
       ],
 

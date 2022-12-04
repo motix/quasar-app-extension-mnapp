@@ -25,9 +25,9 @@ module.exports = {
       project: '',
       targetName: '',
       siteId: '',
-      authEmulatorPort: '9099',
+      authEmulatorPort: '4001',
       functionsEmulatorPort: '5001',
-      firestoreEmulatorPort: '6060',
+      firestoreEmulatorPort: '6001',
     },
   },
   'firebase-auth': {
@@ -36,6 +36,11 @@ module.exports = {
     },
   },
   'firebase-firestore': true,
+  slack: {
+    prompts: {
+      workspaceUrl: '',
+    },
+  },
   'single-scope-composable': true,
   'crud-pages': true,
   'app-default': {
