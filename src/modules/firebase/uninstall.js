@@ -2,7 +2,7 @@ const { defineUninstall } = require('..');
 
 module.exports = defineUninstall(function (api) {
   api.removePath('.firebaserc');
-  api.removePath('env-template.txt');
+  api.removePath('firebase-env-template.txt');
   api.removePath('firebase.json');
   api.removePath('src/boot/firebase.ts');
   api.removePath('src/services/firebase.ts');

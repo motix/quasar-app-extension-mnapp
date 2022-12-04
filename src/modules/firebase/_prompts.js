@@ -20,7 +20,7 @@ module.exports = function firebase() {
       name: 'authEmulatorPort',
       type: 'input',
       message: '[firebase] emulators.auth.port',
-      default: '9099',
+      default: '4001',
     },
     {
       name: 'functionsEmulatorPort',
@@ -32,7 +32,7 @@ module.exports = function firebase() {
       name: 'firestoreEmulatorPort',
       type: 'input',
       message: '[firebase] emulators.firestore.port',
-      default: '6060',
+      default: '6001',
     },
   ];
 };

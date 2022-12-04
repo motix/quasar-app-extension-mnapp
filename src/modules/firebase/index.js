@@ -1,12 +1,12 @@
-const { config: dotenvConfig } = require('dotenv');
+const { config } = require('dotenv');
 const { defineIndex } = require('..');
 
 module.exports = defineIndex(function (api) {
   api.extendQuasarConf((conf) => {
     conf.boot.push('firebase');
 
-    const dotenvConfigPath = api.resolve.app('.env');
-    const env = dotenvConfig({ path: dotenvConfigPath }).parsed;
+    const configPath = api.resolve.app('.env');
+    const env = config({ path: configPath }).parsed;
     const FIREBASE_ENV = process.env.FIREBASE_ENV;
 
     if (!FIREBASE_ENV || !['DEV', 'STAGE', 'PROD'].includes(FIREBASE_ENV)) {
