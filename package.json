@@ -37,6 +37,7 @@
     "prettier": "^2.6.0",
     "quasar": "^2.6.1",
     "slack": "^11.0.2",
+    "slack-message-parser": "^3.0.0",
     "ts-essentials": "^9.1.2",
     "typescript": "^4.6.2",
     "vee-validate": "^4.5.10",

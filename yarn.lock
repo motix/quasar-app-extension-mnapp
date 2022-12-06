@@ -3290,6 +3290,11 @@ signal-exit@^3.0.2:
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.7.tgz#a9a1767f8af84155114eaabd73f99273c8f59ad9"
   integrity sha512-wnD2ZE+l+SPC/uoS0vXeE9L1+0wuaMqKlfz9AMUo38JsyLSBWSFcHR1Rri62LZc12vLr1gb3jl7iwQhgwpAbGQ==
 
+slack-message-parser@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/slack-message-parser/-/slack-message-parser-3.0.0.tgz#f40c1b3c601dd428ee3d8e96934ba23c42f5a3e1"
+  integrity sha512-OqiVwwt84Bh22LOmwm9agwQFpEW0ggaN34eOqd/GedsMusFyekrGYv1vvpu0NQgOBnH7wRN81tzWjkm/xt9ibQ==
+
 slack@^11.0.2:
   version "11.0.2"
   resolved "https://registry.yarnpkg.com/slack/-/slack-11.0.2.tgz#30f68527c5d1712b7faa3141db7716f89ac6e911"
