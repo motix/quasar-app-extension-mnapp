@@ -1,6 +1,6 @@
 import emojiData from './emoji.json';
 
-import { uniq } from 'lodash';
+import { sortBy } from 'lodash';
 import slack from 'slack';
 import parse, { Node, NodeType } from 'slack-message-parser';
 
@@ -34,16 +34,17 @@ export async function loadPrivateChannelMessages(channelName: string) {
   if (!channel) {
     return {
       channelId: null,
+      users: null,
       messages: null,
     };
   }
 
-  const historyResult = await slack.conversations.history({
+  const membersResult = await slack.conversations.members({
     token: process.env.SLACK_ACCESS_TOKEN,
     channel: channel.id,
   });
 
-  const userIds = uniq(historyResult.messages.map((value) => value.user));
+  const userIds = membersResult.members;
 
   const infoResults = await Promise.all(
     userIds.map((value) =>
@@ -54,17 +55,21 @@ export async function loadPrivateChannelMessages(channelName: string) {
     )
   );
 
-  const users = Object.fromEntries(
-    infoResults.map((value) => [
-      value.user.id,
-      {
-        id: value.user.id,
-        email: value.user.profile.email,
-        fullName: value.user.real_name,
-        photoUrl: value.user.profile.image_192,
-      },
-    ])
-  );
+  let users: SlackUser[] = infoResults.map((value) => ({
+    id: value.user.id,
+    email: value.user.profile.email,
+    fullName: value.user.real_name,
+    photoUrl: value.user.profile.image_192,
+  }));
+
+  users = sortBy(users, (value) => value.fullName);
+
+  const usersMap = Object.fromEntries(users.map((value) => [value.id, value]));
+
+  const historyResult = await slack.conversations.history({
+    token: process.env.SLACK_ACCESS_TOKEN,
+    channel: channel.id,
+  });
 
   const messages: SlackMessage[] = historyResult.messages
     .filter(
@@ -75,7 +80,7 @@ export async function loadPrivateChannelMessages(channelName: string) {
     )
     .map((value) => ({
       timestamp: new Date(Number(value.ts) * 1000),
-      user: users[value.user],
+      user: usersMap[value.user],
       text: value.text,
     }))
     .reverse();
@@ -88,6 +93,7 @@ export async function loadPrivateChannelMessages(channelName: string) {
 
   return {
     channelId: channel.id,
+    users,
     messages,
   };
 }
