@@ -36,11 +36,7 @@ module.exports = {
     },
   },
   'firebase-firestore': true,
-  slack: {
-    prompts: {
-      workspaceUrl: '',
-    },
-  },
+  slack: true,
   'single-scope-composable': true,
   'crud-pages': true,
   'app-default': {

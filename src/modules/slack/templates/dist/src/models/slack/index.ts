@@ -9,4 +9,5 @@ export interface SlackMessage {
   timestamp: Date;
   user: SlackUser;
   text: string;
+  parsedText?: string;
 }

@@ -7,9 +7,3 @@ declare global {
     }
   }
 }
-
-declare module 'composables/useConfig' {
-  interface Config {
-    slackWorkspaceUrl?: string;
-  }
-}

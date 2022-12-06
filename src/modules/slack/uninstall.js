@@ -2,9 +2,8 @@ const { defineUninstall } = require('..');
 
 module.exports = defineUninstall(function (api) {
   api.removePath('slack-env-template.txt');
-  api.removePath('src/boot/slack.ts');
   api.removePath('src/models/slack');
-  api.removePath('src/services/slack.ts');
+  api.removePath('src/services/slack');
   api.removePath('src/types/slack.d.ts');
   api.removePath('src/types/slack-api.d.ts');
 

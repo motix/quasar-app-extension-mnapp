@@ -3,8 +3,6 @@ const { defineIndex } = require('..');
 
 module.exports = defineIndex(function (api) {
   api.extendQuasarConf((conf) => {
-    conf.boot.push('slack');
-
     const configPath = api.resolve.app('.env');
     const env = config({ path: configPath }).parsed;
 
