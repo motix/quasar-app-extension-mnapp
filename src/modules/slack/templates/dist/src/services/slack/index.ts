@@ -21,7 +21,7 @@ export async function loadUsers() {
   return users;
 }
 
-export async function loadPrivateChannelMessages(channelName: string) {
+export async function loadPrivateChannel(channelName: string) {
   const conversationsResult = await slack.users.conversations({
     token: process.env.SLACK_ACCESS_TOKEN,
     types: 'private_channel',
@@ -32,11 +32,7 @@ export async function loadPrivateChannelMessages(channelName: string) {
   );
 
   if (!channel) {
-    return {
-      channelId: null,
-      users: null,
-      messages: null,
-    };
+    return null;
   }
 
   const membersResult = await slack.conversations.members({
@@ -75,6 +71,7 @@ export async function loadPrivateChannelMessages(channelName: string) {
     .filter(
       (value) =>
         !value.text.endsWith('has joined the channel') &&
+        !value.text.startsWith('set the channel topic') &&
         !value.text.startsWith('set the channel description') &&
         !value.text.startsWith('has renamed the channel from')
     )
