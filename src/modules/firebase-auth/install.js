@@ -19,6 +19,6 @@ module.exports = defineInstall(function (api) {
 
 module.exports.extendPackageJson = {
   dependencies: {
-    firebaseui: '^6.0.1',
+    firebaseui: '^6.0.2',
   },
 };

@@ -17,14 +17,14 @@ module.exports = defineInstall(function (api) {
     module.exports.extendPackageJson.dependencies = {
       ...module.exports.extendPackageJson.dependencies,
 
-      '@fortawesome/fontawesome-pro': '^6.1.0',
-      '@fortawesome/fontawesome-svg-core': '^6.1.0',
-      '@fortawesome/free-brands-svg-icons': '^6.1.0',
-      '@fortawesome/pro-duotone-svg-icons': '^6.1.0',
-      '@fortawesome/pro-light-svg-icons': '^6.1.0',
-      '@fortawesome/pro-regular-svg-icons': '^6.1.0',
-      '@fortawesome/pro-solid-svg-icons': '^6.1.0',
-      '@fortawesome/vue-fontawesome': '^3.0.1',
+      '@fortawesome/fontawesome-pro': '^6.2.1',
+      '@fortawesome/fontawesome-svg-core': '^6.2.1',
+      '@fortawesome/free-brands-svg-icons': '^6.2.1',
+      '@fortawesome/pro-duotone-svg-icons': '^6.2.1',
+      '@fortawesome/pro-light-svg-icons': '^6.2.1',
+      '@fortawesome/pro-regular-svg-icons': '^6.2.1',
+      '@fortawesome/pro-solid-svg-icons': '^6.2.1',
+      '@fortawesome/vue-fontawesome': '^3.0.2',
     };
   }
 
@@ -76,7 +76,7 @@ module.exports = defineInstall(function (api) {
     module.exports.extendPackageJson.dependencies = {
       ...module.exports.extendPackageJson.dependencies,
 
-      'vee-validate': '^4.5.10',
+      'vee-validate': '^4.7.3',
       yup: '^0.32.11',
     };
   }
