@@ -257,11 +257,6 @@ export default function useViewChildPage<
       const model = $p.m.value;
       const children = modelChildrenGetter.value(pm.value);
 
-      $p.model.value =
-        children.length > 1
-          ? children.filter((value) => value !== model)[children.length - 2]
-          : null;
-
       $p.exitEditMode();
 
       if (removeChild.value) {
@@ -269,6 +264,10 @@ export default function useViewChildPage<
       } else {
         children.splice(children.indexOf(model), 1);
       }
+
+      // After the parent model is updated, getModelAndViewModel will be called.
+      // Setting findKey to '' will select the last child if there is any.
+      $p.findKey.value = '';
 
       updateParentModel
         .value({
