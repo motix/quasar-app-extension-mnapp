@@ -55,7 +55,9 @@ const displayValue = computed(() =>
 );
 
 const suffix = computed(() =>
-  isThousandValue.value ? '000' + (props.suffix || '') : props.suffix
+  isThousandValue.value && (props.modelValue as number) > 0
+    ? '000' + (props.suffix || '')
+    : props.suffix
 );
 
 // Methods
