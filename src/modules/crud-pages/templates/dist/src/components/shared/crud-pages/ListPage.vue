@@ -3,7 +3,7 @@ export default {};
 
 import { computed, nextTick, ref, useSlots, watchEffect } from 'vue';
 
-import { Dark } from 'quasar';
+import { Dark, QInfiniteScroll } from 'quasar';
 
 import useListPage from 'composables/crud-pages/useListPage';
 import useMultiViews from 'composables/useMultiViews';
@@ -59,13 +59,38 @@ function useTableView(scopeName: string) {
   };
 }
 
+function useAutoLoadAllPages() {
+  // Data
+
+  const autoLoadAllPages = ref(false);
+  const hideAutoLoadAllPagesButton = ref(false);
+  const infiniteScroll = ref<InstanceType<typeof QInfiniteScroll> | null>(null);
+
+  // Methods
+
+  function toggleAutoLoadAllPages() {
+    autoLoadAllPages.value = !autoLoadAllPages.value;
+
+    infiniteScroll.value?.trigger();
+  }
+
+  return {
+    autoLoadAllPages,
+    hideAutoLoadAllPagesButton,
+    infiniteScroll,
+    toggleAutoLoadAllPages,
+  };
+}
+
 function usePageData(
   scopeName: string,
   emit: (
     e: 'loadNextPage',
     index: number,
     done: (stop: boolean) => void
-  ) => void
+  ) => void,
+  autoLoadAllPages: ReturnType<typeof useAutoLoadAllPages>['autoLoadAllPages'],
+  infiniteScroll: ReturnType<typeof useAutoLoadAllPages>['infiniteScroll']
 ) {
   // Composables
 
@@ -85,6 +110,12 @@ function usePageData(
     emit('loadNextPage', index, (stop) => {
       done(stop);
       allItemsLoaded.value = stop;
+
+      if (stop) {
+        autoLoadAllPages.value = false;
+      } else if (autoLoadAllPages.value) {
+        infiniteScroll.value?.trigger();
+      }
     });
   }
 
@@ -197,6 +228,10 @@ function useSmoothHideInfiniteScrollLoading(scopeName: string) {
 
 const props = defineProps<{ scopeName: string }>();
 
+// Slots
+
+const slots = useSlots();
+
 // Emit
 
 const emit = defineEmits<{
@@ -217,13 +252,20 @@ const { wrapCells, columns, pagination, rows, headerSlotNames, bodySlotNames } =
   useTableView(props.scopeName);
 
 const {
+  autoLoadAllPages,
+  hideAutoLoadAllPagesButton,
+  infiniteScroll,
+  toggleAutoLoadAllPages,
+} = useAutoLoadAllPages();
+
+const {
   items,
   allItemsLoaded,
   itemCountLabel,
   clientFilteredItems,
   clientFilteredItemCountLabel,
   onLoadNextPage,
-} = usePageData(props.scopeName, emit);
+} = usePageData(props.scopeName, emit, autoLoadAllPages, infiniteScroll);
 
 const { itemLink, hasViewPage, onRowClick } = useNavigateToViewPage(
   props.scopeName
@@ -234,6 +276,21 @@ const { isTableView, isCardsView, hasTableView, hasCardsView, hasMultiViews } =
 
 const { hideInfiniteScrollLoading } = useSmoothHideInfiniteScrollLoading(
   props.scopeName
+);
+
+// Computed
+
+const switchViewButtonMargin = computed(
+  () =>
+    `${
+      slots['toolbar-extra']
+        ? (newButton.value ? 52 : 0) +
+          (!hideAutoLoadAllPagesButton.value ? 52 : 0) +
+          (newButton.value || !hideAutoLoadAllPagesButton.value ? 7 : 0)
+        : newButton.value || !hideAutoLoadAllPagesButton.value
+        ? 7
+        : 0
+    }px`
 );
 </script>
 
@@ -263,7 +320,7 @@ const { hideInfiniteScrollLoading } = useSmoothHideInfiniteScrollLoading(
       <div v-else key="ready">
         <!-- Ready -->
         <q-infinite-scroll
-          ref="ifiniteScroll"
+          ref="infiniteScroll"
           :offset="250"
           @load="onLoadNextPage"
         >
@@ -366,8 +423,9 @@ const { hideInfiniteScrollLoading } = useSmoothHideInfiniteScrollLoading(
       v-if="$slots['toolbar-extra']"
       :fab-buttons-space-ignored="1"
     >
-      <template v-if="newButton" #fixed-buttons>
+      <template v-if="newButton || !hideAutoLoadAllPagesButton" #fixed-buttons>
         <q-btn
+          v-if="newButton"
           key="add"
           :color="Dark.isActive ? 'grey-9' : 'grey-3'"
           icon="fal fa-plus"
@@ -377,13 +435,27 @@ const { hideInfiniteScrollLoading } = useSmoothHideInfiniteScrollLoading(
         >
           <top-tooltip>Add</top-tooltip>
         </q-btn>
+
+        <q-btn
+          v-if="!hideAutoLoadAllPagesButton"
+          key="autoLoadAllPages"
+          :color="Dark.isActive ? 'grey-9' : 'grey-3'"
+          :disable="!infiniteScroll || allItemsLoaded"
+          :icon="autoLoadAllPages ? undefined : 'fas fa-ellipsis'"
+          round
+          text-color="primary"
+          @click="toggleAutoLoadAllPages"
+        >
+          <q-spinner-dots v-if="autoLoadAllPages" color="primary" />
+          <top-tooltip>Auto Load All Pages</top-tooltip>
+        </q-btn>
       </template>
 
       <transition-group
         key="extra"
         class="no-wrap row reverse"
         name="float-toolbar-transition"
-        :style="{ 'margin-right': `${newButton ? 59 : 0}px` }"
+        :style="{ 'margin-right': switchViewButtonMargin }"
         tag="div"
       >
         <switch-view-button v-if="hasMultiViews" key="switchView" />
@@ -392,7 +464,9 @@ const { hideInfiniteScrollLoading } = useSmoothHideInfiniteScrollLoading(
       </transition-group>
     </float-toolbar>
 
-    <float-toolbar v-else-if="newButton || hasMultiViews">
+    <float-toolbar
+      v-else-if="newButton || hasMultiViews || !hideAutoLoadAllPagesButton"
+    >
       <template #fixed-buttons>
         <q-btn
           v-if="newButton"
@@ -406,11 +480,27 @@ const { hideInfiniteScrollLoading } = useSmoothHideInfiniteScrollLoading(
           <top-tooltip>Add</top-tooltip>
         </q-btn>
 
+        <q-btn
+          v-if="!hideAutoLoadAllPagesButton"
+          key="autoLoadAllPages"
+          :color="Dark.isActive ? 'grey-9' : 'grey-3'"
+          :disable="!infiniteScroll || allItemsLoaded"
+          :icon="autoLoadAllPages ? undefined : 'fas fa-ellipsis'"
+          round
+          text-color="primary"
+          @click="toggleAutoLoadAllPages"
+        >
+          <q-spinner-dots v-if="autoLoadAllPages" color="primary" />
+          <top-tooltip>Auto Load All Pages</top-tooltip>
+        </q-btn>
+
         <div
           v-if="hasMultiViews"
           key="extra"
           class="no-wrap row reverse"
-          :style="{ 'margin-right': `${newButton ? 7 : 0}px` }"
+          :style="{
+            'margin-right': switchViewButtonMargin,
+          }"
         >
           <switch-view-button />
         </div>
