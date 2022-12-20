@@ -6,7 +6,10 @@ declare module '../useFormats' {
   }
 }
 
-export default function currency(value: number | string | null | undefined) {
+export default function currency(
+  value: number | string | null | undefined,
+  isNegative = false
+) {
   if (value == null) return value;
 
   if (isFinite(value)) {
@@ -17,7 +20,12 @@ export default function currency(value: number | string | null | undefined) {
     result = result.replace(/\./g, ',');
     result = result.replace(/_/g, '.');
 
-    return (negative ? '(' : '') + result + (negative ? ')' : '');
+    return (
+      (isNegative ? '(' : '') +
+      (negative ? '-' : '') +
+      result +
+      (isNegative ? ')' : '')
+    );
   }
 
   return String(value);
