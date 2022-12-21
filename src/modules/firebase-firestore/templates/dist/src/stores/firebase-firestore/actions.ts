@@ -455,6 +455,15 @@ function buildActions<T extends DocModel, TVm, TAm>(
         return [docSnapshot.data(), docSnapshot.id];
       });
       const docs = docAndIds.map((docAndId) => docAndId[0] as TAm);
+
+      options.afterLoad &&
+        (await Promise.all(
+          docs.map(
+            (doc) =>
+              (options.afterLoad && options.afterLoad(doc)) || Promise.resolve()
+          )
+        ));
+
       const docIdMap = new Map(docAndIds as Iterable<readonly [TAm, string]>);
       const extraArguments = { idMap: docIdMap };
 
@@ -493,9 +502,29 @@ function buildActions<T extends DocModel, TVm, TAm>(
         const data = docSnapshot.data();
 
         if (data) {
-          const extraArguments = { idMap: new Map([[data, id]]) };
+          if (options.afterLoad) {
+            options.afterLoad(data).then(() => {
+              completeLoading(data);
+            });
+          } else {
+            completeLoading(data);
+          }
+        } else {
+          if (realtimeDocs[docKey].doc) {
+            deleted && deleted();
+            onDocDelete(id);
+          } else {
+            notFound && notFound();
+          }
+
+          realtimeDocs[docKey].unsubscribe();
+          delete realtimeDocs[docKey];
+        }
+
+        function completeLoading(docAm: TAm) {
+          const extraArguments = { idMap: new Map([[docAm, id]]) };
           const docM = mapper.map<TAm, T, typeof extraArguments>(
-            data,
+            docAm,
             modelName,
             apiModelName,
             { extraArguments }
@@ -509,16 +538,6 @@ function buildActions<T extends DocModel, TVm, TAm>(
           } else {
             void onDocUpdate(id);
           }
-        } else {
-          if (realtimeDocs[docKey].doc) {
-            deleted && deleted();
-            onDocDelete(id);
-          } else {
-            notFound && notFound();
-          }
-
-          realtimeDocs[docKey].unsubscribe();
-          delete realtimeDocs[docKey];
         }
       },
       // onError
@@ -550,7 +569,14 @@ function buildActions<T extends DocModel, TVm, TAm>(
                   .includes(false)
               ) {
                 unsubscribe();
-                resolve(newDoc);
+
+                if (options.afterLoad) {
+                  options.afterLoad(newDoc).then(() => {
+                    resolve(newDoc);
+                  });
+                } else {
+                  resolve(newDoc);
+                }
               }
             } else {
               unsubscribe();
@@ -566,7 +592,11 @@ function buildActions<T extends DocModel, TVm, TAm>(
         );
       });
     } else {
-      return (await getDoc(docRef)).data();
+      const newDoc = (await getDoc(docRef)).data();
+
+      newDoc && options.afterLoad && options.afterLoad(newDoc);
+
+      return newDoc;
     }
   }
 }
