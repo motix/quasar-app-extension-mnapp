@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { onBeforeUnmount, ref } from 'vue';
+import { useRoute } from 'vue-router';
+
+const route = useRoute();
 
 // Data
 
@@ -19,7 +22,14 @@ onBeforeUnmount(() => {
     <div>
       <fade-transition>
         <keep-alive :include="keepAlive ? 'AliveIndex' : '_'">
-          <component :is="Component" />
+          <component
+            :is="Component"
+            :key="
+              route.meta.subTransitionKeyName
+                ? route.params[route.meta.subTransitionKeyName]
+                : undefined
+            "
+          />
         </keep-alive>
       </fade-transition>
     </div>

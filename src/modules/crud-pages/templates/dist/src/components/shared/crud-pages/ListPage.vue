@@ -378,7 +378,7 @@ const switchViewButtonMargin = computed(
             >
               <div key="cardsView">
                 <div class="row items-start justify-evenly q-gutter-md">
-                  <div class="col-12 text-center">
+                  <div class="col-12 q-mb-md text-center">
                     <slot name="top"></slot>
                   </div>
 

@@ -3,7 +3,7 @@ import { ComponentPublicInstance, computed, nextTick, ref, watch } from 'vue';
 import useMultiViews from 'composables/useMultiViews';
 import useScroll from 'composables/useScroll';
 
-import { EditPage } from './useEditPage';
+import { EditPage, extendEditPage } from './useEditPage';
 
 // useNewPage | useViewPage
 export default function useDetailsEditor<
@@ -27,6 +27,8 @@ export default function useDetailsEditor<
 
   const { isCardsView } = useMultiViews();
 
+  const $ep = extendEditPage($p);
+
   // Data
 
   const detailEditorRefs = ref<
@@ -40,7 +42,7 @@ export default function useDetailsEditor<
   const showAddDetailButton = computed(
     () =>
       $p.ready.value &&
-      (!$p.editMode || $p.editMode.value) &&
+      $ep.newPageOrEditMode.value &&
       isCardsView.value &&
       getDetails($p.vm.value).length > 0
   );

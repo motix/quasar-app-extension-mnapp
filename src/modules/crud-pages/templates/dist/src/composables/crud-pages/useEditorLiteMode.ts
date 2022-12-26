@@ -4,7 +4,7 @@ import useNotifications from 'composables/useNotifications';
 
 import StickyHeaders from 'components/shared/StickyHeaders.vue';
 
-import { EditPage } from './useEditPage';
+import { EditPage, extendEditPage } from './useEditPage';
 
 // useNewPage | useViewPage
 export default function useEditorLiteMode<TVm extends NonNullable<unknown>>(
@@ -17,6 +17,8 @@ export default function useEditorLiteMode<TVm extends NonNullable<unknown>>(
 
   const { notifyValidationError } = useNotifications();
 
+  const $ep = extendEditPage($p);
+
   // Data
 
   const liteMode = ref(true);
@@ -26,7 +28,7 @@ export default function useEditorLiteMode<TVm extends NonNullable<unknown>>(
   // Computed
 
   const showToggleLiteModeButton = computed(
-    () => $p.ready.value && (!$p.editMode || $p.editMode.value)
+    () => $p.ready.value && $ep.newPageOrEditMode.value
   );
 
   // Methods
@@ -56,8 +58,8 @@ export default function useEditorLiteMode<TVm extends NonNullable<unknown>>(
 
   // Watch
 
-  if ($p.editMode) {
-    watch($p.editMode, () => {
+  if ($ep.editMode) {
+    watch($ep.editMode, () => {
       liteMode.value = true;
       showLiteModeInputs.value = false;
       resetInputs();

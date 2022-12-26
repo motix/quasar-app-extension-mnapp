@@ -32,6 +32,7 @@ body {
 
 .row .flex-break {
   height: 0 !important;
+  margin-top: 0 !important;
 }
 .row .q-separator--horizontal.flex-break {
   height: 1px !important;
@@ -39,6 +40,7 @@ body {
 
 .column .flex-break {
   width: 0 !important;
+  margin-left: 0 !important;
 }
 .column .q-separator--vertical.flex-break {
   width: 1px !important;
@@ -51,4 +53,10 @@ body {
 
 .right-toggle {
   margin-right: -12px;
+}
+
+.rounded-list .q-expansion-item__container {
+  border-radius: $generic-border-radius;
+  box-shadow: nth($shadows, 2);
+  overflow: hidden;
 }
