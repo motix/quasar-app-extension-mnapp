@@ -594,7 +594,7 @@ function buildActions<T extends DocModel, TVm, TAm>(
     } else {
       const newDoc = (await getDoc(docRef)).data();
 
-      newDoc && options.afterLoad && options.afterLoad(newDoc);
+      newDoc && options.afterLoad && (await options.afterLoad(newDoc));
 
       return newDoc;
     }
