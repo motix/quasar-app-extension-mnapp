@@ -5,6 +5,7 @@ declare module 'components/shared/validation/PercentInputVal.vue' {
   type Props = {
     name: string;
     modelValue: string | number | null | undefined;
+    decimal?: number;
   };
   type Component = ComponentConstructor<
     ComponentPublicInstance<Omit<QInputProps, keyof Props> & Props>

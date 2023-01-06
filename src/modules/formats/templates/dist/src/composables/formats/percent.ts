@@ -12,8 +12,13 @@ export default function percent(
 ) {
   if (value == null) return value;
 
-  if (isFinite(value))
-    return ((value as number) * 100).toFixed(decimal || 0) + '%';
+  if (isFinite(value)) {
+    if (decimal === undefined) {
+      return `${(value as number) * 100}%`;
+    }
+
+    return `${((value as number) * 100).toFixed(decimal)}%`;
+  }
 
   return String(value);
 }

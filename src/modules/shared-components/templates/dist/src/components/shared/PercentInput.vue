@@ -6,17 +6,23 @@ import { computed } from 'vue';
 // Private
 
 function percentRound(value: number) {
-  return Math.round(value * 10000) / 10000;
+  return props.decimal
+    ? Math.round(value * Math.pow(10, 2 + props.decimal)) /
+        Math.pow(10, 2 + props.decimal)
+    : value;
 }
 
 // Without this, 110% will display as 110.00000000000001%
 function percentDisplayRound(value: number) {
-  return Math.round(value * 100) / 100;
+  return Math.round(value * 10000000000000) / 10000000000000;
 }
 
 // Props
 
-type Props = { modelValue: string | number | null | undefined };
+type Props = {
+  modelValue: string | number | null | undefined;
+  decimal?: number;
+};
 const props = defineProps<Props>();
 
 // Emit

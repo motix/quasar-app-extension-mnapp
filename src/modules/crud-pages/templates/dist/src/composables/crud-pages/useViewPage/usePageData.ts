@@ -73,11 +73,24 @@ export default function usePageData<
         throw new Error('model not ready');
       })()
   );
+
   const vm = computed(
     () =>
       viewModel.value ||
       (() => {
         throw new Error('viewModel not ready');
+      })()
+  );
+
+  const activeModelOrViewModel = computed(() =>
+    editMode.value ? viewModel.value : model.value
+  );
+
+  const activeMOrVm = computed(
+    () =>
+      activeModelOrViewModel.value ||
+      (() => {
+        throw new Error(`${editMode.value ? 'viewModel' : 'model'} not ready`);
       })()
   );
 
@@ -280,6 +293,8 @@ export default function usePageData<
     deleteModel,
     m,
     vm,
+    activeModelOrViewModel,
+    activeMOrVm,
     loadModel,
     getModelAndViewModel,
     updatePath,

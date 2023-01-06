@@ -28,6 +28,7 @@ export * from './types';
 export type StoreOptions<T, TVm, TAm> = {
   mapperOptions?: MapOptions<T, TAm>;
   afterLoad?: (docAm: TAm) => Promise<void>;
+  afterLoadArray?: (docAms: TAm[]) => Promise<void>;
   beforeCreate?: (payload: CreateDocActionPayload<TVm>) => Promise<void>;
   beforeUpdate?: (payload: UpdateDocActionPayload<T | TVm>) => Promise<void>;
   beforeDelete?: (payload: DeleteDocActionPayload) => Promise<void>;

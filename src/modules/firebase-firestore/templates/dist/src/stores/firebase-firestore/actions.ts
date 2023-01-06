@@ -456,7 +456,10 @@ function buildActions<T extends DocModel, TVm, TAm>(
       });
       const docs = docAndIds.map((docAndId) => docAndId[0] as TAm);
 
-      options.afterLoad &&
+      options.afterLoadArray && (await options.afterLoadArray(docs));
+
+      !options.afterLoadArray &&
+        options.afterLoad &&
         (await Promise.all(
           docs.map(
             (doc) =>

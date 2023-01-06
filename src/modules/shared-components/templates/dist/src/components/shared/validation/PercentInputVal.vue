@@ -8,6 +8,7 @@ import { computed, watch } from 'vue';
 type Props = {
   name: string;
   modelValue: string | number | null | undefined;
+  decimal?: number;
 };
 const props = defineProps<Props>();
 
@@ -42,6 +43,7 @@ watch(
   <percent-input
     v-bind="$attrs"
     v-model="value"
+    :decimal="decimal"
     :error="!!errorMessage"
     :error-message="errorMessage"
   >
