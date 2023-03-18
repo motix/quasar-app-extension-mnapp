@@ -50,6 +50,29 @@ export default function useViewChildPage<
   const viewUrl = ref<string | null>(null);
   const childViewerRef = ref<ComponentPublicInstance | null>(null);
 
+  // Method Refs
+
+  const parentModelGetter = ref<((docKey: string) => TParent | null) | null>(
+    null
+  );
+  const parentViewModelGetter = ref<
+    ((docKey: string) => TParentVm | null) | null
+  >(null);
+  const modelChildrenGetter = ref<((parentModel: TParent) => TChild[]) | null>(
+    null
+  );
+  const viewModelChildrenGetter = ref<
+    ((parentViewModel: TParentVm) => TChildVm[]) | null
+  >(null);
+  const removeChild = ref<((child: TChild) => void) | null>(null);
+  const selectNextChildAfterRemoving = ref<
+    ((children: TChild[]) => TChild) | null
+  >(null);
+  const updateParentModel = ref<
+    | ((payload: UpdateDocActionPayload<TParent | TParentVm>) => Promise<void>)
+    | null
+  >(null);
+
   // Computed
 
   const pm = computed(
@@ -76,31 +99,6 @@ export default function useViewChildPage<
         })) || []
       : []
   );
-
-  // Method Refs
-
-  const parentModelGetter = ref<((docKey: string) => TParent | null) | null>(
-    null
-  );
-  const parentViewModelGetter = ref<
-    ((docKey: string) => TParentVm | null) | null
-  >(null);
-  const modelChildrenGetter = ref<((parentModel: TParent) => TChild[]) | null>(
-    null
-  );
-  const viewModelChildrenGetter = ref<
-    ((parentViewModel: TParentVm) => TChildVm[]) | null
-  >(null);
-  const removeChild = ref<((child: TChild) => void) | null>(null);
-  const selectNextChildAfterRemoving = ref<
-    ((children: TChild[]) => TChild) | null
-  >(null);
-  const updateParentModel = ref<
-    | ((payload: UpdateDocActionPayload<TParent | TParentVm>) => Promise<void>)
-    | null
-  >(null);
-
-  // Computed
 
   const showDeleteButton = computed(
     () => hasChildDeleting.value && !!$p.model.value

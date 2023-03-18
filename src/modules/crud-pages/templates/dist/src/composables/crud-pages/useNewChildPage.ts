@@ -35,16 +35,6 @@ export default function useNewChildPage<
   const parentDocKey = ref<string | null>(null);
   const parentViewModel = ref(null) as Ref<TParentVm | null>;
 
-  // Computed
-
-  const pvm = computed(
-    () =>
-      parentViewModel.value ||
-      (() => {
-        throw new Error('parentViewModel not ready');
-      })()
-  );
-
   // Method Refs
 
   const parentViewModelGetter = ref<
@@ -55,6 +45,16 @@ export default function useNewChildPage<
   const updateParentModel = ref<
     ((payload: UpdateDocActionPayload<TParentVm>) => Promise<void>) | null
   >(null);
+
+  // Computed
+
+  const pvm = computed(
+    () =>
+      parentViewModel.value ||
+      (() => {
+        throw new Error('parentViewModel not ready');
+      })()
+  );
 
   // Private Executions
 

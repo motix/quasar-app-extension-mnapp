@@ -9,6 +9,10 @@ export default function useClientFilter<T extends NonNullable<unknown>>(
 
   const clientFilterText = ref('');
 
+  // Method Refs
+
+  const clientFilterItems = ref<((items: T[]) => T[]) | null>(null);
+
   // Computed
 
   const clientFilteredItems = computed(() =>
@@ -26,10 +30,6 @@ export default function useClientFilter<T extends NonNullable<unknown>>(
         } filtered`
       : undefined
   );
-
-  // Method Refs
-
-  const clientFilterItems = ref<((items: T[]) => T[]) | null>(null);
 
   return {
     clientFilterText,

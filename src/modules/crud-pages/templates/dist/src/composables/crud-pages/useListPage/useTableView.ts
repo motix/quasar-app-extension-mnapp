@@ -31,6 +31,11 @@ export default function useTableView<
   const columns = ref<QTableColumn<TRow>[] | null>(null);
   const pagination = ref<QTablePagination>({ rowsPerPage: 0 });
 
+  // Method Refs
+
+  const buildRows = ref<((items: T[]) => TRow[]) | null>(null);
+  const onRowClick = ref<((evt: Event, row: TRow) => void) | null>(null);
+
   // Computed
 
   const rows = computed(() =>
@@ -40,11 +45,6 @@ export default function useTableView<
       ? null
       : buildRows.value(clientFilteredItems.value)
   );
-
-  // Method Refs
-
-  const buildRows = ref<((items: T[]) => TRow[]) | null>(null);
-  const onRowClick = ref<((evt: Event, row: TRow) => void) | null>(null);
 
   return {
     wrapCells,
