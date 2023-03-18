@@ -92,6 +92,9 @@ export default function useViewChildPage<
     ((parentViewModel: TParentVm) => TChildVm[]) | null
   >(null);
   const removeChild = ref<((child: TChild) => void) | null>(null);
+  const selectNextChildAfterRemoving = ref<
+    ((children: TChild[]) => TChild) | null
+  >(null);
   const updateParentModel = ref<
     | ((payload: UpdateDocActionPayload<TParent | TParentVm>) => Promise<void>)
     | null
@@ -265,9 +268,13 @@ export default function useViewChildPage<
         children.splice(children.indexOf(model), 1);
       }
 
-      // After the parent model is updated, getModelAndViewModel will be called.
-      // Setting findKey to '' will select the last child if there is any.
-      $p.findKey.value = '';
+      if (children.length > 0) {
+        $p.findKey.value = $p.findKey.value = String(
+          (selectNextChildAfterRemoving.value
+            ? selectNextChildAfterRemoving.value(children)
+            : children[children.length - 1])[$p.modelFindKeyField.value]
+        );
+      }
 
       updateParentModel
         .value({
@@ -358,6 +365,7 @@ export default function useViewChildPage<
     modelChildrenGetter,
     viewModelChildrenGetter,
     removeChild,
+    selectNextChildAfterRemoving,
     updateParentModel,
     showDeleteButton,
     deleteChild,
