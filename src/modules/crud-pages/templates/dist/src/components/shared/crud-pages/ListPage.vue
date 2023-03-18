@@ -150,7 +150,7 @@ function useNavigateToViewPage(scopeName: string) {
   function handleRowClick(evt: Event, row: NonNullable<unknown>) {
     if (onRowClick.value) {
       onRowClick.value(evt, row);
-    } else if ((evt.target as Element).localName === 'td') {
+    } else if ((evt.target as Element).localName !== 'a') {
       onItemClick(evt as MouseEvent, row, false);
     }
   }
