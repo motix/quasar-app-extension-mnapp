@@ -151,7 +151,15 @@ function useNavigateToViewPage(scopeName: string) {
     if (onRowClick.value) {
       onRowClick.value(evt, row);
     } else if ((evt.target as Element).localName !== 'a') {
-      onItemClick(evt as MouseEvent, row, false);
+      let parent = (evt.target as Element).parentNode;
+
+      while (parent !== null && parent.nodeName !== 'A') {
+        parent = parent.parentNode;
+      }
+
+      if (parent === null) {
+        onItemClick(evt as MouseEvent, row, false);
+      }
     }
   }
 

@@ -6,6 +6,32 @@ import parse, { Node, NodeType } from 'slack-message-parser';
 
 import { SlackMessage, SlackUser } from 'models/slack';
 
+async function findChannel(name: string) {
+  let conversationsResult = await slack.users.conversations({
+    token: process.env.SLACK_ACCESS_TOKEN,
+    types: 'private_channel',
+  });
+
+  let channel = conversationsResult.channels.find(
+    (value) => value.name === name
+  );
+
+  while (
+    channel === undefined &&
+    conversationsResult.response_metadata.next_cursor !== ''
+  ) {
+    conversationsResult = await slack.users.conversations({
+      token: process.env.SLACK_ACCESS_TOKEN,
+      cursor: conversationsResult.response_metadata.next_cursor,
+      types: 'private_channel',
+    });
+
+    channel = conversationsResult.channels.find((value) => value.name === name);
+  }
+
+  return channel;
+}
+
 export async function loadUsers() {
   const listResult = await slack.users.list({
     token: process.env.SLACK_ACCESS_TOKEN,
@@ -22,25 +48,20 @@ export async function loadUsers() {
 }
 
 export async function loadPrivateChannel(channelName: string) {
-  const conversationsResult = await slack.users.conversations({
-    token: process.env.SLACK_ACCESS_TOKEN,
-    types: 'private_channel',
-  });
-
-  const channel = conversationsResult.channels.find(
-    (value) => value.name === channelName
-  );
+  const channel = await findChannel(channelName);
 
   if (!channel) {
     return null;
   }
 
-  const membersResult = await slack.conversations.members({
+  const historyResult = await slack.conversations.history({
     token: process.env.SLACK_ACCESS_TOKEN,
     channel: channel.id,
   });
 
-  const userIds = membersResult.members;
+  const userIds = [
+    ...new Set(historyResult.messages.map((value) => value.user)),
+  ];
 
   const infoResults = await Promise.all(
     userIds.map((value) =>
@@ -61,11 +82,6 @@ export async function loadPrivateChannel(channelName: string) {
   users = sortBy(users, (value) => value.fullName);
 
   const usersMap = Object.fromEntries(users.map((value) => [value.id, value]));
-
-  const historyResult = await slack.conversations.history({
-    token: process.env.SLACK_ACCESS_TOKEN,
-    channel: channel.id,
-  });
 
   const messages: SlackMessage[] = historyResult.messages
     .filter(
