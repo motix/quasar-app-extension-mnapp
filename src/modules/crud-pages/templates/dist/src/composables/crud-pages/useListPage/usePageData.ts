@@ -127,6 +127,7 @@ export default function usePageData<T extends NonNullable<unknown>>(
     recentlyDeletedDocs: string[]
   ) {
     const itemsValue = items.value;
+
     if (itemsValue) {
       if (newItemsOnTop.value) {
         itemsValue.unshift(...[...recentlyAddedDocs].reverse());

@@ -31,6 +31,11 @@ const props = withDefaults(
     // eslint-disable-next-line vue/require-default-prop
     title?: string;
     // eslint-disable-next-line vue/require-default-prop
+    titleEndIconColor?: string;
+    titleEndIconSuperscript?: boolean;
+    // eslint-disable-next-line vue/require-default-prop
+    titleEndIcon?: string;
+    // eslint-disable-next-line vue/require-default-prop
     subtitleIcon?: string;
     // eslint-disable-next-line vue/require-default-prop
     subtitleColor?: string;
@@ -145,6 +150,17 @@ const captionCssClass = computed(() => {
     <q-item-section :top="titleTop">
       <q-item-label v-if="title" class="text-h6" :class="titleCssClass">
         {{ title }}
+        <template v-if="titleEndIcon">
+          <sup v-if="titleEndIconSuperscript">
+            <q-icon :color="titleEndIconColor" :name="titleEndIcon" />
+          </sup>
+          <q-icon
+            v-else
+            class="q-ml-xs"
+            :color="titleEndIconColor"
+            :name="titleEndIcon"
+          />
+        </template>
       </q-item-label>
 
       <!-- Setting max-width to support ellipsis in main slot -->
@@ -155,7 +171,7 @@ const captionCssClass = computed(() => {
             class="text-subtitle2 q-pt-xs"
             :class="subtitleCssClass"
           >
-            <q-icon v-if="subtitleIcon" :name="subtitleIcon" />
+            <q-icon v-if="subtitleIcon" class="q-mr-xs" :name="subtitleIcon" />
             <span>
               {{ subtitle }}
               <top-tooltip v-if="subtitleTooltip">

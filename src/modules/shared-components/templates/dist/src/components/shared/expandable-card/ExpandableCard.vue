@@ -39,6 +39,11 @@ const props = withDefaults(
     // eslint-disable-next-line vue/require-default-prop
     title?: string;
     // eslint-disable-next-line vue/require-default-prop
+    titleEndIconColor?: string;
+    titleEndIconSuperscript?: boolean;
+    // eslint-disable-next-line vue/require-default-prop
+    titleEndIcon?: string;
+    // eslint-disable-next-line vue/require-default-prop
     subtitleIcon?: string;
     // eslint-disable-next-line vue/require-default-prop
     subtitleColor?: string;
