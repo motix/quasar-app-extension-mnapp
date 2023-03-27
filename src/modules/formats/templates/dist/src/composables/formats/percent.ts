@@ -13,17 +13,21 @@ export default function percent(
   if (value == null) return value;
 
   if (isFinite(value)) {
-    let valueAsNumber = value as number;
+    const valueAsNumber = value as number;
 
-    // Fixing floating point issue
     if (decimal === undefined) {
-      if (valueAsNumber * 100 * 100 !== valueAsNumber * 10000) {
-        valueAsNumber = (valueAsNumber * 10000) / 100;
-      } else {
-        valueAsNumber = valueAsNumber * 100;
+      // Fixing floating point issue
+      let str = (valueAsNumber * 100).toFixed(13);
+
+      while (str.endsWith('0')) {
+        str = str.substring(0, str.length - 1);
       }
 
-      return `${valueAsNumber}%`;
+      if (str.endsWith('.')) {
+        str = str.substring(0, str.length - 1);
+      }
+
+      return `${str}%`;
     }
 
     return `${(valueAsNumber * 100).toFixed(decimal)}%`;
