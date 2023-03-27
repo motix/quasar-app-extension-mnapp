@@ -13,11 +13,20 @@ export default function percent(
   if (value == null) return value;
 
   if (isFinite(value)) {
+    let valueAsNumber = value as number;
+
+    // Fixing floating point issue
     if (decimal === undefined) {
-      return `${(value as number) * 100}%`;
+      if (valueAsNumber * 100 * 100 !== valueAsNumber * 10000) {
+        valueAsNumber = (valueAsNumber * 10000) / 100;
+      } else {
+        valueAsNumber = valueAsNumber * 100;
+      }
+
+      return `${valueAsNumber}%`;
     }
 
-    return `${((value as number) * 100).toFixed(decimal)}%`;
+    return `${(valueAsNumber * 100).toFixed(decimal)}%`;
   }
 
   return String(value);
