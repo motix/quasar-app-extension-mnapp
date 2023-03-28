@@ -17,7 +17,7 @@ export default function percent(
 
     if (decimal === undefined) {
       // Fixing floating point issue
-      let str = (valueAsNumber * 100).toFixed(13);
+      let str = (valueAsNumber * 100).toFixed(10);
 
       while (str.endsWith('0')) {
         str = str.substring(0, str.length - 1);
