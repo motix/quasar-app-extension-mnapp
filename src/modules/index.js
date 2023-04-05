@@ -29,6 +29,7 @@ Modules:
 - return-url
 - apexcharts
   Dependencies: multi-views
+- export-to-excel
 - firebase
   Dependencies: map-paths, config
 - firebase-auth
