@@ -16,6 +16,7 @@ module.exports = {
   'multi-views': false,
   'return-url': false,
   apexcharts: false,
+  'export-to-excel': false,
   firebase: false,
   'firebase-auth': false,
   'firebase-firestore': false,

@@ -20,6 +20,7 @@ module.exports = {
   'multi-views': true,
   'return-url': true,
   apexcharts: true,
+  'export-to-excel': true,
   firebase: {
     prompts: {
       project: '',
