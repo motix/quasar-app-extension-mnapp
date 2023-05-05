@@ -16,6 +16,7 @@ export default function useToolbar(
 
   const toolbar = ref<InstanceType<typeof FloatToolbar> | null>(null);
   const toolbarPersistent = ref(false);
+  const toolbarExtraButtonVisibility = ref<Record<string, boolean>>({});
 
   // Computed
 
@@ -25,6 +26,7 @@ export default function useToolbar(
     save: editMode.value,
     trash: hasDeleting.value && ready.value,
     switchView: hasMultiViews.value,
+    ...toolbarExtraButtonVisibility.value,
   }));
 
   const toolbarFixedButtonsVisibility = computed(() => ({
@@ -40,6 +42,7 @@ export default function useToolbar(
   return {
     toolbar,
     toolbarPersistent,
+    toolbarExtraButtonVisibility,
     toolbarFabButtonsVisibility,
     toolbarFixedButtonsVisibility,
     openToolbar,

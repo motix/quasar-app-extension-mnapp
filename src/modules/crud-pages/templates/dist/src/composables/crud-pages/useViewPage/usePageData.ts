@@ -249,8 +249,7 @@ export default function usePageData<
       );
     }
 
-    delete route.meta.history;
-
+    route.meta.replaceRoute = true;
     return router.replace(path);
   }
 

@@ -92,10 +92,12 @@ export default function useEditor<TVm extends NonNullable<unknown>>(
       ...initialValuesKeys
     );
 
+    internalCustomValidate = null;
     internalValidate = result.validate;
   }
 
   function useCustomValidation(customValidate: typeof internalCustomValidate) {
+    internalValidate = null;
     internalCustomValidate = customValidate;
   }
 

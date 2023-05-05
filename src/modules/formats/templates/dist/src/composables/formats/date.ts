@@ -8,16 +8,24 @@ declare module '../useFormats' {
 }
 
 export default function date() {
-  const { dateFormat, editDateFormat, monthDayFormat } = requiredConfigEntries(
-    'dateFormat',
-    'editDateFormat',
-    'monthDayFormat'
-  );
+  const { dateFormat, timeFormat, editDateFormat, monthDayFormat } =
+    requiredConfigEntries(
+      'dateFormat',
+      'timeFormat',
+      'editDateFormat',
+      'monthDayFormat'
+    );
 
   function formatDate(value: Date | null | undefined) {
     if (value == null) return value;
 
     return qdate.formatDate(value, dateFormat);
+  }
+
+  function dateTime(value: Date | null | undefined) {
+    if (value == null) return value;
+
+    return qdate.formatDate(value, `${dateFormat} ${timeFormat}`);
   }
 
   function dateViewModel(
@@ -69,6 +77,7 @@ export default function date() {
 
   return {
     date: formatDate,
+    dateTime,
     dateViewModel,
     yearMonth,
     yearMonthViewModel,

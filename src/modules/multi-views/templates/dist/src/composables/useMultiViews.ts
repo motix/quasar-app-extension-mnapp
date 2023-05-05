@@ -9,6 +9,10 @@ const data = reactive({
 });
 
 export default function () {
+  // Composables
+
+  const scroll = useScroll();
+
   // Computed
 
   const isTableView = computed(() => data.viewType === 'table');
@@ -30,8 +34,6 @@ export default function () {
   }
 
   function switchViewAndScroll() {
-    const scroll = useScroll();
-
     switchView();
     scroll.toTop();
   }

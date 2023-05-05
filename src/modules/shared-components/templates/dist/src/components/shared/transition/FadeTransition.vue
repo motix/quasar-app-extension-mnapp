@@ -1,6 +1,6 @@
 <template>
   <transition mode="out-in" name="fade-transition" v-bind="$attrs">
-    <slot />
+    <slot></slot>
   </transition>
 </template>
 

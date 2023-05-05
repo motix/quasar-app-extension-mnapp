@@ -36,6 +36,8 @@ Modules:
   Dependencies: map-paths, vendors, config, shared-components, firebase
 - firebase-firestore
   Dependencies: map-paths, vendors, config, formats, utils, firebase
+- rich-editor
+  Dependencies: map-paths, vendors, config, utils, firebase
 - slack
   Dependencies: map-paths, config
 - single-scope-composable

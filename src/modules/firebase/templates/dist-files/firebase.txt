@@ -39,6 +39,9 @@
     },
     "firestore": {
       "port": <%= prompts.firestoreEmulatorPort %>
+    },
+    "storage": {
+      "port": <%= prompts.storageEmulatorPort %>
     }
   }
 }

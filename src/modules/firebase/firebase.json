@@ -8,6 +8,9 @@
     },
     "firestore": {
       "port": 0
+    },
+    "storage": {
+      "port": 0
     }
   }
 }

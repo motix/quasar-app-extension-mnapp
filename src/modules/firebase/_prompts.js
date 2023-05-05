@@ -34,5 +34,11 @@ module.exports = function firebase() {
       message: '[firebase] emulators.firestore.port',
       default: '6001',
     },
+    {
+      name: 'storageEmulatorPort',
+      type: 'input',
+      message: '[firebase] emulators.storage.port',
+      default: '2001',
+    },
   ];
 };

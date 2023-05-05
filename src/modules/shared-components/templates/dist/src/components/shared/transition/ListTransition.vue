@@ -7,10 +7,12 @@ const props = withDefaults(
   defineProps<{
     gutter?: number;
     colorEffect?: boolean;
+    noTag?: boolean;
   }>(),
   {
     gutter: 0,
     colorEffect: false,
+    noTag: false,
   }
 );
 
@@ -51,6 +53,20 @@ function doneLeave(el: Element) {
 
 <template>
   <transition-group
+    v-if="noTag"
+    name="list-transition"
+    @after-enter="doneEnter"
+    @after-leave="doneLeave"
+    @before-enter="beforeEnter"
+    @enter="enter"
+    @enter-cancelled="doneEnter"
+    @leave="leave"
+    @leave-cancelled="doneLeave"
+  >
+    <slot></slot>
+  </transition-group>
+  <transition-group
+    v-else
     class="overflow-hidden"
     :class="{ 'color-effect': colorEffect }"
     name="list-transition"
@@ -63,7 +79,7 @@ function doneLeave(el: Element) {
     @leave="leave"
     @leave-cancelled="doneLeave"
   >
-    <slot />
+    <slot></slot>
   </transition-group>
 </template>
 

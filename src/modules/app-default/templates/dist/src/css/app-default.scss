@@ -36,6 +36,11 @@ body {
 }
 .row .q-separator--horizontal.flex-break {
   height: 1px !important;
+
+  &.spaced {
+    margin-top: 8px !important;
+    margin-bottom: 8px !important;
+  }
 }
 
 .column .flex-break {
@@ -44,6 +49,11 @@ body {
 }
 .column .q-separator--vertical.flex-break {
   width: 1px !important;
+
+  &.spaced {
+    margin-left: 8px !important;
+    margin-right: 8px !important;
+  }
 }
 
 .q-separator--horizontal.outset {

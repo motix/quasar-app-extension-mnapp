@@ -42,7 +42,7 @@ function styleFn(offset: number, height: number) {
         paddingBottom: `${bottomFloatPadding}px`,
       }"
     >
-      <slot />
+      <slot></slot>
     </div>
   </q-page>
 </template>

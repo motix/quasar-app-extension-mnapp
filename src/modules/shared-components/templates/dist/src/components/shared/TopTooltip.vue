@@ -27,6 +27,6 @@ defineExpose({
     anchor="top middle"
     self="bottom middle"
   >
-    <slot />
+    <slot></slot>
   </q-tooltip>
 </template>

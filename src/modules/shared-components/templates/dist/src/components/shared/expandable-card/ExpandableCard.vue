@@ -12,6 +12,7 @@ import ExpandableCardHeader from './ExpandableCardHeader.vue';
 const props = withDefaults(
   defineProps<{
     expandable?: boolean;
+    initiallyExpanded?: boolean;
     clickable?: boolean;
     // eslint-disable-next-line vue/require-default-prop
     headerBackgroundColor?: string;
@@ -91,7 +92,7 @@ const props = withDefaults(
 
 const cardWidth = readonly(ref(requiredConfigEntries('cardWidth').cardWidth));
 
-const cardExpanded = ref(false);
+const cardExpanded = ref(!!props.initiallyExpanded);
 
 // Computed
 

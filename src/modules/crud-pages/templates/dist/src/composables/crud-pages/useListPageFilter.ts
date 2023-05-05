@@ -16,7 +16,7 @@ export default function useListPageFilter<FilterType>(
 
   const filterLabel = computed(() => generateFilterLabel(currentFilter.value));
 
-  // Method
+  // Methods
 
   const filterItems = async (filter: FilterType) => {
     currentFilter.value = filter;

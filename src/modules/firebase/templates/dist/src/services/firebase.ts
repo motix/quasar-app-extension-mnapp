@@ -11,6 +11,11 @@ import {
   Functions,
   getFunctions,
 } from 'firebase/functions';
+import {
+  connectStorageEmulator,
+  FirebaseStorage,
+  getStorage,
+} from 'firebase/storage';
 
 import useConfig from 'composables/useConfig';
 
@@ -54,6 +59,25 @@ function getFirestoreOrEmulator() {
   return firestore;
 }
 
+let storage: FirebaseStorage;
+function getStorageOrEmulator() {
+  if (storage) {
+    return storage;
+  }
+
+  storage = getStorage();
+
+  if (process.env.FIREBASE_ENV === 'DEV') {
+    connectStorageEmulator(
+      storage,
+      host,
+      firebaseConfig.emulators.storage.port
+    );
+  }
+
+  return storage;
+}
+
 let functions: Functions;
 function getFunctionsOrEmulator() {
   if (functions) {
@@ -80,4 +104,5 @@ function getFunctionsOrEmulator() {
 
 export { getAuthOrEmulator as getAuth };
 export { getFirestoreOrEmulator as getFirestore };
+export { getStorageOrEmulator as getStorage };
 export { getFunctionsOrEmulator as getFunctions };

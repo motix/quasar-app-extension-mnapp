@@ -203,8 +203,7 @@ export default function useNewChildPage<
       );
     }
 
-    delete route.meta.history;
-
+    route.meta.replaceRoute = true;
     return router.replace(path);
   }
 

@@ -29,6 +29,7 @@ module.exports = {
       authEmulatorPort: '4001',
       functionsEmulatorPort: '5001',
       firestoreEmulatorPort: '6001',
+      storageEmulatorPort: '2001',
     },
   },
   'firebase-auth': {
@@ -37,6 +38,7 @@ module.exports = {
     },
   },
   'firebase-firestore': true,
+  'rich-editor': true,
   slack: true,
   'single-scope-composable': true,
   'crud-pages': true,

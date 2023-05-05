@@ -16,7 +16,12 @@ export default function useViewer<T extends NonNullable<unknown>>(
   model: UsePageDataHelper<T, never>['Return']['model'],
   updateModel: UsePageDataHelper<T, never>['Return']['updateModel']
 ) {
-  // Private
+  // Composables
+
+  const { notifyErrorDebug, notifySaveDataSuccess, notifySaveDataError } =
+    useNotifications();
+
+  // Methods
 
   async function viewerSave(cb?: () => void) {
     docKey.value === null &&
@@ -59,13 +64,6 @@ export default function useViewer<T extends NonNullable<unknown>>(
     cb && cb();
   }
 
-  // Composables
-
-  const { notifyErrorDebug, notifySaveDataSuccess, notifySaveDataError } =
-    useNotifications();
-
-  // Methods
-
   function watchViewer(...sources: WatchSource[]) {
     for (const source of sources) {
       watch(source, async (_newValue, oldValue) => {
@@ -99,6 +97,7 @@ export default function useViewer<T extends NonNullable<unknown>>(
   }
 
   return {
+    viewerSave,
     watchViewer,
     watchViewerAndRun,
   };

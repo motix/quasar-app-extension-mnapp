@@ -641,24 +641,30 @@ function isTimestamp(value: unknown): value is Timestamp {
 }
 
 function replaceTimestamp<T extends object>(value: T) {
-  for (const key in value) {
-    const field = value[key];
+  if (isArray(value)) {
+    value.forEach((item) => {
+      replaceTimestamp(item);
+    });
+  } else {
+    for (const key in value) {
+      const field = value[key];
 
-    if (field == null) {
-      return value;
-    }
+      if (field == null) {
+        return value;
+      }
 
-    if (isTimestamp(field)) {
-      value[key] = field.toDate() as unknown as T[Extract<keyof T, string>];
-    } else if (isObject(field)) {
-      if (isArray(field)) {
-        field.forEach((item, index) => {
-          field[index] = isTimestamp(item)
-            ? item.toDate()
-            : replaceTimestamp(item);
-        });
-      } else {
-        replaceTimestamp(field);
+      if (isTimestamp(field)) {
+        value[key] = field.toDate() as unknown as T[Extract<keyof T, string>];
+      } else if (isObject(field)) {
+        if (isArray(field)) {
+          field.forEach((item, index) => {
+            field[index] = isTimestamp(item)
+              ? item.toDate()
+              : replaceTimestamp(item);
+          });
+        } else {
+          replaceTimestamp(field);
+        }
       }
     }
   }
