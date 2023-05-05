@@ -8,7 +8,7 @@ export default boot(({ router }) => {
       { path: '', component: () => import('pages/Index.vue') },
       {
         path: '/notifications',
-        component: () => import('pages/Notifications.vue'),
+        component: () => import('pages/NotificationsPage.vue'),
       },
     ],
   });

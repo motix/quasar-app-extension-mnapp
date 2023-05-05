@@ -17,14 +17,14 @@ module.exports = defineInstall(function (api) {
     module.exports.extendPackageJson.dependencies = {
       ...module.exports.extendPackageJson.dependencies,
 
-      '@fortawesome/fontawesome-pro': '^6.2.1',
-      '@fortawesome/fontawesome-svg-core': '^6.2.1',
-      '@fortawesome/free-brands-svg-icons': '^6.2.1',
-      '@fortawesome/pro-duotone-svg-icons': '^6.2.1',
-      '@fortawesome/pro-light-svg-icons': '^6.2.1',
-      '@fortawesome/pro-regular-svg-icons': '^6.2.1',
-      '@fortawesome/pro-solid-svg-icons': '^6.2.1',
-      '@fortawesome/vue-fontawesome': '^3.0.2',
+      '@fortawesome/fontawesome-pro': '^6.4.0',
+      '@fortawesome/fontawesome-svg-core': '^6.4.0',
+      '@fortawesome/free-brands-svg-icons': '^6.4.0',
+      '@fortawesome/pro-duotone-svg-icons': '^6.4.0',
+      '@fortawesome/pro-light-svg-icons': '^6.4.0',
+      '@fortawesome/pro-regular-svg-icons': '^6.4.0',
+      '@fortawesome/pro-solid-svg-icons': '^6.4.0',
+      '@fortawesome/vue-fontawesome': '^3.0.3',
     };
   }
 
@@ -48,7 +48,7 @@ module.exports = defineInstall(function (api) {
     module.exports.extendPackageJson.devDependencies = {
       ...module.exports.extendPackageJson.devDependencies,
 
-      '@types/lodash': '^4.14.179',
+      '@types/lodash': '^4.14.194',
     };
   }
 
@@ -57,7 +57,7 @@ module.exports = defineInstall(function (api) {
     module.exports.extendPackageJson.dependencies = {
       ...module.exports.extendPackageJson.dependencies,
 
-      'js-guid': '^1.0.0',
+      'js-guid': '^1.0.2',
     };
   }
 
@@ -76,8 +76,8 @@ module.exports = defineInstall(function (api) {
     module.exports.extendPackageJson.dependencies = {
       ...module.exports.extendPackageJson.dependencies,
 
-      'vee-validate': '^4.7.3',
-      yup: '^0.32.11',
+      'vee-validate': '^4.8.6',
+      yup: '^1.1.1',
     };
   }
 

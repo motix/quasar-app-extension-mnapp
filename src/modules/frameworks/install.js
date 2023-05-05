@@ -12,24 +12,24 @@ module.exports.extendPackageJson = {
 
   dependencies: {
     // Upgrade Starter Kit packages
-    pinia: '^2.0.27',
-    '@quasar/extras': '^1.15.7',
-    quasar: '^2.10.2',
-    vue: '^3.2.45',
+    pinia: '^2.0.35',
+    '@quasar/extras': '^1.16.3',
+    quasar: '^2.12.0',
+    vue: '^3.2.47',
     'vue-router': '^4.1.6',
   },
 
   devDependencies: {
     // Upgrade Starter Kit packages
-    '@typescript-eslint/eslint-plugin': '^5.45.1',
-    '@typescript-eslint/parser': '^5.45.1',
-    eslint: '^8.29.0',
-    'eslint-plugin-vue': '^9.8.0',
-    'eslint-config-prettier': '^8.5.0',
-    prettier: '^2.8.1',
-    '@types/node': '^18.11.11',
-    '@quasar/app-vite': '^1.1.3',
-    autoprefixer: '^10.4.13',
-    typescript: '^4.9.3',
+    '@typescript-eslint/eslint-plugin': '^5.59.2',
+    '@typescript-eslint/parser': '^5.59.2',
+    eslint: '^8.39.0',
+    'eslint-plugin-vue': '^9.11.0',
+    'eslint-config-prettier': '^8.8.0',
+    prettier: '^2.8.8',
+    '@types/node': '^20.0.0',
+    '@quasar/app-vite': '^1.3.0',
+    autoprefixer: '^10.4.14',
+    typescript: '^5.0.4',
   },
 };

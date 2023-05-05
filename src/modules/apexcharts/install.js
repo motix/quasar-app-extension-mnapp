@@ -6,7 +6,7 @@ module.exports = defineInstall(function (api) {
 
 module.exports.extendPackageJson = {
   dependencies: {
-    apexcharts: '^3.36.3',
+    apexcharts: '^3.40.0',
     'vue3-apexcharts': '^1.4.1',
   },
 };

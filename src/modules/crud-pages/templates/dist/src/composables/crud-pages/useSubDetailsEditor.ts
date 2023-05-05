@@ -43,7 +43,7 @@ export default function useSubDetailsEditor<
   // Methods
 
   function setSubDetailEditorRef(
-    el: typeof subDetailEditorRefs.value[number][number] | null,
+    el: (typeof subDetailEditorRefs.value)[number][number] | null,
     detailIndex: number,
     subDetailIndex: number
   ) {

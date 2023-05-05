@@ -50,7 +50,7 @@ export default function useDetailsEditor<
   // Methods
 
   function setDetailEditorRef(
-    el: typeof detailEditorRefs.value[number] | null,
+    el: (typeof detailEditorRefs.value)[number] | null,
     index: number
   ) {
     if (el !== null) {

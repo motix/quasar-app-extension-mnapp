@@ -30,7 +30,7 @@ module.exports.extendPackageJson = {
     'prod:deploy:debug': 'yarn prod:build --debug && firebase deploy',
   },
   dependencies: {
-    firebase: '^9.14.0',
+    firebase: '^9.21.0',
   },
   devDependencies: {
     'cross-env': '^7.0.3',

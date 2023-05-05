@@ -6,7 +6,7 @@ export default boot(({ router }) => {
     component: () => import('layouts/MainLayout.vue'),
     children: [
       { path: '', component: () => import('pages/Index.vue') },
-      { path: '/scroll', component: () => import('pages/Scroll.vue') },
+      { path: '/scroll', component: () => import('pages/ScrollPage.vue') },
     ],
   });
 });

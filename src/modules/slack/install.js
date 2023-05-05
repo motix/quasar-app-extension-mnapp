@@ -11,6 +11,6 @@ module.exports = defineInstall(function (api) {
 module.exports.extendPackageJson = {
   dependencies: {
     slack: '^11.0.2',
-    'slack-message-parser': '^3.0.0',
+    'slack-message-parser': '^3.0.1',
   },
 };
