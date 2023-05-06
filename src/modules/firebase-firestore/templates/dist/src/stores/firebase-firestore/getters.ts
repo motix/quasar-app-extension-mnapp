@@ -25,7 +25,7 @@ function buildGetters<T, TVm>(
       const doc = state.realtimeDocs[docKey].doc;
 
       return doc
-        ? mapper.map<T, TVm>(doc as T, viewModelName, modelName)
+        ? mapper.map<T, TVm>(doc, modelName, viewModelName)
         : (() => {
             throw new Error(`Realtime doc '${docKey}' not available.`);
           })();

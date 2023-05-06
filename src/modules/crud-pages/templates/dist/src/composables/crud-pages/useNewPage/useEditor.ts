@@ -1,5 +1,5 @@
 import { useForm } from 'vee-validate';
-import { SchemaOf } from 'yup';
+import { Schema } from 'yup';
 
 import { ref, Ref } from 'vue';
 import { useRouter } from 'vue-router';
@@ -63,7 +63,7 @@ export default function useEditor<TVm extends NonNullable<unknown>>(
   // Methods
 
   function useValidationForm<T, K extends keyof T>(
-    validationSchema: SchemaOf<Pick<T, K>>,
+    validationSchema: Schema<Pick<T, K>>,
     values: T | null,
     ...initialValuesKeys: K[]
   ) {
@@ -80,7 +80,7 @@ export default function useEditor<TVm extends NonNullable<unknown>>(
   }
 
   function useValidation<K extends keyof TVm>(
-    validationSchema: SchemaOf<Pick<TVm, K>>,
+    validationSchema: Schema<Pick<TVm, K>>,
     ...initialValuesKeys: K[]
   ) {
     const result = useValidationForm(

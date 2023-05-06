@@ -260,7 +260,7 @@ function buildActions<T extends DocModel, TVm, TAm>(
 
       const { doc: docVm, id, idField } = payload;
 
-      const docAm = mapper.map<TVm, TAm>(docVm, apiModelName, viewModelName);
+      const docAm = mapper.map<TVm, TAm>(docVm, viewModelName, apiModelName);
 
       const db = getFirestore();
       const collectionRef = collection(
@@ -295,7 +295,7 @@ function buildActions<T extends DocModel, TVm, TAm>(
       }
 
       const newDocM = await this.onDocCreate(docRef.id);
-      const newDocVm = mapper.map<T, TVm>(newDocM, viewModelName, modelName);
+      const newDocVm = mapper.map<T, TVm>(newDocM, modelName, viewModelName);
 
       return newDocVm;
     },
@@ -318,11 +318,11 @@ function buildActions<T extends DocModel, TVm, TAm>(
       if (isViewModel) {
         docAm = mapper.map<TVm, TAm>(
           docMOrVm as TVm,
-          apiModelName,
-          viewModelName
+          viewModelName,
+          apiModelName
         );
       } else {
-        docAm = mapper.map<T, TAm>(docMOrVm as T, apiModelName, modelName);
+        docAm = mapper.map<T, TAm>(docMOrVm as T, modelName, apiModelName);
       }
 
       const db = getFirestore();
@@ -366,13 +366,10 @@ function buildActions<T extends DocModel, TVm, TAm>(
         })();
 
       const idMap = new Map([[newDocAm, docRef.id]]);
-      const extraArguments = { idMap };
-      const newDocM = mapper.map<TAm, T, typeof extraArguments>(
-        newDocAm,
-        modelName,
-        apiModelName,
-        { extraArguments }
-      );
+      const extraArgs = () => ({ idMap });
+      const newDocM = mapper.map<TAm, T>(newDocAm, apiModelName, modelName, {
+        extraArgs,
+      });
 
       this.recentlyAddedDocs.push(
         newDocM as UnwrapRef<DocStateInterface<T>>['recentlyAddedDocs'][number]
@@ -397,13 +394,10 @@ function buildActions<T extends DocModel, TVm, TAm>(
         })();
 
       const idMap = new Map([[newDocAm, id]]);
-      const extraArguments = { idMap };
-      const newDocM = mapper.map<TAm, T, typeof extraArguments>(
-        newDocAm,
-        modelName,
-        apiModelName,
-        { extraArguments }
-      );
+      const extraArgs = () => ({ idMap });
+      const newDocM = mapper.map<TAm, T>(newDocAm, apiModelName, modelName, {
+        extraArgs,
+      });
 
       const addedIndex = findIndex(this.recentlyAddedDocs, ['id', id]);
 
@@ -468,18 +462,13 @@ function buildActions<T extends DocModel, TVm, TAm>(
         ));
 
       const docIdMap = new Map(docAndIds as Iterable<readonly [TAm, string]>);
-      const extraArguments = { idMap: docIdMap };
+      const extraArgs = () => ({ idMap: docIdMap });
 
       state.docs = state.docs.concat(
-        mapper.mapArray<TAm, T, typeof extraArguments>(
-          docs,
-          modelName,
-          apiModelName,
-          {
-            extraArguments,
-            afterMap: options.mapperOptions?.apiModelToModelAfterMap,
-          }
-        ) as UnwrapRef<T[]>
+        mapper.mapArray<TAm, T>(docs, apiModelName, modelName, {
+          extraArgs,
+          afterMap: options.mapperOptions?.apiModelToModelAfterMap,
+        }) as UnwrapRef<T[]>
       );
     }
   }
@@ -525,13 +514,11 @@ function buildActions<T extends DocModel, TVm, TAm>(
         }
 
         function completeLoading(docAm: TAm) {
-          const extraArguments = { idMap: new Map([[docAm, id]]) };
-          const docM = mapper.map<TAm, T, typeof extraArguments>(
-            docAm,
-            modelName,
-            apiModelName,
-            { extraArguments }
-          );
+          const idMap = new Map([[docAm, id]]);
+          const extraArgs = () => ({ idMap });
+          const docM = mapper.map<TAm, T>(docAm, apiModelName, modelName, {
+            extraArgs,
+          });
           realtimeDocs[docKey].doc = docM;
 
           done();

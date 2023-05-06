@@ -10,4 +10,4 @@ module.exports = defineUninstall(function (api) {
   );
 });
 
-module.exports.revertFiles = ['package.json'];
+module.exports.revertFiles = ['package.json', 'tsconfig.json'];

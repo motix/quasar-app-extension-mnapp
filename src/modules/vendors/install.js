@@ -66,8 +66,14 @@ module.exports = defineInstall(function (api) {
     module.exports.extendPackageJson.dependencies = {
       ...module.exports.extendPackageJson.dependencies,
 
-      '@automapper/core': '^7.3.14',
-      '@automapper/pojos': '^7.3.14',
+      '@automapper/core': '^8.7.7',
+      '@automapper/pojos': '^8.7.7',
+    };
+
+    module.exports.extendJsonFiles = {
+      'tsconfig.json': {
+        skipLibCheck: true,
+      },
     };
   }
 

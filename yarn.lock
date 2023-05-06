@@ -2,15 +2,15 @@
 # yarn lockfile v1
 
 
-"@automapper/core@^7.3.14":
-  version "7.3.14"
-  resolved "https://registry.yarnpkg.com/@automapper/core/-/core-7.3.14.tgz#4a791800e0c3945b96c2fd045bf231821b0f30a2"
-  integrity sha512-l20PUmE9bvNBVsbeEqhYNoLd7cd2ycM9IK5XidHl6QrlrvK4yznkImwgRdt/T0ApLb6zYH/NdaHCa21Kc09sEg==
+"@automapper/core@^8.7.7":
+  version "8.7.7"
+  resolved "https://registry.yarnpkg.com/@automapper/core/-/core-8.7.7.tgz#b48dd0260d188e6036fafd7ac03727d9295175ab"
+  integrity sha512-YfpDJ/xqwUuC0S+BLNk81ZJfeL7CmjirUX/Gk9eQyx146DKvneBZgeZ9v5rDB51Ti14jTxVHis+5JuT7W/q0TA==
 
-"@automapper/pojos@^7.3.14":
-  version "7.3.14"
-  resolved "https://registry.yarnpkg.com/@automapper/pojos/-/pojos-7.3.14.tgz#62ab55f11bd1e80bd3f05bb37a122f0163f01d49"
-  integrity sha512-+U2vgtDTy8LuKhGJVVlub7mUU1e67W67AEf9Er3nkfXjfxEGA85QE0lAIveY1RfiTMdt7m0HTJy01+nHDbn9qA==
+"@automapper/pojos@^8.7.7":
+  version "8.7.7"
+  resolved "https://registry.yarnpkg.com/@automapper/pojos/-/pojos-8.7.7.tgz#7795d70aa5310c2b5fb1afdf2910a1abc98cc49a"
+  integrity sha512-8w0qY8ymSZPfmIAVbbcFjJ3XceFbBhn07cAau7mU+Dg37UNUTf5Ggh8knnxh4hOzkOiN0rBxs7z9fotwXVv8Jw==
 
 "@babel/parser@^7.16.4":
   version "7.20.2"

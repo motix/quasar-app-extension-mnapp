@@ -15,6 +15,26 @@ export function stringRequired(label: string) {
     });
 }
 
+export function stringOptional(label: string) {
+  return string().nullable().default(null).label(label);
+}
+
+export function predefinedStringRequired<TType extends string>(
+  label: string,
+  ...acceptedValues: TType[]
+) {
+  return mixed<TType>()
+    .required()
+    .when({
+      is: () => true,
+      then: () =>
+        stringRequired(label).test({
+          message: `${label} is invalid`,
+          test: (value) => !value || acceptedValues.includes(value as TType),
+        }),
+    });
+}
+
 export function emailRequired(label: string) {
   return string().required().email().label(label);
 }
@@ -136,6 +156,14 @@ export function dateOptional(label: string) {
     });
 }
 
-export function asIsRequired(label: string) {
-  return mixed().required().default(undefined).label(label);
+export function asIsRequired<TType extends NonNullable<unknown>>(
+  label: string
+) {
+  return mixed<TType>().required().label(label);
+}
+
+export function asIsOptional<TType extends NonNullable<unknown>>(
+  label: string
+) {
+  return mixed<TType>().nullable().default(null).label(label);
 }

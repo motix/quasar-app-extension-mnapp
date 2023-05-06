@@ -1,9 +1,14 @@
 import {
-  CreateMapFluentFunction,
+  createMap,
+  forMember,
   mapFrom,
+  Mapper,
+  MappingConfiguration,
   mapWithArguments,
+  ModelIdentifier,
   Resolver,
 } from '@automapper/core';
+import { PojoMetadata } from '@automapper/pojos';
 import { isArray, isDate, isObject } from 'lodash';
 
 import { date } from 'quasar';
@@ -11,6 +16,16 @@ import { date } from 'quasar';
 import { requiredConfigEntries } from 'composables/useConfig';
 
 import { Timestamp } from '@firebase/firestore';
+
+export type MapperMetadata<TModel> = {
+  [key in keyof TModel]?:
+    | PojoMetadata
+    | [PojoMetadata]
+    | {
+        type: PojoMetadata | [PojoMetadata];
+        depth: number;
+      };
+};
 
 export interface DateDataConverter {
   fromDate: <T>(date: Date) => T;
@@ -798,91 +813,170 @@ export type FieldConfig = {
   fieldType: FieldType;
 };
 
-export function configureMembers<T extends { id: string }, TVm, TAm>(
-  apiModelToModelMapper: CreateMapFluentFunction<TAm, T> | null,
-  modelToViewModelMapper: CreateMapFluentFunction<T, TVm> | null,
-  modelToApiModelMapper: CreateMapFluentFunction<T, TAm> | null,
-  viewModelToApiModelMapper: CreateMapFluentFunction<TVm, TAm> | null,
-  fieldTypes: Partial<Record<keyof T & keyof TVm & keyof TAm, FieldConfig>>
+function configureAndCreateMapsInternal<T, TVm, TAm>(
+  mapper: Mapper,
+  m: ModelIdentifier<T> | null,
+  vm: ModelIdentifier<TVm> | null,
+  am: ModelIdentifier<TAm> | null,
+  fieldTypes: Partial<Record<keyof T & keyof TVm & keyof TAm, FieldConfig>>,
+  additionalConfigurations?: {
+    apiModelToModel?: MappingConfiguration<TAm, T>[];
+    modelToViewModel?: MappingConfiguration<T, TVm>[];
+    modelToApiModel?: MappingConfiguration<T, TAm>[];
+    viewModelToApiModel?: MappingConfiguration<TVm, TAm>[];
+  }
 ) {
-  apiModelToModelMapper &&
-    apiModelToModelMapper.forMember(
-      (d) => d.id,
-      mapWithArguments<TAm, T, string>((s, { idMap }) => {
-        // Allow a model to be used with or without id
-        const id =
-          (s as typeof s & Partial<{ id: string }>).id ||
-          (idMap as Map<TAm, string>).get(s);
+  function getFieldNames() {
+    const result: Extract<keyof T & keyof TVm & keyof TAm, string>[] = [];
+    let fieldName: (typeof result)[number];
 
-        !id &&
-          (() => {
-            throw new Error('Id not found for model in idMap');
-          })();
-
-        return id;
-      })
-    );
-
-  configureNoneIdMembers(
-    apiModelToModelMapper,
-    modelToViewModelMapper,
-    modelToApiModelMapper,
-    viewModelToApiModelMapper,
-    fieldTypes
-  );
-}
-
-export function configureNoneIdMembers<T, TVm, TAm>(
-  apiModelToModelMapper: CreateMapFluentFunction<TAm, T> | null,
-  modelToViewModelMapper: CreateMapFluentFunction<T, TVm> | null,
-  modelToApiModelMapper: CreateMapFluentFunction<T, TAm> | null,
-  viewModelToApiModelMapper: CreateMapFluentFunction<TVm, TAm> | null,
-  fieldTypes: Partial<Record<keyof T & keyof TVm & keyof TAm, FieldConfig>>
-) {
-  let fieldName: Extract<keyof T & keyof TVm & keyof TAm, string>;
-
-  for (fieldName in fieldTypes) {
-    const config = fieldTypes[fieldName];
-    if (config) {
-      if (apiModelToModelMapper) {
-        const method =
-          resolvers.apiModelToModel[config.fieldType][config.dataType];
-        !!method &&
-          apiModelToModelMapper.forMember(
-            (d) => d[fieldName],
-            mapFrom(method(fieldName))
-          );
-      }
-
-      if (modelToViewModelMapper) {
-        const method =
-          resolvers.modelToViewModel[config.fieldType][config.dataType];
-        !!method &&
-          modelToViewModelMapper.forMember(
-            (d) => d[fieldName],
-            mapFrom(method(fieldName))
-          );
-      }
-
-      if (modelToApiModelMapper) {
-        const method =
-          resolvers.modelToApiModel[config.fieldType][config.dataType];
-        !!method &&
-          modelToApiModelMapper.forMember(
-            (d) => d[fieldName],
-            mapFrom(method(fieldName))
-          );
-      }
-
-      if (viewModelToApiModelMapper) {
-        const method =
-          resolvers.viewModelToApiModel[config.fieldType][config.dataType];
-        !!method &&
-          viewModelToApiModelMapper.forMember(
-            (d) => d[fieldName],
-            mapFrom(method(fieldName))
-          );
+    for (fieldName in fieldTypes) {
+      const config = fieldTypes[fieldName];
+      if (config) {
+        result.push(fieldName);
       }
     }
+
+    return result;
   }
+
+  function getConfigurations<
+    TSource extends T | TVm | TAm,
+    TDestination extends T | TVm | TAm
+  >(resolverFieldTypes: ResolverFieldTypes) {
+    const configurations = fieldNames
+      .map((fieldName) => {
+        const config = fieldTypes[fieldName];
+        const method = config
+          ? resolverFieldTypes[config.fieldType][config.dataType]
+          : undefined;
+        const configuration = method
+          ? forMember<TSource, TDestination>(
+              (d) => d[fieldName],
+              mapFrom(method(fieldName))
+            )
+          : undefined;
+
+        return configuration;
+      })
+      .filter((value) => !!value) as MappingConfiguration<
+      TSource,
+      TDestination
+    >[];
+
+    return configurations;
+  }
+
+  const fieldNames = getFieldNames();
+
+  // API Model to Model
+  if (am && m) {
+    createMap(
+      mapper,
+      am,
+      m,
+      ...getConfigurations<TAm, T>(resolvers.apiModelToModel),
+      ...(additionalConfigurations?.apiModelToModel || [])
+    );
+  }
+
+  // Model to View Model
+  if (m && vm) {
+    createMap(
+      mapper,
+      m,
+      vm,
+      ...getConfigurations<T, TVm>(resolvers.modelToViewModel),
+      ...(additionalConfigurations?.modelToViewModel || [])
+    );
+  }
+
+  // Model to API Model
+  if (m && am) {
+    createMap(
+      mapper,
+      m,
+      am,
+      ...getConfigurations<T, TAm>(resolvers.modelToApiModel),
+      ...(additionalConfigurations?.modelToApiModel || [])
+    );
+  }
+
+  // View Model to API Model
+  if (vm && am) {
+    createMap(
+      mapper,
+      vm,
+      am,
+      ...getConfigurations<TVm, TAm>(resolvers.viewModelToApiModel),
+      ...(additionalConfigurations?.viewModelToApiModel || [])
+    );
+  }
+}
+
+export function configureAndCreateMaps<T extends { id: string }, TVm, TAm>(
+  mapper: Mapper,
+  m: ModelIdentifier<T> | null,
+  vm: ModelIdentifier<TVm> | null,
+  am: ModelIdentifier<TAm> | null,
+  fieldTypes: Partial<Record<keyof T & keyof TVm & keyof TAm, FieldConfig>>,
+  additionalConfigurations?: {
+    apiModelToModel?: MappingConfiguration<TAm, T>[];
+    modelToViewModel?: MappingConfiguration<T, TVm>[];
+    modelToApiModel?: MappingConfiguration<T, TAm>[];
+    viewModelToApiModel?: MappingConfiguration<TVm, TAm>[];
+  }
+) {
+  const idConfiguration =
+    am && m
+      ? forMember(
+          (d) => d.id,
+          mapWithArguments<TAm, T, string>((s, { idMap }) => {
+            // Allow a model to be used with or without id
+            const id =
+              (s as typeof s & Partial<{ id: string }>).id ||
+              (idMap as Map<TAm, string>).get(s);
+
+            !id &&
+              (() => {
+                throw new Error('Id not found for model in idMap');
+              })();
+
+            return id;
+          })
+        )
+      : null;
+
+  configureAndCreateMapsInternal(mapper, m, vm, am, fieldTypes, {
+    apiModelToModel: [
+      ...(additionalConfigurations?.apiModelToModel || []),
+      ...(idConfiguration ? [idConfiguration] : []),
+    ],
+    modelToViewModel: additionalConfigurations?.modelToViewModel,
+    modelToApiModel: additionalConfigurations?.modelToApiModel,
+    viewModelToApiModel: additionalConfigurations?.viewModelToApiModel,
+  });
+}
+
+export function configureAndCreateNoneIdMaps<T, TVm, TAm>(
+  mapper: Mapper,
+  m: ModelIdentifier<T> | null,
+  vm: ModelIdentifier<TVm> | null,
+  am: ModelIdentifier<TAm> | null,
+  fieldTypes: Partial<Record<keyof T & keyof TVm & keyof TAm, FieldConfig>>,
+  additionalConfigurations?: {
+    apiModelToModel?: MappingConfiguration<TAm, T>[];
+    modelToViewModel?: MappingConfiguration<T, TVm>[];
+    modelToApiModel?: MappingConfiguration<T, TAm>[];
+    viewModelToApiModel?: MappingConfiguration<TVm, TAm>[];
+  }
+) {
+  configureAndCreateMapsInternal(
+    mapper,
+    m,
+    vm,
+    am,
+    fieldTypes,
+    additionalConfigurations
+  );
 }
