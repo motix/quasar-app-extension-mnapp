@@ -1,5 +1,7 @@
+const { definePrompts } = require('..');
+
 // Give the function a name to identify the module when filling default values from app config
-module.exports = function firebase() {
+module.exports = definePrompts(function firebase() {
   return [
     {
       name: 'project',
@@ -41,4 +43,4 @@ module.exports = function firebase() {
       default: '2001',
     },
   ];
-};
+});
