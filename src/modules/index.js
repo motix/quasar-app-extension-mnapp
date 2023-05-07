@@ -5,17 +5,17 @@ Modules:
 - vendors
 - config
 - formats
-  Dependencies: map-paths, vendors, config
+  Dependencies: map-paths, vendors (lds), config
 - select-date-range
-  Dependencies: map-paths, vendors, config
+  Dependencies: map-paths, vendors (lds), config
 - utils
-  Dependencies: map-paths, vendors, config, formats
+  Dependencies: map-paths, vendors (lds, atm), config, formats
 - pageTitle
   Dependencies: config
 - shared-components
-  Dependencies: map-paths, vendors, config
+  Dependencies: map-paths, vendors (lds, vld), config
 - document-status
-  Dependencies: map-paths, vendors
+  Dependencies: map-paths, vendors (lds)
 - notifications
   Dependencies: frameworks
 - scroll
@@ -25,7 +25,7 @@ Modules:
 - sticky-headers
   Dependencies: map-paths, shared-components
 - multi-views
-  Dependencies: map-paths, vendors, shared-components, scroll
+  Dependencies: map-paths, vendors (fap), shared-components, scroll
 - return-url
 - apexcharts
   Dependencies: multi-views
@@ -33,17 +33,17 @@ Modules:
 - firebase
   Dependencies: map-paths, config
 - firebase-auth
-  Dependencies: map-paths, vendors, config, shared-components, firebase
+  Dependencies: map-paths, config, shared-components, firebase
 - firebase-firestore
-  Dependencies: map-paths, vendors, config, formats, utils, firebase
+  Dependencies: map-paths, vendors (lds, atm), config, formats, utils, firebase
 - rich-editor
-  Dependencies: map-paths, vendors, config, utils, firebase
+  Dependencies: map-paths, config, utils, firebase
 - slack
   Dependencies: map-paths, config
 - single-scope-composable
-  Dependencies: map-paths, vendors
+  Dependencies: map-paths
 - crud-pages
-  Dependencies: map-paths, vendors, config, formats, utils, shared-components,
+  Dependencies: map-paths, vendors (fap, lds, atm, vld), config, formats, utils, shared-components,
                 notifications, float-toolbar, sticky-headers, multi-views,
                 return-url, firebase, firebase-firestore, single-scope-composable
 - app-default

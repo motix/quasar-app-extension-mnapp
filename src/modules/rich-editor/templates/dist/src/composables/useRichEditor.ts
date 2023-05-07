@@ -1,8 +1,6 @@
-import { Guid } from 'js-guid';
-
 import { ref } from 'vue';
 
-import { QEditor } from 'quasar';
+import { QEditor, uid } from 'quasar';
 
 import {
   getDownloadURL,
@@ -81,7 +79,7 @@ export default function useRichEditor() {
       imageQueue.map(async (image) => {
         const imageRef = storageRef(
           storage,
-          `${path}/${Guid.newGuid()}/${image.fileName}`
+          `${path}/${uid()}/${image.fileName}`
         );
 
         await uploadString(imageRef, image.data, 'data_url');

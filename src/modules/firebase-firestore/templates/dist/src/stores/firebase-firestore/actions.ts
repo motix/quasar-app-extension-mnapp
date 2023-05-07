@@ -1,8 +1,9 @@
 import { Mapper } from '@automapper/core';
-import { Guid } from 'js-guid';
 import { findIndex } from 'lodash';
 
 import { UnwrapRef } from 'vue';
+
+import { uid } from 'quasar';
 
 import {
   addDoc,
@@ -182,7 +183,7 @@ function buildActions<T extends DocModel, TVm, TAm>(
       deleted,
       error,
     }: LoadRealtimeDocActionPayload) {
-      const docKey = Guid.newGuid().toString();
+      const docKey = uid();
 
       const release = () => {
         if (this.realtimeDocs[docKey]) {

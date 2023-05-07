@@ -1,4 +1,4 @@
-import { createMapper, MapAction, Mapper } from '@automapper/core';
+import { createMapper, MapCallback, Mapper } from '@automapper/core';
 import { pojos } from '@automapper/pojos';
 
 import { UnwrapRef } from 'vue';
@@ -36,7 +36,7 @@ export type StoreOptions<T, TVm, TAm> = {
 };
 
 export type MapOptions<T, TAm> = {
-  apiModelToModelAfterMap?: MapAction<TAm[], T[]>;
+  apiModelToModelAfterMap?: MapCallback<TAm[], T[]>;
 };
 
 type S<T> = DocStateInterface<T>;
@@ -57,8 +57,7 @@ export function defineGetters<T, G>(
 class GettersHelper<T, TVm> {
   Return = buildGetters<T, TVm>(
     createMapper({
-      name: '',
-      pluginInitializer: pojos,
+      strategyInitializer: pojos(),
     }),
     '',
     ''

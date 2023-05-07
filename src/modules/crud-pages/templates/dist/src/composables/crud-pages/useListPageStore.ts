@@ -12,8 +12,7 @@ class UseStoreHelper<T extends DocModel> {
     '',
     '',
     createMapper({
-      name: '',
-      pluginInitializer: pojos,
+      strategyInitializer: pojos(),
     }),
     '',
     '',

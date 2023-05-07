@@ -1,9 +1,7 @@
-import { Guid } from 'js-guid';
-
 import { computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
-import { Platform } from 'quasar';
+import { Platform, uid } from 'quasar';
 
 import { GoogleAuthProvider, signInWithCustomToken } from 'firebase/auth';
 import { auth } from 'firebaseui';
@@ -164,7 +162,7 @@ export default function () {
   }
 
   async function remoteNavigate(remoteSite: string) {
-    const key = Guid.newGuid().toString();
+    const key = uid();
     const token = await createRemoteSignInToken();
 
     // Safari is blocking any call to window.open() which is made inside an async call.

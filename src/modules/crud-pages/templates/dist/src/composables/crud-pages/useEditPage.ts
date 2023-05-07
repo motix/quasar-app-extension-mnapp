@@ -1,6 +1,7 @@
+import { computed } from 'vue';
+
 import useNewPage, { NewPage } from 'composables/crud-pages/useNewPage';
 import useViewPage, { ViewPage } from 'composables/crud-pages/useViewPage';
-import { computed } from 'vue';
 
 export default function useEditPage<
   T extends NonNullable<unknown>,

@@ -4,7 +4,6 @@ export {};
 
 import type { ComponentConstructor } from 'quasar';
 import { ComponentPublicInstance } from 'vue';
-
 import { VueApexChartsComponent } from 'vue3-apexcharts';
 
 type Method = (...args: any) => any;
