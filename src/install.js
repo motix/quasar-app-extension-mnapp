@@ -3,6 +3,7 @@ const { InstallDefinition } = require('./lib/extension-wrappers');
 
 const { merge } = require('webpack-merge');
 const fs = require('fs');
+const getAppName = require('./lib/app-name');
 const getModules = require('./modules');
 const { defineInstall } = getModules;
 
@@ -52,15 +53,17 @@ module.exports = defineInstall(function (api) {
       module(api);
     }
 
+    const appName = getAppName();
     let packageJson = mergeExtendPackageJson(modules);
+
+    const scripts = {};
+    scripts[`i-${appName}`] = `quasar ext invoke @motinet/${appName}`;
+    scripts[`u-${appName}`] = `quasar ext uninvoke @motinet/${appName}`;
+    scripts[`r-${appName}`] = `yarn u-${appName} && yarn i-${appName}`;
 
     packageJson = merge(
       {
-        scripts: {
-          'i-mnapp': 'quasar ext invoke @motinet/mnapp',
-          'u-mnapp': 'quasar ext uninvoke @motinet/mnapp',
-          'r-mnapp': 'yarn u-mnapp && yarn i-mnapp',
-        },
+        scripts,
       },
       packageJson
     );
@@ -75,7 +78,7 @@ module.exports = defineInstall(function (api) {
     api.extendPackageJson(packageJson);
 
     api.onExitLog(
-      '\x1b[32m              • \x1b[0mPlease manually add \x1b[33mi-mnapp\x1b[0m to \x1b[47m\x1b[30mpackage-bk.json\x1b[0m \x1b[33mscripts\x1b[0m for later use.'
+      `\x1b[32m              • \x1b[0mPlease manually add \x1b[33mi-${appName}\x1b[0m to \x1b[47m\x1b[30mpackage-bk.json\x1b[0m \x1b[33mscripts\x1b[0m for later use.`
     );
 
     const jsonFiles = mergeExtendJsonFiles(modules);

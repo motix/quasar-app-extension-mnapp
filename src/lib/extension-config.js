@@ -2,6 +2,7 @@
  * @type {{appDir: string}}
  */
 const appPaths = require('@quasar/app-vite/lib/app-paths');
+const getAppName = require('./app-name');
 
 module.exports = function () {
   /**
@@ -23,12 +24,14 @@ module.exports = function () {
   };
 
   try {
+    const appName = getAppName();
+
     config = {
-      ...require(`${appPaths.appDir}/.mnapprc`),
+      ...require(`${appPaths.appDir}/.${appName}rc`),
       ...config,
     };
   } catch {
-    // .mnapprc.js might not exist in appDir
+    // .[appName]rc.js might not exist in appDir
   }
 
   return config;

@@ -9,6 +9,7 @@
 const { UninstallDefinition } = require('./lib/extension-wrappers');
 
 const fs = require('fs');
+const getAppName = require('./lib/app-name');
 const getModules = require('./modules');
 const { defineUninstall } = getModules;
 
@@ -56,7 +57,9 @@ module.exports = defineUninstall(function (api) {
     }
   }
 
+  const appName = getAppName();
+
   api.onExitLog(
-    '\x1b[32m              • \x1b[0mPlease remove \x1b[33mi-mnapp\x1b[0m from \x1b[47m\x1b[30mpackage-bk.json\x1b[0m \x1b[33mscripts\x1b[0m if no longer used.'
+    `\x1b[32m              • \x1b[0mPlease remove \x1b[33mi-${appName}\x1b[0m from \x1b[47m\x1b[30mpackage-bk.json\x1b[0m \x1b[33mscripts\x1b[0m if no longer used.`
   );
 });
