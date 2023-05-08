@@ -1,88 +1,39 @@
 {
-  "importSorter.importStringConfiguration.tabSize": 2,
-  "importSorter.sortConfiguration.customOrderingRules.defaultNumberOfEmptyLinesAfterGroup": 1,
-  "importSorter.sortConfiguration.customOrderingRules.rules": [
+  "keepUnused": [".*"],
+  "wrappingStyle": "prettier",
+  "groupRules": [
     {
-      "type": "importMember",
-      "regex": "^$",
-      "orderLevel": 10,
-      "disableSort": true
+      "regex": ".*",
+      "importType": true
     },
-    {
-      "regex": ".json$",
-      "orderLevel": 15
-    },
-    {
-      "regex": ".css$",
-      "orderLevel": 15
-    },
-    {
-      "regex": "^@fortawesome",
-      "orderLevel": 20
-    },
-    {
-      "regex": "^@automapper",
-      "orderLevel": 20
-    },
-    {
-      "regex": "^vue",
-      "orderLevel": 101
-    },
-    {
-      "regex": "^pinia$",
-      "orderLevel": 102
-    },
-    {
-      "regex": "^quasar",
-      "orderLevel": 103
-    },
-    {
-      "regex": "^@quasar",
-      "orderLevel": 103
-    },
-    {
-      "regex": "^firebase",
-      "orderLevel": 104
-    },
-    {
-      "regex": "^vite",
-      "orderLevel": 105
-    },
-    {
-      "regex": "^@vite",
-      "orderLevel": 105
-    },
-    {
-      "regex": "^utils",
-      "orderLevel": 200
-    },
-    {
-      "regex": "^models",
-      "orderLevel": 201
-    },
-    {
-      "regex": "^stores",
-      "orderLevel": 202
-    },
-    {
-      "regex": "^services",
-      "orderLevel": 203
-    },
-    {
-      "regex": "^composables",
-      "orderLevel": 204
-    },
-    {
-      "regex": "^components",
-      "orderLevel": 205
-    },
-    {
-      "regex": "^[@]",
-      "orderLevel": 600
-    },
-    {
-      "regex": "^[.]",
-      "orderLevel": 700
-    }
+
+    ".json$",
+    ".css$",
+
+    {},
+
+    "^@fortawesome",
+    "^@automapper",
+
+    "^vue",
+    "^pinia$",
+
+    "^quasar",
+    "^@quasar",
+
+    "^firebase",
+
+    "^vite",
+    "^@vite",
+
+    "^utils",
+    "^models",
+    "^stores",
+    "^services",
+    "^composables",
+    "^components",
+
+    "^[@]",
+    "^[.]"
   ]
 }

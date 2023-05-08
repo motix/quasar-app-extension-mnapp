@@ -86,11 +86,6 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
 
     // alphabetical
-    'vue/attributes-order': [
-      'warn',
-      {
-        alphabetical: true,
-      },
-    ],
+    'vue/attributes-order': ['warn', { alphabetical: true }],
   },
 };

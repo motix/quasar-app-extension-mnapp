@@ -19,18 +19,16 @@ type IndexAPI = Omit<OriginalIndexAPI, 'extendQuasarConf'> & {
 type PromptsCallback = () => PromptRecord[];
 type InstallCallback = (api: InstallAPI) => void;
 type IndexCallback = (api: IndexAPI) => void;
-// UninstallAPI doesn't extend SharedAPI as it should
-type UninstallCallback = (api: UninstallAPI & SharedAPI) => void;
+// UninstallAPI doesn't extend SharedAPI as it should.
+// Also add extendJsonFile to the api.
+type UninstallCallback = (
+  api: UninstallAPI & SharedAPI & Pick<InstallAPI, 'extendJsonFile'>
+) => void;
 
 export type PromptsDefinition = PromptsCallback;
-export type InstallDefinition = InstallCallback & {
-  extendPackageJson: Record<string, unknown>;
-  extendJsonFiles: Record<string, unknown>;
-};
+export type InstallDefinition = InstallCallback;
 export type IndexDefinition = IndexCallback;
-export type UninstallDefinition = UninstallCallback & {
-  revertFiles: string[];
-};
+export type UninstallDefinition = UninstallCallback;
 
 export declare function definePrompts(
   callback: PromptsCallback

@@ -1,11 +1,7 @@
 const { defineInstall } = require('..');
 
-module.exports = defineInstall(function () {
-  //
-});
-
-module.exports.extendJsonFiles = {
-  'tsconfig.json': {
+module.exports = defineInstall(function (api) {
+  api.extendJsonFile('tsconfig.json', {
     compilerOptions: {
       paths: {
         'src/*': ['src/*'],
@@ -23,5 +19,6 @@ module.exports.extendJsonFiles = {
         'composables/*': ['src/composables/*'],
       },
     },
-  },
-};
+  });
+  delete require.cache[api.resolve.app('tsconfig.json')];
+});

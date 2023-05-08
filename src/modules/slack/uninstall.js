@@ -1,3 +1,4 @@
+const { reduceJsonFile } = require('../../lib/json-helpers');
 const { defineUninstall } = require('..');
 
 module.exports = defineUninstall(function (api) {
@@ -10,6 +11,9 @@ module.exports = defineUninstall(function (api) {
   api.onExitLog(
     '\x1b[32mslack         • \x1b[0mPlease remove \x1b[47m\x1b[30m./.env\x1b[0m if no longer used.'
   );
-});
 
-module.exports.revertFiles = ['package.json'];
+  reduceJsonFile(api, 'package.json', [
+    'dependencies.slack',
+    'dependencies.slack-message-parser',
+  ]);
+});

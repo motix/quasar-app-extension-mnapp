@@ -1,7 +1,12 @@
+const { reduceJsonFile } = require('../../lib/json-helpers');
 const { defineUninstall } = require('..');
 
 module.exports = defineUninstall(function (api) {
   api.removePath('src/utils/saveExcelFile.ts');
-});
 
-module.exports.revertFiles = ['package.json'];
+  reduceJsonFile(api, 'package.json', [
+    'dependencies.exceljs',
+    'dependencies.file-saver',
+    'devDependencies.@types/file-saver',
+  ]);
+});
