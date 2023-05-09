@@ -1,7 +1,8 @@
 const { reduceJsonFile } = require('../../lib/json-helpers');
 const { defineUninstall } = require('..');
 
-module.exports = defineUninstall(function (api) {
+// Give the function a name to identify the module when replacing prompts from app config in extension wrapper
+module.exports = defineUninstall(function vendors(api) {
   // Font Awesome Pro, vue-fontawesome
   api.removePath('src/boot/fontawesome-pro.ts');
   api.removePath('src/types/vue-fontawesome.d.ts');
@@ -49,5 +50,3 @@ module.exports = defineUninstall(function (api) {
     'skipLibCheck',
   ]);
 });
-
-module.exports.revertFiles = ['package.json', 'tsconfig.json'];

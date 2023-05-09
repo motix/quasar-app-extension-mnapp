@@ -1,12 +1,11 @@
-const { defineIndex, getExtensionConfig } = require('..');
+const { defineIndex } = require('..');
 
-module.exports = defineIndex(function (api) {
-  const config = getExtensionConfig();
-  const prompts = config.prompts('vendors');
+// Give the function a name to identify the module when replacing prompts from app config in extension wrapper
+module.exports = defineIndex(function vendors(api) {
   /**
    * @type string
    */
-  const vendorsConfig = prompts.vendors;
+  const vendorsConfig = api.prompts.vendors;
   const vendors = vendorsConfig.split(',');
 
   // Font Awesome Pro, vue-fontawesome

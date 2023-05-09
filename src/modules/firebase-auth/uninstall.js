@@ -1,7 +1,8 @@
 const { reduceJsonFile } = require('../../lib/json-helpers');
 const { defineUninstall } = require('..');
 
-module.exports = defineUninstall(function (api) {
+// Give the function a name to identify the module when replacing prompts from app config in extension wrapper
+module.exports = defineUninstall(function firebaseAuth(api) {
   api.removePath('src/boot/firebase-auth.ts');
   api.removePath('src/composables/useFirebaseAuth.ts');
   api.removePath('src/models/firebase-auth');

@@ -1,13 +1,12 @@
-const { defineInstall, getExtensionConfig } = require('..');
+const fs = require('fs');
+const { defineInstall } = require('..');
 
-module.exports = defineInstall(function (api) {
-  const config = getExtensionConfig();
-  const prompts = config.prompts('vendors');
-
+// Give the function a name to identify the module when replacing prompts from app config in extension wrapper
+module.exports = defineInstall(function vendors(api) {
   /**
    * @type string
    */
-  const vendorsConfig = prompts.vendors;
+  const vendorsConfig = api.prompts.vendors;
   const vendors = vendorsConfig.split(',');
 
   // Font Awesome Pro, vue-fontawesome
@@ -27,6 +26,14 @@ module.exports = defineInstall(function (api) {
     delete require.cache[api.resolve.app('package.json')];
 
     api.render('./templates/dist-fap');
+
+    const npmrc = fs.readFileSync(api.resolve.app('.npmrc'), 'utf-8');
+
+    if (!npmrc.includes('@fortawesome:registry')) {
+      api.onExitLog(
+        '\x1b[32mvendors       • \x1b[0mFont Awesome registry is absent from \x1b[33m./.npmrc\x1b[0m. Affter adding please also add \x1b[33m.npmrc\x1b[0m to \x1b[33m./.gitignore\x1b[0m.'
+      );
+    }
   }
 
   // axios

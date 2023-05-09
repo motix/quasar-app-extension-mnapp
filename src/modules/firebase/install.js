@@ -1,12 +1,9 @@
 const { reduceJsonFile } = require('../../lib/json-helpers');
-const { defineInstall, getExtensionConfig } = require('..');
+const { defineInstall } = require('..');
 
-module.exports = defineInstall(function (api) {
-  const config = getExtensionConfig();
-  const prompts = config.prompts('firebase');
-
+// Give the function a name to identify the module when replacing prompts from app config in extension wrapper
+module.exports = defineInstall(function firebase(api) {
   reduceJsonFile(api, 'package.json', ['scripts.dev', 'scripts.build']);
-
   api.extendPackageJson({
     scripts: {
       dev: 'cross-env FIREBASE_ENV=DEV quasar dev',
@@ -30,10 +27,10 @@ module.exports = defineInstall(function (api) {
   api.render('./templates/dist');
 
   api.renderFile('./templates/dist-files/firebaserc.txt', '.firebaserc', {
-    prompts,
+    prompts: api.prompts,
   });
   api.renderFile('./templates/dist-files/firebase.txt', 'firebase.json', {
-    prompts,
+    prompts: api.prompts,
   });
 
   api.onExitLog(

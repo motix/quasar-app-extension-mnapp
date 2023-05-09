@@ -1,7 +1,5 @@
-const { defineInstall, getExtensionConfig } = require('..');
+const { defineInstall } = require('..');
 
 module.exports = defineInstall(function (api) {
-  const config = getExtensionConfig();
-
-  api.render('./templates/dist', { config });
+  api.render('./templates/dist');
 });

@@ -1,21 +1,19 @@
 const fs = require('fs');
-const { defineIndex, getExtensionConfig } = require('..');
+const { defineIndex } = require('..');
 
-module.exports = defineIndex(function (api) {
-  const config = getExtensionConfig();
-  const prompts = config.prompts('app-default');
-
+// Give the function a name to identify the module when replacing prompts from app config in extension wrapper
+module.exports = defineIndex(function appDefault(api) {
   api.extendQuasarConf((conf, api) => {
-    conf.devServer.port = prompts.devServerPort;
+    conf.devServer.port = api.prompts.devServerPort;
 
-    if (prompts.https) {
+    if (api.prompts.https) {
       conf.devServer.https = {
         key: fs.readFileSync(api.resolve.app('mkcerts/server.key')),
         cert: fs.readFileSync(api.resolve.app('mkcerts/server.crt')),
       };
     }
 
-    if (prompts.dark) {
+    if (api.prompts.dark) {
       conf.framework.config.dark = 'auto';
     }
 

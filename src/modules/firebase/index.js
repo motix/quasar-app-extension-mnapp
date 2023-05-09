@@ -1,7 +1,8 @@
 const { config } = require('dotenv');
 const { defineIndex } = require('..');
 
-module.exports = defineIndex(function (api) {
+// Give the function a name to identify the module when replacing prompts from app config in extension wrapper
+module.exports = defineIndex(function firebase(api) {
   api.extendQuasarConf((conf) => {
     conf.boot.push('firebase');
 

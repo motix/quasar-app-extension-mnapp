@@ -1,9 +1,19 @@
-const { reduceJsonFile } = require('../../lib/json-helpers');
+const fs = require('fs');
+const {
+  reduceJsonFileArray,
+  reduceJsonFile,
+} = require('../../lib/json-helpers');
 const { defineUninstall } = require('..');
 
 module.exports = defineUninstall(function (api) {
-  reduceJsonFile(api, 'package.json', ['scripts.clean']);
+  modifyFiles();
 
+  api.removePath('import-sorter.json');
+
+  reduceJsonFile(api, 'package.json', [
+    'scripts.clean',
+    'devDependencies.format-imports',
+  ]);
   api.extendJsonFile('package.json', {
     scripts: {
       'r-mnapp': 'yarn u-mnapp && yarn i-mnapp',
@@ -33,4 +43,59 @@ module.exports = defineUninstall(function (api) {
     },
   });
   delete require.cache[api.resolve.app('package.json')];
+
+  function modifyFiles() {
+    // [Reverse] Modify `.eslintrc.cjs`.
+
+    let eslintrcCjs = fs.readFileSync(
+      api.resolve.app('.eslintrc.cjs'),
+      'utf-8'
+    );
+
+    eslintrcCjs = eslintrcCjs
+      .replace(
+        "    // 'plugin:vue/vue3-essential', // Priority A: Essential (Error Prevention)",
+        "    'plugin:vue/vue3-essential', // Priority A: Essential (Error Prevention)"
+      )
+      .replace(
+        "    'plugin:vue/vue3-recommended', // Priority C: Recommended (Minimizing Arbitrary Choices and Cognitive Overhead)",
+        "    // 'plugin:vue/vue3-recommended', // Priority C: Recommended (Minimizing Arbitrary Choices and Cognitive Overhead)"
+      );
+
+    if (eslintrcCjs.includes('vue/attributes-order')) {
+      eslintrcCjs = eslintrcCjs.replace(
+        `,
+
+    // alphabetical
+    'vue/attributes-order': ['warn', { alphabetical: true }]`,
+        ''
+      );
+    }
+
+    fs.writeFileSync(api.resolve.app('.eslintrc.cjs'), eslintrcCjs, {
+      encoding: 'utf-8',
+    });
+
+    // [Reverse] Modify `.vscode/settings.json`. Default setting would often lead to prettier being run after eslint and eslint errors still being present.
+
+    reduceJsonFileArray(api, '.vscode/settings.json', [
+      {
+        path: 'editor.codeActionsOnSave',
+        value: 'source.organizeImports.sortImports',
+      },
+      { path: 'editor.codeActionsOnSave', value: 'source.formatDocument' },
+    ]);
+
+    api.extendJsonFile('.vscode/settings.json', {
+      'editor.formatOnSave': true,
+    });
+    delete require.cache[api.resolve.app('.vscode/settings.json')];
+
+    // [Reverse] Modify `.vscode/extensions.json`.
+
+    reduceJsonFileArray(api, '.vscode/extensions.json', [
+      { path: 'recommendations', value: 'rohit-gohri.format-code-action' },
+      { path: 'recommendations', value: 'dozerg.tsimportsorter' },
+    ]);
+  }
 });
