@@ -1,8 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-// TODO: Remove
-// export {};
-
 import type { ComponentConstructor } from 'quasar';
 
 import { ComponentPublicInstance } from 'vue';

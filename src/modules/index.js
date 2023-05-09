@@ -10,7 +10,7 @@ Modules:
   Dependencies: map-paths, vendors (lds), config
 - utils
   Dependencies: map-paths, vendors (lds, atm), config, formats
-- pageTitle
+- page-title
   Dependencies: config
 - shared-components
   Dependencies: map-paths, vendors (lds, vld), config
