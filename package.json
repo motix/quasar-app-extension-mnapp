@@ -8,7 +8,7 @@
   "scripts": {
     "lint": "eslint --ext .js,.ts,.vue ./",
     "format": "prettier --write \"**/*.{js,ts,vue,scss,html,md,json}\" --ignore-path .gitignore",
-    "clean": "yarn format && yarn lint --fix",
+    "clean": "yarn format-imports src && yarn format && yarn lint --fix",
     "test": "echo \"No test specified\" && exit 0"
   },
   "repository": {
