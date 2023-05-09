@@ -83,7 +83,6 @@ module.exports = function (script) {
       /**
        * @type PromptsDefinition | InstallDefinition | IndexDefinition | UninstallDefinition
        */
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       const module = require(`./${file}/${script}`);
       modules.push(module);
     } catch {

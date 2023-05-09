@@ -1,5 +1,6 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const { PromptRecord, PromptsDefinition } = require('./lib/extension-wrappers');
+const normalizeModuleName = require('./lib/normalize-module-name');
 
 const getModules = require('./modules');
 const { definePrompts, getExtensionConfig } = getModules;
@@ -15,16 +16,10 @@ module.exports = definePrompts(function () {
    */
   let prompts = [];
 
-  /**
-   * @param {string} str
-   */
-  const normalizeModuleName = (str) =>
-    str.replace(/[A-Z]/g, (letter) => `-${letter.toLowerCase()}`);
-
   for (const module of modules) {
     const modulePrompts = module();
-
     const moduleName = normalizeModuleName(module.name);
+
     if (config.hasPrompts(moduleName)) {
       const promptsConfig = config.prompts(moduleName);
 

@@ -12,7 +12,7 @@ module.exports = function () {
     /**
      * @param {string} name
      */
-    hasModule: (name) => config[name] !== false,
+    hasModule: (name) => !!config[name],
     /**
      * @param {string} name
      */

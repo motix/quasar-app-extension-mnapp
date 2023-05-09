@@ -3,6 +3,7 @@ const { InstallDefinition } = require('./lib/extension-wrappers');
 
 const fs = require('fs');
 const getPackageName = require('./lib/package-name');
+const { reduceJsonFile } = require('./lib/json-helpers');
 const getModules = require('./modules');
 const { defineInstall } = getModules;
 
@@ -41,6 +42,8 @@ module.exports = defineInstall(function (api) {
     `r-${packageName}`
   ] = `yarn u-${packageName} && yarn i-${packageName}`;
 
+  // Remove current i- to keep i-, u- and r- together
+  reduceJsonFile(api, 'package.json', [`scripts.i-${packageName}`]);
   api.extendPackageJson({
     scripts,
   });
