@@ -1,7 +1,7 @@
 import {
-  SharedAPI,
-  InstallAPI,
   IndexAPI as OriginalIndexAPI,
+  InstallAPI,
+  SharedAPI,
   UninstallAPI,
 } from '@quasar/app-vite';
 

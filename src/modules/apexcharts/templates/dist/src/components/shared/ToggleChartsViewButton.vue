@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Dark } from 'quasar';
-import useCharts from 'composables/useCharts';
 
+import useCharts from 'composables/useCharts';
 import useMultiViews from 'composables/useMultiViews';
 
 // Composables

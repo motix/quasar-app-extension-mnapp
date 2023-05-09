@@ -102,7 +102,9 @@ function getFunctionsOrEmulator() {
   return functions;
 }
 
-export { getAuthOrEmulator as getAuth };
-export { getFirestoreOrEmulator as getFirestore };
-export { getStorageOrEmulator as getStorage };
-export { getFunctionsOrEmulator as getFunctions };
+export {
+  getAuthOrEmulator as getAuth,
+  getFirestoreOrEmulator as getFirestore,
+  getFunctionsOrEmulator as getFunctions,
+  getStorageOrEmulator as getStorage,
+};

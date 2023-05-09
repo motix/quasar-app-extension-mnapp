@@ -1,4 +1,5 @@
-export {};
+// TODO: Remove
+// export {};
 
 import ExpandableCard from 'components/shared/expandable-card/ExpandableCard.vue';
 import GravatarImage from 'components/shared/GravatarImage.vue';

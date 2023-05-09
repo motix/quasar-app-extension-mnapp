@@ -1,3 +1,5 @@
+import { isArray, isDate, isObject } from 'lodash';
+
 import {
   createMap,
   forMember,
@@ -9,7 +11,6 @@ import {
   Resolver,
 } from '@automapper/core';
 import { PojoMetadata } from '@automapper/pojos';
-import { isArray, isDate, isObject } from 'lodash';
 
 import { date } from 'quasar';
 

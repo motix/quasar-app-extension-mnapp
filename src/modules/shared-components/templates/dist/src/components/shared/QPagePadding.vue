@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { requiredConfigEntries } from 'composables/useConfig';
+
 // Props
 
 type Props = {

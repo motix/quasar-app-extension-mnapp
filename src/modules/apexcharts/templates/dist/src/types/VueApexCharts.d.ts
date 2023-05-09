@@ -1,8 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-export {};
+// TODO: Remove
+// export {};
 
 import type { ComponentConstructor } from 'quasar';
+
 import { ComponentPublicInstance } from 'vue';
 import { VueApexChartsComponent } from 'vue3-apexcharts';
 

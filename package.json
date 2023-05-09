@@ -34,6 +34,7 @@
     "file-saver": "^2.0.5",
     "firebase": "^9.21.0",
     "firebaseui": "^6.0.2",
+    "format-imports": "^3.2.3",
     "js-guid": "^1.0.2",
     "lodash": "^4.17.21",
     "pinia": "^2.0.35",
