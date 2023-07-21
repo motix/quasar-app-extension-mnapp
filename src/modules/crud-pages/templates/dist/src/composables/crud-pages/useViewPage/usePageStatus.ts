@@ -9,6 +9,7 @@ export default function usePageStatus() {
   const delayRealtimeUpdate = ref(false);
   const ignoreViewerWatch = ref(false);
   const editMode = ref(false);
+  const readonlyMode = ref(false);
   const isDirty = ref(false);
 
   // Methods
@@ -24,6 +25,7 @@ export default function usePageStatus() {
     delayRealtimeUpdate,
     ignoreViewerWatch,
     editMode,
+    readonlyMode,
     isDirty,
     dirty,
   };

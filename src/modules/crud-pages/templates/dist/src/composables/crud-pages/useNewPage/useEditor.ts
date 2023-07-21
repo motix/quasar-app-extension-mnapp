@@ -1,7 +1,8 @@
 import { useForm } from 'vee-validate';
+import { PartialDeep } from 'vee-validate/node_modules/type-fest';
 import { Schema } from 'yup';
 
-import { ref, Ref } from 'vue';
+import { MaybeRef, ref, Ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 import { CreateDocActionPayload } from 'stores/firebase-firestore';
@@ -70,7 +71,7 @@ export default function useEditor<TVm extends NonNullable<unknown>>(
     const initialValues = values
       ? (Object.fromEntries(
           initialValuesKeys.map((key) => [key, values[key]])
-        ) as Pick<T, K>)
+        ) as MaybeRef<PartialDeep<Pick<T, K>>>)
       : undefined;
 
     return useForm<Pick<T, K>>({

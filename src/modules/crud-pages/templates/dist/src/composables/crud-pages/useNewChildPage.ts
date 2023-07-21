@@ -230,3 +230,17 @@ export default function useNewChildPage<
     updatePath,
   };
 }
+
+class UseNewChildPageHelper<
+  TChildVm extends NonNullable<unknown>,
+  TParentVm extends NonNullable<unknown>
+> {
+  Return = useNewChildPage<TChildVm, TParentVm>(
+    {} as NewPage<TChildVm, NonNullable<unknown>>
+  );
+}
+
+export type NewChildPage<
+  TChildVm extends NonNullable<unknown>,
+  TParentVm extends NonNullable<unknown>
+> = UseNewChildPageHelper<TChildVm, TParentVm>['Return'];

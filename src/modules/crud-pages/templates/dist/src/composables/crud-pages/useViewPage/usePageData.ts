@@ -275,6 +275,9 @@ export default function usePageData<
         })();
 
       viewModel.value = viewModelGetter.value(docKey.value, false);
+    } else {
+      // Clear viewModel so that it will be updated when hasEditor is toggled
+      viewModel.value = null;
     }
   });
 

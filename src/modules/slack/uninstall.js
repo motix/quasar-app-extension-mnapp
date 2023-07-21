@@ -9,7 +9,7 @@ module.exports = defineUninstall(function (api) {
   api.removePath('src/types/slack-api.d.ts');
 
   api.onExitLog(
-    '\x1b[32mslack         • \x1b[0mPlease remove \x1b[47m\x1b[30m./.env\x1b[0m if no longer used.'
+    ' \x1b[32mslack         • \x1b[0mPlease remove \x1b[47m\x1b[30m./.env\x1b[0m if no longer used.'
   );
 
   reduceJsonFile(api, 'package.json', [

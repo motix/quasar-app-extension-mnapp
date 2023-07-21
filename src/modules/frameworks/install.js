@@ -6,32 +6,34 @@ module.exports = defineInstall(function (api) {
   api.extendPackageJson({
     scripts: {
       clean: 'yarn format-imports src && yarn format && yarn lint --fix',
+      tsc: 'yarn vue-tsc --noEmit --skipLibCheck',
       'r-mnapp': 'yarn u-mnapp && yarn i-mnapp && yarn clean',
     },
 
     dependencies: {
       // Upgrade Starter Kit packages
-      pinia: '^2.0.35',
+      pinia: '^2.0.36',
       '@quasar/extras': '^1.16.3',
       quasar: '^2.12.0',
-      vue: '^3.2.47',
-      'vue-router': '^4.1.6',
+      vue: '^3.3.1',
+      'vue-router': '^4.2.0',
     },
 
     devDependencies: {
       // Upgrade Starter Kit packages
-      '@typescript-eslint/eslint-plugin': '^5.59.2',
-      '@typescript-eslint/parser': '^5.59.2',
-      eslint: '^8.39.0',
-      'eslint-plugin-vue': '^9.11.0',
+      '@typescript-eslint/eslint-plugin': '^5.59.5',
+      '@typescript-eslint/parser': '^5.59.5',
+      eslint: '^8.40.0',
+      'eslint-plugin-vue': '^9.12.0',
       'eslint-config-prettier': '^8.8.0',
       prettier: '^2.8.8',
       '@types/node': '^20.0.0',
-      '@quasar/app-vite': '^1.3.0',
+      '@quasar/app-vite': '^1.4.2',
       autoprefixer: '^10.4.14',
       typescript: '^5.0.4',
       // Add new packages
       'format-imports': '^3.2.3',
+      'vue-tsc': '^1.6.5',
     },
   });
   delete require.cache[api.resolve.app('package.json')];
@@ -63,6 +65,15 @@ module.exports = defineInstall(function (api) {
       delete require.cache[api.resolve.app('.vscode/extensions.json')];
     }
 
+    if (
+      !extensionsJson.recommendations?.includes('aaron-bond.better-comments')
+    ) {
+      api.extendJsonFile('.vscode/extensions.json', {
+        recommendations: ['aaron-bond.better-comments'],
+      });
+      delete require.cache[api.resolve.app('.vscode/extensions.json')];
+    }
+
     // Modify `.vscode/settings.json`. Default setting would often lead to prettier being run after eslint and eslint errors still being present.
 
     reduceJsonFileArray(api, '.vscode/settings.json', [
@@ -72,7 +83,6 @@ module.exports = defineInstall(function (api) {
     api.extendJsonFile('.vscode/settings.json', {
       'editor.formatOnSave': false,
       'editor.codeActionsOnSave': [
-        'source.organizeImports.sortImports',
         'source.formatDocument',
         'source.fixAll.eslint',
       ],
@@ -107,6 +117,41 @@ module.exports = defineInstall(function (api) {
     }
 
     fs.writeFileSync(api.resolve.app('.eslintrc.cjs'), eslintrcCjs, {
+      encoding: 'utf-8',
+    });
+
+    // Modify tsconfig.json
+
+    const tsconfigJson = require(api.resolve.app('tsconfig.json'));
+
+    if (!tsconfigJson.exclude?.includes('.bk')) {
+      api.extendJsonFile('tsconfig.json', {
+        exclude: ['.bk'],
+      });
+      delete require.cache[api.resolve.app('tsconfig.json')];
+    }
+
+    // Modify src/shims-vue.d.ts
+
+    let shimsVueDTs = fs.readFileSync(
+      api.resolve.app('src/shims-vue.d.ts'),
+      'utf-8'
+    );
+
+    shimsVueDTs = shimsVueDTs.replace(
+      `declare module '*.vue' {
+  import type { DefineComponent } from 'vue';
+  const component: DefineComponent<{}, {}, any>;
+  export default component;
+}`,
+      `// declare module '*.vue' {
+//   import type { DefineComponent } from 'vue';
+//   const component: DefineComponent<{}, {}, any>;
+//   export default component;
+// }`
+    );
+
+    fs.writeFileSync(api.resolve.app('src/shims-vue.d.ts'), shimsVueDTs, {
       encoding: 'utf-8',
     });
   }

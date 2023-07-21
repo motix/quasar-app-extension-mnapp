@@ -13,7 +13,7 @@ module.exports = defineInstall(function appDefault(api) {
     api.render('./templates/dist-https');
 
     api.onExitLog(
-      '\x1b[32mapp-default   • \x1b[0mPlease add \x1b[47m\x1b[30mmkcerts\x1b[0m files as instructed.'
+      ' \x1b[32mapp-default   • \x1b[0mPlease add \x1b[47m\x1b[30mmkcerts\x1b[0m files as instructed.'
     );
   }
 

@@ -50,7 +50,7 @@ export default function date() {
     return `${year == null || year === '' ? defaultYearDisplay : year}-${
       month == null || month === ''
         ? defaultMonthDisplay
-        : `${month < 10 ? '0' : ''}${month}`
+        : `${typeof month === 'number' && month < 10 ? '0' : ''}${month}`
     }`;
   }
 
@@ -67,11 +67,11 @@ export default function date() {
     return `${
       month == null || month === ''
         ? defaultMonthDisplay
-        : `${month < 10 ? '0' : ''}${month}`
+        : `${typeof month === 'number' && month < 10 ? '0' : ''}${month}`
     }-${
       day == null || day === ''
         ? defaultDayDisplay
-        : `${day < 10 ? '0' : ''}${day}`
+        : `${typeof day === 'number' && day < 10 ? '0' : ''}${day}`
     }`;
   }
 

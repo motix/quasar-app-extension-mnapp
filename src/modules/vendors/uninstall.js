@@ -8,7 +8,7 @@ module.exports = defineUninstall(function vendors(api) {
   api.removePath('src/types/vue-fontawesome.d.ts');
 
   api.onExitLog(
-    '\x1b[32mvendors       • \x1b[0mPlease remove \x1b[47m\x1b[30m./.npmrc\x1b[0m if no longer used.'
+    ' \x1b[32mvendors       • \x1b[0mPlease remove \x1b[47m\x1b[30m./.npmrc\x1b[0m if no longer used.'
   );
 
   reduceJsonFile(api, 'package.json', [

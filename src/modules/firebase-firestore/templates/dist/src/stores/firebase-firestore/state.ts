@@ -2,9 +2,9 @@ import { requiredConfigEntries } from 'composables/useConfig';
 
 import { RealtimeDocIndex } from './';
 
-const { docsPageSize } = requiredConfigEntries('docsPageSize');
-
 function buildState<T>() {
+  const { docsPageSize } = requiredConfigEntries('docsPageSize');
+
   return {
     docsPageSize,
     docs: [] as T[],

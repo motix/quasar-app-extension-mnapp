@@ -7,6 +7,7 @@ import { Dark } from 'quasar';
 
 const props = withDefaults(
   defineProps<{
+    expandable?: boolean;
     // eslint-disable-next-line vue/require-default-prop
     headerBackgroundColor?: string;
     headerDark?: boolean;
@@ -52,6 +53,7 @@ const props = withDefaults(
     sideTop?: boolean;
   }>(),
   {
+    expandable: false,
     headerDark: false,
     avatarTop: false,
     avatarSize: '56px',
@@ -110,7 +112,10 @@ const captionCssClass = computed(() => {
       outline
       padding="xs"
       size="xs"
-      style="right: 0; top: 0"
+      :style="{
+        right: expandable ? '-39px' : '0px',
+        top: expandable ? '-8px' : '0px',
+      }"
       target="_blank"
       type="a"
       @click.stop

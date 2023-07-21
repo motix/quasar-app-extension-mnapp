@@ -1,22 +1,54 @@
 import { computed } from 'vue';
 
-import useNewPage, { NewPage } from 'composables/crud-pages/useNewPage';
-import useViewPage, { ViewPage } from 'composables/crud-pages/useViewPage';
+import { useSingleScopeComposableStore } from 'stores/SingleScopeComposable';
+
+import { NewPage } from 'composables/crud-pages/useNewPage';
+import { defineNewPageNarrower } from 'composables/crud-pages/usePageNarrower';
+import { ViewPage } from 'composables/crud-pages/useViewPage';
 
 export default function useEditPage<
   T extends NonNullable<unknown>,
   TVm extends NonNullable<unknown>,
-  TExtra extends NonNullable<unknown> = Record<string, never>
->(newPage: boolean, scopeName: string, hitUseCount?: boolean) {
-  const $p = newPage
-    ? useNewPage<TVm, TExtra>(scopeName, hitUseCount)
-    : useViewPage<T, TVm, TExtra>(scopeName, hitUseCount);
+  TNewPageExtra extends NonNullable<unknown> = Record<string, never>,
+  TViewPageExtra extends NonNullable<unknown> = Record<string, never>
+>(scopeName: string) {
+  // Composables
 
-  return {
-    $p,
-    $np: $p as NewPage<TVm, TExtra>,
-    $vp: $p as ViewPage<T, TVm, TExtra>,
-  };
+  const store = useSingleScopeComposableStore();
+
+  !store.hasScope(scopeName) &&
+    (() => {
+      throw new Error(`Scope '${scopeName}' not found`);
+    })();
+
+  const $p = store.retrieveScope(scopeName) as
+    | NewPage<TVm, TNewPageExtra>
+    | ViewPage<T, TVm, TViewPageExtra>;
+
+  return defineNewPageNarrower<
+    NewPage<TVm, TNewPageExtra>,
+    ViewPage<T, TVm, TViewPageExtra>
+  >($p);
+}
+
+export function useCustomizedEditPage<
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  TNewPage extends NewPage<any, NonNullable<unknown>>,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  TViewPage extends ViewPage<any, any, NonNullable<unknown>>
+>(scopeName: string) {
+  // Composables
+
+  const store = useSingleScopeComposableStore();
+
+  !store.hasScope(scopeName) &&
+    (() => {
+      throw new Error(`Scope '${scopeName}' not found`);
+    })();
+
+  const $p = store.retrieveScope(scopeName) as TNewPage | TViewPage;
+
+  return defineNewPageNarrower<TNewPage, TViewPage>($p);
 }
 
 type Intersection<A, B> = {

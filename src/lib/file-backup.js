@@ -10,7 +10,7 @@ const path = require('path');
  */
 module.exports.backupFile = function (api, relativePath) {
   const filePath = api.resolve.app(relativePath);
-  const fileBackupPath = api.resolve.app(`bk/${relativePath}`);
+  const fileBackupPath = api.resolve.app(`.bk/${relativePath}`);
   const backupDir = path.dirname(fileBackupPath);
 
   if (!fs.existsSync(backupDir)) {
@@ -37,7 +37,7 @@ module.exports.backupAndDeleteFile = function (api, relativePath) {
  */
 module.exports.restoreFile = function (api, relativePath) {
   const filePath = api.resolve.app(relativePath);
-  const fileBackupPath = api.resolve.app(`bk/${relativePath}`);
+  const fileBackupPath = api.resolve.app(`.bk/${relativePath}`);
   const restoreDir = path.dirname(filePath);
 
   if (fs.existsSync(fileBackupPath)) {

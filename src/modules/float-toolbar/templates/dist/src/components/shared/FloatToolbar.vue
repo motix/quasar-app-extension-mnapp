@@ -296,6 +296,7 @@ defineExpose({
             class="no-wrap row children-clickable"
             :class="{ reverse: reverseOrder }"
             name="float-toolbar-transition"
+            :style="{ 'min-height': `${buttonSpace}px` }"
             tag="div"
           >
             <slot></slot>

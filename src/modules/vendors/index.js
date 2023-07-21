@@ -11,7 +11,7 @@ module.exports = defineIndex(function vendors(api) {
   // Font Awesome Pro, vue-fontawesome
   if (vendors.includes('fap')) {
     api.extendQuasarConf((conf) => {
-      conf.framework.iconSet = 'fontawesome-v5-pro';
+      conf.framework.iconSet = 'fontawesome-v6-pro';
       conf.boot.unshift('fontawesome-pro');
     });
   }

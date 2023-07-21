@@ -1,8 +1,10 @@
 import emojiData from './emoji.json';
 
-import { sortBy } from 'lodash';
+import { isEqual, sortBy, uniqWith } from 'lodash';
 import slack from 'slack';
 import parse, { Node, NodeType } from 'slack-message-parser';
+
+import { date } from 'quasar';
 
 import { SlackMessage, SlackUser } from 'models/slack';
 
@@ -47,7 +49,10 @@ export async function loadUsers() {
   return users;
 }
 
-export async function loadPrivateChannel(channelName: string) {
+export async function loadPrivateChannel(
+  channelName: string,
+  ...savedMessages: Message[]
+) {
   const channel = await findChannel(channelName);
 
   if (!channel) {
@@ -59,9 +64,37 @@ export async function loadPrivateChannel(channelName: string) {
     channel: channel.id,
   });
 
-  const userIds = [
-    ...new Set(historyResult.messages.map((value) => value.user)),
-  ];
+  savedMessages = savedMessages.filter(
+    (savedMessage) =>
+      historyResult.messages.some((value) => isEqual(value, savedMessage)) ||
+      date.getDateDiff(
+        new Date(),
+        new Date(Number(savedMessage.ts) * 1000),
+        'days'
+      ) > 30
+  );
+
+  let rawMessages = [...savedMessages, ...historyResult.messages];
+
+  rawMessages = uniqWith(
+    rawMessages,
+    (a, b) => b.text === a.text && b.ts === a.ts && b.user === a.user
+  );
+
+  rawMessages = sortBy(rawMessages, (value) => -Number(value.ts));
+
+  const { users, messages } = await processRawMessages(rawMessages);
+
+  return {
+    channelId: channel.id,
+    users,
+    messages,
+    rawMessages,
+  };
+}
+
+export async function processRawMessages(rawMessages: Message[]) {
+  const userIds = [...new Set(rawMessages.map((value) => value.user))];
 
   const infoResults = await Promise.all(
     userIds.map((value) =>
@@ -83,10 +116,11 @@ export async function loadPrivateChannel(channelName: string) {
 
   const usersMap = Object.fromEntries(users.map((value) => [value.id, value]));
 
-  const messages: SlackMessage[] = historyResult.messages
+  const messages: SlackMessage[] = rawMessages
     .filter(
       (value) =>
         !value.text.endsWith('has joined the channel') &&
+        !value.text.endsWith('has left the channel') &&
         !value.text.startsWith('set the channel topic') &&
         !value.text.startsWith('set the channel description') &&
         !value.text.startsWith('has renamed the channel from')
@@ -105,7 +139,6 @@ export async function loadPrivateChannel(channelName: string) {
   );
 
   return {
-    channelId: channel.id,
     users,
     messages,
   };

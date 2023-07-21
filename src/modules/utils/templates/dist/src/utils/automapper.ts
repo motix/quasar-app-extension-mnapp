@@ -1,10 +1,14 @@
 import { isArray, isDate, isObject } from 'lodash';
 
 import {
+  afterMap,
+  beforeMap,
   createMap,
+  extend,
   forMember,
   mapFrom,
   Mapper,
+  Mapping,
   MappingConfiguration,
   mapWithArguments,
   ModelIdentifier,
@@ -33,12 +37,15 @@ export interface DateDataConverter {
   toDate: <T>(data: T) => Date;
 }
 
-const { editDateFormat, dateDataConverter } = requiredConfigEntries(
-  'editDateFormat',
-  'dateDataConverter'
-);
-
 type HasProp<Key extends string, T> = Record<Key, T>;
+
+function getDateDataConverter() {
+  return requiredConfigEntries('dateDataConverter').dateDataConverter;
+}
+
+function getEditDateFormat() {
+  return requiredConfigEntries('editDateFormat').editDateFormat;
+}
 
 const apiModelToModelResolver = {
   dateRequired: function <
@@ -48,7 +55,7 @@ const apiModelToModelResolver = {
   >(key: Key) {
     return {
       resolve: (source: TSource): Date =>
-        dateDataConverter.toDate<DateDataType>(source[key]),
+        getDateDataConverter().toDate<DateDataType>(source[key]),
     };
   },
 
@@ -60,7 +67,7 @@ const apiModelToModelResolver = {
     return {
       resolve: (source: TSource): Date[] =>
         source[key].map((value) =>
-          dateDataConverter.toDate<DateDataType>(value)
+          getDateDataConverter().toDate<DateDataType>(value)
         ),
     };
   },
@@ -94,7 +101,7 @@ const apiModelToModelResolver = {
     return {
       resolve: (source: TSource): Date | undefined => {
         const field: DateDataType | null | undefined = source[key];
-        return field == null ? undefined : dateDataConverter.toDate(field);
+        return field == null ? undefined : getDateDataConverter().toDate(field);
       },
     };
   },
@@ -109,7 +116,7 @@ const apiModelToModelResolver = {
         const field: DateDataType[] | null | undefined = source[key];
         return field == null
           ? undefined
-          : field.map((value) => dateDataConverter.toDate(value));
+          : field.map((value) => getDateDataConverter().toDate(value));
       },
     };
   },
@@ -135,7 +142,7 @@ const modelToViewModelResolver = {
   >(key: Key) {
     return {
       resolve: (source: TSource): string =>
-        date.formatDate(source[key], editDateFormat),
+        date.formatDate(source[key], getEditDateFormat()),
     };
   },
 
@@ -145,7 +152,7 @@ const modelToViewModelResolver = {
   >(key: Key) {
     return {
       resolve: (source: TSource): string[] =>
-        source[key].map((value) => date.formatDate(value, editDateFormat)),
+        source[key].map((value) => date.formatDate(value, getEditDateFormat())),
     };
   },
 
@@ -204,7 +211,7 @@ const modelToViewModelResolver = {
         const field = source[key];
         return field === undefined
           ? ''
-          : date.formatDate(field, editDateFormat);
+          : date.formatDate(field, getEditDateFormat());
       },
     };
   },
@@ -218,7 +225,7 @@ const modelToViewModelResolver = {
         const field = source[key];
         return field === undefined
           ? null
-          : field.map((value) => date.formatDate(value, editDateFormat));
+          : field.map((value) => date.formatDate(value, getEditDateFormat()));
       },
     };
   },
@@ -245,7 +252,7 @@ const modelToApiModelResolver = {
   >(key: Key) {
     return {
       resolve: (source: TSource): DateDataType =>
-        dateDataConverter.fromDate(source[key]),
+        getDateDataConverter().fromDate(source[key]),
     };
   },
 
@@ -256,7 +263,7 @@ const modelToApiModelResolver = {
   >(key: Key) {
     return {
       resolve: (source: TSource): DateDataType[] =>
-        source[key].map((value) => dateDataConverter.fromDate(value)),
+        source[key].map((value) => getDateDataConverter().fromDate(value)),
     };
   },
 
@@ -310,7 +317,7 @@ const modelToApiModelResolver = {
         const field = source[key];
         return field === undefined
           ? null
-          : dateDataConverter.fromDate<DateDataType>(field);
+          : getDateDataConverter().fromDate<DateDataType>(field);
       },
     };
   },
@@ -326,7 +333,7 @@ const modelToApiModelResolver = {
         return field === undefined
           ? null
           : field.map((value) =>
-              dateDataConverter.fromDate<DateDataType>(value)
+              getDateDataConverter().fromDate<DateDataType>(value)
             );
       },
     };
@@ -344,7 +351,7 @@ const modelToApiModelResolver = {
           (() => {
             throw new Error(`${key} is required for saving`);
           })();
-        return dateDataConverter.fromDate(field);
+        return getDateDataConverter().fromDate(field);
       },
     };
   },
@@ -361,7 +368,7 @@ const modelToApiModelResolver = {
           (() => {
             throw new Error(`${key} is required for saving`);
           })();
-        return field.map((value) => dateDataConverter.fromDate(value));
+        return field.map((value) => getDateDataConverter().fromDate(value));
       },
     };
   },
@@ -425,8 +432,8 @@ const viewModelToApiModelResolver = {
   >(key: Key) {
     return {
       resolve: (source: TSource): DateDataType =>
-        dateDataConverter.fromDate(
-          date.extractDate(source[key], editDateFormat)
+        getDateDataConverter().fromDate(
+          date.extractDate(source[key], getEditDateFormat())
         ),
     };
   },
@@ -439,7 +446,9 @@ const viewModelToApiModelResolver = {
     return {
       resolve: (source: TSource): DateDataType[] =>
         source[key].map((value) =>
-          dateDataConverter.fromDate(date.extractDate(value, editDateFormat))
+          getDateDataConverter().fromDate(
+            date.extractDate(value, getEditDateFormat())
+          )
         ),
     };
   },
@@ -553,8 +562,8 @@ const viewModelToApiModelResolver = {
         const field = source[key];
         return field === '' || field === null
           ? null
-          : dateDataConverter.fromDate<DateDataType>(
-              date.extractDate(field, editDateFormat)
+          : getDateDataConverter().fromDate<DateDataType>(
+              date.extractDate(field, getEditDateFormat())
             );
       },
     };
@@ -571,8 +580,8 @@ const viewModelToApiModelResolver = {
         return field === null
           ? null
           : field.map((value) =>
-              dateDataConverter.fromDate<DateDataType>(
-                date.extractDate(value, editDateFormat)
+              getDateDataConverter().fromDate<DateDataType>(
+                date.extractDate(value, getEditDateFormat())
               )
             );
       },
@@ -591,8 +600,8 @@ const viewModelToApiModelResolver = {
           (() => {
             throw new Error(`${key} is required for saving`);
           })();
-        return dateDataConverter.fromDate(
-          date.extractDate(field, editDateFormat)
+        return getDateDataConverter().fromDate(
+          date.extractDate(field, getEditDateFormat())
         );
       },
     };
@@ -611,7 +620,9 @@ const viewModelToApiModelResolver = {
             throw new Error(`${key} is required for saving`);
           })();
         return field.map((value) =>
-          dateDataConverter.fromDate(date.extractDate(value, editDateFormat))
+          getDateDataConverter().fromDate(
+            date.extractDate(value, getEditDateFormat())
+          )
         );
       },
     };
@@ -980,4 +991,122 @@ export function configureAndCreateNoneIdMaps<T, TVm, TAm>(
     fieldTypes,
     additionalConfigurations
   );
+}
+
+const MAPPINGS = Symbol.for('__mappings__');
+
+function getMappings(mapper: Mapper) {
+  return (
+    mapper as unknown as Record<symbol, Map<symbol, Map<symbol, Mapping>>>
+  )[MAPPINGS];
+}
+
+export function getMapping<TSource, TDestination>(
+  mapper: Mapper,
+  source: string,
+  destination: string
+) {
+  return getMappings(mapper)
+    .get(Symbol.for(source))
+    ?.get(Symbol.for(destination)) as
+    | Mapping<TSource, TDestination>
+    | undefined;
+}
+
+export function removeMapping(
+  mapper: Mapper,
+  source: string,
+  destination: string
+) {
+  getMappings(mapper).get(Symbol.for(source))?.delete(Symbol.for(destination));
+}
+
+export function removeProperties(...properties: string[]) {
+  return (mapping: Mapping) => {
+    mapping[2 /* MappingClassId.properties */] =
+      mapping[2 /* MappingClassId.properties */].filter(
+        (value) => !properties.includes(value[0][0])
+      );
+    mapping[3 /* MappingClassId.customProperties */] =
+      mapping[3 /* MappingClassId.customProperties */].filter(
+        (value) => !properties.includes(value[0][0])
+      );
+  };
+}
+
+export function extendMapping<TSource, TDestination>(
+  mapper: Mapper,
+  source: string,
+  destination: string,
+  ...additionalConfigurations: MappingConfiguration<TSource, TDestination>[]
+) {
+  const oldMapping = getMapping<TSource, TDestination>(
+    mapper,
+    source,
+    destination
+  );
+
+  if (oldMapping) {
+    removeMapping(mapper, source, destination);
+
+    const mapping = createMap(
+      mapper,
+      source,
+      destination,
+      extend(oldMapping),
+      ...additionalConfigurations
+    );
+
+    const oldBeforeMap = oldMapping[7 /* MappingClassId.callbacks */]
+      ? oldMapping[7 /* MappingClassId.callbacks */][0 /* MappingCallbacksClassId.beforeMap */]
+      : undefined;
+
+    if (oldBeforeMap) {
+      const newBeforeMap = mapping[7 /* MappingClassId.callbacks */]
+        ? mapping[7 /* MappingClassId.callbacks */][0 /* MappingCallbacksClassId.beforeMap */]
+        : undefined;
+
+      if (newBeforeMap) {
+        beforeMap(
+          (
+            source: TSource,
+            destination: TDestination,
+            extraArguments?: Record<string, unknown>
+          ) => {
+            oldBeforeMap(source, destination, extraArguments);
+            newBeforeMap(source, destination, extraArguments);
+          }
+        )(mapping);
+      } else {
+        beforeMap(oldBeforeMap)(mapping);
+      }
+    }
+
+    const oldAfterMap = oldMapping[7 /* MappingClassId.callbacks */]
+      ? oldMapping[7 /* MappingClassId.callbacks */][1 /* MappingCallbacksClassId.afterMap */]
+      : undefined;
+
+    if (oldAfterMap) {
+      const newAfterMap = mapping[7 /* MappingClassId.callbacks */]
+        ? mapping[7 /* MappingClassId.callbacks */][1 /* MappingCallbacksClassId.afterMap */]
+        : undefined;
+
+      if (newAfterMap) {
+        afterMap(
+          (
+            source: TSource,
+            destination: TDestination,
+            extraArguments?: Record<string, unknown>
+          ) => {
+            oldAfterMap(source, destination, extraArguments);
+            newAfterMap(source, destination, extraArguments);
+          }
+        )(mapping);
+      } else {
+        afterMap(oldAfterMap)(mapping);
+      }
+    }
+
+    return mapping;
+  }
 }

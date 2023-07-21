@@ -1,7 +1,6 @@
 const { definePrompts } = require('..');
 
-// Give the function a name to identify the module when filling default values from app config
-module.exports = definePrompts(function appDefault() {
+module.exports = definePrompts(function () {
   return [
     {
       name: 'devServerPort',

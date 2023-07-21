@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { computed, ref, watch } from 'vue';
 
 import { Dark, QAjaxBar } from 'quasar';
 
@@ -15,6 +15,9 @@ const props = defineProps<{ scopeName: string }>();
 
 // Composables
 
+const $p = useViewPage<NonNullable<unknown>, NonNullable<unknown>>(
+  props.scopeName
+);
 const {
   // useReturnUrl
   goBack,
@@ -40,12 +43,33 @@ const {
   toolbarPersistent,
   toolbarFabButtonsVisibility,
   toolbarFixedButtonsVisibility,
-} = useViewPage<NonNullable<unknown>, NonNullable<unknown>>(props.scopeName);
+} = $p;
 
 // Data
 
 const freezingBar = ref<QAjaxBar | null>(null);
 const saveTooltip = ref<InstanceType<typeof TopTooltip> | null>(null);
+
+// Computed
+
+const hasMainButtons = computed(() => {
+  if (
+    $p.toolbarFabButtonsVisibility.value.edit ||
+    $p.toolbarFabButtonsVisibility.value.revert ||
+    $p.toolbarFabButtonsVisibility.value.save ||
+    $p.toolbarFabButtonsVisibility.value.trash
+  ) {
+    return true;
+  }
+
+  for (const button in $p.toolbarMainButtonVisibility.value) {
+    if ($p.toolbarMainButtonVisibility.value[button]) {
+      return true;
+    }
+  }
+
+  return false;
+});
 
 // Methods
 
@@ -192,7 +216,9 @@ watch(freezed, (value) => {
             key="extra"
             class="no-wrap row reverse"
             name="float-toolbar-transition"
-            style="margin-right: 7px"
+            :style="{
+              'margin-right': hasMainButtons ? '7px' : undefined,
+            }"
             tag="div"
           >
             <switch-view-button

@@ -4,7 +4,7 @@ const { defineUninstall } = require('..');
 // Give the function a name to identify the module when replacing prompts from app config in extension wrapper
 module.exports = defineUninstall(function firebase(api) {
   api.onExitLog(
-    '\x1b[32mfirebase      • \x1b[0mPlease remove \x1b[47m\x1b[30m./.env\x1b[0m if no longer used.'
+    ' \x1b[32mfirebase      • \x1b[0mPlease remove \x1b[47m\x1b[30m./.env\x1b[0m if no longer used.'
   );
 
   api.removePath('.firebaserc');

@@ -5,6 +5,7 @@ import {
   ref,
   Ref,
   watch,
+  watchEffect,
 } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
@@ -256,7 +257,7 @@ export default function useViewChildPage<
       $p.deleting.value = true;
 
       const model = $p.m.value;
-      const children = modelChildrenGetter.value(pm.value);
+      let children = modelChildrenGetter.value(pm.value);
 
       $p.exitEditMode();
 
@@ -265,6 +266,8 @@ export default function useViewChildPage<
       } else {
         children.splice(children.indexOf(model), 1);
       }
+
+      children = modelChildrenGetter.value(pm.value);
 
       if (children.length > 0) {
         $p.findKey.value = $p.findKey.value = String(
@@ -346,6 +349,10 @@ export default function useViewChildPage<
     }
   });
 
+  watchEffect(() => {
+    $p.toolbarMainButtonVisibility.value.delete = showDeleteButton.value;
+  });
+
   return {
     hasChildDeleting,
     childListKey,
@@ -369,3 +376,21 @@ export default function useViewChildPage<
     deleteChild,
   };
 }
+
+class UseViewChildPageHelper<
+  TChild extends NonNullable<unknown>,
+  TChildVm extends NonNullable<unknown>,
+  TParent extends NonNullable<unknown>,
+  TParentVm extends NonNullable<unknown>
+> {
+  Return = useViewChildPage<TChild, TChildVm, TParent, TParentVm>(
+    {} as ViewPage<TChild, TChildVm, NonNullable<unknown>>
+  );
+}
+
+export type ViewChildPage<
+  TChild extends NonNullable<unknown>,
+  TChildVm extends NonNullable<unknown>,
+  TParent extends NonNullable<unknown>,
+  TParentVm extends NonNullable<unknown>
+> = UseViewChildPageHelper<TChild, TChildVm, TParent, TParentVm>['Return'];

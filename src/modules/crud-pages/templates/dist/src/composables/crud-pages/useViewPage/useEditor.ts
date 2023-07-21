@@ -1,7 +1,8 @@
 import { useForm } from 'vee-validate';
+import { PartialDeep } from 'vee-validate/node_modules/type-fest';
 import { Schema } from 'yup';
 
-import { ref } from 'vue';
+import { MaybeRef, ref } from 'vue';
 
 import { Dialog } from 'quasar';
 
@@ -73,7 +74,7 @@ export default function useEditor<TVm extends NonNullable<unknown>>(
     const initialValues = values
       ? (Object.fromEntries(
           initialValuesKeys.map((key) => [key, values[key]])
-        ) as Pick<T, K>)
+        ) as MaybeRef<PartialDeep<Pick<T, K>>>)
       : undefined;
 
     return useForm<Pick<T, K>>({

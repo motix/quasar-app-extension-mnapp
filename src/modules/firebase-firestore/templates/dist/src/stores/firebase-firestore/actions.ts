@@ -58,8 +58,6 @@ function buildActions<T extends DocModel, TVm, TAm>(
   apiModelName: string,
   options: StoreOptions<T, TVm, TAm>
 ) {
-  const { releaseDocsTimeout } = requiredConfigEntries('releaseDocsTimeout');
-
   let releaseDocsTimeoutId: ReturnType<typeof setTimeout> | null = null;
 
   return defineActions({
@@ -170,6 +168,9 @@ function buildActions<T extends DocModel, TVm, TAm>(
       if (immediately) {
         this.docs = [];
       } else {
+        const { releaseDocsTimeout } =
+          requiredConfigEntries('releaseDocsTimeout');
+
         releaseDocsTimeoutId = setTimeout(() => {
           this.docs = [];
         }, releaseDocsTimeout);

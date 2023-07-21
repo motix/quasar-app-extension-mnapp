@@ -6,7 +6,7 @@ const getPackageName = require('./package-name');
 
 module.exports = function () {
   /**
-   * @type Record<string, {prompts: Record<string, unknown>}> & {hasModule: (name: string) => boolean, hasPrompts: (name: string) => boolean, prompts: (name: string) => Record<string, unknown>}
+   * @type Record<string, {prompts: Record<string, unknown>}> & {hasModule: (name: string) => boolean, hasPrompts: (name: string) => boolean, prompts: (name: string) => Record<string, unknown>, moduleIndex: (name: string) => number}
    */
   let config = {
     /**
@@ -21,13 +21,27 @@ module.exports = function () {
      * @param {string} name
      */
     prompts: (name) => config[name].prompts,
+    /**
+     * @param {string} name
+     */
+    moduleIndex: (name) => moduleNames.indexOf(name),
   };
+
+  /**
+   * @type {string[]}
+   */
+  let moduleNames = [];
 
   try {
     const packageName = getPackageName().replace(/-/g, '');
+    /**
+     * @type {Record<string, unknown>}
+     */
+    const configData = require(`${appPaths.appDir}/.${packageName}rc`);
 
+    moduleNames = Object.getOwnPropertyNames(configData);
     config = {
-      ...require(`${appPaths.appDir}/.${packageName}rc`),
+      ...configData,
       ...config,
     };
   } catch {

@@ -65,7 +65,7 @@ const fs = require('fs');
 const getExtensionConfig = require('../lib/extension-config');
 
 /**
- * @param {string} script
+ * @param {'prompts' | 'install' | 'index' | 'uninstall'} script
  */
 module.exports = function (script) {
   const config = getExtensionConfig();
@@ -73,7 +73,7 @@ module.exports = function (script) {
   /**
    * @type {PromptsDefinition[] | InstallDefinition[] | IndexDefinition[] | UninstallDefinition[]}
    */
-  const modules = [];
+  let modules = [];
   const files = fs.readdirSync(__dirname);
 
   files.forEach((file) => {
@@ -84,11 +84,19 @@ module.exports = function (script) {
        * @type PromptsDefinition | InstallDefinition | IndexDefinition | UninstallDefinition
        */
       const module = require(`./${file}/${script}`);
-      modules.push(module);
+
+      Object.defineProperty(module, 'name', { value: file });
+      modules[config.moduleIndex(file)] = module;
     } catch {
       // prompts, install, index or uninstall might be missing in a module
     }
   });
+
+  modules = modules.filter((value) => !!value);
+
+  if (script === 'uninstall') {
+    modules.reverse();
+  }
 
   return modules;
 };

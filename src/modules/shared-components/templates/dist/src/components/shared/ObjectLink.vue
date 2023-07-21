@@ -1,4 +1,6 @@
 <script setup lang="ts">
+// Props
+
 withDefaults(
   defineProps<{
     label: string;
@@ -24,7 +26,7 @@ withDefaults(
   >
     <div :class="{ 'text-left': !!icon || $slots.icon, ellipsis: !wrapLabel }">
       <slot name="icon">
-        <q-icon v-if="icon" class="q-mr-sm" :name="icon" size="xs" />
+        <q-icon v-if="icon" class="q-mr-sm" :name="icon" size="1.2em" />
       </slot>
 
       <span>

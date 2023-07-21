@@ -38,7 +38,7 @@ module.exports.reduceJsonFileArray = function (api, file, pathAndValues) {
        */
       const values = get(json, path);
 
-      if (values.includes(value)) {
+      if (values?.includes(value)) {
         values.splice(values.indexOf(value), 1);
       }
     }

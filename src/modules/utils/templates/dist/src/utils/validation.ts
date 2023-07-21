@@ -4,7 +4,9 @@ import { date } from 'quasar';
 
 import { requiredConfigEntries } from 'composables/useConfig';
 
-const { editDateFormat } = requiredConfigEntries('editDateFormat');
+function getEditDateFormat() {
+  return requiredConfigEntries('editDateFormat').editDateFormat;
+}
 
 export function stringRequired(label: string) {
   return string()
@@ -133,8 +135,8 @@ export function dateRequired(label: string) {
       !value ||
       value ===
         date.formatDate(
-          date.extractDate(value, editDateFormat),
-          editDateFormat
+          date.extractDate(value, getEditDateFormat()),
+          getEditDateFormat()
         ),
   });
 }
@@ -150,8 +152,8 @@ export function dateOptional(label: string) {
         !value ||
         value ===
           date.formatDate(
-            date.extractDate(value, editDateFormat),
-            editDateFormat
+            date.extractDate(value, getEditDateFormat()),
+            getEditDateFormat()
           ),
     });
 }
