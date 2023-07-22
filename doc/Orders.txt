@@ -32,3 +32,8 @@ setup sections
   Lifecycle Hooks
   Watch
   Expose
+
+Composables
+  useRouter
+  useRoute
+  useStore
