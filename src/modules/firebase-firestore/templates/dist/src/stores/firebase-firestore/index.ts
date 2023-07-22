@@ -12,6 +12,8 @@ import {
   PiniaCustomProperties,
 } from 'pinia';
 
+import { DocumentData } from 'firebase/firestore';
+
 import {
   CreateDocActionPayload,
   DeleteDocActionPayload,
@@ -47,7 +49,7 @@ export function defineGetters<T, G>(
   getters: GettersFlag<T> &
     G &
     ThisType<UnwrapRef<S<T>> & _StoreWithGetters<G> & PiniaCustomProperties> &
-    _GettersTree<S<T>>
+    _GettersTree<S<T>>,
 ) {
   const ret = getters as Omit<G, '__flag'> & Partial<GettersFlag<T>>;
   delete ret.__flag;
@@ -60,7 +62,7 @@ class GettersHelper<T, TVm> {
       strategyInitializer: pojos(),
     }),
     '',
-    ''
+    '',
   );
 }
 
@@ -70,7 +72,7 @@ type ActionFlag<T, TVm, TAm> = {
   __flag: (
     model: T,
     viewModel: TVm,
-    apiModel: TAm
+    apiModel: TAm,
   ) => { model: T; viewModel: TVm; apiModel: TAm };
 };
 
@@ -83,21 +85,21 @@ export function defineActions<T, TVm, TAm, A>(
         _StoreWithState<string, S<T>, G<T, TVm>, A> &
         _StoreWithGetters<G<T, TVm>> &
         PiniaCustomProperties
-    >
+    >,
 ) {
   const ret = actions as Omit<A, '__flag'> & Partial<ActionFlag<T, TVm, TAm>>;
   delete ret.__flag;
   return ret as Omit<A, '__flag'>;
 }
 
-export function useStore<T extends DocModel, TVm, TAm>(
+export function useStore<T extends DocModel, TVm, TAm extends DocumentData>(
   id: string,
   collectionPath: string,
   mapper: Mapper,
   modelName: string,
   viewModelName: string,
   apiModelName: string,
-  options?: StoreOptions<T, TVm, TAm>
+  options?: StoreOptions<T, TVm, TAm>,
 ) {
   const state = () => buildState<T>();
 
@@ -109,7 +111,7 @@ export function useStore<T extends DocModel, TVm, TAm>(
     modelName,
     viewModelName,
     apiModelName,
-    options || {}
+    options || {},
   );
 
   const store = defineStore(id, {

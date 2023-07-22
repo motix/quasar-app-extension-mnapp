@@ -9,7 +9,7 @@ withDefaults(
   }>(),
   {
     dark: false,
-  }
+  },
 );
 </script>
 

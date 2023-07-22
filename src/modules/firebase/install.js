@@ -16,7 +16,7 @@ module.exports = defineInstall(function firebase(api) {
       'prod:deploy:debug': 'yarn prod:build --debug && firebase deploy',
     },
     dependencies: {
-      firebase: '^9.21.0',
+      firebase: '^10.1.0',
     },
     devDependencies: {
       'cross-env': '^7.0.3',
@@ -34,6 +34,6 @@ module.exports = defineInstall(function firebase(api) {
   });
 
   api.onExitLog(
-    ' \x1b[32mfirebase      • \x1b[0mPlease add \x1b[47m\x1b[30m.env\x1b[0m with Firebase config based on \x1b[47m\x1b[30m./firebase-env-template.txt\x1b[0m.'
+    ' \x1b[32mfirebase      • \x1b[0mPlease add \x1b[47m\x1b[30m.env\x1b[0m with Firebase config based on \x1b[47m\x1b[30m./firebase-env-template.txt\x1b[0m.',
   );
 });

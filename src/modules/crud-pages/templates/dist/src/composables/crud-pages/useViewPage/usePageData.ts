@@ -18,7 +18,7 @@ import usePageStatus from './usePageStatus';
 
 export default function usePageData<
   T extends NonNullable<unknown>,
-  TVm extends NonNullable<unknown>
+  TVm extends NonNullable<unknown>,
 >(
   goBack: ReturnType<typeof useReturnUrl>['goBack'],
   hasEditor: ReturnType<typeof usePageFeatures>['hasEditor'],
@@ -26,7 +26,7 @@ export default function usePageData<
   delayRealtimeUpdate: ReturnType<typeof usePageStatus>['delayRealtimeUpdate'],
   ignoreViewerWatch: ReturnType<typeof usePageStatus>['ignoreViewerWatch'],
   editMode: ReturnType<typeof usePageStatus>['editMode'],
-  isDirty: ReturnType<typeof usePageStatus>['isDirty']
+  isDirty: ReturnType<typeof usePageStatus>['isDirty'],
 ) {
   // Composables
 
@@ -38,10 +38,10 @@ export default function usePageData<
   // Data
 
   const findKey = ref(
-    ((route.params.findKey as string) || '').replaceAll('_', '.')
+    ((route.params.findKey as string) || '').replaceAll('_', '.'),
   );
   const modelFindKeyField = ref<Extract<keyof T & keyof TVm, string>>(
-    'id' as Extract<keyof T & keyof TVm, string>
+    'id' as Extract<keyof T & keyof TVm, string>,
   ) as Ref<Extract<keyof T & keyof TVm, string>>;
   const docKey = ref<string | null>(null);
   const model = ref(null) as Ref<T | null>;
@@ -71,7 +71,7 @@ export default function usePageData<
       model.value ||
       (() => {
         throw new Error('model not ready');
-      })()
+      })(),
   );
 
   const vm = computed(
@@ -79,11 +79,11 @@ export default function usePageData<
       viewModel.value ||
       (() => {
         throw new Error('viewModel not ready');
-      })()
+      })(),
   );
 
   const activeModelOrViewModel = computed(() =>
-    editMode.value ? viewModel.value : model.value
+    editMode.value ? viewModel.value : model.value,
   );
 
   const activeMOrVm = computed(
@@ -91,15 +91,15 @@ export default function usePageData<
       activeModelOrViewModel.value ||
       (() => {
         throw new Error(`${editMode.value ? 'viewModel' : 'model'} not ready`);
-      })()
+      })(),
   );
 
   // Methods
 
   function loadModel(
     loadModel: (
-      payload: LoadRealtimeDocActionPayload
-    ) => LoadRealtimeDocActionResult
+      payload: LoadRealtimeDocActionPayload,
+    ) => LoadRealtimeDocActionResult,
   ) {
     return new Promise<void>((resolve) => {
       let resolveOnce: typeof resolve | null = resolve;
@@ -245,7 +245,7 @@ export default function usePageData<
     } else {
       path = path.replace(
         `/${oldFindKey.replaceAll('.', '_')}/`,
-        `/${newFindKey.replaceAll('.', '_')}/`
+        `/${newFindKey.replaceAll('.', '_')}/`,
       );
     }
 
@@ -305,7 +305,7 @@ export default function usePageData<
 
 export class UsePageDataHelper<
   T extends NonNullable<unknown>,
-  TVm extends NonNullable<unknown>
+  TVm extends NonNullable<unknown>,
 > {
   Return = usePageData<T, TVm>(
     () => undefined,
@@ -314,6 +314,6 @@ export class UsePageDataHelper<
     ref(false),
     ref(false),
     ref(false),
-    ref(false)
+    ref(false),
   );
 }

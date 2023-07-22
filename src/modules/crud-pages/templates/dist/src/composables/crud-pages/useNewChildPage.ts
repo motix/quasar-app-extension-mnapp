@@ -14,7 +14,7 @@ import useNotifications from 'composables/useNotifications';
 
 export default function useNewChildPage<
   TChildVm extends NonNullable<unknown>,
-  TParentVm extends NonNullable<unknown>
+  TParentVm extends NonNullable<unknown>,
 >($p: NewPage<TChildVm, NonNullable<unknown>>) {
   // Private
 
@@ -27,10 +27,10 @@ export default function useNewChildPage<
 
   const muteRealtimeUpdate = ref(false);
   const parentFindKey = ref(
-    ((route.params.parentFindKey as string) || '').replaceAll('_', '.')
+    ((route.params.parentFindKey as string) || '').replaceAll('_', '.'),
   );
   const parentModelFindKeyField = ref<Extract<keyof TParentVm, string>>(
-    'id' as Extract<keyof TParentVm, string>
+    'id' as Extract<keyof TParentVm, string>,
   ) as Ref<Extract<keyof TParentVm, string>>;
   const parentDocKey = ref<string | null>(null);
   const parentViewModel = ref(null) as Ref<TParentVm | null>;
@@ -53,7 +53,7 @@ export default function useNewChildPage<
       parentViewModel.value ||
       (() => {
         throw new Error('parentViewModel not ready');
-      })()
+      })(),
   );
 
   // Private Executions
@@ -96,8 +96,8 @@ export default function useNewChildPage<
 
   function loadParentModel(
     loadParentModel: (
-      payload: LoadRealtimeDocActionPayload
-    ) => LoadRealtimeDocActionResult
+      payload: LoadRealtimeDocActionPayload,
+    ) => LoadRealtimeDocActionResult,
   ) {
     return new Promise<void>((resolve) => {
       let resolveOnce: typeof resolve | null = resolve;
@@ -184,7 +184,7 @@ export default function useNewChildPage<
     if (parentViewModel.value !== null) {
       // Update parentFindKey and path if changed
       parentFindKey.value = String(
-        parentViewModel.value[parentModelFindKeyField.value]
+        parentViewModel.value[parentModelFindKeyField.value],
       );
     }
   }
@@ -199,7 +199,7 @@ export default function useNewChildPage<
     } else {
       path = path.replace(
         `/${oldFindKey.replaceAll('.', '_')}/`,
-        `/${newFindKey.replaceAll('.', '_')}/`
+        `/${newFindKey.replaceAll('.', '_')}/`,
       );
     }
 
@@ -233,14 +233,14 @@ export default function useNewChildPage<
 
 class UseNewChildPageHelper<
   TChildVm extends NonNullable<unknown>,
-  TParentVm extends NonNullable<unknown>
+  TParentVm extends NonNullable<unknown>,
 > {
   Return = useNewChildPage<TChildVm, TParentVm>(
-    {} as NewPage<TChildVm, NonNullable<unknown>>
+    {} as NewPage<TChildVm, NonNullable<unknown>>,
   );
 }
 
 export type NewChildPage<
   TChildVm extends NonNullable<unknown>,
-  TParentVm extends NonNullable<unknown>
+  TParentVm extends NonNullable<unknown>,
 > = UseNewChildPageHelper<TChildVm, TParentVm>['Return'];

@@ -87,10 +87,10 @@ function usePageData(
   emit: (
     e: 'loadNextPage',
     index: number,
-    done: (stop: boolean) => void
+    done: (stop: boolean) => void,
   ) => void,
   autoLoadAllPages: ReturnType<typeof useAutoLoadAllPages>['autoLoadAllPages'],
-  infiniteScroll: ReturnType<typeof useAutoLoadAllPages>['infiniteScroll']
+  infiniteScroll: ReturnType<typeof useAutoLoadAllPages>['infiniteScroll'],
 ) {
   // Composables
 
@@ -189,7 +189,7 @@ function usePageMultiViews(scopeName: string) {
   const hasTableView = computed(() => !!columns.value || !!slots['table']);
   const hasCardsView = computed(() => !!slots['item-card'] || !!slots['cards']);
   const hasMultiViews = computed(
-    () => hasTableView.value && hasCardsView.value
+    () => hasTableView.value && hasCardsView.value,
   );
 
   return {
@@ -276,14 +276,14 @@ const {
 } = usePageData(props.scopeName, emit, autoLoadAllPages, infiniteScroll);
 
 const { itemLink, hasViewPage, onRowClick } = useNavigateToViewPage(
-  props.scopeName
+  props.scopeName,
 );
 
 const { isTableView, isCardsView, hasTableView, hasCardsView, hasMultiViews } =
   usePageMultiViews(props.scopeName);
 
 const { hideInfiniteScrollLoading } = useSmoothHideInfiniteScrollLoading(
-  props.scopeName
+  props.scopeName,
 );
 
 // Computed
@@ -298,7 +298,7 @@ const switchViewButtonMargin = computed(
         : newButton.value || !hideAutoLoadAllPagesButton.value
         ? 7
         : 0
-    }px`
+    }px`,
 );
 </script>
 

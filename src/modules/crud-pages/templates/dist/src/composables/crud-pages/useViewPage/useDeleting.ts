@@ -15,7 +15,7 @@ export default function useDeleting(
   freezed: ReturnType<typeof usePageStatus>['freezed'],
   muteRealtimeUpdate: ReturnType<typeof usePageStatus>['muteRealtimeUpdate'],
   docKey: ReturnType<typeof usePageData>['docKey'],
-  deleteModel: ReturnType<typeof usePageData>['deleteModel']
+  deleteModel: ReturnType<typeof usePageData>['deleteModel'],
 ) {
   // Composables
 

@@ -31,7 +31,7 @@ module.exports = defineInstall(function vendors(api) {
 
     if (!npmrc.includes('@fortawesome:registry')) {
       api.onExitLog(
-        ' \x1b[32mvendors       • \x1b[0mFont Awesome registry is absent from \x1b[33m./.npmrc\x1b[0m. Affter adding please also add \x1b[33m.npmrc\x1b[0m to \x1b[33m./.gitignore\x1b[0m.'
+        ' \x1b[32mvendors       • \x1b[0mFont Awesome registry is absent from \x1b[33m./.npmrc\x1b[0m. Affter adding please also add \x1b[33m.npmrc\x1b[0m to \x1b[33m./.gitignore\x1b[0m.',
       );
     }
   }
@@ -53,7 +53,7 @@ module.exports = defineInstall(function vendors(api) {
         lodash: '^4.17.21',
       },
       devDependencies: {
-        '@types/lodash': '^4.14.194',
+        '@types/lodash': '^4.14.195',
       },
     });
     delete require.cache[api.resolve.app('package.json')];
@@ -89,8 +89,8 @@ module.exports = defineInstall(function vendors(api) {
   if (vendors.includes('vld')) {
     api.extendPackageJson({
       dependencies: {
-        'vee-validate': '^4.9.3',
-        yup: '^1.1.1',
+        'vee-validate': '^4.10.8',
+        yup: '^1.2.0',
       },
     });
     delete require.cache[api.resolve.app('package.json')];
@@ -100,7 +100,7 @@ module.exports = defineInstall(function vendors(api) {
   if (vendors.includes('mkd')) {
     api.extendPackageJson({
       dependencies: {
-        'vue-markdown-render': '^2.0.0',
+        'vue-markdown-render': '^2.0.1',
       },
       devDependencies: {
         '@types/markdown-it': '^12.2.3',

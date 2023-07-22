@@ -18,7 +18,7 @@ function requiredConfigEntry(key: Extract<keyof Config, string>) {
 }
 
 export function requiredConfigEntries<
-  TKey extends Extract<keyof Config, string>
+  TKey extends Extract<keyof Config, string>,
 >(...keys: TKey[]) {
   const entries: Record<string, unknown> = {};
 

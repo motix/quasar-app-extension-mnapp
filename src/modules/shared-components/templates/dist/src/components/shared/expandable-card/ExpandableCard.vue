@@ -85,7 +85,7 @@ const props = withDefaults(
     bodyRowGutter: false,
     bodyCellGutter: false,
     bezelLessLoading: false,
-  }
+  },
 );
 
 // Data

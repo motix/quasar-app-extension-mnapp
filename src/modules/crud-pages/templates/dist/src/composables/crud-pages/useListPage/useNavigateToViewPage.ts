@@ -4,7 +4,7 @@ import { useRouter } from 'vue-router';
 import { UsePageDataHelper } from './usePageData';
 
 export default function useNavigateToViewPage<T extends NonNullable<unknown>>(
-  modelFindKeyField: UsePageDataHelper<T>['Return']['modelFindKeyField']
+  modelFindKeyField: UsePageDataHelper<T>['Return']['modelFindKeyField'],
 ) {
   // Composables
 
@@ -24,7 +24,7 @@ export default function useNavigateToViewPage<T extends NonNullable<unknown>>(
 
     const keyValue = item[modelFindKeyField.value];
     const routeLocation = router.resolve(
-      viewUrl.value + String(keyValue).replaceAll('.', '_')
+      viewUrl.value + String(keyValue).replaceAll('.', '_'),
     );
 
     return routeLocation.href;
@@ -45,7 +45,7 @@ export default function useNavigateToViewPage<T extends NonNullable<unknown>>(
         // Wait for the ripple
         setTimeout(() => {
           void router.push(
-            viewUrl.value + String(keyValue).replaceAll('.', '_')
+            viewUrl.value + String(keyValue).replaceAll('.', '_'),
           );
         }, 300);
       } else {

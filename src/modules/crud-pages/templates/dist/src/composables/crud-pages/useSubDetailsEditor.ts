@@ -10,18 +10,18 @@ export default function useSubDetailsEditor<
   TVm extends NonNullable<unknown>,
   TDetailVm extends NonNullable<unknown>,
   TSubDetailVm extends NonNullable<unknown>,
-  TNewSubDetailParams extends Array<unknown>
+  TNewSubDetailParams extends Array<unknown>,
 >(
   $p: EditPage<never, TVm, NonNullable<unknown>>,
   getDetails: (vm: TVm) => TDetailVm[],
   getSubDetails: (vm: TVm, detailIndex: number) => TSubDetailVm[],
-  newSubDetail: (...params: TNewSubDetailParams) => TSubDetailVm
+  newSubDetail: (...params: TNewSubDetailParams) => TSubDetailVm,
 ) {
   // Private
 
   function scrollToSubDetailEditor(
     detailIndex: number,
-    subDetailIndex: number
+    subDetailIndex: number,
   ) {
     scrollToElement(subDetailEditorRefs.value[detailIndex][subDetailIndex]);
   }
@@ -45,7 +45,7 @@ export default function useSubDetailsEditor<
   function setSubDetailEditorRef(
     el: (typeof subDetailEditorRefs.value)[number][number] | null,
     detailIndex: number,
-    subDetailIndex: number
+    subDetailIndex: number,
   ) {
     if (el !== null) {
       subDetailEditorRefs.value[detailIndex] ||= [];
@@ -57,7 +57,7 @@ export default function useSubDetailsEditor<
     insertSubDetail(
       detailIndex,
       getSubDetails($p.vm.value, detailIndex).length,
-      ...params
+      ...params,
     );
   }
 
@@ -70,7 +70,7 @@ export default function useSubDetailsEditor<
     getSubDetails($p.vm.value, detailIndex).splice(
       subDetailIndex,
       0,
-      subDetail
+      subDetail,
     );
 
     $p.dirty();
@@ -85,7 +85,7 @@ export default function useSubDetailsEditor<
               scrollToSubDetailEditor(detailIndex, subDetailIndex);
             });
           }
-        }
+        },
       );
     }
   }
@@ -99,8 +99,8 @@ export default function useSubDetailsEditor<
   async function validateSubDetailsEditor(detailIndex: number) {
     const results = await Promise.all(
       (subDetailEditorRefs.value[detailIndex] || []).map((value) =>
-        value.validate()
-      )
+        value.validate(),
+      ),
     );
 
     return !results.includes(false);
@@ -110,11 +110,11 @@ export default function useSubDetailsEditor<
 
   watch(
     computed(() =>
-      $p.viewModel.value ? getDetails($p.viewModel.value).length : undefined
+      $p.viewModel.value ? getDetails($p.viewModel.value).length : undefined,
     ),
     () => {
       subDetailEditorRefs.value = [];
-    }
+    },
   );
 
   function watchSubDetailsLength(detailIndex: number) {
@@ -123,11 +123,11 @@ export default function useSubDetailsEditor<
       computed(() =>
         $p.viewModel.value && getDetails($p.viewModel.value)[detailIndex]
           ? getSubDetails($p.viewModel.value, detailIndex).length
-          : undefined
+          : undefined,
       ),
       () => {
         subDetailEditorRefs.value[detailIndex] = [];
-      }
+      },
     );
   }
 

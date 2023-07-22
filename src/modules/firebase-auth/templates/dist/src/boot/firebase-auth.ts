@@ -113,6 +113,6 @@ export default boot(({ router }) => {
 
       console.error(error);
       notifyErrorDebug(error);
-    }
+    },
   );
 });

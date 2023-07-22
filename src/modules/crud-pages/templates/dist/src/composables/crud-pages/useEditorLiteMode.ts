@@ -11,7 +11,7 @@ export default function useEditorLiteMode<TVm extends NonNullable<unknown>>(
   $p: EditPage<never, TVm, NonNullable<unknown>>,
   validateFullModeEditor: () => Promise<boolean>,
   validateLiteModeEditor: () => Promise<boolean>,
-  resetInputs: () => void
+  resetInputs: () => void,
 ) {
   // Composables
 
@@ -28,7 +28,7 @@ export default function useEditorLiteMode<TVm extends NonNullable<unknown>>(
   // Computed
 
   const showToggleLiteModeButton = computed(
-    () => $p.ready.value && $ep.newPageOrEditMode.value
+    () => $p.ready.value && $ep.newPageOrEditMode.value,
   );
 
   // Methods

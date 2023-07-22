@@ -12,28 +12,28 @@ module.exports = defineInstall(function (api) {
 
     dependencies: {
       // Upgrade Starter Kit packages
-      pinia: '^2.0.36',
-      '@quasar/extras': '^1.16.3',
-      quasar: '^2.12.0',
-      vue: '^3.3.1',
-      'vue-router': '^4.2.0',
+      pinia: '^2.1.4',
+      '@quasar/extras': '^1.16.5',
+      quasar: '^2.12.3',
+      vue: '^3.3.4',
+      'vue-router': '^4.2.4',
     },
 
     devDependencies: {
       // Upgrade Starter Kit packages
-      '@typescript-eslint/eslint-plugin': '^5.59.5',
-      '@typescript-eslint/parser': '^5.59.5',
-      eslint: '^8.40.0',
-      'eslint-plugin-vue': '^9.12.0',
+      '@typescript-eslint/eslint-plugin': '^6.1.0',
+      '@typescript-eslint/parser': '^6.1.0',
+      eslint: '^8.45.0',
+      'eslint-plugin-vue': '^9.15.1',
       'eslint-config-prettier': '^8.8.0',
-      prettier: '^2.8.8',
-      '@types/node': '^20.0.0',
-      '@quasar/app-vite': '^1.4.2',
+      prettier: '^3.0.0',
+      '@types/node': '^20.4.4',
+      '@quasar/app-vite': '^1.4.3',
       autoprefixer: '^10.4.14',
-      typescript: '^5.0.4',
+      typescript: '^5.1.6',
       // Add new packages
-      'format-imports': '^3.2.3',
-      'vue-tsc': '^1.6.5',
+      'format-imports': '^3.2.5',
+      'vue-tsc': '^1.8.6',
     },
   });
   delete require.cache[api.resolve.app('package.json')];
@@ -49,7 +49,7 @@ module.exports = defineInstall(function (api) {
 
     if (
       !extensionsJson.recommendations?.includes(
-        'rohit-gohri.format-code-action'
+        'rohit-gohri.format-code-action',
       )
     ) {
       api.extendJsonFile('.vscode/extensions.json', {
@@ -93,17 +93,17 @@ module.exports = defineInstall(function (api) {
 
     let eslintrcCjs = fs.readFileSync(
       api.resolve.app('.eslintrc.cjs'),
-      'utf-8'
+      'utf-8',
     );
 
     eslintrcCjs = eslintrcCjs
       .replace(
         "    'plugin:vue/vue3-essential', // Priority A: Essential (Error Prevention)",
-        "    // 'plugin:vue/vue3-essential', // Priority A: Essential (Error Prevention)"
+        "    // 'plugin:vue/vue3-essential', // Priority A: Essential (Error Prevention)",
       )
       .replace(
         "    // 'plugin:vue/vue3-recommended', // Priority C: Recommended (Minimizing Arbitrary Choices and Cognitive Overhead)",
-        "    'plugin:vue/vue3-recommended', // Priority C: Recommended (Minimizing Arbitrary Choices and Cognitive Overhead)"
+        "    'plugin:vue/vue3-recommended', // Priority C: Recommended (Minimizing Arbitrary Choices and Cognitive Overhead)",
       );
 
     if (!eslintrcCjs.includes('vue/attributes-order')) {
@@ -112,7 +112,7 @@ module.exports = defineInstall(function (api) {
         `    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
 
     // alphabetical
-    'vue/attributes-order': ['warn', { alphabetical: true }]`
+    'vue/attributes-order': ['warn', { alphabetical: true }]`,
       );
     }
 
@@ -135,7 +135,7 @@ module.exports = defineInstall(function (api) {
 
     let shimsVueDTs = fs.readFileSync(
       api.resolve.app('src/shims-vue.d.ts'),
-      'utf-8'
+      'utf-8',
     );
 
     shimsVueDTs = shimsVueDTs.replace(
@@ -148,7 +148,7 @@ module.exports = defineInstall(function (api) {
 //   import type { DefineComponent } from 'vue';
 //   const component: DefineComponent<{}, {}, any>;
 //   export default component;
-// }`
+// }`,
     );
 
     fs.writeFileSync(api.resolve.app('src/shims-vue.d.ts'), shimsVueDTs, {

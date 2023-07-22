@@ -21,9 +21,9 @@ export type QTablePagination = NonNullable<QTable['pagination']>;
 
 export default function useTableView<
   T extends NonNullable<unknown>,
-  TRow extends NonNullable<unknown>
+  TRow extends NonNullable<unknown>,
 >(
-  clientFilteredItems: UseClientFilterHelper<T>['Return']['clientFilteredItems']
+  clientFilteredItems: UseClientFilterHelper<T>['Return']['clientFilteredItems'],
 ) {
   // Data
 
@@ -43,7 +43,7 @@ export default function useTableView<
       ? (clientFilteredItems.value as TRow[] | null)
       : clientFilteredItems.value === null
       ? null
-      : buildRows.value(clientFilteredItems.value)
+      : buildRows.value(clientFilteredItems.value),
   );
 
   return {

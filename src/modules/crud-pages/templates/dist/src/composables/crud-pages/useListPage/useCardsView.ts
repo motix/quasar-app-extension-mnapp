@@ -6,7 +6,7 @@ export default function useCardsView() {
   // Composables
 
   const listItemCardWidth = readonly(
-    ref(requiredConfigEntries('listItemCardWidth').listItemCardWidth)
+    ref(requiredConfigEntries('listItemCardWidth').listItemCardWidth),
   );
 
   return {

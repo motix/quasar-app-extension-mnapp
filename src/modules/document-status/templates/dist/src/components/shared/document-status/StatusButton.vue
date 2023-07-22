@@ -10,7 +10,7 @@ withDefaults(
   {
     freezed: false,
     revertColor: false,
-  }
+  },
 );
 
 defineEmits<{

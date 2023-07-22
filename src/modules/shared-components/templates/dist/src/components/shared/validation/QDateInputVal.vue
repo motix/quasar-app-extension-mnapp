@@ -29,11 +29,11 @@ const emit = defineEmits<{
 const { dateFormat, editDateFormat, dateMask } = requiredConfigEntries(
   'dateFormat',
   'editDateFormat',
-  'dateMask'
+  'dateMask',
 );
 
 const { value: valValue, errorMessage } = useField<string | null | undefined>(
-  props.name
+  props.name,
 );
 
 // Data
@@ -70,7 +70,7 @@ watch(
     if (valValue.value !== newValue) {
       value.value = newValue;
     }
-  }
+  },
 );
 </script>
 

@@ -13,7 +13,7 @@ const props = withDefaults(
     gutter: 0,
     colorEffect: false,
     noTag: false,
-  }
+  },
 );
 
 // Methods

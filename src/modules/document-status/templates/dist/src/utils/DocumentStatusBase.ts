@@ -97,7 +97,7 @@ function buildBaseButtons<TUserRole, TActionName extends string>(
 function buildBaseStatuses<
   TUserRole,
   TStatusName extends string,
-  TActionName extends string
+  TActionName extends string,
 >(
   ...statuses: TStatusName[]
 ): Record<TStatusName, Status<TUserRole, TActionName>> {
@@ -124,40 +124,40 @@ export function buildStatuses<
   TStatusName extends TGroupStatusName,
   TActionName extends TGroupActionName,
   TGroupStatusName extends string,
-  TGroupActionName extends string
+  TGroupActionName extends string,
 >(
   groupActions: TGroupActionName[],
   buttonOverrides: Partial<
     Record<TGroupActionName, Partial<Button<TUserRole, TGroupActionName>>>
   >,
   statusOverrides: (
-    buttons: Record<TGroupActionName, Button<TUserRole, TGroupActionName>>
+    buttons: Record<TGroupActionName, Button<TUserRole, TGroupActionName>>,
   ) => Partial<
     Record<TGroupStatusName, Partial<Status<TUserRole, TGroupActionName>>>
   >,
   ...statuses: TStatusName[]
 ): Record<TStatusName, Status<TUserRole, TActionName>> {
   const buttons = buildBaseButtons<TUserRole, TGroupActionName>(
-    ...groupActions
+    ...groupActions,
   );
 
   for (const action of groupActions) {
     buttons[action] = Object.assign(
       buttons[action],
-      buttonOverrides[action] || {}
+      buttonOverrides[action] || {},
     );
   }
 
   const statusOverridesResult = statusOverrides(buttons);
 
   const result = buildBaseStatuses<TUserRole, TStatusName, TActionName>(
-    ...statuses
+    ...statuses,
   );
 
   for (const status of statuses) {
     result[status] = Object.assign(
       result[status],
-      statusOverridesResult[status] || {}
+      statusOverridesResult[status] || {},
     );
   }
 
@@ -168,7 +168,7 @@ export default abstract class DocumentStatusBase<
   T,
   TUserRole extends string,
   TStatusName extends string,
-  TActionName extends string
+  TActionName extends string,
 > {
   protected container: T;
   protected userRoles: TUserRole[] = [];
@@ -204,7 +204,7 @@ export default abstract class DocumentStatusBase<
     return this.userRoles.includes('admin' as TUserRole)
       ? this.status.buttons
       : this.status.buttons.filter(
-          (button) => intersection(this.userRoles, button.roles).length > 0
+          (button) => intersection(this.userRoles, button.roles).length > 0,
         );
   }
 
@@ -220,18 +220,18 @@ export default abstract class DocumentStatusBase<
     >,
     TUserRole extends string,
     TStatusName extends string,
-    TActionName extends string
+    TActionName extends string,
   >(
     documentStatusConstructor: new (
       container: T,
-      userRoles: TUserRole[]
+      userRoles: TUserRole[],
     ) => TDocumentStatus,
     container: Omit<T, 'statusHelper'>,
-    userRoles: TUserRole[]
+    userRoles: TUserRole[],
   ) {
     (container as T).statusHelper = new documentStatusConstructor(
       container as T,
-      userRoles
+      userRoles,
     );
 
     return container as T;

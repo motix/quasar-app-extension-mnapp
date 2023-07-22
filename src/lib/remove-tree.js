@@ -51,7 +51,7 @@ function removePath(api, templatePath, relativePath, excludePaths) {
         api,
         templatePath,
         path.join(relativePath, currentPath),
-        excludePaths
+        excludePaths,
       );
     }
   }

@@ -8,7 +8,7 @@ declare module '../useFormats' {
 
 export default function currency(
   value: number | string | null | undefined,
-  isNegative = false
+  isNegative = false,
 ) {
   if (value == null) return value;
 

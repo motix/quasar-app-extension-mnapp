@@ -42,6 +42,6 @@ export const useFirebaseAuthStore = defineStore('FirebaseAuth', () => {
 
 if (import.meta.hot) {
   import.meta.hot.accept(
-    acceptHMRUpdate(useFirebaseAuthStore, import.meta.hot)
+    acceptHMRUpdate(useFirebaseAuthStore, import.meta.hot),
   );
 }

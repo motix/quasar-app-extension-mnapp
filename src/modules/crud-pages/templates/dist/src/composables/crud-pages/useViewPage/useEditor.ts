@@ -23,7 +23,7 @@ export default function useEditor<TVm extends NonNullable<unknown>>(
   docKey: ReturnType<typeof usePageData>['docKey'],
   viewModel: UsePageDataHelper<never, TVm>['Return']['viewModel'],
   updateModel: UsePageDataHelper<never, TVm>['Return']['updateModel'],
-  getModelAndViewModel: ReturnType<typeof usePageData>['getModelAndViewModel']
+  getModelAndViewModel: ReturnType<typeof usePageData>['getModelAndViewModel'],
 ) {
   // Private
 
@@ -73,7 +73,7 @@ export default function useEditor<TVm extends NonNullable<unknown>>(
   ) {
     const initialValues = values
       ? (Object.fromEntries(
-          initialValuesKeys.map((key) => [key, values[key]])
+          initialValuesKeys.map((key) => [key, values[key]]),
         ) as MaybeRef<PartialDeep<Pick<T, K>>>)
       : undefined;
 
@@ -90,7 +90,7 @@ export default function useEditor<TVm extends NonNullable<unknown>>(
     const result = useValidationForm(
       validationSchema,
       viewModel.value,
-      ...initialValuesKeys
+      ...initialValuesKeys,
     );
 
     internalCustomValidate = null;

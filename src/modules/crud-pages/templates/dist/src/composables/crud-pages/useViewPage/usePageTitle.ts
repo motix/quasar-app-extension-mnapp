@@ -7,7 +7,7 @@ import { requiredConfigEntries } from 'composables/useConfig';
 import { UsePageDataHelper } from './usePageData';
 
 export default function usePageTitle<T extends NonNullable<unknown>>(
-  model: UsePageDataHelper<T, never>['Return']['model']
+  model: UsePageDataHelper<T, never>['Return']['model'],
 ) {
   // Private
 

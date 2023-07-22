@@ -34,7 +34,7 @@ const props = withDefaults(
     markupTable: false,
     dense: false,
     separated: false,
-  }
+  },
 );
 
 // Composables
@@ -57,7 +57,7 @@ const sourceTableScrollObserverEnabled = ref(false);
 // Computed
 
 const sourceTableScrollTarget = computed(() =>
-  props.markupTable ? props.target : `${props.target}>.q-table__middle.scroll`
+  props.markupTable ? props.target : `${props.target}>.q-table__middle.scroll`,
 );
 
 // Methods
@@ -89,13 +89,13 @@ function onResize() {
 
   const sourceTr = source.querySelector(':scope>thead>tr') as HTMLElement;
   const destTr = (container.value as HTMLElement).querySelector(
-    ':scope>div>table>thead>tr'
+    ':scope>div>table>thead>tr',
   ) as HTMLElement;
 
   destTr.innerHTML = sourceTr.innerHTML;
 
   function forEachHeader(
-    callback: (sourceTh: HTMLElement, desetTh: HTMLElement) => void
+    callback: (sourceTh: HTMLElement, desetTh: HTMLElement) => void,
   ) {
     let textNodeCount = 0;
     sourceTr.childNodes.forEach((value, index) => {
@@ -111,7 +111,7 @@ function onResize() {
       }
 
       const destTh = destTr.childNodes.item(
-        index - textNodeCount
+        index - textNodeCount,
       ) as HTMLElement;
 
       callback(sourceTh, destTh);
@@ -162,7 +162,7 @@ function onDocumentScroll() {
       stickyHeadersPosition.value + sourceTr.getBoundingClientRect().height * 2;
 
   const left = getHorizontalScrollPosition(
-    document.querySelector(sourceTableScrollTarget.value) as HTMLElement
+    document.querySelector(sourceTableScrollTarget.value) as HTMLElement,
   );
   setHorizontalScrollPosition(container.value as HTMLElement, left);
 }
@@ -179,7 +179,7 @@ function onSourceTableScroll(info: OnScrollDetail) {
   destScrollObserverPaused = true;
   setHorizontalScrollPosition(
     container.value as HTMLElement,
-    info.position.left
+    info.position.left,
   );
   destScrollObserverPausedTimeout = setTimeout(() => {
     destScrollObserverPaused = false;
@@ -198,7 +198,7 @@ function onDestTableScroll(info: OnScrollDetail) {
   sourceScrollObserverPaused = true;
   setHorizontalScrollPosition(
     document.querySelector(sourceTableScrollTarget.value) as HTMLElement,
-    info.position.left
+    info.position.left,
   );
   sourceScrollObserverPausedTimeout = setTimeout(() => {
     sourceScrollObserverPaused = false;

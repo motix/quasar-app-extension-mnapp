@@ -1,6 +1,6 @@
 export default function useGenericConvert<
   T extends NonNullable<unknown>,
-  TRow extends NonNullable<unknown>
+  TRow extends NonNullable<unknown>,
 >() {
   // Methods
 
