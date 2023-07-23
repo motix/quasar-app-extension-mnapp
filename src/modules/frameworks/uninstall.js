@@ -24,7 +24,7 @@ module.exports = defineUninstall(function (api) {
     dependencies: {
       // Restore Starter Kit packages
       pinia: '^2.0.11',
-      '@quasar/extras': '^1.0.0',
+      '@quasar/extras': '^1.16.4',
       quasar: '^2.6.0',
       vue: '^3.0.0',
       'vue-router': '^4.0.0',
@@ -39,7 +39,7 @@ module.exports = defineUninstall(function (api) {
       'eslint-config-prettier': '^8.1.0',
       prettier: '^2.5.1',
       '@types/node': '^12.20.21',
-      '@quasar/app-vite': '^1.0.0',
+      '@quasar/app-vite': '^1.3.0',
       autoprefixer: '^10.4.2',
       typescript: '^4.5.4',
     },
@@ -51,7 +51,7 @@ module.exports = defineUninstall(function (api) {
 
     let shimsVueDTs = fs.readFileSync(
       api.resolve.app('src/shims-vue.d.ts'),
-      'utf-8'
+      'utf-8',
     );
 
     shimsVueDTs = shimsVueDTs.replace(
@@ -64,7 +64,7 @@ module.exports = defineUninstall(function (api) {
   import type { DefineComponent } from 'vue';
   const component: DefineComponent<{}, {}, any>;
   export default component;
-}`
+}`,
     );
 
     fs.writeFileSync(api.resolve.app('src/shims-vue.d.ts'), shimsVueDTs, {
@@ -81,17 +81,17 @@ module.exports = defineUninstall(function (api) {
 
     let eslintrcCjs = fs.readFileSync(
       api.resolve.app('.eslintrc.cjs'),
-      'utf-8'
+      'utf-8',
     );
 
     eslintrcCjs = eslintrcCjs
       .replace(
         "    // 'plugin:vue/vue3-essential', // Priority A: Essential (Error Prevention)",
-        "    'plugin:vue/vue3-essential', // Priority A: Essential (Error Prevention)"
+        "    'plugin:vue/vue3-essential', // Priority A: Essential (Error Prevention)",
       )
       .replace(
         "    'plugin:vue/vue3-recommended', // Priority C: Recommended (Minimizing Arbitrary Choices and Cognitive Overhead)",
-        "    // 'plugin:vue/vue3-recommended', // Priority C: Recommended (Minimizing Arbitrary Choices and Cognitive Overhead)"
+        "    // 'plugin:vue/vue3-recommended', // Priority C: Recommended (Minimizing Arbitrary Choices and Cognitive Overhead)",
       );
 
     if (eslintrcCjs.includes('vue/attributes-order')) {
@@ -100,7 +100,7 @@ module.exports = defineUninstall(function (api) {
 
     // alphabetical
     'vue/attributes-order': ['warn', { alphabetical: true }]`,
-        ''
+        '',
       );
     }
 

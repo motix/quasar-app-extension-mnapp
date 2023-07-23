@@ -16,7 +16,7 @@ const props = defineProps<{ scopeName: string }>();
 // Composables
 
 const $p = useViewPage<NonNullable<unknown>, NonNullable<unknown>>(
-  props.scopeName
+  props.scopeName,
 );
 const {
   // useReturnUrl

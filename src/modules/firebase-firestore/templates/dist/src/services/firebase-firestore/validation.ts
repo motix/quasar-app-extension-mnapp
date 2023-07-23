@@ -8,7 +8,7 @@ export async function validateUniqueField<TValue>(
   collectionPath: string,
   fieldName: string,
   value: TValue,
-  excludeId?: string
+  excludeId?: string,
 ) {
   const db = getFirestore();
 
@@ -23,12 +23,12 @@ export async function validateUniqueField<TValue>(
 
   const collectionRefNormalized = collection(
     db,
-    `${collectionPath}_normalized`
+    `${collectionPath}_normalized`,
   );
   const qNormalized = query(
     collectionRefNormalized,
     where(fieldName, '==', indexNormalizeString(String(value))),
-    limit(2)
+    limit(2),
   );
   const qSnapshotNormalized = await getDocs(qNormalized);
   const resultNormalized =

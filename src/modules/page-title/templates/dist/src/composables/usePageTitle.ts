@@ -39,7 +39,7 @@ export default function () {
     () => route.meta,
     (newValue) => {
       pageTitle.value = newValue.pageTitle;
-    }
+    },
   );
 
   return {

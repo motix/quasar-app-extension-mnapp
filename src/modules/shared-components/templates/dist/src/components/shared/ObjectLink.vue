@@ -12,7 +12,7 @@ withDefaults(
   {
     wrapLabel: false,
     maxWidth: '100%',
-  }
+  },
 );
 </script>
 

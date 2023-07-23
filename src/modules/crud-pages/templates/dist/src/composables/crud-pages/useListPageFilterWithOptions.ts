@@ -40,7 +40,7 @@ export default function useListPageFilterWithOptions<FilterType>(
       queryConstraints.value = option.queryConstraints;
 
       return loadItems();
-    }
+    },
   );
 
   // Computed
@@ -52,7 +52,7 @@ export default function useListPageFilterWithOptions<FilterType>(
         label: value.label,
         selected: value.type === listPageFilter.currentFilter.value,
       }));
-    }
+    },
   );
 
   return {

@@ -33,7 +33,7 @@ function getAuthOrEmulator() {
     connectAuthEmulator(
       auth,
       `http://${host}:${firebaseConfig.emulators.auth.port}`,
-      { disableWarnings: !!process.env.DEBUGGING }
+      { disableWarnings: !!process.env.DEBUGGING },
     );
   }
 
@@ -52,7 +52,7 @@ function getFirestoreOrEmulator() {
     connectFirestoreEmulator(
       firestore,
       host,
-      firebaseConfig.emulators.firestore.port
+      firebaseConfig.emulators.firestore.port,
     );
   }
 
@@ -71,7 +71,7 @@ function getStorageOrEmulator() {
     connectStorageEmulator(
       storage,
       host,
-      firebaseConfig.emulators.storage.port
+      firebaseConfig.emulators.storage.port,
     );
   }
 
@@ -95,7 +95,7 @@ function getFunctionsOrEmulator() {
     connectFunctionsEmulator(
       functions,
       host,
-      firebaseConfig.emulators.functions.port
+      firebaseConfig.emulators.functions.port,
     );
   }
 

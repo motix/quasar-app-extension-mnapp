@@ -7,7 +7,7 @@ import useReturnUrl from 'composables/useReturnUrl';
 import usePageStatus from './usePageStatus';
 
 export default function navigateToListPage(
-  isDirty: ReturnType<typeof usePageStatus>['isDirty']
+  isDirty: ReturnType<typeof usePageStatus>['isDirty'],
 ) {
   // Composables
 

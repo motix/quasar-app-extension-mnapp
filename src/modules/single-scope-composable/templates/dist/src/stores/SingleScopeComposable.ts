@@ -64,11 +64,11 @@ export const useSingleScopeComposableStore = defineStore(
       decreaseScopeUseCount,
       retrieveScope,
     };
-  }
+  },
 );
 
 if (import.meta.hot) {
   import.meta.hot.accept(
-    acceptHMRUpdate(useSingleScopeComposableStore, import.meta.hot)
+    acceptHMRUpdate(useSingleScopeComposableStore, import.meta.hot),
   );
 }

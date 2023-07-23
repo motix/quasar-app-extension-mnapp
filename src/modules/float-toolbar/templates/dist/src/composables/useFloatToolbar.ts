@@ -16,7 +16,7 @@ export interface FloatToolbarResult {
 
 export default function (
   fixedHeaderHeight: number,
-  collapseHeaderHeight: number
+  collapseHeaderHeight: number,
 ) {
   // Data
 
@@ -30,13 +30,13 @@ export default function (
   const headerHeight = computed(() => fixedHeaderHeight + collapseHeaderHeight);
   const scrollPosition = ref(0);
   const headerElevated = computed(
-    () => scrollPosition.value >= collapseHeaderHeight
+    () => scrollPosition.value >= collapseHeaderHeight,
   );
   const floatToolbarOffsetTop = computed(() =>
     Math.max(
       collapseHeaderHeight - scrollPosition.value,
-      revealed.value ? 0 : QFAB_BTN_SIZE / 2
-    )
+      revealed.value ? 0 : QFAB_BTN_SIZE / 2,
+    ),
   );
   const floatToolbarOffsetBottom = computed(() => QFAB_BTN_SIZE / 2);
 
@@ -73,7 +73,7 @@ export default function (
 
 export function useFloatToolbarResult() {
   const floatToolbarResult = inject<FloatToolbarResult>(
-    FloatToolbarResultSymbol
+    FloatToolbarResultSymbol,
   );
   !floatToolbarResult &&
     (() => {

@@ -20,7 +20,7 @@ export default function usePageData<TVm extends NonNullable<unknown>>() {
       viewModel.value ||
       (() => {
         throw new Error('viewModel not ready');
-      })()
+      })(),
   );
 
   return {

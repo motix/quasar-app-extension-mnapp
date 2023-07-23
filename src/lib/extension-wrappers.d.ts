@@ -22,7 +22,7 @@ type IndexCallback = (api: IndexAPI) => void;
 // UninstallAPI doesn't extend SharedAPI as it should.
 // Also add extendJsonFile to the api.
 type UninstallCallback = (
-  api: UninstallAPI & SharedAPI & Pick<InstallAPI, 'extendJsonFile'>
+  api: UninstallAPI & SharedAPI & Pick<InstallAPI, 'extendJsonFile'>,
 ) => void;
 
 export type PromptsDefinition = PromptsCallback;
@@ -31,12 +31,12 @@ export type IndexDefinition = IndexCallback;
 export type UninstallDefinition = UninstallCallback;
 
 export declare function definePrompts(
-  callback: PromptsCallback
+  callback: PromptsCallback,
 ): PromptsCallback;
 export declare function defineInstall(
-  callback: InstallCallback
+  callback: InstallCallback,
 ): InstallCallback;
 export declare function defineIndex(callback: IndexCallback): IndexCallback;
 export declare function defineUninstall(
-  callback: UninstallCallback
+  callback: UninstallCallback,
 ): UninstallCallback;

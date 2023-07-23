@@ -6,7 +6,7 @@ export default function useListPageFilter<FilterType>(
   ready: ListPage<never, never>['ready'],
   initialFilter: FilterType,
   generateFilterLabel: (filter: FilterType) => string,
-  loadFilteredItems: (filter: FilterType) => Promise<void>
+  loadFilteredItems: (filter: FilterType) => Promise<void>,
 ) {
   // Data
 

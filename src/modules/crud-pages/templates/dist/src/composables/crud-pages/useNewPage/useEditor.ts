@@ -15,7 +15,7 @@ import usePageStatus from './usePageStatus';
 export default function useEditor<TVm extends NonNullable<unknown>>(
   freezed: ReturnType<typeof usePageStatus>['freezed'],
   viewModel: UsePageDataHelper<TVm>['Return']['viewModel'],
-  createModel: UsePageDataHelper<TVm>['Return']['createModel']
+  createModel: UsePageDataHelper<TVm>['Return']['createModel'],
 ) {
   // Private
 
@@ -56,7 +56,7 @@ export default function useEditor<TVm extends NonNullable<unknown>>(
 
   const viewUrl = ref<string | null>(null);
   const modelFindKeyField = ref<Extract<keyof TVm, string>>(
-    'id' as Extract<keyof TVm, string>
+    'id' as Extract<keyof TVm, string>,
   ) as Ref<Extract<keyof TVm, string>>;
   const editorSaving = ref(false);
   const initiallyFilled = ref(false);
@@ -70,7 +70,7 @@ export default function useEditor<TVm extends NonNullable<unknown>>(
   ) {
     const initialValues = values
       ? (Object.fromEntries(
-          initialValuesKeys.map((key) => [key, values[key]])
+          initialValuesKeys.map((key) => [key, values[key]]),
         ) as MaybeRef<PartialDeep<Pick<T, K>>>)
       : undefined;
 
@@ -87,7 +87,7 @@ export default function useEditor<TVm extends NonNullable<unknown>>(
     const result = useValidationForm(
       validationSchema,
       viewModel.value,
-      ...initialValuesKeys
+      ...initialValuesKeys,
     );
 
     internalCustomValidate = null;

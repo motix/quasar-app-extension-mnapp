@@ -51,7 +51,7 @@ const apiModelToModelResolver = {
   dateRequired: function <
     Key extends string,
     DateDataType,
-    TSource extends HasProp<Key, DateDataType>
+    TSource extends HasProp<Key, DateDataType>,
   >(key: Key) {
     return {
       resolve: (source: TSource): Date =>
@@ -62,12 +62,12 @@ const apiModelToModelResolver = {
   dateArrayRequired: function <
     Key extends string,
     DateDataType,
-    TSource extends HasProp<Key, DateDataType[]>
+    TSource extends HasProp<Key, DateDataType[]>,
   >(key: Key) {
     return {
       resolve: (source: TSource): Date[] =>
         source[key].map((value) =>
-          getDateDataConverter().toDate<DateDataType>(value)
+          getDateDataConverter().toDate<DateDataType>(value),
         ),
     };
   },
@@ -75,7 +75,7 @@ const apiModelToModelResolver = {
   asIsRequired: function <
     Key extends string,
     Type extends object,
-    TSource extends HasProp<Key, Type>
+    TSource extends HasProp<Key, Type>,
   >(key: Key) {
     return {
       resolve: (source: TSource): Type => replaceTimestamp(source[key]),
@@ -85,7 +85,7 @@ const apiModelToModelResolver = {
   mixedOptional: function <
     Key extends string,
     Type extends string | boolean | number,
-    TSource extends Partial<HasProp<Key, Type | null>>
+    TSource extends Partial<HasProp<Key, Type | null>>,
   >(key: Key) {
     return {
       resolve: (source: TSource): Type | undefined =>
@@ -96,7 +96,7 @@ const apiModelToModelResolver = {
   dateOptional: function <
     Key extends string,
     DateDataType,
-    TSource extends Partial<HasProp<Key, DateDataType | null>>
+    TSource extends Partial<HasProp<Key, DateDataType | null>>,
   >(key: Key) {
     return {
       resolve: (source: TSource): Date | undefined => {
@@ -109,7 +109,7 @@ const apiModelToModelResolver = {
   dateArrayOptional: function <
     Key extends string,
     DateDataType,
-    TSource extends Partial<HasProp<Key, DateDataType[] | null>>
+    TSource extends Partial<HasProp<Key, DateDataType[] | null>>,
   >(key: Key) {
     return {
       resolve: (source: TSource): Date[] | undefined => {
@@ -124,7 +124,7 @@ const apiModelToModelResolver = {
   asIsOptional: function <
     Key extends string,
     Type extends object,
-    TSource extends Partial<HasProp<Key, Type | null>>
+    TSource extends Partial<HasProp<Key, Type | null>>,
   >(key: Key) {
     return {
       resolve: (source: TSource): Type | undefined => {
@@ -138,7 +138,7 @@ const apiModelToModelResolver = {
 const modelToViewModelResolver = {
   dateRequired: function <
     Key extends string,
-    TSource extends HasProp<Key, Date>
+    TSource extends HasProp<Key, Date>,
   >(key: Key) {
     return {
       resolve: (source: TSource): string =>
@@ -148,7 +148,7 @@ const modelToViewModelResolver = {
 
   dateArrayRequired: function <
     Key extends string,
-    TSource extends HasProp<Key, Date[]>
+    TSource extends HasProp<Key, Date[]>,
   >(key: Key) {
     return {
       resolve: (source: TSource): string[] =>
@@ -159,7 +159,7 @@ const modelToViewModelResolver = {
   asIsRequired: function <
     Key extends string,
     Type extends object,
-    TSource extends HasProp<Key, Type>
+    TSource extends HasProp<Key, Type>,
   >(key: Key) {
     return {
       resolve: (source: TSource): Type => source[key],
@@ -168,7 +168,7 @@ const modelToViewModelResolver = {
 
   stringOptional: function <
     Key extends string,
-    TSource extends Partial<HasProp<Key, string>>
+    TSource extends Partial<HasProp<Key, string>>,
   >(key: Key) {
     return {
       resolve: (source: TSource): string => {
@@ -180,7 +180,7 @@ const modelToViewModelResolver = {
 
   booleanOptional: function <
     Key extends string,
-    TSource extends Partial<HasProp<Key, boolean>>
+    TSource extends Partial<HasProp<Key, boolean>>,
   >(key: Key) {
     return {
       resolve: (source: TSource): boolean | null => {
@@ -192,7 +192,7 @@ const modelToViewModelResolver = {
 
   numberOptional: function <
     Key extends string,
-    TSource extends Partial<HasProp<Key, number>>
+    TSource extends Partial<HasProp<Key, number>>,
   >(key: Key) {
     return {
       resolve: (source: TSource): number | '' => {
@@ -204,7 +204,7 @@ const modelToViewModelResolver = {
 
   dateOptional: function <
     Key extends string,
-    TSource extends Partial<HasProp<Key, Date>>
+    TSource extends Partial<HasProp<Key, Date>>,
   >(key: Key) {
     return {
       resolve: (source: TSource): string => {
@@ -218,7 +218,7 @@ const modelToViewModelResolver = {
 
   dateArrayOptional: function <
     Key extends string,
-    TSource extends Partial<HasProp<Key, Date[]>>
+    TSource extends Partial<HasProp<Key, Date[]>>,
   >(key: Key) {
     return {
       resolve: (source: TSource): string[] | null => {
@@ -233,7 +233,7 @@ const modelToViewModelResolver = {
   asIsOptional: function <
     Key extends string,
     Type extends object,
-    TSource extends Partial<HasProp<Key, Type>>
+    TSource extends Partial<HasProp<Key, Type>>,
   >(key: Key) {
     return {
       resolve: (source: TSource): Type | null => {
@@ -248,7 +248,7 @@ const modelToApiModelResolver = {
   dateRequired: function <
     Key extends string,
     DateDataType,
-    TSource extends HasProp<Key, Date>
+    TSource extends HasProp<Key, Date>,
   >(key: Key) {
     return {
       resolve: (source: TSource): DateDataType =>
@@ -259,7 +259,7 @@ const modelToApiModelResolver = {
   dateArrayRequired: function <
     Key extends string,
     DateDataType,
-    TSource extends HasProp<Key, Date[]>
+    TSource extends HasProp<Key, Date[]>,
   >(key: Key) {
     return {
       resolve: (source: TSource): DateDataType[] =>
@@ -270,7 +270,7 @@ const modelToApiModelResolver = {
   asIsRequired: function <
     Key extends string,
     Type extends object,
-    TSource extends HasProp<Key, Type>
+    TSource extends HasProp<Key, Type>,
   >(key: Key) {
     return {
       resolve: (source: TSource): Type => deleteUndefined(source[key]),
@@ -280,7 +280,7 @@ const modelToApiModelResolver = {
   mixedOptional: function <
     Key extends string,
     Type extends string | boolean | number,
-    TSource extends Partial<HasProp<Key, Type>>
+    TSource extends Partial<HasProp<Key, Type>>,
   >(key: Key) {
     return {
       resolve: (source: TSource): Type | null => {
@@ -293,7 +293,7 @@ const modelToApiModelResolver = {
   readOptionalWriteRequired: function <
     Key extends string,
     Type extends string | boolean | number,
-    TSource extends Partial<HasProp<Key, Type>>
+    TSource extends Partial<HasProp<Key, Type>>,
   >(key: Key) {
     return {
       resolve: (source: TSource): Type => {
@@ -310,7 +310,7 @@ const modelToApiModelResolver = {
   dateOptional: function <
     Key extends string,
     DateDataType,
-    TSource extends Partial<HasProp<Key, Date>>
+    TSource extends Partial<HasProp<Key, Date>>,
   >(key: Key) {
     return {
       resolve: (source: TSource): DateDataType | null => {
@@ -325,7 +325,7 @@ const modelToApiModelResolver = {
   dateArrayOptional: function <
     Key extends string,
     DateDataType,
-    TSource extends Partial<HasProp<Key, Date[]>>
+    TSource extends Partial<HasProp<Key, Date[]>>,
   >(key: Key) {
     return {
       resolve: (source: TSource): DateDataType[] | null => {
@@ -333,7 +333,7 @@ const modelToApiModelResolver = {
         return field === undefined
           ? null
           : field.map((value) =>
-              getDateDataConverter().fromDate<DateDataType>(value)
+              getDateDataConverter().fromDate<DateDataType>(value),
             );
       },
     };
@@ -342,7 +342,7 @@ const modelToApiModelResolver = {
   dateReadOptionalWriteRequired: function <
     Key extends string,
     DateDataType,
-    TSource extends Partial<HasProp<Key, Date>>
+    TSource extends Partial<HasProp<Key, Date>>,
   >(key: Key) {
     return {
       resolve: (source: TSource): DateDataType => {
@@ -359,7 +359,7 @@ const modelToApiModelResolver = {
   dateArrayReadOptionalWriteRequired: function <
     Key extends string,
     DateDataType,
-    TSource extends Partial<HasProp<Key, Date[]>>
+    TSource extends Partial<HasProp<Key, Date[]>>,
   >(key: Key) {
     return {
       resolve: (source: TSource): DateDataType[] => {
@@ -376,7 +376,7 @@ const modelToApiModelResolver = {
   asIsOptional: function <
     Key extends string,
     Type extends object,
-    TSource extends Partial<HasProp<Key, Type>>
+    TSource extends Partial<HasProp<Key, Type>>,
   >(key: Key) {
     return {
       resolve: (source: TSource): Type | null => {
@@ -390,7 +390,7 @@ const modelToApiModelResolver = {
 const viewModelToApiModelResolver = {
   stringRequired: function <
     Key extends string,
-    TSource extends HasProp<Key, string>
+    TSource extends HasProp<Key, string>,
   >(key: Key) {
     return {
       resolve: (source: TSource): string => {
@@ -406,7 +406,7 @@ const viewModelToApiModelResolver = {
 
   numberRequired: function <
     Key extends string,
-    TSource extends HasProp<Key, number | string>
+    TSource extends HasProp<Key, number | string>,
   >(key: Key) {
     return {
       resolve: (source: TSource): number => {
@@ -428,12 +428,12 @@ const viewModelToApiModelResolver = {
   dateRequired: function <
     Key extends string,
     DateDataType,
-    TSource extends HasProp<Key, string>
+    TSource extends HasProp<Key, string>,
   >(key: Key) {
     return {
       resolve: (source: TSource): DateDataType =>
         getDateDataConverter().fromDate(
-          date.extractDate(source[key], getEditDateFormat())
+          date.extractDate(source[key], getEditDateFormat()),
         ),
     };
   },
@@ -441,14 +441,14 @@ const viewModelToApiModelResolver = {
   dateArrayRequired: function <
     Key extends string,
     DateDataType,
-    TSource extends HasProp<Key, string[]>
+    TSource extends HasProp<Key, string[]>,
   >(key: Key) {
     return {
       resolve: (source: TSource): DateDataType[] =>
         source[key].map((value) =>
           getDateDataConverter().fromDate(
-            date.extractDate(value, getEditDateFormat())
-          )
+            date.extractDate(value, getEditDateFormat()),
+          ),
         ),
     };
   },
@@ -456,7 +456,7 @@ const viewModelToApiModelResolver = {
   asIsRequired: function <
     Key extends string,
     Type extends object,
-    TSource extends Partial<HasProp<Key, Type>>
+    TSource extends Partial<HasProp<Key, Type>>,
   >(key: Key) {
     return {
       resolve: (source: TSource): Type => {
@@ -472,7 +472,7 @@ const viewModelToApiModelResolver = {
 
   stringOptional: function <
     Key extends string,
-    TSource extends HasProp<Key, string | null>
+    TSource extends HasProp<Key, string | null>,
   >(key: Key) {
     return {
       resolve: (source: TSource): string | null => {
@@ -484,7 +484,7 @@ const viewModelToApiModelResolver = {
 
   stringReadOptionalWriteRequired: function <
     Key extends string,
-    TSource extends HasProp<Key, string | null>
+    TSource extends HasProp<Key, string | null>,
   >(key: Key) {
     return {
       resolve: (source: TSource): string => {
@@ -500,7 +500,7 @@ const viewModelToApiModelResolver = {
 
   booleanReadOptionalWriteRequired: function <
     Key extends string,
-    TSource extends HasProp<Key, boolean | null>
+    TSource extends HasProp<Key, boolean | null>,
   >(key: Key) {
     return {
       resolve: (source: TSource): boolean => {
@@ -516,7 +516,7 @@ const viewModelToApiModelResolver = {
 
   numberOptional: function <
     Key extends string,
-    TSource extends HasProp<Key, number | string | null>
+    TSource extends HasProp<Key, number | string | null>,
   >(key: Key) {
     return {
       resolve: (source: TSource): number | null => {
@@ -533,7 +533,7 @@ const viewModelToApiModelResolver = {
 
   numberReadOptionalWriteRequired: function <
     Key extends string,
-    TSource extends HasProp<Key, number | string | null>
+    TSource extends HasProp<Key, number | string | null>,
   >(key: Key) {
     return {
       resolve: (source: TSource): number => {
@@ -555,7 +555,7 @@ const viewModelToApiModelResolver = {
   dateOptional: function <
     Key extends string,
     DateDataType,
-    TSource extends HasProp<Key, string | null>
+    TSource extends HasProp<Key, string | null>,
   >(key: Key) {
     return {
       resolve: (source: TSource): DateDataType | null => {
@@ -563,7 +563,7 @@ const viewModelToApiModelResolver = {
         return field === '' || field === null
           ? null
           : getDateDataConverter().fromDate<DateDataType>(
-              date.extractDate(field, getEditDateFormat())
+              date.extractDate(field, getEditDateFormat()),
             );
       },
     };
@@ -572,7 +572,7 @@ const viewModelToApiModelResolver = {
   dateArrayOptional: function <
     Key extends string,
     DateDataType,
-    TSource extends HasProp<Key, string[] | null>
+    TSource extends HasProp<Key, string[] | null>,
   >(key: Key) {
     return {
       resolve: (source: TSource): DateDataType[] | null => {
@@ -581,8 +581,8 @@ const viewModelToApiModelResolver = {
           ? null
           : field.map((value) =>
               getDateDataConverter().fromDate<DateDataType>(
-                date.extractDate(value, getEditDateFormat())
-              )
+                date.extractDate(value, getEditDateFormat()),
+              ),
             );
       },
     };
@@ -591,7 +591,7 @@ const viewModelToApiModelResolver = {
   dateReadOptionalWriteRequired: function <
     Key extends string,
     DateDataType,
-    TSource extends HasProp<Key, string | null>
+    TSource extends HasProp<Key, string | null>,
   >(key: Key) {
     return {
       resolve: (source: TSource): DateDataType => {
@@ -601,7 +601,7 @@ const viewModelToApiModelResolver = {
             throw new Error(`${key} is required for saving`);
           })();
         return getDateDataConverter().fromDate(
-          date.extractDate(field, getEditDateFormat())
+          date.extractDate(field, getEditDateFormat()),
         );
       },
     };
@@ -610,7 +610,7 @@ const viewModelToApiModelResolver = {
   dateArrayReadOptionalWriteRequired: function <
     Key extends string,
     DateDataType,
-    TSource extends HasProp<Key, string[] | null>
+    TSource extends HasProp<Key, string[] | null>,
   >(key: Key) {
     return {
       resolve: (source: TSource): DateDataType[] => {
@@ -621,8 +621,8 @@ const viewModelToApiModelResolver = {
           })();
         return field.map((value) =>
           getDateDataConverter().fromDate(
-            date.extractDate(value, getEditDateFormat())
-          )
+            date.extractDate(value, getEditDateFormat()),
+          ),
         );
       },
     };
@@ -631,7 +631,7 @@ const viewModelToApiModelResolver = {
   asIsOptional: function <
     Key extends string,
     Type extends object,
-    TSource extends HasProp<Key, Type | null>
+    TSource extends HasProp<Key, Type | null>,
   >(key: Key) {
     return {
       resolve: (source: TSource): Type | null => {
@@ -836,7 +836,7 @@ function configureAndCreateMapsInternal<T, TVm, TAm>(
     modelToViewModel?: MappingConfiguration<T, TVm>[];
     modelToApiModel?: MappingConfiguration<T, TAm>[];
     viewModelToApiModel?: MappingConfiguration<TVm, TAm>[];
-  }
+  },
 ) {
   function getFieldNames() {
     const result: Extract<keyof T & keyof TVm & keyof TAm, string>[] = [];
@@ -854,7 +854,7 @@ function configureAndCreateMapsInternal<T, TVm, TAm>(
 
   function getConfigurations<
     TSource extends T | TVm | TAm,
-    TDestination extends T | TVm | TAm
+    TDestination extends T | TVm | TAm,
   >(resolverFieldTypes: ResolverFieldTypes) {
     const configurations = fieldNames
       .map((fieldName) => {
@@ -865,7 +865,7 @@ function configureAndCreateMapsInternal<T, TVm, TAm>(
         const configuration = method
           ? forMember<TSource, TDestination>(
               (d) => d[fieldName],
-              mapFrom(method(fieldName))
+              mapFrom(method(fieldName)),
             )
           : undefined;
 
@@ -888,7 +888,7 @@ function configureAndCreateMapsInternal<T, TVm, TAm>(
       am,
       m,
       ...getConfigurations<TAm, T>(resolvers.apiModelToModel),
-      ...(additionalConfigurations?.apiModelToModel || [])
+      ...(additionalConfigurations?.apiModelToModel || []),
     );
   }
 
@@ -899,7 +899,7 @@ function configureAndCreateMapsInternal<T, TVm, TAm>(
       m,
       vm,
       ...getConfigurations<T, TVm>(resolvers.modelToViewModel),
-      ...(additionalConfigurations?.modelToViewModel || [])
+      ...(additionalConfigurations?.modelToViewModel || []),
     );
   }
 
@@ -910,7 +910,7 @@ function configureAndCreateMapsInternal<T, TVm, TAm>(
       m,
       am,
       ...getConfigurations<T, TAm>(resolvers.modelToApiModel),
-      ...(additionalConfigurations?.modelToApiModel || [])
+      ...(additionalConfigurations?.modelToApiModel || []),
     );
   }
 
@@ -921,7 +921,7 @@ function configureAndCreateMapsInternal<T, TVm, TAm>(
       vm,
       am,
       ...getConfigurations<TVm, TAm>(resolvers.viewModelToApiModel),
-      ...(additionalConfigurations?.viewModelToApiModel || [])
+      ...(additionalConfigurations?.viewModelToApiModel || []),
     );
   }
 }
@@ -937,7 +937,7 @@ export function configureAndCreateMaps<T extends { id: string }, TVm, TAm>(
     modelToViewModel?: MappingConfiguration<T, TVm>[];
     modelToApiModel?: MappingConfiguration<T, TAm>[];
     viewModelToApiModel?: MappingConfiguration<TVm, TAm>[];
-  }
+  },
 ) {
   const idConfiguration =
     am && m
@@ -955,7 +955,7 @@ export function configureAndCreateMaps<T extends { id: string }, TVm, TAm>(
               })();
 
             return id;
-          })
+          }),
         )
       : null;
 
@@ -981,7 +981,7 @@ export function configureAndCreateNoneIdMaps<T, TVm, TAm>(
     modelToViewModel?: MappingConfiguration<T, TVm>[];
     modelToApiModel?: MappingConfiguration<T, TAm>[];
     viewModelToApiModel?: MappingConfiguration<TVm, TAm>[];
-  }
+  },
 ) {
   configureAndCreateMapsInternal(
     mapper,
@@ -989,7 +989,7 @@ export function configureAndCreateNoneIdMaps<T, TVm, TAm>(
     vm,
     am,
     fieldTypes,
-    additionalConfigurations
+    additionalConfigurations,
   );
 }
 
@@ -1004,7 +1004,7 @@ function getMappings(mapper: Mapper) {
 export function getMapping<TSource, TDestination>(
   mapper: Mapper,
   source: string,
-  destination: string
+  destination: string,
 ) {
   return getMappings(mapper)
     .get(Symbol.for(source))
@@ -1016,7 +1016,7 @@ export function getMapping<TSource, TDestination>(
 export function removeMapping(
   mapper: Mapper,
   source: string,
-  destination: string
+  destination: string,
 ) {
   getMappings(mapper).get(Symbol.for(source))?.delete(Symbol.for(destination));
 }
@@ -1025,11 +1025,11 @@ export function removeProperties(...properties: string[]) {
   return (mapping: Mapping) => {
     mapping[2 /* MappingClassId.properties */] =
       mapping[2 /* MappingClassId.properties */].filter(
-        (value) => !properties.includes(value[0][0])
+        (value) => !properties.includes(value[0][0]),
       );
     mapping[3 /* MappingClassId.customProperties */] =
       mapping[3 /* MappingClassId.customProperties */].filter(
-        (value) => !properties.includes(value[0][0])
+        (value) => !properties.includes(value[0][0]),
       );
   };
 }
@@ -1043,7 +1043,7 @@ export function extendMapping<TSource, TDestination>(
   const oldMapping = getMapping<TSource, TDestination>(
     mapper,
     source,
-    destination
+    destination,
   );
 
   if (oldMapping) {
@@ -1054,7 +1054,7 @@ export function extendMapping<TSource, TDestination>(
       source,
       destination,
       extend(oldMapping),
-      ...additionalConfigurations
+      ...additionalConfigurations,
     );
 
     const oldBeforeMap = oldMapping[7 /* MappingClassId.callbacks */]
@@ -1071,11 +1071,11 @@ export function extendMapping<TSource, TDestination>(
           (
             source: TSource,
             destination: TDestination,
-            extraArguments?: Record<string, unknown>
+            extraArguments?: Record<string, unknown>,
           ) => {
             oldBeforeMap(source, destination, extraArguments);
             newBeforeMap(source, destination, extraArguments);
-          }
+          },
         )(mapping);
       } else {
         beforeMap(oldBeforeMap)(mapping);
@@ -1096,11 +1096,11 @@ export function extendMapping<TSource, TDestination>(
           (
             source: TSource,
             destination: TDestination,
-            extraArguments?: Record<string, unknown>
+            extraArguments?: Record<string, unknown>,
           ) => {
             oldAfterMap(source, destination, extraArguments);
             newAfterMap(source, destination, extraArguments);
-          }
+          },
         )(mapping);
       } else {
         afterMap(oldAfterMap)(mapping);

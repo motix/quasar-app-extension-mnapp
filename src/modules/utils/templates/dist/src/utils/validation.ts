@@ -136,7 +136,7 @@ export function dateRequired(label: string) {
       value ===
         date.formatDate(
           date.extractDate(value, getEditDateFormat()),
-          getEditDateFormat()
+          getEditDateFormat(),
         ),
   });
 }
@@ -153,19 +153,19 @@ export function dateOptional(label: string) {
         value ===
           date.formatDate(
             date.extractDate(value, getEditDateFormat()),
-            getEditDateFormat()
+            getEditDateFormat(),
           ),
     });
 }
 
 export function asIsRequired<TType extends NonNullable<unknown>>(
-  label: string
+  label: string,
 ) {
   return mixed<TType>().required().label(label);
 }
 
 export function asIsOptional<TType extends NonNullable<unknown>>(
-  label: string
+  label: string,
 ) {
   return mixed<TType>().nullable().default(null).label(label);
 }

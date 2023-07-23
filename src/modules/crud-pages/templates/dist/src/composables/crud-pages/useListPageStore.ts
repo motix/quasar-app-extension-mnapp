@@ -16,7 +16,7 @@ class UseStoreHelper<T extends DocModel> {
     }),
     '',
     '',
-    ''
+    '',
   );
 }
 
@@ -39,7 +39,7 @@ export default function useListPageStore<T extends DocModel>(
     ready: ListPage<never, never>['ready'];
     loadFirstPage: ListPage<never, never>['loadFirstPage'];
     resetItems: ListPage<T, never>['resetItems'];
-  }
+  },
 ) {
   // Methods
 
@@ -51,7 +51,7 @@ export default function useListPageStore<T extends DocModel>(
       (stop) => {
         appendItems(store.docPage(index) as T[]);
         done(stop);
-      }
+      },
     );
   }
 
@@ -65,7 +65,7 @@ export default function useListPageStore<T extends DocModel>(
         () => {
           loadOnMounted.resetItems(store.docPage(0) as T[]);
           loadOnMounted.ready.value = true;
-        }
+        },
       );
     });
   }
@@ -74,7 +74,7 @@ export default function useListPageStore<T extends DocModel>(
     updateItems(
       store.recentlyAddedDocs as T[],
       store.recentlyUpdatedDocs as T[],
-      store.recentlyDeletedDocs
+      store.recentlyDeletedDocs,
     );
   });
 

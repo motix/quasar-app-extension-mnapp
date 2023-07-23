@@ -64,7 +64,7 @@ export function ensureAuthInitialized() {
       (error) => {
         reject(error);
         unsubscribe();
-      }
+      },
     );
   });
 }
@@ -80,7 +80,7 @@ let handleAuthStateChangedCount = 0;
 export function handleAuthStateChanged(
   user: User | null,
   router: Router,
-  firstCall: boolean
+  firstCall: boolean,
 ) {
   if (firstCall) {
     handleAuthStateChangedCount = 0;
@@ -101,7 +101,7 @@ export function handleAuthStateChanged(
         if (idTokenResult.claims.admin === undefined) {
           if (handleAuthStateChangedCount > 1000) {
             console.error(
-              'Firebase background function processSignUp not deployed'
+              'Firebase background function processSignUp not deployed',
             );
             store.currentUserClaims = {};
           } else {
@@ -146,7 +146,7 @@ export async function createRemoteSignInToken() {
   const functions = getFunctions();
   const createAuthToken = httpsCallable<undefined, string>(
     functions,
-    'auth-createAuthToken'
+    'auth-createAuthToken',
   );
 
   try {

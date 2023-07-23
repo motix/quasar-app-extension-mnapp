@@ -17,7 +17,7 @@ class UseStoreHelper<T extends DocModel> {
     }),
     '',
     '',
-    ''
+    '',
   );
 }
 
@@ -28,7 +28,7 @@ type StoreType<T extends DocModel> = Pick<
 
 export default function useListPageFilterWithOptionsAndStore<
   T extends DocModel,
-  FilterType
+  FilterType,
 >(
   ready: ListPage<never, never>['ready'],
   queryConstraints: ListPage<never, never>['queryConstraints'],
@@ -55,9 +55,9 @@ export default function useListPageFilterWithOptionsAndStore<
         // done
         () => {
           resetItems(store.docPage(0) as T[]);
-        }
+        },
       );
     },
-    ...options
+    ...options,
   );
 }

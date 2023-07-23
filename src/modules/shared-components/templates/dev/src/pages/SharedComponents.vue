@@ -11,7 +11,7 @@ const piValue = ref(0.5);
 
 function lsAddCard() {
   lsCards.value.push(
-    `New Card ${Date.now().valueOf() - new Date(2020, 1, 1).valueOf()}`
+    `New Card ${Date.now().valueOf() - new Date(2020, 1, 1).valueOf()}`,
   );
 }
 

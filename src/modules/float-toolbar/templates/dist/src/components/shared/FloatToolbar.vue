@@ -31,7 +31,7 @@ const props = withDefaults(
     fabButtonsSpaceIgnored: 0,
     offset: () => ({}),
     persistent: false,
-  }
+  },
 );
 
 // Slots
@@ -77,7 +77,7 @@ const showFab = computed(() => !!slots.default && fabButtonsCount.value > 0);
 
 const offsetX = computed(
   () =>
-    PAGE_PADDING - (!showFab.value ? QBTN_MARGIN : 0) + (props.offset.x || 0)
+    PAGE_PADDING - (!showFab.value ? QBTN_MARGIN : 0) + (props.offset.x || 0),
 );
 
 const offsetY = computed(() => {
@@ -88,7 +88,7 @@ const offsetY = computed(() => {
       Math.max(
         floatToolbarOffsetTop.value - buttonSize / 2,
         -(buttonSize / 2),
-        props.minMarginY
+        props.minMarginY,
       ) + (props.offset.y || 0)
     );
   } else if (props.position.includes('bottom')) {
@@ -96,7 +96,7 @@ const offsetY = computed(() => {
       Math.max(
         floatToolbarOffsetBottom.value - buttonSize / 2,
         -(buttonSize / 2),
-        props.minMarginY
+        props.minMarginY,
       ) + (props.offset.y || 0)
     );
   } else {

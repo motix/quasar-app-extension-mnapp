@@ -15,7 +15,7 @@ import useViewer from './useViewer';
 
 function newScope<
   T extends NonNullable<unknown>,
-  TVm extends NonNullable<unknown>
+  TVm extends NonNullable<unknown>,
 >() {
   const { defaultReturnUrl: backUrl, returnUrl, goBack } = useReturnUrl();
   const pageFeatures = usePageFeatures();
@@ -27,7 +27,7 @@ function newScope<
     pageStatus.delayRealtimeUpdate,
     pageStatus.ignoreViewerWatch,
     pageStatus.editMode,
-    pageStatus.isDirty
+    pageStatus.isDirty,
   );
 
   const extraInitialized = ref(false);
@@ -46,7 +46,7 @@ function newScope<
       pageStatus.editMode,
       pageData.docKey,
       pageData.model,
-      pageData.updateModel
+      pageData.updateModel,
     ),
     ...useEditor<TVm>(
       pageStatus.freezed,
@@ -57,14 +57,14 @@ function newScope<
       pageData.docKey,
       pageData.viewModel,
       pageData.updateModel,
-      pageData.getModelAndViewModel
+      pageData.getModelAndViewModel,
     ),
     ...useDeleting(
       goBack,
       pageStatus.freezed,
       pageStatus.muteRealtimeUpdate,
       pageData.docKey,
-      pageData.deleteModel
+      pageData.deleteModel,
     ),
     ...usePageTitle<T>(pageData.model),
     ...useToolbar(
@@ -72,7 +72,7 @@ function newScope<
       pageFeatures.hasDeleting,
       pageFeatures.hasMultiViews,
       pageStatus.ready,
-      pageStatus.editMode
+      pageStatus.editMode,
     ),
     extraInitialized,
   };
@@ -80,7 +80,7 @@ function newScope<
 
 class NewScopeHelper<
   T extends NonNullable<unknown>,
-  TVm extends NonNullable<unknown>
+  TVm extends NonNullable<unknown>,
 > {
   Return = newScope<T, TVm>();
 }
@@ -88,10 +88,10 @@ class NewScopeHelper<
 export default function useViewPage<
   T extends NonNullable<unknown>,
   TVm extends NonNullable<unknown>,
-  TExtra extends NonNullable<unknown> = Record<string, never>
+  TExtra extends NonNullable<unknown> = Record<string, never>,
 >(
   scopeName: string,
-  hitUseCount?: boolean
+  hitUseCount?: boolean,
 ): NewScopeHelper<T, TVm>['Return'] & TExtra {
   const store = useSingleScopeComposableStore();
 
@@ -108,7 +108,7 @@ export default function useViewPage<
 class UseViewPageHelper<
   T extends NonNullable<unknown>,
   TVm extends NonNullable<unknown>,
-  TExtra extends NonNullable<unknown>
+  TExtra extends NonNullable<unknown>,
 > {
   Return = useViewPage<T, TVm, TExtra>('');
 }
@@ -116,5 +116,5 @@ class UseViewPageHelper<
 export type ViewPage<
   T extends NonNullable<unknown>,
   TVm extends NonNullable<unknown>,
-  TExtra extends NonNullable<unknown> = Record<string, never>
+  TExtra extends NonNullable<unknown> = Record<string, never>,
 > = UseViewPageHelper<T, TVm, TExtra>['Return'];

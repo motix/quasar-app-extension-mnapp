@@ -42,9 +42,9 @@ const isValueValid = computed(() => {
 const displayValue = computed(() =>
   isValueValid.value
     ? percentDisplayRound(
-        percentRound(props.modelValue as number) * 100
+        percentRound(props.modelValue as number) * 100,
       ).toString()
-    : props.modelValue?.toString() || ''
+    : props.modelValue?.toString() || '',
 );
 
 // Methods
