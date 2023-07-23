@@ -11,7 +11,7 @@ export default function () {
 
   const { scrollDuration, scrollOffset } = requiredConfigEntries(
     'scrollDuration',
-    'scrollOffset',
+    'scrollOffset'
   );
 
   // Methods
@@ -27,7 +27,7 @@ export default function () {
       | Element
       | ComponentPublicInstance[]
       | Element[],
-    index?: number,
+    index?: number
   ) {
     let el: Element | undefined;
 

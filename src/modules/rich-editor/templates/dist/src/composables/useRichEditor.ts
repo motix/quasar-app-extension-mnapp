@@ -59,7 +59,7 @@ export default function useRichEditor() {
             fileName: file.name,
             data,
           });
-        }),
+        })
       );
 
       if (images.length > 0) {
@@ -79,14 +79,14 @@ export default function useRichEditor() {
       imageQueue.map(async (image) => {
         const imageRef = storageRef(
           storage,
-          `${path}/${uid()}/${image.fileName}`,
+          `${path}/${uid()}/${image.fileName}`
         );
 
         await uploadString(imageRef, image.data, 'data_url');
 
         const url = await getDownloadURL(imageRef);
         content = content.replace(image.data, url);
-      }),
+      })
     );
 
     imageQueue.splice(0);

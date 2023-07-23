@@ -19,7 +19,7 @@ class UseStoreHelper<T extends DocModel> {
     }),
     '',
     '',
-    '',
+    ''
   );
 }
 
@@ -30,7 +30,7 @@ type StoreType<T extends DocModel> = Pick<
 
 // useNewPage or useViewPage that doesn't need to wait for switching to editMode | useViewPage that needs to wait for switching to editMode
 export default function useEditorDependencies(
-  editMode: undefined | ViewPage<never, never>['editMode'],
+  editMode: undefined | ViewPage<never, never>['editMode']
 ) {
   // Private
 
@@ -97,7 +97,7 @@ export default function useEditorDependencies(
 
   function releaseEditorDependencies() {
     editorDependenciesStores.value.forEach((value) =>
-      value.store.releaseDocs({ immediately: false }),
+      value.store.releaseDocs({ immediately: false })
     );
   }
 

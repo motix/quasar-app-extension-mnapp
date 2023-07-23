@@ -21,7 +21,7 @@ export default function useViewChildPage<
   TChild extends NonNullable<unknown>,
   TChildVm extends NonNullable<unknown>,
   TParent extends NonNullable<unknown>,
-  TParentVm extends NonNullable<unknown>,
+  TParentVm extends NonNullable<unknown>
 >($p: ViewPage<TChild, TChildVm, NonNullable<unknown>>) {
   // Private
 
@@ -39,7 +39,7 @@ export default function useViewChildPage<
   // Used as a secondary findKey
   const childListKey = ref<string | null>(null);
   const parentFindKey = ref(
-    ((route.params.parentFindKey as string) || '').replaceAll('_', '.'),
+    ((route.params.parentFindKey as string) || '').replaceAll('_', '.')
   );
   const parentModelFindKeyField = ref<
     Extract<keyof TParent & keyof TParentVm, string>
@@ -54,13 +54,13 @@ export default function useViewChildPage<
   // Method Refs
 
   const parentModelGetter = ref<((docKey: string) => TParent | null) | null>(
-    null,
+    null
   );
   const parentViewModelGetter = ref<
     ((docKey: string) => TParentVm | null) | null
   >(null);
   const modelChildrenGetter = ref<((parentModel: TParent) => TChild[]) | null>(
-    null,
+    null
   );
   const viewModelChildrenGetter = ref<
     ((parentViewModel: TParentVm) => TChildVm[]) | null
@@ -81,14 +81,14 @@ export default function useViewChildPage<
       parentModel.value ||
       (() => {
         throw new Error('parentModel not ready');
-      })(),
+      })()
   );
   const pvm = computed(
     () =>
       parentViewModel.value ||
       (() => {
         throw new Error('parentViewModel not ready');
-      })(),
+      })()
   );
 
   const findKeyOptions = computed(() =>
@@ -98,11 +98,11 @@ export default function useViewChildPage<
           slot: String(value[$p.modelFindKeyField.value]),
           data: value,
         })) || []
-      : [],
+      : []
   );
 
   const showDeleteButton = computed(
-    () => hasChildDeleting.value && !!$p.model.value,
+    () => hasChildDeleting.value && !!$p.model.value
   );
 
   // Private Executions
@@ -126,7 +126,7 @@ export default function useViewChildPage<
 
     // Update parentFindKey and path if changed
     parentFindKey.value = String(
-      parentModel.value[parentModelFindKeyField.value],
+      parentModel.value[parentModelFindKeyField.value]
     );
 
     const children = modelChildrenGetter.value(parentModel.value);
@@ -150,12 +150,12 @@ export default function useViewChildPage<
 
     if (!$p.findKey.value) {
       $p.findKey.value = String(
-        children[children.length - 1][$p.modelFindKeyField.value],
+        children[children.length - 1][$p.modelFindKeyField.value]
       );
     }
 
     let child = children.find(
-      (value) => String(value[$p.modelFindKeyField.value]) === $p.findKey.value,
+      (value) => String(value[$p.modelFindKeyField.value]) === $p.findKey.value
     );
 
     // Supports retreiving the model even when its key was changed
@@ -164,7 +164,7 @@ export default function useViewChildPage<
     } else if (realtimeUpdate && !!childListKey.value) {
       child = children.find(
         (value) =>
-          (value as { listKey?: string }).listKey === childListKey.value,
+          (value as { listKey?: string }).listKey === childListKey.value
       );
 
       if (child) {
@@ -213,7 +213,7 @@ export default function useViewChildPage<
     return (
       children.find(
         (value) =>
-          String(value[$p.modelFindKeyField.value]) === $p.findKey.value,
+          String(value[$p.modelFindKeyField.value]) === $p.findKey.value
       ) || null
     );
   };
@@ -273,7 +273,7 @@ export default function useViewChildPage<
         $p.findKey.value = $p.findKey.value = String(
           (selectNextChildAfterRemoving.value
             ? selectNextChildAfterRemoving.value(children)
-            : children[children.length - 1])[$p.modelFindKeyField.value],
+            : children[children.length - 1])[$p.modelFindKeyField.value]
         );
       }
 
@@ -323,8 +323,8 @@ export default function useViewChildPage<
       void router.replace(
         `${viewUrl.value}${parentFindKey.value.replaceAll(
           '.',
-          '_',
-        )}/${value.replaceAll('.', '_')}`,
+          '_'
+        )}/${value.replaceAll('.', '_')}`
       );
     }
 
@@ -381,10 +381,10 @@ class UseViewChildPageHelper<
   TChild extends NonNullable<unknown>,
   TChildVm extends NonNullable<unknown>,
   TParent extends NonNullable<unknown>,
-  TParentVm extends NonNullable<unknown>,
+  TParentVm extends NonNullable<unknown>
 > {
   Return = useViewChildPage<TChild, TChildVm, TParent, TParentVm>(
-    {} as ViewPage<TChild, TChildVm, NonNullable<unknown>>,
+    {} as ViewPage<TChild, TChildVm, NonNullable<unknown>>
   );
 }
 
@@ -392,5 +392,5 @@ export type ViewChildPage<
   TChild extends NonNullable<unknown>,
   TChildVm extends NonNullable<unknown>,
   TParent extends NonNullable<unknown>,
-  TParentVm extends NonNullable<unknown>,
+  TParentVm extends NonNullable<unknown>
 > = UseViewChildPageHelper<TChild, TChildVm, TParent, TParentVm>['Return'];

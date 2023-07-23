@@ -12,7 +12,7 @@ export default function useSelectDateRange() {
   // Computed
 
   const yearOptions = computed(() =>
-    range(new Date().getFullYear() + 1, firstYear - 1),
+    range(new Date().getFullYear() + 1, firstYear - 1)
   );
   const monthOptions = computed(() => range(1, 13));
 

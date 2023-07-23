@@ -33,7 +33,7 @@ watch(
     if (value.value !== newValue) {
       value.value = newValue;
     }
-  },
+  }
 );
 </script>
 

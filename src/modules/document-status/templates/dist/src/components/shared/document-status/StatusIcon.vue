@@ -9,7 +9,7 @@ withDefaults(
   }>(),
   {
     revertColor: false,
-  },
+  }
 );
 </script>
 

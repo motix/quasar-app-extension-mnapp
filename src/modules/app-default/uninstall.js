@@ -15,7 +15,7 @@ module.exports = defineUninstall(function appDefault(api) {
 
   if (api.prompts.https) {
     api.onExitLog(
-      ' \x1b[32mapp-default   • \x1b[0mPlease remove \x1b[47m\x1b[30m./.mkcerts\x1b[0m if no longer used.',
+      ' \x1b[32mapp-default   • \x1b[0mPlease remove \x1b[47m\x1b[30m./.mkcerts\x1b[0m if no longer used.'
     );
   }
 
@@ -24,7 +24,7 @@ module.exports = defineUninstall(function appDefault(api) {
 
     let quasarVariablesScss = fs.readFileSync(
       api.resolve.src('css/quasar.variables.scss'),
-      'utf-8',
+      'utf-8'
     );
 
     if (
@@ -34,7 +34,7 @@ module.exports = defineUninstall(function appDefault(api) {
         `
 @import './quasar.variables-custom.scss';
 `,
-        '',
+        ''
       );
 
       fs.writeFileSync(
@@ -42,7 +42,7 @@ module.exports = defineUninstall(function appDefault(api) {
         quasarVariablesScss,
         {
           encoding: 'utf-8',
-        },
+        }
       );
     }
   }

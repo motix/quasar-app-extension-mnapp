@@ -13,7 +13,7 @@ export default function date() {
       'dateFormat',
       'timeFormat',
       'editDateFormat',
-      'monthDayFormat',
+      'monthDayFormat'
     );
 
   function formatDate(value: Date | null | undefined) {
@@ -30,7 +30,7 @@ export default function date() {
 
   function dateViewModel(
     value: string | null | undefined,
-    defaultDisplay?: string,
+    defaultDisplay?: string
   ) {
     if (value == null || value === '') return defaultDisplay;
 
@@ -45,7 +45,7 @@ export default function date() {
     year: number | string | null | undefined,
     month: number | string | null | undefined,
     defaultYearDisplay?: string,
-    defaultMonthDisplay?: string,
+    defaultMonthDisplay?: string
   ) {
     return `${year == null || year === '' ? defaultYearDisplay : year}-${
       month == null || month === ''
@@ -62,7 +62,7 @@ export default function date() {
     month: number | string | null | undefined,
     day: number | string | null | undefined,
     defaultMonthDisplay?: string,
-    defaultDayDisplay?: string,
+    defaultDayDisplay?: string
   ) {
     return `${
       month == null || month === ''

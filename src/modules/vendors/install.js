@@ -31,7 +31,7 @@ module.exports = defineInstall(function vendors(api) {
 
     if (!npmrc.includes('@fortawesome:registry')) {
       api.onExitLog(
-        ' \x1b[32mvendors       • \x1b[0mFont Awesome registry is absent from \x1b[33m./.npmrc\x1b[0m. Affter adding please also add \x1b[33m.npmrc\x1b[0m to \x1b[33m./.gitignore\x1b[0m.',
+        ' \x1b[32mvendors       • \x1b[0mFont Awesome registry is absent from \x1b[33m./.npmrc\x1b[0m. Affter adding please also add \x1b[33m.npmrc\x1b[0m to \x1b[33m./.gitignore\x1b[0m.'
       );
     }
   }

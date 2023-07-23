@@ -57,7 +57,7 @@ function buildActions<T extends DocModel, TVm, TAm extends DocumentData>(
   modelName: string,
   viewModelName: string,
   apiModelName: string,
-  options: StoreOptions<T, TVm, TAm>,
+  options: StoreOptions<T, TVm, TAm>
 ) {
   let releaseDocsTimeoutId: ReturnType<typeof setTimeout> | null = null;
 
@@ -103,12 +103,12 @@ function buildActions<T extends DocModel, TVm, TAm extends DocumentData>(
       const db = getFirestore();
       const collectionRef = collection(
         db,
-        collectionPath,
+        collectionPath
       ) as CollectionReference<TAm>;
       const q = query(
         collectionRef,
         ...queryConstraints,
-        limit(this.docsPageSize),
+        limit(this.docsPageSize)
       );
 
       do {
@@ -127,7 +127,7 @@ function buildActions<T extends DocModel, TVm, TAm extends DocumentData>(
               } else {
                 isEmpty = true;
               }
-            },
+            }
           );
 
           if (isOutOfRange) {
@@ -152,7 +152,7 @@ function buildActions<T extends DocModel, TVm, TAm extends DocumentData>(
               this.$state,
               q,
               // outOfRange
-              () => undefined,
+              () => undefined
             );
           } catch (err) {
             error && error(err as Error);
@@ -207,7 +207,7 @@ function buildActions<T extends DocModel, TVm, TAm extends DocumentData>(
       if (findKeyField) {
         const collectionRef = collection(
           db,
-          collectionPath,
+          collectionPath
         ) as CollectionReference<TAm>;
         const q = query(collectionRef, where(findKeyField, '==', findKey));
         getDocs(q)
@@ -216,7 +216,7 @@ function buildActions<T extends DocModel, TVm, TAm extends DocumentData>(
               notFound && notFound();
             } else if (querySnapshot.docs.length > 1) {
               throw new Error(
-                `[mnapp-firebase-firestore] '${findKey}' is not unique for '${findKeyField}' in '${collectionPath}'`,
+                `[mnapp-firebase-firestore] '${findKey}' is not unique for '${findKeyField}' in '${collectionPath}'`
               );
             } else {
               id = querySnapshot.docs[0].id;
@@ -229,7 +229,7 @@ function buildActions<T extends DocModel, TVm, TAm extends DocumentData>(
                 done,
                 notFound,
                 deleted,
-                error,
+                error
               );
             }
           })
@@ -247,7 +247,7 @@ function buildActions<T extends DocModel, TVm, TAm extends DocumentData>(
           done,
           notFound,
           deleted,
-          error,
+          error
         );
       }
 
@@ -269,7 +269,7 @@ function buildActions<T extends DocModel, TVm, TAm extends DocumentData>(
       const db = getFirestore();
       const collectionRef = collection(
         db,
-        collectionPath,
+        collectionPath
       ) as CollectionReference<TAm>;
       let docRef: DocumentReference<TAm>;
 
@@ -278,7 +278,7 @@ function buildActions<T extends DocModel, TVm, TAm extends DocumentData>(
         await setDoc(docRef, docAm);
       } else if (idField) {
         const idFromField = urlFriendlyNormalizeString(
-          String(docVm[idField]),
+          String(docVm[idField])
         ) as string;
         docRef = doc(collectionRef, idFromField);
         await runTransaction(db, async (transaction) => {
@@ -287,8 +287,8 @@ function buildActions<T extends DocModel, TVm, TAm extends DocumentData>(
           if (existingDocSnapshot.exists()) {
             throw new Error(
               `[mnapp-firebase-firestore] Failed to generate id from '${String(
-                idField,
-              )}' field. '${docRef.path}' already exists.`,
+                idField
+              )}' field. '${docRef.path}' already exists.`
             );
           }
 
@@ -313,7 +313,7 @@ function buildActions<T extends DocModel, TVm, TAm extends DocumentData>(
         this.realtimeDocs[docKey]?.doc?.id ||
         (() => {
           throw new Error(
-            `[mnapp-firebase-firestore] Realtime doc '${docKey}' not available.`,
+            `[mnapp-firebase-firestore] Realtime doc '${docKey}' not available.`
           );
         })();
 
@@ -323,7 +323,7 @@ function buildActions<T extends DocModel, TVm, TAm extends DocumentData>(
         docAm = mapper.map<TVm, TAm>(
           docMOrVm as TVm,
           viewModelName,
-          apiModelName,
+          apiModelName
         );
       } else {
         docAm = mapper.map<T, TAm>(docMOrVm as T, modelName, apiModelName);
@@ -344,7 +344,7 @@ function buildActions<T extends DocModel, TVm, TAm extends DocumentData>(
         this.realtimeDocs[docKey]?.doc?.id ||
         (() => {
           throw new Error(
-            `[mnapp-firebase-firestore] Realtime doc '${docKey}' not available.`,
+            `[mnapp-firebase-firestore] Realtime doc '${docKey}' not available.`
           );
         })();
 
@@ -365,7 +365,7 @@ function buildActions<T extends DocModel, TVm, TAm extends DocumentData>(
       !newDocAm &&
         (() => {
           throw new Error(
-            `[mnapp-firebase-firestore] Failed to retrieve created doc '${collectionPath}/${docRef.id}'.`,
+            `[mnapp-firebase-firestore] Failed to retrieve created doc '${collectionPath}/${docRef.id}'.`
           );
         })();
 
@@ -376,7 +376,7 @@ function buildActions<T extends DocModel, TVm, TAm extends DocumentData>(
       });
 
       this.recentlyAddedDocs.push(
-        newDocM as UnwrapRef<DocStateInterface<T>>['recentlyAddedDocs'][number],
+        newDocM as UnwrapRef<DocStateInterface<T>>['recentlyAddedDocs'][number]
       );
 
       return newDocM;
@@ -393,7 +393,7 @@ function buildActions<T extends DocModel, TVm, TAm extends DocumentData>(
       !newDocAm &&
         (() => {
           throw new Error(
-            `[mnapp-firebase-firestore] Failed to retrieve updated doc '${collectionPath}/${docRef.id}'.`,
+            `[mnapp-firebase-firestore] Failed to retrieve updated doc '${collectionPath}/${docRef.id}'.`
           );
         })();
 
@@ -420,7 +420,7 @@ function buildActions<T extends DocModel, TVm, TAm extends DocumentData>(
           this.recentlyUpdatedDocs.push(
             newDocM as UnwrapRef<
               DocStateInterface<T>
-            >['recentlyUpdatedDocs'][number],
+            >['recentlyUpdatedDocs'][number]
           );
         }
       }
@@ -436,7 +436,7 @@ function buildActions<T extends DocModel, TVm, TAm extends DocumentData>(
   async function loadDocsNextPage(
     state: UnwrapRef<DocStateInterface<T>>,
     q: Query<TAm>,
-    outOfRange: () => void,
+    outOfRange: () => void
   ) {
     if (state.docs.length > 0) {
       const lastDoc = state.docs[state.docs.length - 1];
@@ -461,9 +461,8 @@ function buildActions<T extends DocModel, TVm, TAm extends DocumentData>(
         (await Promise.all(
           docs.map(
             (doc) =>
-              (options.afterLoad && options.afterLoad(doc)) ||
-              Promise.resolve(),
-          ),
+              (options.afterLoad && options.afterLoad(doc)) || Promise.resolve()
+          )
         ));
 
       const docIdMap = new Map(docAndIds as Iterable<readonly [TAm, string]>);
@@ -473,7 +472,7 @@ function buildActions<T extends DocModel, TVm, TAm extends DocumentData>(
         mapper.mapArray<TAm, T>(docs, apiModelName, modelName, {
           extraArgs,
           afterMap: options.mapperOptions?.apiModelToModelAfterMap,
-        }) as UnwrapRef<T[]>,
+        }) as UnwrapRef<T[]>
       );
     }
   }
@@ -487,7 +486,7 @@ function buildActions<T extends DocModel, TVm, TAm extends DocumentData>(
     done: () => void,
     notFound?: () => void,
     deleted?: () => void,
-    error?: (error: Error) => void,
+    error?: (error: Error) => void
   ) {
     const db = getFirestore();
     const docRef = doc(db, collectionPath, id) as DocumentReference<TAm>;
@@ -538,7 +537,7 @@ function buildActions<T extends DocModel, TVm, TAm extends DocumentData>(
       // onError
       (err) => {
         error && error(err);
-      },
+      }
     );
 
     realtimeDocs[docKey] = {
@@ -583,7 +582,7 @@ function buildActions<T extends DocModel, TVm, TAm extends DocumentData>(
             console.error(err);
             unsubscribe();
             resolve(undefined);
-          },
+          }
         );
       });
     } else {

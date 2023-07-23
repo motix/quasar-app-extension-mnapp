@@ -19,7 +19,7 @@ const loading = ref<boolean>(true);
 
 function loaderEnter() {
   const transitionContainer = document.getElementById(
-    'sign-in-transition-container',
+    'sign-in-transition-container'
   );
   const uiContainer = document.getElementById('firebaseui-auth-container');
   if (transitionContainer && uiContainer) {
@@ -37,7 +37,7 @@ onMounted(() => {
       // Hide the loader.
       loading.value = false;
     },
-    routeParams.returnUrl as string | undefined,
+    routeParams.returnUrl as string | undefined
   );
 });
 </script>

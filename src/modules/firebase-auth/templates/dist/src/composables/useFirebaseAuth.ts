@@ -40,7 +40,7 @@ export default function () {
       store.currentUser ||
       (() => {
         throw new Error('Cannot retrieve unauthenticated user.');
-      })(),
+      })()
   );
 
   const roles = computed(() => store.currentUserRoles);
@@ -55,7 +55,7 @@ export default function () {
   const startAuthUi = (
     element: string | Element,
     uiShown?: () => void,
-    returnUrl?: string,
+    returnUrl?: string
   ) => {
     const uiConfig: auth.Config = {
       callbacks: {
@@ -99,7 +99,7 @@ export default function () {
     let remoteTokenTimeout: ReturnType<typeof setTimeout>;
 
     const handleMessage = (
-      ev: MessageEvent<Record<'type' | 'value', string>>,
+      ev: MessageEvent<Record<'type' | 'value', string>>
     ) => {
       if (ev.data.type === 'loginToken') {
         clearTimeout(remoteTokenTimeout);
@@ -128,7 +128,7 @@ export default function () {
           type: 'windowKey',
           value: key,
         },
-        '*',
+        '*'
       );
 
       remoteTokenTimeout = setTimeout(() => {
@@ -141,7 +141,7 @@ export default function () {
 
   function setupRemoteSignInResponse() {
     const handleMessage = (
-      ev: MessageEvent<Record<'type' | 'value', string>>,
+      ev: MessageEvent<Record<'type' | 'value', string>>
     ) => {
       if (ev.data.type === 'windowKey') {
         const windowKey = ev.data.value;
@@ -153,7 +153,7 @@ export default function () {
             type: 'loginToken',
             value: item.token,
           },
-          '*',
+          '*'
         );
       }
     };
@@ -171,7 +171,7 @@ export default function () {
     setTimeout(() => {
       const remoteWindow = window.open(
         `${remoteSite}/auth/remote-sign-in/${key}`,
-        '_blank',
+        '_blank'
       );
 
       if (remoteWindow) {

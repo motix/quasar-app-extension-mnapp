@@ -37,7 +37,7 @@ const value = computed<string[] | null>({
     value?.sort(
       (a, b) =>
         date.extractDate(a, editDateFormat).valueOf() -
-        date.extractDate(b, editDateFormat).valueOf(),
+        date.extractDate(b, editDateFormat).valueOf()
     );
 
     if (value?.join('|') !== valValue.value?.join('|')) {
@@ -67,7 +67,7 @@ watch(
     if (valValue.value !== newValue) {
       value.value = newValue;
     }
-  },
+  }
 );
 </script>
 

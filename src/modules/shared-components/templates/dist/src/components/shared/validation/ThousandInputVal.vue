@@ -14,7 +14,7 @@ const props = defineProps<Props>();
 // Composables
 
 const { errorMessage, value } = useField<string | number | null | undefined>(
-  props.name,
+  props.name
 );
 
 // Private Executions
@@ -35,7 +35,7 @@ watch(
     if (value.value !== newValue) {
       value.value = newValue;
     }
-  },
+  }
 );
 </script>
 

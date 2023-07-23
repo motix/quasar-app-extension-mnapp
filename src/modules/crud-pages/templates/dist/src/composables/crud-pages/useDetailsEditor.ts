@@ -9,11 +9,11 @@ import { EditPage, extendEditPage } from './useEditPage';
 export default function useDetailsEditor<
   TVm extends NonNullable<unknown>,
   TDetailVm extends NonNullable<unknown>,
-  TNewDetailParams extends Array<unknown>,
+  TNewDetailParams extends Array<unknown>
 >(
   $p: EditPage<never, TVm, NonNullable<unknown>>,
   getDetails: (vm: TVm) => TDetailVm[],
-  newDetail: (...params: TNewDetailParams) => TDetailVm,
+  newDetail: (...params: TNewDetailParams) => TDetailVm
 ) {
   // Private
 
@@ -44,14 +44,14 @@ export default function useDetailsEditor<
       $p.ready.value &&
       $ep.newPageOrEditMode.value &&
       isCardsView.value &&
-      getDetails($p.vm.value).length > 0,
+      getDetails($p.vm.value).length > 0
   );
 
   // Methods
 
   function setDetailEditorRef(
     el: (typeof detailEditorRefs.value)[number] | null,
-    index: number,
+    index: number
   ) {
     if (el !== null) {
       detailEditorRefs.value[index] = el;
@@ -78,7 +78,7 @@ export default function useDetailsEditor<
               scrollToDetailEditor(index);
             });
           }
-        },
+        }
       );
     }
   }
@@ -95,7 +95,7 @@ export default function useDetailsEditor<
 
   async function validateDetailsEditor() {
     const results = await Promise.all(
-      detailEditorRefs.value.map((value) => value.validate()),
+      detailEditorRefs.value.map((value) => value.validate())
     );
 
     return !results.includes(false);
@@ -105,11 +105,11 @@ export default function useDetailsEditor<
 
   watch(
     computed(() =>
-      $p.viewModel.value ? getDetails($p.viewModel.value).length : undefined,
+      $p.viewModel.value ? getDetails($p.viewModel.value).length : undefined
     ),
     () => {
       detailEditorRefs.value = [];
-    },
+    }
   );
 
   return {

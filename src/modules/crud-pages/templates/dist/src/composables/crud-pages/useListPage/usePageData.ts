@@ -14,7 +14,7 @@ import useNotifications from 'composables/useNotifications';
 import usePageStatus from './usePageStatus';
 
 export default function usePageData<T extends NonNullable<unknown>>(
-  ready: ReturnType<typeof usePageStatus>['ready'],
+  ready: ReturnType<typeof usePageStatus>['ready']
 ) {
   // Composables
 
@@ -26,7 +26,7 @@ export default function usePageData<T extends NonNullable<unknown>>(
   const items = ref(null) as Ref<T[] | null>;
   const allItemsLoaded = ref(false);
   const modelFindKeyField = ref<Extract<keyof T, string>>(
-    'id' as Extract<keyof T, string>,
+    'id' as Extract<keyof T, string>
   ) as Ref<Extract<keyof T, string>>;
   const newItemsOnTop = ref(false);
 
@@ -37,14 +37,14 @@ export default function usePageData<T extends NonNullable<unknown>>(
       ? `${allItemsLoaded.value ? 'All ' : ''}${items.value.length} item${
           items.value.length > 1 ? 's' : ''
         } loaded`
-      : undefined,
+      : undefined
   );
 
   // Methods
 
   async function loadFirstPage(
     loadPage: LoadDocsPageActionMethod,
-    done: () => void,
+    done: () => void
   ) {
     allItemsLoaded.value = false;
 
@@ -76,7 +76,7 @@ export default function usePageData<T extends NonNullable<unknown>>(
   async function loadPage(
     loadPage: LoadDocsPageActionMethod,
     page: number,
-    done: (stop: boolean) => void,
+    done: (stop: boolean) => void
   ) {
     const payload: LoadDocsPageActionPayload = {
       page,
@@ -116,7 +116,7 @@ export default function usePageData<T extends NonNullable<unknown>>(
     const itemsToKeep = differenceBy(
       items.value,
       newItems,
-      modelFindKeyField.value,
+      modelFindKeyField.value
     );
     items.value = itemsToKeep.concat(newItems);
   }
@@ -124,7 +124,7 @@ export default function usePageData<T extends NonNullable<unknown>>(
   function updateItems(
     recentlyAddedDocs: T[],
     recentlyUpdatedDocs: T[],
-    recentlyDeletedDocs: string[],
+    recentlyDeletedDocs: string[]
   ) {
     const itemsValue = items.value;
 

@@ -3,7 +3,7 @@ import { computed, ref } from 'vue';
 import { UsePageDataHelper } from './usePageData';
 
 export default function useClientFilter<T extends NonNullable<unknown>>(
-  items: UsePageDataHelper<T>['Return']['items'],
+  items: UsePageDataHelper<T>['Return']['items']
 ) {
   // Data
 
@@ -20,7 +20,7 @@ export default function useClientFilter<T extends NonNullable<unknown>>(
       ? items.value
       : items.value === null
       ? null
-      : clientFilterItems.value(items.value),
+      : clientFilterItems.value(items.value)
   );
 
   const clientFilteredItemCountLabel = computed(() =>
@@ -28,7 +28,7 @@ export default function useClientFilter<T extends NonNullable<unknown>>(
       ? `${clientFilteredItems.value.length} item${
           clientFilteredItems.value.length > 1 ? 's' : ''
         } filtered`
-      : undefined,
+      : undefined
   );
 
   return {

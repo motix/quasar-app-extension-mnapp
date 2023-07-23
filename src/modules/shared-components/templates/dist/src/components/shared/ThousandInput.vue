@@ -51,13 +51,13 @@ const displayValue = computed(() =>
     ? isThousandValue.value
       ? (oneThousandRound(props.modelValue as number) / 1000).toString()
       : `${props.modelValue}E0`
-    : props.modelValue?.toString() || '',
+    : props.modelValue?.toString() || ''
 );
 
 const suffix = computed(() =>
   isThousandValue.value && (props.modelValue as number) > 0
     ? '000' + (props.suffix || '')
-    : props.suffix,
+    : props.suffix
 );
 
 // Methods

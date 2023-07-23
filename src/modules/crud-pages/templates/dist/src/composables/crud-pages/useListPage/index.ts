@@ -13,7 +13,7 @@ import useTableView from './useTableView';
 
 function newScope<
   T extends NonNullable<unknown>,
-  TRow extends NonNullable<unknown>,
+  TRow extends NonNullable<unknown>
 >() {
   const pageStatus = usePageStatus();
   const pageData = usePageData<T>(pageStatus.ready);
@@ -36,7 +36,7 @@ function newScope<
 
 class NewScopeHelper<
   T extends NonNullable<unknown>,
-  TRow extends NonNullable<unknown>,
+  TRow extends NonNullable<unknown>
 > {
   Return = newScope<T, TRow>();
 }
@@ -46,10 +46,10 @@ export * from './useTableView';
 export default function useListPage<
   T extends NonNullable<unknown>,
   TRow extends NonNullable<unknown>,
-  TExtra extends NonNullable<unknown> = Record<string, never>,
+  TExtra extends NonNullable<unknown> = Record<string, never>
 >(
   scopeName: string,
-  hitUseCount?: boolean,
+  hitUseCount?: boolean
 ): NewScopeHelper<T, TRow>['Return'] & TExtra {
   const store = useSingleScopeComposableStore();
 
@@ -66,7 +66,7 @@ export default function useListPage<
 class UseListPageHelper<
   T extends NonNullable<unknown>,
   TRow extends NonNullable<unknown>,
-  TExtra extends NonNullable<unknown>,
+  TExtra extends NonNullable<unknown>
 > {
   Return = useListPage<T, TRow, TExtra>('');
 }
@@ -74,5 +74,5 @@ class UseListPageHelper<
 export type ListPage<
   T extends NonNullable<unknown>,
   TRow extends NonNullable<unknown>,
-  TExtra extends NonNullable<unknown> = Record<string, never>,
+  TExtra extends NonNullable<unknown> = Record<string, never>
 > = UseListPageHelper<T, TRow, TExtra>['Return'];

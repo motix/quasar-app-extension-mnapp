@@ -38,7 +38,7 @@
     "js-guid": "^1.0.2",
     "lodash": "^4.17.21",
     "pinia": "^2.1.4",
-    "prettier": "^3.0.0",
+    "prettier": "^2.8.8",
     "quasar": "^2.12.3",
     "slack": "^11.0.2",
     "slack-message-parser": "^3.0.2",

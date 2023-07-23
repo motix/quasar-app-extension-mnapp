@@ -24,7 +24,7 @@ export type LoadDocsPageActionPayload = {
 };
 
 export type LoadDocsPageActionMethod = (
-  payload: LoadDocsPageActionPayload,
+  payload: LoadDocsPageActionPayload
 ) => Promise<void>;
 
 export type ReleaseDocsActionPayload = {

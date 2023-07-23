@@ -62,7 +62,7 @@ const props = withDefaults(
     titleTop: false,
     titleNoWrap: false,
     sideTop: false,
-  },
+  }
 );
 
 // Computed

@@ -14,7 +14,7 @@ export default function useViewer<T extends NonNullable<unknown>>(
   editMode: ReturnType<typeof usePageStatus>['editMode'],
   docKey: ReturnType<typeof usePageData>['docKey'],
   model: UsePageDataHelper<T, never>['Return']['model'],
-  updateModel: UsePageDataHelper<T, never>['Return']['updateModel'],
+  updateModel: UsePageDataHelper<T, never>['Return']['updateModel']
 ) {
   // Composables
 

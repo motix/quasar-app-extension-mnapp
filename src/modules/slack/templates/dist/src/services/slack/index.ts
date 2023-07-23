@@ -15,7 +15,7 @@ async function findChannel(name: string) {
   });
 
   let channel = conversationsResult.channels.find(
-    (value) => value.name === name,
+    (value) => value.name === name
   );
 
   while (
@@ -70,15 +70,15 @@ export async function loadPrivateChannel(
       date.getDateDiff(
         new Date(),
         new Date(Number(savedMessage.ts) * 1000),
-        'days',
-      ) > 30,
+        'days'
+      ) > 30
   );
 
   let rawMessages = [...savedMessages, ...historyResult.messages];
 
   rawMessages = uniqWith(
     rawMessages,
-    (a, b) => b.text === a.text && b.ts === a.ts && b.user === a.user,
+    (a, b) => b.text === a.text && b.ts === a.ts && b.user === a.user
   );
 
   rawMessages = sortBy(rawMessages, (value) => -Number(value.ts));
@@ -101,8 +101,8 @@ export async function processRawMessages(rawMessages: Message[]) {
       slack.users.info({
         token: process.env.SLACK_ACCESS_TOKEN,
         user: value,
-      }),
-    ),
+      })
+    )
   );
 
   let users: SlackUser[] = infoResults.map((value) => ({
@@ -123,7 +123,7 @@ export async function processRawMessages(rawMessages: Message[]) {
         !value.text.endsWith('has left the channel') &&
         !value.text.startsWith('set the channel topic') &&
         !value.text.startsWith('set the channel description') &&
-        !value.text.startsWith('has renamed the channel from'),
+        !value.text.startsWith('has renamed the channel from')
     )
     .map((value) => ({
       timestamp: new Date(Number(value.ts) * 1000),
@@ -135,7 +135,7 @@ export async function processRawMessages(rawMessages: Message[]) {
   await Promise.all(
     messages.map(async (value) => {
       value.parsedText = await parseMessage(value.text);
-    }),
+    })
   );
 
   return {
@@ -158,7 +158,7 @@ export async function parseMessage(message: string) {
           `https://slack.com/archives/${node.channelID}`,
           node.label
             ? (await Promise.all(node.label.map(stringifyNode))).join('')
-            : node.channelID,
+            : node.channelID
         );
 
       case NodeType.UserLink:
@@ -182,7 +182,7 @@ export async function parseMessage(message: string) {
           node.url,
           node.label
             ? (await Promise.all(node.label.map(stringifyNode))).join('')
-            : node.url,
+            : node.url
         );
 
       case NodeType.Emoji:
@@ -220,7 +220,7 @@ export async function parseMessage(message: string) {
 
       case NodeType.Italic:
         return `<i>${(await Promise.all(node.children.map(stringifyNode))).join(
-          '',
+          ''
         )}</i>`;
 
       case NodeType.Strike:

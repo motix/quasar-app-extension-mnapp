@@ -10,7 +10,7 @@ export default function useToolbar(
   hasDeleting: ReturnType<typeof usePageFeatures>['hasDeleting'],
   hasMultiViews: ReturnType<typeof usePageFeatures>['hasMultiViews'],
   ready: ReturnType<typeof usePageStatus>['ready'],
-  editMode: ReturnType<typeof usePageStatus>['editMode'],
+  editMode: ReturnType<typeof usePageStatus>['editMode']
 ) {
   // Data
 

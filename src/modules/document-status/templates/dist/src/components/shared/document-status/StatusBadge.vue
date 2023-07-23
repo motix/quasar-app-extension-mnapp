@@ -8,7 +8,7 @@ withDefaults(
   }>(),
   {
     revertColor: false,
-  },
+  }
 );
 </script>
 

@@ -8,7 +8,7 @@ declare module '../useFormats' {
 
 export default function percent(
   value: number | string | null | undefined,
-  decimal?: number,
+  decimal?: number
 ) {
   if (value == null) return value;
 
