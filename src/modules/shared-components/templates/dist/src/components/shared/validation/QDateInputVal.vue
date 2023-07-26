@@ -3,7 +3,7 @@ import { useField } from 'vee-validate';
 
 import { computed, ref, watch } from 'vue';
 
-import { QPopupProxy } from 'quasar';
+import { QDateProps, QPopupProxy } from 'quasar';
 
 import { requiredConfigEntries } from 'composables/useConfig';
 
@@ -13,9 +13,11 @@ type Props = {
   name: string;
   modelValue: string | null | undefined;
   optional?: boolean;
+  dateOptions?: QDateProps['options'];
 };
 const props = withDefaults(defineProps<Props>(), {
   optional: false,
+  dateOptions: undefined,
 });
 
 // Emits
@@ -96,6 +98,7 @@ watch(
           <q-date
             v-model="value"
             :mask="editDateFormat"
+            :options="dateOptions"
             @update:model-value="popupProxy?.hide()"
           />
         </q-popup-proxy>
