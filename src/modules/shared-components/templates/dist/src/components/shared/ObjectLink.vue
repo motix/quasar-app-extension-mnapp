@@ -1,7 +1,11 @@
 <script setup lang="ts">
+import { ref } from 'vue';
+
+import { copyToClipboard } from 'quasar';
+
 // Props
 
-withDefaults(
+const props = withDefaults(
   defineProps<{
     label: string;
     // eslint-disable-next-line vue/require-default-prop
@@ -14,6 +18,19 @@ withDefaults(
     maxWidth: '100%',
   },
 );
+
+// Data
+
+const hover = ref(false);
+const labelCopied = ref(false);
+
+// Methods
+
+function copyLabel() {
+  copyToClipboard(props.label).then(() => {
+    labelCopied.value = true;
+  });
+}
 </script>
 
 <template>
@@ -23,6 +40,11 @@ withDefaults(
     no-caps
     style="min-height: 0"
     :style="{ 'max-width': maxWidth }"
+    @mouseleave="labelCopied = hover = false"
+    @mouseover="
+      hover = true;
+      labelCopied = false;
+    "
   >
     <div :class="{ 'text-left': !!icon || $slots.icon, ellipsis: !wrapLabel }">
       <slot name="icon">
@@ -32,6 +54,18 @@ withDefaults(
       <span>
         {{ label }}
       </span>
+    </div>
+
+    <div style="width: 0; margin-top: -1.2em">
+      <fade-transition>
+        <div
+          v-if="hover && !labelCopied"
+          class="q-px-xs"
+          @click.stop.prevent="copyLabel"
+        >
+          <q-icon name="fal fa-copy" size="1.2em" />
+        </div>
+      </fade-transition>
     </div>
   </q-btn>
 </template>
