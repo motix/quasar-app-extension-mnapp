@@ -46,26 +46,31 @@ function copyLabel() {
       labelCopied = false;
     "
   >
-    <div :class="{ 'text-left': !!icon || $slots.icon, ellipsis: !wrapLabel }">
-      <slot name="icon">
-        <q-icon v-if="icon" class="q-mr-sm" :name="icon" size="1.2em" />
-      </slot>
+    <div class="row no-wrap">
+      <div
+        :class="{ 'text-left': !!icon || $slots.icon, ellipsis: !wrapLabel }"
+      >
+        <slot name="icon">
+          <q-icon v-if="icon" class="q-mr-sm" :name="icon" size="1.2em" />
+        </slot>
 
-      <span>
-        {{ label }}
-      </span>
-    </div>
+        <span>
+          {{ label }}
+        </span>
+      </div>
 
-    <div style="width: 0; margin-top: -1.2em">
-      <fade-transition>
-        <div
-          v-if="hover && !labelCopied"
-          class="q-px-xs"
-          @click.stop.prevent="copyLabel"
-        >
-          <q-icon name="fal fa-copy" size="1.2em" />
-        </div>
-      </fade-transition>
+      <div style="width: 0">
+        <fade-transition>
+          <div
+            v-if="hover && !labelCopied"
+            class="q-px-xs"
+            style="margin-right: -1.2em"
+            @click.stop.prevent="copyLabel"
+          >
+            <q-icon name="fal fa-copy" size="1.2em" />
+          </div>
+        </fade-transition>
+      </div>
     </div>
   </q-btn>
 </template>
