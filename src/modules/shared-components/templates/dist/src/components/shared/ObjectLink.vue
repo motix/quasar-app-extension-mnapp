@@ -64,7 +64,7 @@ function copyLabel() {
           <div
             v-if="hover && !labelCopied"
             class="q-px-xs"
-            style="margin-right: -1.2em"
+            style="margin-right: -1.2em; margin-top: -0.5em"
             @click.stop.prevent="copyLabel"
           >
             <q-icon name="fal fa-copy" size="1.2em" />
