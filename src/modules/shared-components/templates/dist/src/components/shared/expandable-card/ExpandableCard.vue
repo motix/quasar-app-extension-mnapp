@@ -199,6 +199,7 @@ defineExpose({
         </div>
       </q-expansion-item>
     </template>
+
     <template v-else>
       <!-- Refer to this issue for v-bind="$props": https://giters.com/johnsoncodehk/volar/issues/556 -->
       <expandable-card-header
