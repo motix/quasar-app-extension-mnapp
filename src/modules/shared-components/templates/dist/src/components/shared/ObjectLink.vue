@@ -46,7 +46,8 @@ function copyLabel() {
       labelCopied = false;
     "
   >
-    <div class="row no-wrap">
+    <!-- Setting max-width to support ellipsis -->
+    <div class="row no-wrap" style="max-width: 100%">
       <div
         :class="{ 'text-left': !!icon || $slots.icon, ellipsis: !wrapLabel }"
       >
