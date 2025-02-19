@@ -1,7 +1,7 @@
 import type { UsePageDataHelper } from './usePageData';
 import type usePageStatus from './usePageStatus';
 import type { CreateDocActionPayload } from 'stores/firebase-firestore';
-import type { PartialDeep } from 'vee-validate/node_modules/type-fest';
+import type { PartialDeep } from 'type-fest';
 import type { MaybeRef, Ref } from 'vue';
 import type { Schema } from 'yup';
 
