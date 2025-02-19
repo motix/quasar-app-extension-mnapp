@@ -1,8 +1,8 @@
 import type { UsePageDataHelper } from './usePageData';
 import type usePageStatus from './usePageStatus';
 import type { CreateDocActionPayload } from 'stores/firebase-firestore';
-import type { PartialDeep } from 'type-fest';
-import type { MaybeRef, Ref } from 'vue';
+import type { FormOptions } from 'vee-validate';
+import type { Ref } from 'vue';
 import type { Schema } from 'yup';
 
 import { useForm } from 'vee-validate';
@@ -71,7 +71,7 @@ export default function useEditor<TVm extends NonNullable<unknown>>(
     const initialValues = values
       ? (Object.fromEntries(
           initialValuesKeys.map((key) => [key, values[key]]),
-        ) as MaybeRef<PartialDeep<Pick<T, K>>>)
+        ) as FormOptions<Pick<T, K>>['initialValues'])
       : undefined;
 
     return useForm<Pick<T, K>>({
