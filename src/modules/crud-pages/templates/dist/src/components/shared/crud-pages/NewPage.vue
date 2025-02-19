@@ -88,8 +88,10 @@ watch(freezed, (value) => {
               round
               text-color="primary"
               @click="
-                hideSaveTooltip();
-                editorSave();
+                (function () {
+                  hideSaveTooltip();
+                  editorSave();
+                })()
               "
             >
               <top-tooltip ref="saveTooltip">Save</top-tooltip>
