@@ -1,6 +1,7 @@
-import { computed, nextTick, onMounted, ref, Ref } from 'vue';
+import type { ListPage } from './useListPage';
+import type { Ref } from 'vue';
 
-import { ListPage } from './useListPage';
+import { computed, nextTick, onMounted, ref } from 'vue';
 
 export default function useListPageFilter<FilterType>(
   ready: ListPage<never, never>['ready'],

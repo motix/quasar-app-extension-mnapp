@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import type { ComponentConstructor } from 'quasar';
-
-import { ComponentPublicInstance } from 'vue';
-import { VueApexChartsComponent } from 'vue3-apexcharts';
+import type { ComponentPublicInstance } from 'vue';
+import type { VueApexChartsComponent } from 'vue3-apexcharts';
 
 type Method = (...args: any) => any;
 

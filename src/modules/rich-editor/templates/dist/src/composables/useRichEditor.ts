@@ -1,6 +1,8 @@
+import type { QEditor } from 'quasar';
+
 import { ref } from 'vue';
 
-import { QEditor, uid } from 'quasar';
+import { uid } from 'quasar';
 
 import {
   getDownloadURL,

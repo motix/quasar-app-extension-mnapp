@@ -1,11 +1,12 @@
+import type { ListPage } from './useListPage';
+import type { QueryConstraint } from 'firebase/firestore';
+import type { DocModel } from 'stores/firebase-firestore';
+
 import { createMapper } from '@automapper/core';
 import { pojos } from '@automapper/pojos';
 
-import { QueryConstraint } from 'firebase/firestore';
+import { useStore } from 'stores/firebase-firestore';
 
-import { DocModel, useStore } from 'stores/firebase-firestore';
-
-import { ListPage } from './useListPage';
 import useListPageFilterWithOptions from './useListPageFilterWithOptions';
 
 class UseStoreHelper<T extends DocModel> {

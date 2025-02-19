@@ -1,8 +1,9 @@
-import { markRaw, ref, Ref } from 'vue';
+import type { ScopeRecord } from 'models/single-scope-composable';
+import type { Ref } from 'vue';
+
+import { markRaw, ref } from 'vue';
 
 import { acceptHMRUpdate, defineStore } from 'pinia';
-
-import { ScopeRecord } from 'models/single-scope-composable';
 
 export const useSingleScopeComposableStore = defineStore(
   'SingleScopeComposable',

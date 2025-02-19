@@ -1,18 +1,19 @@
-import { useForm } from 'vee-validate';
-import { PartialDeep } from 'vee-validate/node_modules/type-fest';
-import { Schema } from 'yup';
+import type usePageData from './usePageData';
+import type { UsePageDataHelper } from './usePageData';
+import type usePageStatus from './usePageStatus';
+import type { UpdateDocActionPayload } from 'stores/firebase-firestore';
+import type { PartialDeep } from 'vee-validate/node_modules/type-fest';
+import type { MaybeRef } from 'vue';
+import type { Schema } from 'yup';
 
-import { MaybeRef, ref } from 'vue';
+import { useForm } from 'vee-validate';
+
+import { ref } from 'vue';
 
 import { Dialog } from 'quasar';
 
-import { UpdateDocActionPayload } from 'stores/firebase-firestore';
-
 import useNotifications from 'composables/useNotifications';
 import useScroll from 'composables/useScroll';
-
-import usePageData, { UsePageDataHelper } from './usePageData';
-import usePageStatus from './usePageStatus';
 
 export default function useEditor<TVm extends NonNullable<unknown>>(
   freezed: ReturnType<typeof usePageStatus>['freezed'],

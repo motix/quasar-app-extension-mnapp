@@ -87,5 +87,11 @@ module.exports = {
 
     // alphabetical
     'vue/attributes-order': ['warn', { alphabetical: true }],
+
+    // Import type
+    '@typescript-eslint/consistent-type-imports': [
+      'error',
+      { prefer: 'type-imports' },
+    ],
   },
 };

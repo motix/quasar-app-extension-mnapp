@@ -1,9 +1,11 @@
-import { Router } from 'vue-router';
+import type { User } from 'firebase/auth';
+import type { UserClaims } from 'models/firebase-auth';
+import type { Router } from 'vue-router';
 
-import { onAuthStateChanged, User } from 'firebase/auth';
+import { onAuthStateChanged } from 'firebase/auth';
 import { httpsCallable } from 'firebase/functions';
 
-import { UserClaims, userRoles } from 'models/firebase-auth';
+import { userRoles } from 'models/firebase-auth';
 
 import { useFirebaseAuthStore } from 'stores/FirebaseAuth';
 

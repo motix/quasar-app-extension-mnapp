@@ -1,4 +1,4 @@
-import {
+import type {
   IndexAPI as OriginalIndexAPI,
   InstallAPI,
   SharedAPI,

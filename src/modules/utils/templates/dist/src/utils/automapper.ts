@@ -1,3 +1,13 @@
+import type {
+  Mapper,
+  Mapping,
+  MappingConfiguration,
+  ModelIdentifier,
+  Resolver,
+} from '@automapper/core';
+import type { PojoMetadata } from '@automapper/pojos';
+import type { Timestamp } from '@firebase/firestore';
+
 import { isArray, isDate, isObject } from 'lodash';
 
 import {
@@ -7,20 +17,12 @@ import {
   extend,
   forMember,
   mapFrom,
-  Mapper,
-  Mapping,
-  MappingConfiguration,
   mapWithArguments,
-  ModelIdentifier,
-  Resolver,
 } from '@automapper/core';
-import { PojoMetadata } from '@automapper/pojos';
 
 import { date } from 'quasar';
 
 import { requiredConfigEntries } from 'composables/useConfig';
-
-import { Timestamp } from '@firebase/firestore';
 
 export type MapperMetadata<TModel> = {
   [key in keyof TModel]?:

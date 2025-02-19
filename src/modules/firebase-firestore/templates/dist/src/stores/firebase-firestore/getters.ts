@@ -1,6 +1,6 @@
-import { cloneDeep } from 'lodash';
+import type { Mapper } from '@automapper/core';
 
-import { Mapper } from '@automapper/core';
+import { cloneDeep } from 'lodash';
 
 import { defineGetters } from './';
 

@@ -1,8 +1,7 @@
+import type { UseClientFilterHelper } from './useClientFilter';
+import type { QTable } from 'quasar';
+
 import { computed, ref } from 'vue';
-
-import { QTable } from 'quasar';
-
-import { UseClientFilterHelper } from './useClientFilter';
 
 type QTableColumnOriginal = NonNullable<
   QTable['columns']

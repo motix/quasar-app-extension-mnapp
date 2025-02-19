@@ -1,15 +1,16 @@
-import { computed, ref, Ref, watch } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
-
-import { Dialog, Notify } from 'quasar';
-
-import {
+import type { NewPage } from 'composables/crud-pages/useNewPage';
+import type {
   LoadRealtimeDocActionPayload,
   LoadRealtimeDocActionResult,
   UpdateDocActionPayload,
 } from 'stores/firebase-firestore';
+import type { Ref } from 'vue';
 
-import { NewPage } from 'composables/crud-pages/useNewPage';
+import { computed, ref, watch } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+
+import { Dialog, Notify } from 'quasar';
+
 import useNotifications from 'composables/useNotifications';
 
 export default function useNewChildPage<

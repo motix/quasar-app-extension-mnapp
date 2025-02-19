@@ -1,4 +1,4 @@
-import { QueryConstraint, Unsubscribe } from 'firebase/firestore';
+import type { QueryConstraint, Unsubscribe } from 'firebase/firestore';
 
 // State
 

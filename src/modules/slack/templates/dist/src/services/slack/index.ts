@@ -1,12 +1,13 @@
+import type { SlackMessage, SlackUser } from 'models/slack';
+import type { Node } from 'slack-message-parser';
+
 import emojiData from './emoji.json';
 
 import { isEqual, sortBy, uniqWith } from 'lodash';
 import slack from 'slack';
-import parse, { Node, NodeType } from 'slack-message-parser';
+import parse, { NodeType } from 'slack-message-parser';
 
 import { date } from 'quasar';
-
-import { SlackMessage, SlackUser } from 'models/slack';
 
 async function findChannel(name: string) {
   let conversationsResult = await slack.users.conversations({

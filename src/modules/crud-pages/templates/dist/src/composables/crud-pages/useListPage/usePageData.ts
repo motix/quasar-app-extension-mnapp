@@ -1,17 +1,16 @@
-import { differenceBy, findIndex } from 'lodash';
-
-import { computed, ref, Ref } from 'vue';
-
-import { QueryConstraint } from 'firebase/firestore';
-
-import {
+import type usePageStatus from './usePageStatus';
+import type { QueryConstraint } from 'firebase/firestore';
+import type {
   LoadDocsPageActionMethod,
   LoadDocsPageActionPayload,
 } from 'stores/firebase-firestore';
+import type { Ref } from 'vue';
+
+import { differenceBy, findIndex } from 'lodash';
+
+import { computed, ref } from 'vue';
 
 import useNotifications from 'composables/useNotifications';
-
-import usePageStatus from './usePageStatus';
 
 export default function usePageData<T extends NonNullable<unknown>>(
   ready: ReturnType<typeof usePageStatus>['ready'],

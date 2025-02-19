@@ -1,20 +1,20 @@
-import ExpandableCard from 'components/shared/expandable-card/ExpandableCard.vue';
-import GravatarImage from 'components/shared/GravatarImage.vue';
-import ObjectLink from 'components/shared/ObjectLink.vue';
-import PercentInput from 'components/shared/PercentInput.vue';
-import QPagePadding from 'components/shared/QPagePadding.vue';
-import TextField from 'components/shared/TextField.vue';
-import ThousandInput from 'components/shared/ThousandInput.vue';
-import TopTooltip from 'components/shared/TopTooltip.vue';
-import FadeTransition from 'components/shared/transition/FadeTransition.vue';
-import ListTransition from 'components/shared/transition/ListTransition.vue';
-import DateArrayFieldVal from 'components/shared/validation/DateArrayFieldVal.vue';
-import PercentInputVal from 'components/shared/validation/PercentInputVal.vue';
-import QDateInputVal from 'components/shared/validation/QDateInputVal.vue';
-import QDateVal from 'components/shared/validation/QDateVal.vue';
-import QInputVal from 'components/shared/validation/QInputVal.vue';
-import QSelectVal from 'components/shared/validation/QSelectVal.vue';
-import ThousandInputVal from 'components/shared/validation/ThousandInputVal.vue';
+import type ExpandableCard from 'components/shared/expandable-card/ExpandableCard.vue';
+import type GravatarImage from 'components/shared/GravatarImage.vue';
+import type ObjectLink from 'components/shared/ObjectLink.vue';
+import type PercentInput from 'components/shared/PercentInput.vue';
+import type QPagePadding from 'components/shared/QPagePadding.vue';
+import type TextField from 'components/shared/TextField.vue';
+import type ThousandInput from 'components/shared/ThousandInput.vue';
+import type TopTooltip from 'components/shared/TopTooltip.vue';
+import type FadeTransition from 'components/shared/transition/FadeTransition.vue';
+import type ListTransition from 'components/shared/transition/ListTransition.vue';
+import type DateArrayFieldVal from 'components/shared/validation/DateArrayFieldVal.vue';
+import type PercentInputVal from 'components/shared/validation/PercentInputVal.vue';
+import type QDateInputVal from 'components/shared/validation/QDateInputVal.vue';
+import type QDateVal from 'components/shared/validation/QDateVal.vue';
+import type QInputVal from 'components/shared/validation/QInputVal.vue';
+import type QSelectVal from 'components/shared/validation/QSelectVal.vue';
+import type ThousandInputVal from 'components/shared/validation/ThousandInputVal.vue';
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {

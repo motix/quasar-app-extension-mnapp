@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { VueClassProp } from 'quasar';
+import type { VueClassProp } from 'quasar';
 
 // Props
 

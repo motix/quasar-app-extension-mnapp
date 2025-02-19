@@ -1,9 +1,12 @@
-import { ComponentPublicInstance, computed, nextTick, ref, watch } from 'vue';
+import type { EditPage } from './useEditPage';
+import type { ComponentPublicInstance } from 'vue';
+
+import { computed, nextTick, ref, watch } from 'vue';
 
 import useMultiViews from 'composables/useMultiViews';
 import useScroll from 'composables/useScroll';
 
-import { EditPage, extendEditPage } from './useEditPage';
+import { extendEditPage } from './useEditPage';
 
 // useNewPage | useViewPage
 export default function useDetailsEditor<

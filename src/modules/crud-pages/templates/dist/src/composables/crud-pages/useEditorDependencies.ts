@@ -1,14 +1,15 @@
+import type { ViewPage } from './useViewPage';
+import type { DocModel } from 'stores/firebase-firestore';
+import type { LoadAllDocsActionPayload } from 'stores/firebase-firestore/types';
+
 import { createMapper } from '@automapper/core';
 import { pojos } from '@automapper/pojos';
 
 import { onMounted, onUnmounted, ref, watch } from 'vue';
 
-import { DocModel, useStore } from 'stores/firebase-firestore';
-import { LoadAllDocsActionPayload } from 'stores/firebase-firestore/types';
+import { useStore } from 'stores/firebase-firestore';
 
 import useNotifications from 'composables/useNotifications';
-
-import { ViewPage } from './useViewPage';
 
 class UseStoreHelper<T extends DocModel> {
   Return = useStore<T, never, never>(

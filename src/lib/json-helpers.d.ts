@@ -1,4 +1,4 @@
-import { SharedAPI } from '@quasar/app-vite';
+import type { SharedAPI } from '@quasar/app-vite';
 
 export declare function reduceJsonFile(
   api: SharedAPI,

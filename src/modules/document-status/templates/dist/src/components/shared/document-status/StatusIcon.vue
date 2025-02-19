@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import DocumentStatusBase from 'utils/DocumentStatusBase';
+import type DocumentStatusBase from 'utils/DocumentStatusBase';
 
 withDefaults(
   defineProps<{

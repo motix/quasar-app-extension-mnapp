@@ -1,10 +1,11 @@
+import type { User } from 'firebase/auth';
+import type { UserClaims, UserRole } from 'models/firebase-auth';
+
 import { computed, ref } from 'vue';
 
 import { acceptHMRUpdate, defineStore } from 'pinia';
 
-import { User } from 'firebase/auth';
-
-import { UserClaims, UserRole, userRoles } from 'models/firebase-auth';
+import { userRoles } from 'models/firebase-auth';
 
 export const useFirebaseAuthStore = defineStore('FirebaseAuth', () => {
   // State

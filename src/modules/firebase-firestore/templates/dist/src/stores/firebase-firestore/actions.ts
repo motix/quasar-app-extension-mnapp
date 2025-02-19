@@ -1,42 +1,5 @@
-import { findIndex } from 'lodash';
-
-import { Mapper } from '@automapper/core';
-
-import { UnwrapRef } from 'vue';
-
-import { uid } from 'quasar';
-
-import {
-  addDoc,
-  collection,
-  CollectionReference,
-  deleteDoc,
-  doc,
-  DocumentData,
-  DocumentReference,
-  getDoc,
-  getDocs,
-  limit,
-  onSnapshot,
-  query,
-  Query,
-  runTransaction,
-  setDoc,
-  startAfter,
-  UpdateData,
-  updateDoc,
-  where,
-} from 'firebase/firestore';
-
-import { urlFriendlyNormalizeString } from 'utils/normalization';
-
-import { getFirestore } from 'services/firebase';
-
-import { requiredConfigEntries } from 'composables/useConfig';
-
-import {
+import type {
   CreateDocActionPayload,
-  defineActions,
   DeleteDocActionPayload,
   DocModel,
   LoadAllDocsActionPayload,
@@ -49,7 +12,45 @@ import {
   StoreOptions,
   UpdateDocActionPayload,
 } from './';
-import { DocStateInterface } from './state';
+import type { DocStateInterface } from './state';
+import type { Mapper } from '@automapper/core';
+import type {
+  CollectionReference,
+  DocumentData,
+  DocumentReference,
+  Query,
+  UpdateData,
+} from 'firebase/firestore';
+import type { UnwrapRef } from 'vue';
+
+import { findIndex } from 'lodash';
+
+import { uid } from 'quasar';
+
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  getDoc,
+  getDocs,
+  limit,
+  onSnapshot,
+  query,
+  runTransaction,
+  setDoc,
+  startAfter,
+  updateDoc,
+  where,
+} from 'firebase/firestore';
+
+import { urlFriendlyNormalizeString } from 'utils/normalization';
+
+import { getFirestore } from 'services/firebase';
+
+import { requiredConfigEntries } from 'composables/useConfig';
+
+import { defineActions } from './';
 
 function buildActions<T extends DocModel, TVm, TAm extends DocumentData>(
   collectionPath: string,

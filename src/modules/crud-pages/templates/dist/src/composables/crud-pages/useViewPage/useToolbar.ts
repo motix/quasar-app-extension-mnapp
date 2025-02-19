@@ -1,9 +1,8 @@
+import type usePageFeatures from './usePageFeatures';
+import type usePageStatus from './usePageStatus';
+import type FloatToolbar from 'components/shared/FloatToolbar.vue';
+
 import { computed, ref } from 'vue';
-
-import FloatToolbar from 'components/shared/FloatToolbar.vue';
-
-import usePageFeatures from './usePageFeatures';
-import usePageStatus from './usePageStatus';
 
 export default function useToolbar(
   hasEditor: ReturnType<typeof usePageFeatures>['hasEditor'],
