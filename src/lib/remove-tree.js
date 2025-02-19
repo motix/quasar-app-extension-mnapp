@@ -31,7 +31,6 @@ module.exports = function (api, templatePath, knownPaths, excludePaths) {
  * @param {UninstallAPI} api
  * @param {string} templatePath
  * @param {string} relativePath
- * @param {string[]} knownPaths
  * @param {string[]} excludePaths
  */
 function removePath(api, templatePath, relativePath, excludePaths) {

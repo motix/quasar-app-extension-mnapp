@@ -74,7 +74,8 @@ module.exports = defineInstall(function (api) {
       delete require.cache[api.resolve.app('.vscode/extensions.json')];
     }
 
-    // Modify `.vscode/settings.json`. Default setting would often lead to prettier being run after eslint and eslint errors still being present.
+    // Modify `.vscode/settings.json`. Default setting would often lead to Prettier
+    // being run after ESLint and ESLint errors still being present.
 
     reduceJsonFileArray(api, '.vscode/settings.json', [
       { path: 'editor.codeActionsOnSave', value: 'source.fixAll.eslint' },
