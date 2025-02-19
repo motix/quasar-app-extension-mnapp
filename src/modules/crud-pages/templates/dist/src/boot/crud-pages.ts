@@ -5,7 +5,8 @@ import NewPage from 'components/shared/crud-pages/NewPage.vue';
 import ViewPage from 'components/shared/crud-pages/ViewPage.vue';
 
 export default boot(({ app }) => {
-  app.component('ListPage', ListPage);
-  app.component('ViewPage', ViewPage);
-  app.component('NewPage', NewPage);
+  app
+    .component('ListPage', ListPage)
+    .component('ViewPage', ViewPage)
+    .component('NewPage', NewPage);
 });
