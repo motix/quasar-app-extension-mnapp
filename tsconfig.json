@@ -46,7 +46,8 @@
         "src/modules/shared-components/templates/dist/src/components/*",
         "src/modules/float-toolbar/templates/dist/src/components/*",
         "src/modules/sticky-headers/templates/dist/src/components/*",
-        "src/modules/multi-views/templates/dist/src/components/*"
+        "src/modules/multi-views/templates/dist/src/components/*",
+        "src/modules/crud-pages/templates/dist/src/components/*"
       ]
     }
   },
