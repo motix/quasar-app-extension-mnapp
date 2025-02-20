@@ -116,7 +116,11 @@ export async function processRawMessages(rawMessages: Message[]) {
     )
     .map((value) => ({
       timestamp: new Date(Number(value.ts) * 1000),
-      user: usersMap[value.user],
+      user:
+        usersMap[value.user] ||
+        (() => {
+          throw new Error(`[mnapp-slack] User '${value.user}' not found.`);
+        })(),
       text: value.text,
     }))
     .reverse();
@@ -148,7 +152,7 @@ export async function parseMessage(message: string) {
           node.label ? (await Promise.all(node.label.map(stringifyNode))).join('') : node.channelID,
         );
 
-      case NodeType.UserLink:
+      case NodeType.UserLink: {
         let label = node.label
           ? (await Promise.all(node.label.map(stringifyNode))).join('')
           : undefined;
@@ -163,6 +167,7 @@ export async function parseMessage(message: string) {
         }
 
         return hyperLink(`https://slack.com/team/${node.userID}`, `@${label}`);
+      }
 
       case NodeType.URL:
         return hyperLink(
@@ -170,7 +175,7 @@ export async function parseMessage(message: string) {
           node.label ? (await Promise.all(node.label.map(stringifyNode))).join('') : node.url,
         );
 
-      case NodeType.Emoji:
+      case NodeType.Emoji: {
         const data = emojiData.find((value) => value.short_name === node.name);
 
         if (!data) {
@@ -196,6 +201,7 @@ export async function parseMessage(message: string) {
         }
 
         return `&#x${data.unified};`;
+      }
 
       case NodeType.Bold:
         return `<strong>${(await Promise.all(node.children.map(stringifyNode))).join('')}</strong>`;

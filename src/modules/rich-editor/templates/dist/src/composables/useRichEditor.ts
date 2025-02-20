@@ -43,10 +43,8 @@ export default function useRichEditor() {
       const imageFiles: File[] = [];
       const images: string[] = [];
 
-      for (let i = 0; i < evt.clipboardData.files.length; i++) {
-        if (evt.clipboardData.files[i].type.startsWith('image/')) {
-          imageFiles.push(evt.clipboardData.files[i]);
-        }
+      for (const file of evt.clipboardData.files) {
+        file.type.startsWith('image/') && imageFiles.push(file);
       }
 
       await Promise.all(

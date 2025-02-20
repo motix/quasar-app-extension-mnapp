@@ -20,8 +20,8 @@ const loading = ref<boolean>(true);
 function loaderEnter() {
   const transitionContainer = document.getElementById('sign-in-transition-container');
   const uiContainer = document.getElementById('firebaseui-auth-container');
-  if (transitionContainer && uiContainer) {
-    transitionContainer.appendChild(uiContainer.childNodes[0]);
+  if (transitionContainer && uiContainer && uiContainer.childNodes.length > 0) {
+    transitionContainer.appendChild(uiContainer.childNodes[0]!);
   }
 }
 

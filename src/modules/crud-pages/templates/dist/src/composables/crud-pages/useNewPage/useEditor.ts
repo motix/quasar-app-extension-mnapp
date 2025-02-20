@@ -98,15 +98,15 @@ export default function useEditor<TVm extends NonNullable<unknown>>(
   async function editorSave() {
     viewModel.value === null &&
       (() => {
-        throw new Error('viewModel not specified');
+        throw new Error('[mnapp-crud-pages] viewModel not specified');
       })();
     createModel.value === null &&
       (() => {
-        throw new Error('createModel not specified');
+        throw new Error('[mnapp-crud-pages] createModel not specified');
       })();
     viewUrl.value === null &&
       (() => {
-        throw new Error('viewUrl not specified');
+        throw new Error('[mnapp-crud-pages] viewUrl not specified');
       })();
 
     freezed.value = true;

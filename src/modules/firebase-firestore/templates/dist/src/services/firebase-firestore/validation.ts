@@ -17,7 +17,7 @@ export async function validateUniqueField<TValue>(
   const qSnapshot = await getDocs(q);
   const result =
     qSnapshot.empty ||
-    (!!excludeId && qSnapshot.docs.length === 1 && qSnapshot.docs[0].id === excludeId);
+    (!!excludeId && qSnapshot.docs.length === 1 && qSnapshot.docs[0]!.id === excludeId);
 
   const collectionRefNormalized = collection(db, `${collectionPath}_normalized`);
   const qNormalized = query(
@@ -30,7 +30,7 @@ export async function validateUniqueField<TValue>(
     qSnapshotNormalized.empty ||
     (!!excludeId &&
       qSnapshotNormalized.docs.length === 1 &&
-      qSnapshotNormalized.docs[0].id === excludeId);
+      qSnapshotNormalized.docs[0]!.id === excludeId);
 
   return result && resultNormalized;
 }

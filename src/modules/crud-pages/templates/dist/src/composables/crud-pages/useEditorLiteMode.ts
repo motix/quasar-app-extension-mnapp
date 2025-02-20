@@ -49,7 +49,7 @@ export default function useEditorLiteMode<TVm extends NonNullable<unknown>>(
       assignValues();
 
       $p.dirty();
-      nextTick(() => stickyHeadersRef.value?.update());
+      void nextTick(() => stickyHeadersRef.value?.update());
     } else {
       showLiteModeInputs.value = true;
     }

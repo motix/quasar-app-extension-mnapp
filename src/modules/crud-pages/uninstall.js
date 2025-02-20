@@ -1,3 +1,4 @@
+const { reduceJsonFile } = require('../../lib/json-helpers');
 const { defineUninstall } = require('..');
 
 module.exports = defineUninstall(function (api) {

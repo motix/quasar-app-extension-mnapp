@@ -34,7 +34,7 @@ export default function () {
     () =>
       store.currentUser ||
       (() => {
-        throw new Error('Cannot retrieve unauthenticated user.');
+        throw new Error('[mnapp-firebase-auth] Cannot retrieve unauthenticated user.');
       })(),
   );
 
@@ -56,7 +56,6 @@ export default function () {
           void router.replace(redirectUrl || returnUrl?.slice(3) || '/'); // Remove '?r=' from returnUrl
           return false;
         },
-        uiShown: uiShown,
       },
       // For desktop, will use popup for IDP Providers sign-in flow instead of the default, redirect.
       signInFlow: Platform.is.desktop ? 'popup' : 'redirect',
@@ -74,6 +73,10 @@ export default function () {
       // Enable one-tap sign-in.
       credentialHelper: auth.CredentialHelper.GOOGLE_YOLO,
     };
+
+    if (uiShown) {
+      uiConfig.callbacks!.uiShown = uiShown;
+    }
 
     const authInstance = getAuth();
     let ui = auth.AuthUI.getInstance();

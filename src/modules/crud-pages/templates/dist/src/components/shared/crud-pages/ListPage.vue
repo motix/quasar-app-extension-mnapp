@@ -12,10 +12,22 @@ import FloatToolbar from 'components/shared/FloatToolbar.vue';
 import StickyHeaders from 'components/shared/StickyHeaders.vue';
 import SwitchViewButton from 'components/shared/SwitchViewButton.vue';
 
+type DynamicSlots = {
+  [K in `header-cell-${string}` | `body-cell-${string}`]: () => unknown;
+};
+
+interface SlotsType extends DynamicSlots {
+  table(): unknown;
+  cards(): unknown;
+  top?: () => unknown;
+  'toolbar-extra': () => unknown;
+  'item-card': () => unknown;
+}
+
 function useTableView(scopeName: string) {
   // Slots
 
-  const slots = useSlots();
+  const slots = useSlots() as unknown as Readonly<SlotsType>;
 
   // Composables
 
@@ -169,7 +181,7 @@ function useNavigateToViewPage(scopeName: string) {
 function usePageMultiViews(scopeName: string) {
   // Slots
 
-  const slots = useSlots();
+  const slots = useSlots() as unknown as Readonly<SlotsType>;
 
   // Composables
 
@@ -232,7 +244,7 @@ const props = defineProps<{ scopeName: string }>();
 
 // Slots
 
-const slots = useSlots();
+const slots = defineSlots<SlotsType>();
 
 // Emit
 

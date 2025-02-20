@@ -26,15 +26,15 @@ export default function useViewer<T extends NonNullable<unknown>>(
   async function viewerSave(cb?: () => void) {
     docKey.value === null &&
       (() => {
-        throw new Error('docKey not specified');
+        throw new Error('[mnapp-crud-pages] docKey not specified');
       })();
     model.value === null &&
       (() => {
-        throw new Error('model not specified');
+        throw new Error('[mnapp-crud-pages] model not specified');
       })();
     updateModel.value === null &&
       (() => {
-        throw new Error('updateModel not specified');
+        throw new Error('[mnapp-crud-pages] updateModel not specified');
       })();
 
     freezed.value = true;

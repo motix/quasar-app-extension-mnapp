@@ -37,7 +37,7 @@ const {
   deleting,
   trash,
   // useToolbar
-  toolbar,
+  toolbarRef,
   toolbarPersistent,
   toolbarFabButtonsVisibility,
   toolbarFixedButtonsVisibility,
@@ -144,7 +144,7 @@ watch(freezed, (value) => {
         </float-toolbar>
 
         <float-toolbar
-          ref="toolbar"
+          ref="toolbarRef"
           :fab-buttons-visibility="toolbarFabButtonsVisibility"
           :persistent="toolbarPersistent"
         >
@@ -198,7 +198,7 @@ watch(freezed, (value) => {
             round
             text-color="primary"
             @click="
-              (() => {
+              (function () {
                 hideSaveTooltip();
                 editorSave();
               })()

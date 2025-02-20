@@ -19,12 +19,12 @@ export default function useEditPage<
 
   !store.hasScope(scopeName) &&
     (() => {
-      throw new Error(`Scope '${scopeName}' not found`);
+      throw new Error(`[mnapp-crud-pages] Scope '${scopeName}' not found`);
     })();
 
-  const $p = store.retrieveScope(scopeName) as
-    | NewPage<TVm, TNewPageExtra>
-    | ViewPage<T, TVm, TViewPageExtra>;
+  const $p = store.retrieveScope<NewPage<TVm, TNewPageExtra> | ViewPage<T, TVm, TViewPageExtra>>(
+    scopeName,
+  );
 
   return defineNewPageNarrower<NewPage<TVm, TNewPageExtra>, ViewPage<T, TVm, TViewPageExtra>>($p);
 }
@@ -41,10 +41,10 @@ export function useCustomizedEditPage<
 
   !store.hasScope(scopeName) &&
     (() => {
-      throw new Error(`Scope '${scopeName}' not found`);
+      throw new Error(`[mnapp-crud-pages] Scope '${scopeName}' not found`);
     })();
 
-  const $p = store.retrieveScope(scopeName) as TNewPage | TViewPage;
+  const $p = store.retrieveScope<TNewPage | TViewPage>(scopeName);
 
   return defineNewPageNarrower<TNewPage, TViewPage>($p);
 }

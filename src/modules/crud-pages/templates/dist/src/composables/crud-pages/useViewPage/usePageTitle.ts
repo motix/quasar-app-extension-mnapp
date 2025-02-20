@@ -19,9 +19,11 @@ export default function usePageTitle<T extends NonNullable<unknown>>(
         ? `${String(model.value[modelNameField.value])} - ${appName}`
         : undefined;
 
-    return {
-      title,
-    };
+    return title === undefined
+      ? {}
+      : {
+          title,
+        };
   });
 
   // Data

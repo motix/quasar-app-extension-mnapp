@@ -64,7 +64,7 @@ export default function usePageData<
     () =>
       model.value ||
       (() => {
-        throw new Error('model not ready');
+        throw new Error('[mnapp-crud-pages] model not ready');
       })(),
   );
 
@@ -72,7 +72,7 @@ export default function usePageData<
     () =>
       viewModel.value ||
       (() => {
-        throw new Error('viewModel not ready');
+        throw new Error('[mnapp-crud-pages] viewModel not ready');
       })(),
   );
 
@@ -82,7 +82,7 @@ export default function usePageData<
     () =>
       activeModelOrViewModel.value ||
       (() => {
-        throw new Error(`${editMode.value ? 'viewModel' : 'model'} not ready`);
+        throw new Error(`[mnapp-crud-pages] ${editMode.value ? 'viewModel' : 'model'} not ready`);
       })(),
   );
 
@@ -96,8 +96,6 @@ export default function usePageData<
 
       const payload: LoadRealtimeDocActionPayload = {
         findKey: findKey.value,
-        // Asuming view model and API model has this same field
-        findKeyField: modelFindKeyField.value === 'id' ? undefined : modelFindKeyField.value,
         done: () => {
           const notifyRefreshDataSuccessIfNotMuted = () => {
             if (muteRealtimeUpdate.value) {
@@ -177,6 +175,11 @@ export default function usePageData<
         },
       };
 
+      // Asuming view model and API model has this same field
+      if (modelFindKeyField.value !== 'id') {
+        payload.findKeyField = modelFindKeyField.value;
+      }
+
       try {
         const result = loadModel(payload);
         docKey.value = result.docKey;
@@ -191,11 +194,11 @@ export default function usePageData<
   function getModelAndViewModel(realtimeUpdate: boolean) {
     docKey.value === null &&
       (() => {
-        throw new Error('docKey not specified');
+        throw new Error('[mnapp-crud-pages] docKey not specified');
       })();
     modelGetter.value === null &&
       (() => {
-        throw new Error('modelGetter not specified');
+        throw new Error('[mnapp-crud-pages] modelGetter not specified');
       })();
 
     ignoreViewerWatch.value = true;
@@ -204,7 +207,7 @@ export default function usePageData<
     if (hasEditor.value) {
       viewModelGetter.value === null &&
         (() => {
-          throw new Error('viewModelGetter not specified');
+          throw new Error('[mnapp-crud-pages] viewModelGetter not specified');
         })();
 
       viewModel.value = viewModelGetter.value(docKey.value, realtimeUpdate);
@@ -238,9 +241,9 @@ export default function usePageData<
 
   // Watch
 
-  watch(findKey, (value, oldValue) => {
+  watch(findKey, async (value, oldValue) => {
     if (value !== oldValue && !!value && !!oldValue) {
-      updatePath(oldValue, value);
+      await updatePath(oldValue, value);
     }
   });
 
@@ -250,11 +253,11 @@ export default function usePageData<
     if (hasEditor.value && model.value && !viewModel.value) {
       viewModelGetter.value === null &&
         (() => {
-          throw new Error('viewModelGetter not specified');
+          throw new Error('[mnapp-crud-pages] viewModelGetter not specified');
         })();
       docKey.value === null &&
         (() => {
-          throw new Error('docKey not specified');
+          throw new Error('[mnapp-crud-pages] docKey not specified');
         })();
 
       viewModel.value = viewModelGetter.value(docKey.value, false);

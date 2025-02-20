@@ -4,6 +4,7 @@ export default async function imageUrlToBase64(url: string) {
 
   return await new Promise<string>((resolve, reject) => {
     const reader = new FileReader();
+
     reader.onloadend = () => resolve(reader.result as string);
     reader.onerror = reject;
     reader.readAsDataURL(blob);

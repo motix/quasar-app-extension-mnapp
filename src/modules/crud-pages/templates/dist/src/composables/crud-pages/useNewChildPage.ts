@@ -49,7 +49,7 @@ export default function useNewChildPage<
     () =>
       parentViewModel.value ||
       (() => {
-        throw new Error('parentViewModel not ready');
+        throw new Error('[mnapp-crud-pages] parentViewModel not ready');
       })(),
   );
 
@@ -59,15 +59,15 @@ export default function useNewChildPage<
   $p.createModel.value = async (payload) => {
     parentDocKey.value === null &&
       (() => {
-        throw new Error('parentDocKey not specified');
+        throw new Error('[mnapp-crud-pages] parentDocKey not specified');
       })();
     addChild.value === null &&
       (() => {
-        throw new Error('addChild not specified');
+        throw new Error('[mnapp-crud-pages] addChild not specified');
       })();
     updateParentModel.value === null &&
       (() => {
-        throw new Error('updateParentModel not specified');
+        throw new Error('[mnapp-crud-pages] updateParentModel not specified');
       })();
 
     addChild.value(payload.doc);
@@ -99,9 +99,6 @@ export default function useNewChildPage<
 
       const payload: LoadRealtimeDocActionPayload = {
         findKey: parentFindKey.value,
-        // Asuming view model and API model has this same field
-        findKeyField:
-          parentModelFindKeyField.value === 'id' ? undefined : parentModelFindKeyField.value,
         done: () => {
           const notifyRefreshDataSuccessIfNotMuted = () => {
             if (muteRealtimeUpdate.value) {
@@ -150,6 +147,11 @@ export default function useNewChildPage<
         },
       };
 
+      // Asuming view model and API model has this same field
+      if (parentModelFindKeyField.value !== 'id') {
+        payload.findKeyField = parentModelFindKeyField.value;
+      }
+
       try {
         const result = loadParentModel(payload);
         parentDocKey.value = result.docKey;
@@ -164,11 +166,11 @@ export default function useNewChildPage<
   function getParentViewModel() {
     parentDocKey.value === null &&
       (() => {
-        throw new Error('parentDocKey not specified');
+        throw new Error('[mnapp-crud-pages] parentDocKey not specified');
       })();
     parentViewModelGetter.value === null &&
       (() => {
-        throw new Error('parentViewModelGetter not specified');
+        throw new Error('[mnapp-crud-pages] parentViewModelGetter not specified');
       })();
 
     parentViewModel.value = parentViewModelGetter.value(parentDocKey.value);
@@ -197,9 +199,9 @@ export default function useNewChildPage<
 
   // Watch
 
-  watch(parentFindKey, (value, oldValue) => {
+  watch(parentFindKey, async (value, oldValue) => {
     if (value !== oldValue && !!value && !!oldValue) {
-      updatePath(oldValue, value);
+      await updatePath(oldValue, value);
     }
   });
 

@@ -30,11 +30,11 @@ export default function useDeleting(
   function trash() {
     docKey.value === null &&
       (() => {
-        throw new Error('docKey not specified');
+        throw new Error('[mnapp-crud-pages] docKey not specified');
       })();
     deleteModel.value === null &&
       (() => {
-        throw new Error('deleteModel not specified');
+        throw new Error('[mnapp-crud-pages] deleteModel not specified');
       })();
 
     Dialog.create({
@@ -45,11 +45,11 @@ export default function useDeleting(
     }).onOk(() => {
       docKey.value === null &&
         (() => {
-          throw new Error('docKey not specified');
+          throw new Error('[mnapp-crud-pages] docKey not specified');
         })();
       deleteModel.value === null &&
         (() => {
-          throw new Error('deleteModel not specified');
+          throw new Error('[mnapp-crud-pages] deleteModel not specified');
         })();
 
       freezed.value = true;

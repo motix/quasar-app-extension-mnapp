@@ -26,7 +26,7 @@ export default function useListPageFilterWithOptions<FilterType>(
       const option = options.find((value) => value.type === filter);
       !option &&
         (() => {
-          throw new Error(`Value '${String(filter)}' not reconized as filter`);
+          throw new Error(`[mnapp-crud-pages] Value '${String(filter)}' not reconized as filter`);
         })();
 
       return option.selectedLabel || option.label;
@@ -35,7 +35,7 @@ export default function useListPageFilterWithOptions<FilterType>(
       const option = options.find((value) => value.type === filter);
       !option &&
         (() => {
-          throw new Error(`Value '${String(filter)}' not reconized as filter`);
+          throw new Error(`[mnapp-crud-pages] Value '${String(filter)}' not reconized as filter`);
         })();
       queryConstraints.value = option.queryConstraints;
 

@@ -13,7 +13,7 @@ export default function useToolbar(
 ) {
   // Data
 
-  const toolbar = ref<InstanceType<typeof FloatToolbar> | null>(null);
+  const toolbarRef = ref<InstanceType<typeof FloatToolbar> | null>(null);
   const toolbarPersistent = ref(false);
   const toolbarMainButtonVisibility = ref<Record<string, boolean>>({});
   const toolbarExtraButtonVisibility = ref<Record<string, boolean>>({});
@@ -39,11 +39,11 @@ export default function useToolbar(
   // Methods
 
   function openToolbar() {
-    toolbar.value?.open();
+    toolbarRef.value?.open();
   }
 
   return {
-    toolbar,
+    toolbarRef,
     toolbarPersistent,
     toolbarMainButtonVisibility,
     toolbarExtraButtonVisibility,

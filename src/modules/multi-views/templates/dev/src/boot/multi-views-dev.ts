@@ -5,7 +5,7 @@ export default boot(({ router }) => {
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/Index.vue') },
+      { path: '', component: () => import('pages/IndexPage.vue') },
       { path: '/multi-views', component: () => import('pages/MultiViews.vue') },
     ],
   });

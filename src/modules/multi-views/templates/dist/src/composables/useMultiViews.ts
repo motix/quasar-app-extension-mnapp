@@ -29,7 +29,7 @@ export default function () {
         data.viewType = 'table';
         break;
       default:
-        throw new Error(`viewType '${String(data.viewType)}' not implemented`);
+        throw new Error(`[mnapp-multi-views] viewType '${String(data.viewType)}' not implemented`);
     }
   }
 

@@ -11,7 +11,9 @@ function requiredConfigEntry(key: Extract<keyof Config, string>) {
   const value = config[key];
 
   if (value === undefined) {
-    throw new Error(`[mnapp-config] ${key} not set`);
+    // If Config is not augmented, key will be of type never,
+    // cast it to string to surpress error.
+    throw new Error(`[mnapp-config] ${key as string} not set`);
   }
 
   return value;

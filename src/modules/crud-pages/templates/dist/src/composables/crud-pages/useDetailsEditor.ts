@@ -21,7 +21,12 @@ export default function useDetailsEditor<
   // Private
 
   function scrollToDetailEditor(index: number) {
-    scrollToElement(detailEditorRefs.value[index]);
+    scrollToElement(
+      detailEditorRefs.value[index] ||
+        (() => {
+          throw new Error('[mnapp-crud-pages] Index out of range');
+        })(),
+    );
   }
 
   // Composables
@@ -74,7 +79,7 @@ export default function useDetailsEditor<
         (value) => {
           if (value >= getDetails($p.vm.value).length) {
             unwatch();
-            nextTick(() => {
+            void nextTick(() => {
               scrollToDetailEditor(index);
             });
           }

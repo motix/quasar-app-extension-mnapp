@@ -15,11 +15,11 @@ type Props = {
   name: string;
   modelValue: string | null | undefined;
   optional?: boolean;
+  // eslint-disable-next-line vue/require-default-prop
   dateOptions?: QDateProps['options'];
 };
 const props = withDefaults(defineProps<Props>(), {
   optional: false,
-  dateOptions: undefined,
 });
 
 // Emits

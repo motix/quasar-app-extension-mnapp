@@ -108,15 +108,15 @@ export default function useEditor<TVm extends NonNullable<unknown>>(
   async function editorSave() {
     docKey.value === null &&
       (() => {
-        throw new Error('docKey not specified');
+        throw new Error('[mnapp-crud-pages] docKey not specified');
       })();
     viewModel.value === null &&
       (() => {
-        throw new Error('viewModel not specified');
+        throw new Error('[mnapp-crud-pages] viewModel not specified');
       })();
     updateModel.value === null &&
       (() => {
-        throw new Error('updateModel not specified');
+        throw new Error('[mnapp-crud-pages] updateModel not specified');
       })();
 
     freezed.value = true;

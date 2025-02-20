@@ -69,7 +69,7 @@ export function useFloatToolbarResult() {
   const floatToolbarResult = inject<FloatToolbarResult>(FloatToolbarResultSymbol);
   !floatToolbarResult &&
     (() => {
-      throw new Error('No float toolbar result provided.');
+      throw new Error('[mnapp-float-toolbar] No float toolbar result provided.');
     })();
 
   return floatToolbarResult;

@@ -35,7 +35,11 @@ export default function () {
     if (destination instanceof Array) {
       if (index === undefined) index = 0;
 
-      destination = destination[index];
+      destination =
+        destination[index] ||
+        (() => {
+          throw new Error('[mnapp-scroll] Index out of range');
+        })();
 
       if ((destination as ComponentPublicInstance).$el instanceof Element) {
         el = (destination as ComponentPublicInstance).$el as Element;
@@ -48,7 +52,7 @@ export default function () {
 
     el === undefined &&
       (() => {
-        throw new Error('No element to scroll to');
+        throw new Error('[mnapp-scroll] No element to scroll to');
       })();
 
     const target = getScrollTarget(el);

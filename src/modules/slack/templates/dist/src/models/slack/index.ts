@@ -1,6 +1,6 @@
 export interface SlackUser {
   id: string;
-  email?: string;
+  email?: string | undefined;
   fullName: string;
   photoUrl: string;
 }

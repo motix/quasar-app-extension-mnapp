@@ -30,7 +30,7 @@ export function toAscii(value: string | undefined | null) {
     'aaaaaaaaaaaaaaaaaeeeeeeeeeeeiiiiiooooooooooooooooouuuuuuuuuuuyyyyyAAAAAAAAAAAAAAAAAEEEEEEEEEEEIIIIIOOOOOOOOOOOOOOOOOUUUUUUUUUUUYYYYYdD';
 
   for (let i = 0; i < unicode.length; i++) {
-    value = value.replace(new RegExp(unicode[i], 'g'), ascii[i]);
+    value = value.replace(new RegExp(unicode[i]!, 'g'), ascii[i]!);
   }
 
   return value;

@@ -19,7 +19,7 @@ export const useSingleScopeComposableStore = defineStore('SingleScopeComposable'
   function setScope<T extends object>(name: string, scope: T) {
     hasScope(name) &&
       (() => {
-        throw new Error(`Scope ${name} already exists`);
+        throw new Error(`[mnapp-single-scope-composable] Scope ${name} already exists`);
       })();
 
     const record: ScopeRecord<T> = {
@@ -33,24 +33,24 @@ export const useSingleScopeComposableStore = defineStore('SingleScopeComposable'
   function increaseScopeUseCount(name: string) {
     !hasScope(name) &&
       (() => {
-        throw new Error(`Scope ${name} unavailable`);
+        throw new Error(`[mnapp-single-scope-composable] Scope ${name} unavailable`);
       })();
-    scopes.value[name].useCount++;
+    scopes.value[name]!.useCount++;
   }
 
   function decreaseScopeUseCount(name: string) {
     !hasScope(name) &&
       (() => {
-        throw new Error(`Scope ${name} unavailable`);
+        throw new Error(`[mnapp-single-scope-composable] Scope ${name} unavailable`);
       })();
-    scopes.value[name].useCount--;
-    scopes.value[name].useCount === 0 && delete scopes.value[name];
+    scopes.value[name]!.useCount--;
+    scopes.value[name]!.useCount === 0 && delete scopes.value[name];
   }
 
   function retrieveScope<T>(name: string) {
     !hasScope(name) &&
       (() => {
-        throw new Error(`Scope ${name} unavailable`);
+        throw new Error(`[mnapp-single-scope-composable] Scope ${name} unavailable`);
       })();
     return (scopes.value[name] as ScopeRecord<T>).scope;
   }

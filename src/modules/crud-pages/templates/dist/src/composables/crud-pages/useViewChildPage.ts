@@ -57,14 +57,14 @@ export default function useViewChildPage<
     () =>
       parentModel.value ||
       (() => {
-        throw new Error('parentModel not ready');
+        throw new Error('[mnapp-crud-pages] parentModel not ready');
       })(),
   );
   const pvm = computed(
     () =>
       parentViewModel.value ||
       (() => {
-        throw new Error('parentViewModel not ready');
+        throw new Error('[mnapp-crud-pages] parentViewModel not ready');
       })(),
   );
 
@@ -86,11 +86,11 @@ export default function useViewChildPage<
   $p.modelGetter.value = (docKey, realtimeUpdate) => {
     parentModelGetter.value === null &&
       (() => {
-        throw new Error('parentModelGetter not specified');
+        throw new Error('[mnapp-crud-pages] parentModelGetter not specified');
       })();
     modelChildrenGetter.value === null &&
       (() => {
-        throw new Error('modelChildrenGetter not specified');
+        throw new Error('[mnapp-crud-pages] modelChildrenGetter not specified');
       })();
 
     parentModel.value = parentModelGetter.value(docKey);
@@ -121,7 +121,7 @@ export default function useViewChildPage<
     }
 
     if (!$p.findKey.value) {
-      $p.findKey.value = String(children[children.length - 1][$p.modelFindKeyField.value]);
+      $p.findKey.value = String(children[children.length - 1]![$p.modelFindKeyField.value]);
     }
 
     let child = children.find(
@@ -159,11 +159,11 @@ export default function useViewChildPage<
   $p.viewModelGetter.value = (docKey) => {
     parentViewModelGetter.value === null &&
       (() => {
-        throw new Error('parentViewModelGetter not specified');
+        throw new Error('[mnapp-crud-pages] parentViewModelGetter not specified');
       })();
     viewModelChildrenGetter.value === null &&
       (() => {
-        throw new Error('viewModelChildrenGetter not specified');
+        throw new Error('[mnapp-crud-pages] viewModelChildrenGetter not specified');
       })();
 
     parentViewModel.value = parentViewModelGetter.value(docKey);
@@ -186,7 +186,7 @@ export default function useViewChildPage<
   $p.updateModel.value = (payload) => {
     updateParentModel.value === null &&
       (() => {
-        throw new Error('updateParentModel not specified');
+        throw new Error('[mnapp-crud-pages] updateParentModel not specified');
       })();
 
     return updateParentModel.value({
@@ -207,15 +207,15 @@ export default function useViewChildPage<
     }).onOk(() => {
       $p.docKey.value === null &&
         (() => {
-          throw new Error('docKey not specified');
+          throw new Error('[mnapp-crud-pages] docKey not specified');
         })();
       modelChildrenGetter.value === null &&
         (() => {
-          throw new Error('modelChildrenGetter not specified');
+          throw new Error('[mnapp-crud-pages] modelChildrenGetter not specified');
         })();
       updateParentModel.value === null &&
         (() => {
-          throw new Error('updateParentModel not specified');
+          throw new Error('[mnapp-crud-pages] updateParentModel not specified');
         })();
 
       $p.freezed.value = true;
@@ -239,7 +239,7 @@ export default function useViewChildPage<
         $p.findKey.value = $p.findKey.value = String(
           (selectNextChildAfterRemoving.value
             ? selectNextChildAfterRemoving.value(children)
-            : children[children.length - 1])[$p.modelFindKeyField.value],
+            : children[children.length - 1]!)[$p.modelFindKeyField.value],
         );
       }
 
@@ -252,7 +252,7 @@ export default function useViewChildPage<
         .then(() => {
           modelChildrenGetter.value === null &&
             (() => {
-              throw new Error('modelChildrenGetter not specified');
+              throw new Error('[mnapp-crud-pages] modelChildrenGetter not specified');
             })();
 
           notifySaveDataSuccess();
@@ -281,7 +281,7 @@ export default function useViewChildPage<
   watch($p.findKey, (value, oldValue) => {
     viewUrl.value === null &&
       (() => {
-        throw new Error('viewUrl not specified');
+        throw new Error('[mnapp-crud-pages] viewUrl not specified');
       })();
 
     if (oldValue === '') {
@@ -294,7 +294,7 @@ export default function useViewChildPage<
     $p.getModelAndViewModel(false);
 
     if (Platform.is.mobile) {
-      nextTick(() => {
+      void nextTick(() => {
         if (childViewerRef.value) {
           scrollToElement(childViewerRef.value);
         } else {
@@ -306,9 +306,9 @@ export default function useViewChildPage<
     }
   });
 
-  watch(parentFindKey, (value, oldValue) => {
+  watch(parentFindKey, async (value, oldValue) => {
     if (value !== oldValue && !!value && !!oldValue) {
-      $p.updatePath(oldValue, value);
+      await $p.updatePath(oldValue, value);
     }
   });
 

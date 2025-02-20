@@ -9,22 +9,22 @@ function buildGetters<T, TVm>(mapper: Mapper, modelName: string, viewModelName: 
     __flag: () => ({ model: undefined as unknown as T }),
 
     doc: (state) => (docKey: string) => {
-      const doc = state.realtimeDocs[docKey].doc;
+      const doc = state.realtimeDocs[docKey]?.doc;
 
       return doc
         ? cloneDeep(doc)
         : (() => {
-            throw new Error(`Realtime doc '${docKey}' not available.`);
+            throw new Error(`[mnapp-firebase-firestore] Realtime doc '${docKey}' not available.`);
           })();
     },
 
     docVm: (state) => (docKey: string) => {
-      const doc = state.realtimeDocs[docKey].doc;
+      const doc = state.realtimeDocs[docKey]?.doc;
 
       return doc
         ? mapper.map<T, TVm>(doc, modelName, viewModelName)
         : (() => {
-            throw new Error(`Realtime doc '${docKey}' not available.`);
+            throw new Error(`[mnapp-firebase-firestore] Realtime doc '${docKey}' not available.`);
           })();
     },
 

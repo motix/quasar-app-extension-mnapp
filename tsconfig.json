@@ -2,7 +2,25 @@
   "extends": "@quasar/app-vite/tsconfig-preset",
   "compilerOptions": {
     "baseUrl": ".",
+    "skipLibCheck": true,
+    "moduleDetection": "force",
+    "lib": ["esnext", "dom", "dom.iterable"],
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "noImplicitOverride": true,
+    "exactOptionalPropertyTypes": true,
+    "noUncheckedIndexedAccess": true,
     "paths": {
+      "layouts/*": ["src/layouts/*", "src/modules/float-toolbar/templates/dev/src/layouts/*"],
+      "pages/*": [
+        "src/pages/*",
+        "src/modules/float-toolbar/templates/dev/src/pages/*",
+        "src/modules/multi-views/templates/dev/src/pages/*",
+        "src/modules/notifications/templates/dev/src/pages/*",
+        "src/modules/scroll/templates/dev/src/pages/*",
+        "src/modules/shared-components/templates/dev/src/pages/*"
+      ],
+
       "app/package.json": ["src/modules/page-title/package.json"],
       "app/firebase.json": ["src/modules/firebase/firebase.json"],
 

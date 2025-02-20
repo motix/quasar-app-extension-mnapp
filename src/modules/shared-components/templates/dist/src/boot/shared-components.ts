@@ -29,21 +29,22 @@ export default boot(({ app }) => {
   if (config.topFloatPadding === undefined) config.topFloatPadding = 0;
   if (config.bottomFloatPadding === undefined) config.bottomFloatPadding = 56;
 
-  app.component('FadeTransition', FadeTransition);
-  app.component('ListTransition', ListTransition);
-  app.component('TopTooltip', TopTooltip);
-  app.component('GravatarImage', GravatarImage);
-  app.component('ExpandableCard', ExpandableCard);
-  app.component('QPagePadding', QPagePadding);
-  app.component('ObjectLink', ObjectLink);
-  app.component('TextField', TextField);
-  app.component('PercentInput', PercentInput);
-  app.component('ThousandInput', ThousandInput);
-  app.component('QInputVal', QInputVal);
-  app.component('PercentInputVal', PercentInputVal);
-  app.component('ThousandInputVal', ThousandInputVal);
-  app.component('QSelectVal', QSelectVal);
-  app.component('QDateVal', QDateVal);
-  app.component('QDateInputVal', QDateInputVal);
-  app.component('DateArrayFieldVal', DateArrayFieldVal);
+  app
+    .component('FadeTransition', FadeTransition)
+    .component('ListTransition', ListTransition)
+    .component('TopTooltip', TopTooltip)
+    .component('GravatarImage', GravatarImage)
+    .component('ExpandableCard', ExpandableCard)
+    .component('QPagePadding', QPagePadding)
+    .component('ObjectLink', ObjectLink)
+    .component('TextField', TextField)
+    .component('PercentInput', PercentInput)
+    .component('ThousandInput', ThousandInput)
+    .component('QInputVal', QInputVal)
+    .component('PercentInputVal', PercentInputVal)
+    .component('ThousandInputVal', ThousandInputVal)
+    .component('QSelectVal', QSelectVal)
+    .component('QDateVal', QDateVal)
+    .component('QDateInputVal', QDateInputVal)
+    .component('DateArrayFieldVal', DateArrayFieldVal);
 });

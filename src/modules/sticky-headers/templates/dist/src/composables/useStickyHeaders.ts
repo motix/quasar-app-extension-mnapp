@@ -47,7 +47,7 @@ export function useStickyHeadersResult() {
   const stickyHeadersResult = inject<StickyHeadersResult>(StickyHeadersResultSymbol);
   !stickyHeadersResult &&
     (() => {
-      throw new Error('No sticky header result provided.');
+      throw new Error('[mnapp-sticky-headers] No sticky header result provided.');
     })();
 
   return stickyHeadersResult;

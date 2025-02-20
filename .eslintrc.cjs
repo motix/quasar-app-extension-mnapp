@@ -10,6 +10,7 @@ module.exports = {
   parserOptions: {
     parser: require.resolve('@typescript-eslint/parser'),
     extraFileExtensions: ['.vue'],
+    project: ['./tsconfig.json', './tsconfig.node.json'],
   },
 
   env: {
@@ -88,10 +89,19 @@ module.exports = {
     // alphabetical
     'vue/attributes-order': ['warn', { alphabetical: true }],
 
+    // Case declarations
+    'no-case-declarations': ['error'],
+
     // Import type
-    '@typescript-eslint/consistent-type-imports': [
-      'error',
-      { prefer: 'type-imports' },
-    ],
+    '@typescript-eslint/consistent-type-imports': ['error', { prefer: 'type-imports' }],
+
+    // Floating promisses
+    '@typescript-eslint/no-floating-promises': ['error'],
+
+    // Unbound methods
+    '@typescript-eslint/unbound-method': ['error'],
+
+    // Type Assertion
+    '@typescript-eslint/no-unnecessary-type-assertion': ['error'],
   },
 };

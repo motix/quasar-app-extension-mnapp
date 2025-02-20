@@ -19,7 +19,7 @@ export default function useNavigateToViewPage<T extends NonNullable<unknown>>(
   function itemLink(item: T) {
     viewUrl.value === null &&
       (() => {
-        throw new Error('viewUrl not specified');
+        throw new Error('[mnapp-crud-pages] viewUrl not specified');
       })();
 
     const keyValue = item[modelFindKeyField.value];
@@ -31,7 +31,7 @@ export default function useNavigateToViewPage<T extends NonNullable<unknown>>(
   function onItemClick(event: MouseEvent, item: T, delay: boolean) {
     viewUrl.value === null &&
       (() => {
-        throw new Error('viewUrl not specified');
+        throw new Error('[mnapp-crud-pages] viewUrl not specified');
       })();
 
     const keyValue = item[modelFindKeyField.value];

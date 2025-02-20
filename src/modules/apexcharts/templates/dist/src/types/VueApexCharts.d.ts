@@ -17,7 +17,7 @@ type PropKeys = Exclude<
 
 type Props = Pick<VueApexChartsComponent, PropKeys>;
 
-declare module '@vue/runtime-core' {
+declare module 'vue' {
   export interface GlobalComponents {
     ApexCharts: ComponentConstructor<ComponentPublicInstance<Props>>;
   }

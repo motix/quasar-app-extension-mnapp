@@ -5,7 +5,7 @@ export default boot(({ router }) => {
     path: '/',
     component: () => import('layouts/FloatToolbarLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/Index.vue') },
+      { path: '', component: () => import('pages/IndexPage.vue') },
       {
         path: '/float-toolbar',
         component: () => import('pages/FloatToolbar.vue'),

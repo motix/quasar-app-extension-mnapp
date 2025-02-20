@@ -18,7 +18,7 @@ export default function usePageData<TVm extends NonNullable<unknown>>() {
     () =>
       viewModel.value ||
       (() => {
-        throw new Error('viewModel not ready');
+        throw new Error('[mnapp-crud-pages] viewModel not ready');
       })(),
   );
 

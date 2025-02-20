@@ -13,7 +13,7 @@ import type {
   UpdateDocActionPayload,
 } from './';
 import type { DocStateInterface } from './state';
-import type { Mapper } from '@automapper/core';
+import type { MapOptions, Mapper } from '@automapper/core';
 import type {
   CollectionReference,
   DocumentData,
@@ -75,7 +75,7 @@ function buildActions<T extends DocModel, TVm, TAm extends DocumentData>(
           page: 1000,
           queryConstraints,
           done: () => {
-            reject('Maximum data pages 1000 reached.');
+            reject(new Error('[mnapp-firebase-firestore] Maximum data pages 1000 reached.'));
           },
           outOfRange: () => resolve(),
           error: (err) => reject(err),
@@ -206,7 +206,7 @@ function buildActions<T extends DocModel, TVm, TAm extends DocumentData>(
                 `[mnapp-firebase-firestore] '${findKey}' is not unique for '${findKeyField}' in '${collectionPath}'`,
               );
             } else {
-              id = querySnapshot.docs[0].id;
+              id = querySnapshot.docs[0]!.id;
               loadDocById(
                 id,
                 docKey,
@@ -242,7 +242,12 @@ function buildActions<T extends DocModel, TVm, TAm extends DocumentData>(
     },
 
     releaseRealtimeDoc({ docKey }: ReleaseRealtimeDocActionPayload) {
-      this.realtimeDocs[docKey].unsubscribe();
+      (
+        this.realtimeDocs[docKey] ||
+        (() => {
+          throw new Error(`[mnapp-firebase-firestore] Realtime doc '${docKey}' not available.`);
+        })()
+      ).unsubscribe();
       delete this.realtimeDocs[docKey];
     },
 
@@ -411,7 +416,7 @@ function buildActions<T extends DocModel, TVm, TAm extends DocumentData>(
     outOfRange: () => void,
   ) {
     if (state.docs.length > 0) {
-      const lastDoc = state.docs[state.docs.length - 1];
+      const lastDoc = state.docs[state.docs.length - 1]!;
       const lastDocRef = doc(q.firestore, collectionPath, lastDoc.id);
       q = query(q, startAfter(await getDoc(lastDocRef)));
     }
@@ -436,12 +441,16 @@ function buildActions<T extends DocModel, TVm, TAm extends DocumentData>(
 
       const docIdMap = new Map(docAndIds as Iterable<readonly [TAm, string]>);
       const extraArgs = () => ({ idMap: docIdMap });
+      const mapOptions: MapOptions<TAm[], T[]> = {
+        extraArgs,
+      };
+
+      if (options.mapperOptions?.apiModelToModelAfterMap) {
+        mapOptions.afterMap = options.mapperOptions.apiModelToModelAfterMap;
+      }
 
       state.docs = state.docs.concat(
-        mapper.mapArray<TAm, T>(docs, apiModelName, modelName, {
-          extraArgs,
-          afterMap: options.mapperOptions?.apiModelToModelAfterMap,
-        }) as UnwrapRef<T[]>,
+        mapper.mapArray<TAm, T>(docs, apiModelName, modelName, mapOptions) as UnwrapRef<T[]>,
       );
     }
   }
@@ -465,24 +474,35 @@ function buildActions<T extends DocModel, TVm, TAm extends DocumentData>(
       // onNext
       (docSnapshot) => {
         const data = docSnapshot.data();
+        const realtimeDoc =
+          realtimeDocs[docKey] ||
+          (() => {
+            throw new Error(`[mnapp-firebase-firestore] Realtime doc '${docKey}' not available.`);
+          })();
 
         if (data) {
           if (options.afterLoad) {
-            options.afterLoad(data).then(() => {
-              completeLoading(data);
-            });
+            options
+              .afterLoad(data)
+              .then(() => {
+                completeLoading(data);
+              })
+              .catch((error) => {
+                console.error(error);
+                throw new Error('[mnapp-firebase-firestore] afterLoad failed to execute.');
+              });
           } else {
             completeLoading(data);
           }
         } else {
-          if (realtimeDocs[docKey].doc) {
+          if (realtimeDoc.doc) {
             deleted && deleted();
             onDocDelete(id);
           } else {
             notFound && notFound();
           }
 
-          realtimeDocs[docKey].unsubscribe();
+          realtimeDoc.unsubscribe();
           delete realtimeDocs[docKey];
         }
 
@@ -492,7 +512,7 @@ function buildActions<T extends DocModel, TVm, TAm extends DocumentData>(
           const docM = mapper.map<TAm, T>(docAm, apiModelName, modelName, {
             extraArgs,
           });
-          realtimeDocs[docKey].doc = docM;
+          realtimeDoc.doc = docM;
 
           done();
 
@@ -530,9 +550,14 @@ function buildActions<T extends DocModel, TVm, TAm extends DocumentData>(
                 unsubscribe();
 
                 if (options.afterLoad) {
-                  options.afterLoad(newDoc).then(() => {
-                    resolve(newDoc);
-                  });
+                  options.afterLoad(newDoc).then(
+                    () => {
+                      resolve(newDoc);
+                    },
+                    () => {
+                      throw new Error('[mnapp-firebase-firestore] afterLoad failed to execute.');
+                    },
+                  );
                 } else {
                   resolve(newDoc);
                 }

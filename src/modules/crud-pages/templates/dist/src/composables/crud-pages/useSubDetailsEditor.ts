@@ -21,7 +21,12 @@ export default function useSubDetailsEditor<
   // Private
 
   function scrollToSubDetailEditor(detailIndex: number, subDetailIndex: number) {
-    scrollToElement(subDetailEditorRefs.value[detailIndex][subDetailIndex]);
+    scrollToElement(
+      subDetailEditorRefs.value[detailIndex]?.[subDetailIndex] ||
+        (() => {
+          throw new Error('Index out of range');
+        })(),
+    );
   }
 
   // Composables
@@ -71,7 +76,7 @@ export default function useSubDetailsEditor<
         (value) => {
           if (value >= getSubDetails($p.vm.value, detailIndex).length) {
             unwatch();
-            nextTick(() => {
+            void nextTick(() => {
               scrollToSubDetailEditor(detailIndex, subDetailIndex);
             });
           }

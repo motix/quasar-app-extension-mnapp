@@ -16,7 +16,7 @@ import type QInputVal from 'components/shared/validation/QInputVal.vue';
 import type QSelectVal from 'components/shared/validation/QSelectVal.vue';
 import type ThousandInputVal from 'components/shared/validation/ThousandInputVal.vue';
 
-declare module '@vue/runtime-core' {
+declare module 'vue' {
   export interface GlobalComponents {
     FadeTransition: typeof FadeTransition;
     ListTransition: typeof ListTransition;

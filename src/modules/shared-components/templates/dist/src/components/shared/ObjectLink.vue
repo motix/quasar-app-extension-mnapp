@@ -26,10 +26,9 @@ const labelCopied = ref(false);
 
 // Methods
 
-function copyLabel() {
-  copyToClipboard(props.label).then(() => {
-    labelCopied.value = true;
-  });
+async function copyLabel() {
+  await copyToClipboard(props.label);
+  labelCopied.value = true;
 }
 </script>
 
@@ -42,8 +41,10 @@ function copyLabel() {
     :style="{ 'max-width': maxWidth }"
     @mouseleave="labelCopied = hover = false"
     @mouseover="
-      hover = true;
-      labelCopied = false;
+      (function () {
+        hover = true;
+        labelCopied = false;
+      })()
     "
   >
     <!-- Setting max-width to support ellipsis -->

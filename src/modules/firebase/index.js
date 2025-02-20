@@ -10,6 +10,10 @@ module.exports = defineIndex(function firebase(api) {
     const env = config({ path: configPath }).parsed;
     const FIREBASE_ENV = process.env.FIREBASE_ENV;
 
+    if (!env) {
+      throw Error('.env not found.');
+    }
+
     if (!FIREBASE_ENV || !['DEV', 'STAGE', 'PROD'].includes(FIREBASE_ENV)) {
       throw Error('Unknonw or not supplied Firebase environment variable.');
     }
@@ -29,7 +33,7 @@ module.exports = defineIndex(function firebase(api) {
     conf.build.env = {
       ...conf.build.env,
       FIREBASE_ENV,
-      FIREBASE_CONFIG,
+      FIREBASE_CONFIG: JSON.stringify(FIREBASE_CONFIG),
       FIREBASE_CLIENT_ID,
     };
   });

@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import { Comment, computed, ref, useSlots } from 'vue';
+import type { VNodeTypes } from 'vue';
+
+import { Comment, computed, ref } from 'vue';
 
 import { QFab } from 'quasar';
 
@@ -36,7 +38,11 @@ const props = withDefaults(
 
 // Slots
 
-const slots = useSlots();
+const slots = defineSlots<{
+  default(): { type: VNodeTypes }[];
+  'fixed-buttons': () => unknown;
+  'second-row-buttons': () => unknown;
+}>();
 
 // Composables
 
