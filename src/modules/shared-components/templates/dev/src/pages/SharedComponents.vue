@@ -10,9 +10,7 @@ const piValue = ref(0.5);
 // Methods
 
 function lsAddCard() {
-  lsCards.value.push(
-    `New Card ${Date.now().valueOf() - new Date(2020, 1, 1).valueOf()}`,
-  );
+  lsCards.value.push(`New Card ${Date.now().valueOf() - new Date(2020, 1, 1).valueOf()}`);
 }
 
 function lsRemoveCard(index: number) {
@@ -26,11 +24,7 @@ function lsRemoveCard(index: number) {
 
     <h4>FadeTransition</h4>
     <fade-transition>
-      <q-card
-        v-if="fsShowCard1"
-        key="card1"
-        @click="fsShowCard1 = !fsShowCard1"
-      >
+      <q-card v-if="fsShowCard1" key="card1" @click="fsShowCard1 = !fsShowCard1">
         <q-card-section> Card 1 </q-card-section>
       </q-card>
       <q-card v-else key="card2" @click="fsShowCard1 = !fsShowCard1">

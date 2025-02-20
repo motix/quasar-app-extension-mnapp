@@ -37,9 +37,7 @@ export default function usePageData<
 
   // Data
 
-  const findKey = ref(
-    ((route.params.findKey as string) || '').replaceAll('_', '.'),
-  );
+  const findKey = ref(((route.params.findKey as string) || '').replaceAll('_', '.'));
   const modelFindKeyField = ref<Extract<keyof T & keyof TVm, string>>(
     'id' as Extract<keyof T & keyof TVm, string>,
   ) as Ref<Extract<keyof T & keyof TVm, string>>;
@@ -50,19 +48,15 @@ export default function usePageData<
 
   // Method Refs
 
-  const modelGetter = ref<
-    ((docKey: string, realtimeUpdate: boolean) => T | null) | null
-  >(null);
-  const viewModelGetter = ref<
-    ((docKey: string, realtimeUpdate: boolean) => TVm | null) | null
-  >(null);
+  const modelGetter = ref<((docKey: string, realtimeUpdate: boolean) => T | null) | null>(null);
+  const viewModelGetter = ref<((docKey: string, realtimeUpdate: boolean) => TVm | null) | null>(
+    null,
+  );
   const releaseModel = ref<(() => void) | null>(null);
-  const updateModel = ref<
-    ((payload: UpdateDocActionPayload<T | TVm>) => Promise<void>) | null
-  >(null);
-  const deleteModel = ref<
-    ((payload: DeleteDocActionPayload) => Promise<void>) | null
-  >(null);
+  const updateModel = ref<((payload: UpdateDocActionPayload<T | TVm>) => Promise<void>) | null>(
+    null,
+  );
+  const deleteModel = ref<((payload: DeleteDocActionPayload) => Promise<void>) | null>(null);
 
   // Computed
 
@@ -82,9 +76,7 @@ export default function usePageData<
       })(),
   );
 
-  const activeModelOrViewModel = computed(() =>
-    editMode.value ? viewModel.value : model.value,
-  );
+  const activeModelOrViewModel = computed(() => (editMode.value ? viewModel.value : model.value));
 
   const activeMOrVm = computed(
     () =>
@@ -97,9 +89,7 @@ export default function usePageData<
   // Methods
 
   function loadModel(
-    loadModel: (
-      payload: LoadRealtimeDocActionPayload,
-    ) => LoadRealtimeDocActionResult,
+    loadModel: (payload: LoadRealtimeDocActionPayload) => LoadRealtimeDocActionResult,
   ) {
     return new Promise<void>((resolve) => {
       let resolveOnce: typeof resolve | null = resolve;
@@ -107,10 +97,7 @@ export default function usePageData<
       const payload: LoadRealtimeDocActionPayload = {
         findKey: findKey.value,
         // Asuming view model and API model has this same field
-        findKeyField:
-          modelFindKeyField.value === 'id'
-            ? undefined
-            : modelFindKeyField.value,
+        findKeyField: modelFindKeyField.value === 'id' ? undefined : modelFindKeyField.value,
         done: () => {
           const notifyRefreshDataSuccessIfNotMuted = () => {
             if (muteRealtimeUpdate.value) {
@@ -142,8 +129,7 @@ export default function usePageData<
 
               Dialog.create({
                 title: 'Refresh',
-                message:
-                  "This page's data has changed. Do you want to refresh?",
+                message: "This page's data has changed. Do you want to refresh?",
                 cancel: true,
                 persistent: true,
                 ok: {
@@ -173,8 +159,7 @@ export default function usePageData<
           !muteRealtimeUpdate.value &&
             Dialog.create({
               title: 'Deleted',
-              message:
-                "This page's data is deleted. You will be redireted to previous page.",
+              message: "This page's data is deleted. You will be redireted to previous page.",
               persistent: true,
               ok: {
                 color: 'primary',
@@ -239,9 +224,7 @@ export default function usePageData<
     let path = route.fullPath;
 
     if (path.endsWith(oldFindKey.replaceAll('.', '_'))) {
-      path =
-        path.substring(0, path.length - oldFindKey.length) +
-        newFindKey.replaceAll('.', '_');
+      path = path.substring(0, path.length - oldFindKey.length) + newFindKey.replaceAll('.', '_');
     } else {
       path = path.replace(
         `/${oldFindKey.replaceAll('.', '_')}/`,
@@ -303,10 +286,7 @@ export default function usePageData<
   };
 }
 
-export class UsePageDataHelper<
-  T extends NonNullable<unknown>,
-  TVm extends NonNullable<unknown>,
-> {
+export class UsePageDataHelper<T extends NonNullable<unknown>, TVm extends NonNullable<unknown>> {
   Return = usePageData<T, TVm>(
     () => undefined,
     ref(false),

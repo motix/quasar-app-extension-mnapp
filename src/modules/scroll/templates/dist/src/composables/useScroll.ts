@@ -9,10 +9,7 @@ const { getScrollTarget, setVerticalScrollPosition } = scroll;
 export default function () {
   // Private
 
-  const { scrollDuration, scrollOffset } = requiredConfigEntries(
-    'scrollDuration',
-    'scrollOffset',
-  );
+  const { scrollDuration, scrollOffset } = requiredConfigEntries('scrollDuration', 'scrollOffset');
 
   // Methods
 
@@ -22,11 +19,7 @@ export default function () {
   }
 
   function toElement(
-    destination:
-      | ComponentPublicInstance
-      | Element
-      | ComponentPublicInstance[]
-      | Element[],
+    destination: ComponentPublicInstance | Element | ComponentPublicInstance[] | Element[],
     index?: number,
   ) {
     let el: Element | undefined;

@@ -13,19 +13,12 @@ import { adminRole } from 'models/firebase-auth';
 import { useFirebaseAuthStore } from 'stores/FirebaseAuth';
 
 import { getAuth } from 'services/firebase';
-import {
-  createRemoteSignInToken,
-  isAuthenticated,
-  signOut,
-} from 'services/firebase-auth';
+import { createRemoteSignInToken, isAuthenticated, signOut } from 'services/firebase-auth';
 
 export default function () {
   // Private
 
-  const remoteWindows: Record<
-    string,
-    { remoteWindow: Window; token: string } | undefined
-  > = {};
+  const remoteWindows: Record<string, { remoteWindow: Window; token: string } | undefined> = {};
 
   // Composables
 
@@ -51,14 +44,9 @@ export default function () {
 
   // Methods
 
-  const hasRole = (role: UserRole) =>
-    roles.value.includes(adminRole) || roles.value.includes(role);
+  const hasRole = (role: UserRole) => roles.value.includes(adminRole) || roles.value.includes(role);
 
-  const startAuthUi = (
-    element: string | Element,
-    uiShown?: () => void,
-    returnUrl?: string,
-  ) => {
+  const startAuthUi = (element: string | Element, uiShown?: () => void, returnUrl?: string) => {
     const uiConfig: auth.Config = {
       callbacks: {
         signInSuccessWithAuthResult: function (_authResult, redirectUrl) {
@@ -100,9 +88,7 @@ export default function () {
   function setupRemoteSignIn() {
     let remoteTokenTimeout: ReturnType<typeof setTimeout>;
 
-    const handleMessage = (
-      ev: MessageEvent<Record<'type' | 'value', string>>,
-    ) => {
+    const handleMessage = (ev: MessageEvent<Record<'type' | 'value', string>>) => {
       if (ev.data.type === 'loginToken') {
         clearTimeout(remoteTokenTimeout);
 
@@ -142,9 +128,7 @@ export default function () {
   }
 
   function setupRemoteSignInResponse() {
-    const handleMessage = (
-      ev: MessageEvent<Record<'type' | 'value', string>>,
-    ) => {
+    const handleMessage = (ev: MessageEvent<Record<'type' | 'value', string>>) => {
       if (ev.data.type === 'windowKey') {
         const windowKey = ev.data.value;
         const item = remoteWindows[windowKey];
@@ -171,10 +155,7 @@ export default function () {
     // Wrapping window.open() in the async function with a setTimeout.
     // setTimeout code runs on the main thread, instead of the asynchronous one.
     setTimeout(() => {
-      const remoteWindow = window.open(
-        `${remoteSite}/auth/remote-sign-in/${key}`,
-        '_blank',
-      );
+      const remoteWindow = window.open(`${remoteSite}/auth/remote-sign-in/${key}`, '_blank');
 
       if (remoteWindow) {
         remoteWindows[key] = {

@@ -27,9 +27,7 @@ export default function useNewChildPage<
   // Data
 
   const muteRealtimeUpdate = ref(false);
-  const parentFindKey = ref(
-    ((route.params.parentFindKey as string) || '').replaceAll('_', '.'),
-  );
+  const parentFindKey = ref(((route.params.parentFindKey as string) || '').replaceAll('_', '.'));
   const parentModelFindKeyField = ref<Extract<keyof TParentVm, string>>(
     'id' as Extract<keyof TParentVm, string>,
   ) as Ref<Extract<keyof TParentVm, string>>;
@@ -38,9 +36,7 @@ export default function useNewChildPage<
 
   // Method Refs
 
-  const parentViewModelGetter = ref<
-    ((parentDocKey: string) => TParentVm | null) | null
-  >(null);
+  const parentViewModelGetter = ref<((parentDocKey: string) => TParentVm | null) | null>(null);
   const releaseParentModel = ref<(() => void) | null>(null);
   const addChild = ref<((child: TChildVm) => void) | null>(null);
   const updateParentModel = ref<
@@ -96,9 +92,7 @@ export default function useNewChildPage<
   // Methods
 
   function loadParentModel(
-    loadParentModel: (
-      payload: LoadRealtimeDocActionPayload,
-    ) => LoadRealtimeDocActionResult,
+    loadParentModel: (payload: LoadRealtimeDocActionPayload) => LoadRealtimeDocActionResult,
   ) {
     return new Promise<void>((resolve) => {
       let resolveOnce: typeof resolve | null = resolve;
@@ -107,9 +101,7 @@ export default function useNewChildPage<
         findKey: parentFindKey.value,
         // Asuming view model and API model has this same field
         findKeyField:
-          parentModelFindKeyField.value === 'id'
-            ? undefined
-            : parentModelFindKeyField.value,
+          parentModelFindKeyField.value === 'id' ? undefined : parentModelFindKeyField.value,
         done: () => {
           const notifyRefreshDataSuccessIfNotMuted = () => {
             if (muteRealtimeUpdate.value) {
@@ -139,8 +131,7 @@ export default function useNewChildPage<
         deleted: () => {
           Dialog.create({
             title: 'Deleted',
-            message:
-              "This page's data is deleted. You will be redireted to previous page.",
+            message: "This page's data is deleted. You will be redireted to previous page.",
             persistent: true,
             ok: {
               color: 'primary',
@@ -184,9 +175,7 @@ export default function useNewChildPage<
 
     if (parentViewModel.value !== null) {
       // Update parentFindKey and path if changed
-      parentFindKey.value = String(
-        parentViewModel.value[parentModelFindKeyField.value],
-      );
+      parentFindKey.value = String(parentViewModel.value[parentModelFindKeyField.value]);
     }
   }
 
@@ -194,9 +183,7 @@ export default function useNewChildPage<
     let path = route.fullPath;
 
     if (path.endsWith(oldFindKey.replaceAll('.', '_'))) {
-      path =
-        path.substring(0, path.length - oldFindKey.length) +
-        newFindKey.replaceAll('.', '_');
+      path = path.substring(0, path.length - oldFindKey.length) + newFindKey.replaceAll('.', '_');
     } else {
       path = path.replace(
         `/${oldFindKey.replaceAll('.', '_')}/`,
@@ -236,9 +223,7 @@ class UseNewChildPageHelper<
   TChildVm extends NonNullable<unknown>,
   TParentVm extends NonNullable<unknown>,
 > {
-  Return = useNewChildPage<TChildVm, TParentVm>(
-    {} as NewPage<TChildVm, NonNullable<unknown>>,
-  );
+  Return = useNewChildPage<TChildVm, TParentVm>({} as NewPage<TChildVm, NonNullable<unknown>>);
 }
 
 export type NewChildPage<

@@ -72,8 +72,7 @@ function onUpdate(value: string | null) {
       isFinite(valueAsNumber) && String(valueAsNumber) === value
         ? valueAsNumber * 1000
         : isFinite(valueAsNumber) &&
-          (`${String(valueAsNumber)}E0` === value ||
-            `${String(valueAsNumber)}e0` === value)
+          (`${String(valueAsNumber)}E0` === value || `${String(valueAsNumber)}e0` === value)
         ? valueAsNumber
         : value;
   }

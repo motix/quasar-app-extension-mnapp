@@ -16,10 +16,7 @@ export interface FloatToolbarResult {
   readonly floatToolbarOffsetBottom: Readonly<Ref<number>>;
 }
 
-export default function (
-  fixedHeaderHeight: number,
-  collapseHeaderHeight: number,
-) {
+export default function (fixedHeaderHeight: number, collapseHeaderHeight: number) {
   // Data
 
   const revealed = ref(true);
@@ -31,14 +28,9 @@ export default function (
   const readOnlyCollapseHeaderHeight = computed(() => collapseHeaderHeight);
   const headerHeight = computed(() => fixedHeaderHeight + collapseHeaderHeight);
   const scrollPosition = ref(0);
-  const headerElevated = computed(
-    () => scrollPosition.value >= collapseHeaderHeight,
-  );
+  const headerElevated = computed(() => scrollPosition.value >= collapseHeaderHeight);
   const floatToolbarOffsetTop = computed(() =>
-    Math.max(
-      collapseHeaderHeight - scrollPosition.value,
-      revealed.value ? 0 : QFAB_BTN_SIZE / 2,
-    ),
+    Math.max(collapseHeaderHeight - scrollPosition.value, revealed.value ? 0 : QFAB_BTN_SIZE / 2),
   );
   const floatToolbarOffsetBottom = computed(() => QFAB_BTN_SIZE / 2);
 
@@ -74,9 +66,7 @@ export default function (
 }
 
 export function useFloatToolbarResult() {
-  const floatToolbarResult = inject<FloatToolbarResult>(
-    FloatToolbarResultSymbol,
-  );
+  const floatToolbarResult = inject<FloatToolbarResult>(FloatToolbarResultSymbol);
   !floatToolbarResult &&
     (() => {
       throw new Error('No float toolbar result provided.');

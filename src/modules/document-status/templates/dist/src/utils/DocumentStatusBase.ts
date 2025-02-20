@@ -15,10 +15,7 @@ interface Status<TUserRole, TActionName> {
   buttons: Button<TUserRole, TActionName>[];
 }
 
-export const PREDEFINED_BUTTONS: Record<
-  string,
-  Omit<Button<never, never>, 'roles' | 'action'>
-> = {
+export const PREDEFINED_BUTTONS: Record<string, Omit<Button<never, never>, 'roles' | 'action'>> = {
   complete: {
     label: 'Complete',
     color: 'primary',
@@ -41,10 +38,7 @@ export const PREDEFINED_BUTTONS: Record<
   },
 };
 
-export const PREDEFINED_STATUSES: Record<
-  string,
-  Omit<Status<never, never>, 'buttons'>
-> = {
+export const PREDEFINED_STATUSES: Record<string, Omit<Status<never, never>, 'buttons'>> = {
   new: {
     text: 'New',
     textColor: 'cyan-1',
@@ -94,11 +88,7 @@ function buildBaseButtons<TUserRole, TActionName extends string>(
   return result;
 }
 
-function buildBaseStatuses<
-  TUserRole,
-  TStatusName extends string,
-  TActionName extends string,
->(
+function buildBaseStatuses<TUserRole, TStatusName extends string, TActionName extends string>(
   ...statuses: TStatusName[]
 ): Record<TStatusName, Status<TUserRole, TActionName>> {
   const result: Record<string, Status<TUserRole, TActionName>> = {};
@@ -127,38 +117,24 @@ export function buildStatuses<
   TGroupActionName extends string,
 >(
   groupActions: TGroupActionName[],
-  buttonOverrides: Partial<
-    Record<TGroupActionName, Partial<Button<TUserRole, TGroupActionName>>>
-  >,
+  buttonOverrides: Partial<Record<TGroupActionName, Partial<Button<TUserRole, TGroupActionName>>>>,
   statusOverrides: (
     buttons: Record<TGroupActionName, Button<TUserRole, TGroupActionName>>,
-  ) => Partial<
-    Record<TGroupStatusName, Partial<Status<TUserRole, TGroupActionName>>>
-  >,
+  ) => Partial<Record<TGroupStatusName, Partial<Status<TUserRole, TGroupActionName>>>>,
   ...statuses: TStatusName[]
 ): Record<TStatusName, Status<TUserRole, TActionName>> {
-  const buttons = buildBaseButtons<TUserRole, TGroupActionName>(
-    ...groupActions,
-  );
+  const buttons = buildBaseButtons<TUserRole, TGroupActionName>(...groupActions);
 
   for (const action of groupActions) {
-    buttons[action] = Object.assign(
-      buttons[action],
-      buttonOverrides[action] || {},
-    );
+    buttons[action] = Object.assign(buttons[action], buttonOverrides[action] || {});
   }
 
   const statusOverridesResult = statusOverrides(buttons);
 
-  const result = buildBaseStatuses<TUserRole, TStatusName, TActionName>(
-    ...statuses,
-  );
+  const result = buildBaseStatuses<TUserRole, TStatusName, TActionName>(...statuses);
 
   for (const status of statuses) {
-    result[status] = Object.assign(
-      result[status],
-      statusOverridesResult[status] || {},
-    );
+    result[status] = Object.assign(result[status], statusOverridesResult[status] || {});
   }
 
   return result;
@@ -172,10 +148,7 @@ export default abstract class DocumentStatusBase<
 > {
   protected container: T;
   protected userRoles: TUserRole[] = [];
-  protected abstract allStatuses: Record<
-    TStatusName,
-    Status<TUserRole, TActionName>
-  >;
+  protected abstract allStatuses: Record<TStatusName, Status<TUserRole, TActionName>>;
 
   constructor(container: T, userRoles: TUserRole[]) {
     this.container = container;
@@ -212,27 +185,16 @@ export default abstract class DocumentStatusBase<
     T extends {
       statusHelper: TDocumentStatus;
     },
-    TDocumentStatus extends DocumentStatusBase<
-      T,
-      TUserRole,
-      TStatusName,
-      TActionName
-    >,
+    TDocumentStatus extends DocumentStatusBase<T, TUserRole, TStatusName, TActionName>,
     TUserRole extends string,
     TStatusName extends string,
     TActionName extends string,
   >(
-    documentStatusConstructor: new (
-      container: T,
-      userRoles: TUserRole[],
-    ) => TDocumentStatus,
+    documentStatusConstructor: new (container: T, userRoles: TUserRole[]) => TDocumentStatus,
     container: Omit<T, 'statusHelper'>,
     userRoles: TUserRole[],
   ) {
-    (container as T).statusHelper = new documentStatusConstructor(
-      container as T,
-      userRoles,
-    );
+    (container as T).statusHelper = new documentStatusConstructor(container as T, userRoles);
 
     return container as T;
   }

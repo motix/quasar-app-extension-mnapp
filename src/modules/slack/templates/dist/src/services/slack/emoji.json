@@ -25125,11 +25125,7 @@
     "sheet_x": 21,
     "sheet_y": 40,
     "short_name": "man_and_woman_holding_hands",
-    "short_names": [
-      "man_and_woman_holding_hands",
-      "woman_and_man_holding_hands",
-      "couple"
-    ],
+    "short_names": ["man_and_woman_holding_hands", "woman_and_man_holding_hands", "couple"],
     "text": null,
     "texts": null,
     "category": "People & Body",
@@ -26367,10 +26363,7 @@
     "sheet_x": 23,
     "sheet_y": 14,
     "short_name": "women-with-bunny-ears-partying",
-    "short_names": [
-      "women-with-bunny-ears-partying",
-      "woman-with-bunny-ears-partying"
-    ],
+    "short_names": ["women-with-bunny-ears-partying", "woman-with-bunny-ears-partying"],
     "text": null,
     "texts": null,
     "category": "People & Body",
@@ -26395,10 +26388,7 @@
     "sheet_x": 23,
     "sheet_y": 15,
     "short_name": "men-with-bunny-ears-partying",
-    "short_names": [
-      "men-with-bunny-ears-partying",
-      "man-with-bunny-ears-partying"
-    ],
+    "short_names": ["men-with-bunny-ears-partying", "man-with-bunny-ears-partying"],
     "text": null,
     "texts": null,
     "category": "People & Body",
@@ -35941,10 +35931,7 @@
     "sheet_x": 31,
     "sheet_y": 43,
     "short_name": "middle_finger",
-    "short_names": [
-      "middle_finger",
-      "reversed_hand_with_middle_finger_extended"
-    ],
+    "short_names": ["middle_finger", "reversed_hand_with_middle_finger_extended"],
     "text": null,
     "texts": null,
     "category": "People & Body",
@@ -45314,10 +45301,7 @@
     "sheet_x": 40,
     "sheet_y": 0,
     "short_name": "crossed_fingers",
-    "short_names": [
-      "crossed_fingers",
-      "hand_with_index_and_middle_fingers_crossed"
-    ],
+    "short_names": ["crossed_fingers", "hand_with_index_and_middle_fingers_crossed"],
     "text": null,
     "texts": null,
     "category": "People & Body",
@@ -45963,10 +45947,7 @@
     "sheet_x": 40,
     "sheet_y": 39,
     "short_name": "zany_face",
-    "short_names": [
-      "zany_face",
-      "grinning_face_with_one_large_and_one_small_eye"
-    ],
+    "short_names": ["zany_face", "grinning_face_with_one_large_and_one_small_eye"],
     "text": null,
     "texts": null,
     "category": "Smileys & Emotion",
@@ -46014,10 +45995,7 @@
     "sheet_x": 40,
     "sheet_y": 41,
     "short_name": "face_with_symbols_on_mouth",
-    "short_names": [
-      "face_with_symbols_on_mouth",
-      "serious_face_with_symbols_covering_mouth"
-    ],
+    "short_names": ["face_with_symbols_on_mouth", "serious_face_with_symbols_covering_mouth"],
     "text": null,
     "texts": null,
     "category": "Smileys & Emotion",

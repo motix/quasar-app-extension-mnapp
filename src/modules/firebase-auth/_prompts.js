@@ -5,8 +5,7 @@ module.exports = definePrompts(function () {
     {
       name: 'userRoles',
       type: 'input',
-      message:
-        '[firebase-auth] Please specify User Roles other than "admin" and "user".',
+      message: '[firebase-auth] Please specify User Roles other than "admin" and "user".',
       default: '',
     },
   ];

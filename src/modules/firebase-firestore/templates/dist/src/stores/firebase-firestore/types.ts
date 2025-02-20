@@ -23,9 +23,7 @@ export type LoadDocsPageActionPayload = {
   error?: (error: Error) => void;
 };
 
-export type LoadDocsPageActionMethod = (
-  payload: LoadDocsPageActionPayload,
-) => Promise<void>;
+export type LoadDocsPageActionMethod = (payload: LoadDocsPageActionPayload) => Promise<void>;
 
 export type ReleaseDocsActionPayload = {
   immediately: boolean;

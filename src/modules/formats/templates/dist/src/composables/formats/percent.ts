@@ -6,10 +6,7 @@ declare module '../useFormats' {
   }
 }
 
-export default function percent(
-  value: number | string | null | undefined,
-  decimal?: number,
-) {
+export default function percent(value: number | string | null | undefined, decimal?: number) {
   if (value == null) return value;
 
   if (isFinite(value)) {

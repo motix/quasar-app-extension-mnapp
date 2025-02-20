@@ -52,10 +52,7 @@ function mergePrompts(callback, api) {
     const promptsConfig = config.prompts(moduleName);
 
     for (const prompt in promptsConfig) {
-      if (
-        promptsConfig[prompt] !== undefined &&
-        api.prompts[prompt] === undefined
-      ) {
+      if (promptsConfig[prompt] !== undefined && api.prompts[prompt] === undefined) {
         api.prompts[prompt] = promptsConfig[prompt];
       }
     }

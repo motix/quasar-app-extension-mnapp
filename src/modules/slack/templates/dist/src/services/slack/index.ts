@@ -15,14 +15,9 @@ async function findChannel(name: string) {
     types: 'private_channel',
   });
 
-  let channel = conversationsResult.channels.find(
-    (value) => value.name === name,
-  );
+  let channel = conversationsResult.channels.find((value) => value.name === name);
 
-  while (
-    channel === undefined &&
-    conversationsResult.response_metadata.next_cursor !== ''
-  ) {
+  while (channel === undefined && conversationsResult.response_metadata.next_cursor !== '') {
     conversationsResult = await slack.users.conversations({
       token: process.env.SLACK_ACCESS_TOKEN,
       cursor: conversationsResult.response_metadata.next_cursor,
@@ -50,10 +45,7 @@ export async function loadUsers() {
   return users;
 }
 
-export async function loadPrivateChannel(
-  channelName: string,
-  ...savedMessages: Message[]
-) {
+export async function loadPrivateChannel(channelName: string, ...savedMessages: Message[]) {
   const channel = await findChannel(channelName);
 
   if (!channel) {
@@ -68,11 +60,7 @@ export async function loadPrivateChannel(
   savedMessages = savedMessages.filter(
     (savedMessage) =>
       historyResult.messages.some((value) => isEqual(value, savedMessage)) ||
-      date.getDateDiff(
-        new Date(),
-        new Date(Number(savedMessage.ts) * 1000),
-        'days',
-      ) > 30,
+      date.getDateDiff(new Date(), new Date(Number(savedMessage.ts) * 1000), 'days') > 30,
   );
 
   let rawMessages = [...savedMessages, ...historyResult.messages];
@@ -157,9 +145,7 @@ export async function parseMessage(message: string) {
       case NodeType.ChannelLink:
         return hyperLink(
           `https://slack.com/archives/${node.channelID}`,
-          node.label
-            ? (await Promise.all(node.label.map(stringifyNode))).join('')
-            : node.channelID,
+          node.label ? (await Promise.all(node.label.map(stringifyNode))).join('') : node.channelID,
         );
 
       case NodeType.UserLink:
@@ -181,9 +167,7 @@ export async function parseMessage(message: string) {
       case NodeType.URL:
         return hyperLink(
           node.url,
-          node.label
-            ? (await Promise.all(node.label.map(stringifyNode))).join('')
-            : node.url,
+          node.label ? (await Promise.all(node.label.map(stringifyNode))).join('') : node.url,
         );
 
       case NodeType.Emoji:
@@ -203,8 +187,7 @@ export async function parseMessage(message: string) {
             .replace('5', '1F3FE')
             .replace('6', '1F3FF');
 
-          const unified = (data.skin_variations[variation as '1F3FB'] || data)
-            .unified;
+          const unified = (data.skin_variations[variation as '1F3FB'] || data).unified;
 
           return unified
             .split('-')
@@ -215,19 +198,13 @@ export async function parseMessage(message: string) {
         return `&#x${data.unified};`;
 
       case NodeType.Bold:
-        return `<strong>${(
-          await Promise.all(node.children.map(stringifyNode))
-        ).join('')}</strong>`;
+        return `<strong>${(await Promise.all(node.children.map(stringifyNode))).join('')}</strong>`;
 
       case NodeType.Italic:
-        return `<i>${(await Promise.all(node.children.map(stringifyNode))).join(
-          '',
-        )}</i>`;
+        return `<i>${(await Promise.all(node.children.map(stringifyNode))).join('')}</i>`;
 
       case NodeType.Strike:
-        return `<del>${(
-          await Promise.all(node.children.map(stringifyNode))
-        ).join('')}</del>`;
+        return `<del>${(await Promise.all(node.children.map(stringifyNode))).join('')}</del>`;
 
       case NodeType.Root:
         return (await Promise.all(node.children.map(stringifyNode))).join('');

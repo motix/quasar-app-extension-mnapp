@@ -51,8 +51,7 @@ declare module '@fortawesome/vue-fontawesome' {
 
   export const FontAwesomeIcon: ComponentConstructor<
     ComponentPublicInstance<
-      Partial<Omit<FontAwesomeIconProps, 'icon'>> &
-        Pick<FontAwesomeIconProps, 'icon'>
+      Partial<Omit<FontAwesomeIconProps, 'icon'>> & Pick<FontAwesomeIconProps, 'icon'>
     >
   >;
   export const FontAwesomeLayers: ComponentConstructor<

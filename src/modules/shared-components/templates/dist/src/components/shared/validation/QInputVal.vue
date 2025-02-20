@@ -13,9 +13,7 @@ const props = defineProps<Props>();
 
 // Composables
 
-const { errorMessage, value } = useField<string | number | null | undefined>(
-  props.name,
-);
+const { errorMessage, value } = useField<string | number | null | undefined>(props.name);
 
 // Private Executions
 
@@ -40,12 +38,7 @@ watch(
 </script>
 
 <template>
-  <q-input
-    v-bind="$attrs"
-    v-model="value"
-    :error="!!errorMessage"
-    :error-message="errorMessage"
-  >
+  <q-input v-bind="$attrs" v-model="value" :error="!!errorMessage" :error-message="errorMessage">
     <template #append>
       <slot name="append" />
     </template>

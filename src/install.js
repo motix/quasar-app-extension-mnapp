@@ -21,9 +21,7 @@ module.exports = defineInstall(function (api) {
   const scripts = {};
   scripts[`i-${packageName}`] = `quasar ext invoke @motinet/${packageName}`;
   scripts[`u-${packageName}`] = `quasar ext uninvoke @motinet/${packageName}`;
-  scripts[
-    `r-${packageName}`
-  ] = `yarn u-${packageName} && yarn i-${packageName}`;
+  scripts[`r-${packageName}`] = `yarn u-${packageName} && yarn i-${packageName}`;
 
   // Remove current i- to keep i-, u- and r- together
   reduceJsonFile(api, 'package.json', [`scripts.i-${packageName}`]);

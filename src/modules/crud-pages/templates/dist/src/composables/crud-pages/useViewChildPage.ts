@@ -21,8 +21,7 @@ export default function useViewChildPage<
   const route = useRoute();
   const router = useRouter();
 
-  const { notifyErrorDebug, notifySaveDataSuccess, notifySaveDataError } =
-    useNotifications();
+  const { notifyErrorDebug, notifySaveDataSuccess, notifySaveDataError } = useNotifications();
 
   const { toTop: scrollToTop, toElement: scrollToElement } = useScroll();
 
@@ -31,14 +30,10 @@ export default function useViewChildPage<
   const hasChildDeleting = ref(true);
   // Used as a secondary findKey
   const childListKey = ref<string | null>(null);
-  const parentFindKey = ref(
-    ((route.params.parentFindKey as string) || '').replaceAll('_', '.'),
-  );
-  const parentModelFindKeyField = ref<
-    Extract<keyof TParent & keyof TParentVm, string>
-  >('id' as Extract<keyof TParent & keyof TParentVm, string>) as Ref<
-    Extract<keyof TParent & keyof TParentVm, string>
-  >;
+  const parentFindKey = ref(((route.params.parentFindKey as string) || '').replaceAll('_', '.'));
+  const parentModelFindKeyField = ref<Extract<keyof TParent & keyof TParentVm, string>>(
+    'id' as Extract<keyof TParent & keyof TParentVm, string>,
+  ) as Ref<Extract<keyof TParent & keyof TParentVm, string>>;
   const parentModel = ref(null) as Ref<TParent | null>;
   const parentViewModel = ref(null) as Ref<TParentVm | null>;
   const viewUrl = ref<string | null>(null);
@@ -46,25 +41,14 @@ export default function useViewChildPage<
 
   // Method Refs
 
-  const parentModelGetter = ref<((docKey: string) => TParent | null) | null>(
-    null,
-  );
-  const parentViewModelGetter = ref<
-    ((docKey: string) => TParentVm | null) | null
-  >(null);
-  const modelChildrenGetter = ref<((parentModel: TParent) => TChild[]) | null>(
-    null,
-  );
-  const viewModelChildrenGetter = ref<
-    ((parentViewModel: TParentVm) => TChildVm[]) | null
-  >(null);
+  const parentModelGetter = ref<((docKey: string) => TParent | null) | null>(null);
+  const parentViewModelGetter = ref<((docKey: string) => TParentVm | null) | null>(null);
+  const modelChildrenGetter = ref<((parentModel: TParent) => TChild[]) | null>(null);
+  const viewModelChildrenGetter = ref<((parentViewModel: TParentVm) => TChildVm[]) | null>(null);
   const removeChild = ref<((child: TChild) => void) | null>(null);
-  const selectNextChildAfterRemoving = ref<
-    ((children: TChild[]) => TChild) | null
-  >(null);
+  const selectNextChildAfterRemoving = ref<((children: TChild[]) => TChild) | null>(null);
   const updateParentModel = ref<
-    | ((payload: UpdateDocActionPayload<TParent | TParentVm>) => Promise<void>)
-    | null
+    ((payload: UpdateDocActionPayload<TParent | TParentVm>) => Promise<void>) | null
   >(null);
 
   // Computed
@@ -94,9 +78,7 @@ export default function useViewChildPage<
       : [],
   );
 
-  const showDeleteButton = computed(
-    () => hasChildDeleting.value && !!$p.model.value,
-  );
+  const showDeleteButton = computed(() => hasChildDeleting.value && !!$p.model.value);
 
   // Private Executions
 
@@ -118,9 +100,7 @@ export default function useViewChildPage<
     }
 
     // Update parentFindKey and path if changed
-    parentFindKey.value = String(
-      parentModel.value[parentModelFindKeyField.value],
-    );
+    parentFindKey.value = String(parentModel.value[parentModelFindKeyField.value]);
 
     const children = modelChildrenGetter.value(parentModel.value);
 
@@ -128,8 +108,7 @@ export default function useViewChildPage<
       realtimeUpdate &&
         Dialog.create({
           title: 'Deleted',
-          message:
-            "This page's data is deleted. You will be redireted to previous page.",
+          message: "This page's data is deleted. You will be redireted to previous page.",
           persistent: true,
           ok: {
             color: 'primary',
@@ -142,9 +121,7 @@ export default function useViewChildPage<
     }
 
     if (!$p.findKey.value) {
-      $p.findKey.value = String(
-        children[children.length - 1][$p.modelFindKeyField.value],
-      );
+      $p.findKey.value = String(children[children.length - 1][$p.modelFindKeyField.value]);
     }
 
     let child = children.find(
@@ -156,8 +133,7 @@ export default function useViewChildPage<
       childListKey.value = (child as { listKey?: string }).listKey || null;
     } else if (realtimeUpdate && !!childListKey.value) {
       child = children.find(
-        (value) =>
-          (value as { listKey?: string }).listKey === childListKey.value,
+        (value) => (value as { listKey?: string }).listKey === childListKey.value,
       );
 
       if (child) {
@@ -169,8 +145,7 @@ export default function useViewChildPage<
       realtimeUpdate &&
       Dialog.create({
         title: 'Deleted',
-        message:
-          "This page's data is deleted. You will be redireted to previous page.",
+        message: "This page's data is deleted. You will be redireted to previous page.",
         persistent: true,
         ok: {
           color: 'primary',
@@ -204,10 +179,8 @@ export default function useViewChildPage<
     }
 
     return (
-      children.find(
-        (value) =>
-          String(value[$p.modelFindKeyField.value]) === $p.findKey.value,
-      ) || null
+      children.find((value) => String(value[$p.modelFindKeyField.value]) === $p.findKey.value) ||
+      null
     );
   };
   $p.updateModel.value = (payload) => {
@@ -314,10 +287,7 @@ export default function useViewChildPage<
     if (oldValue === '') {
       route.meta.replaceRoute = true;
       void router.replace(
-        `${viewUrl.value}${parentFindKey.value.replaceAll(
-          '.',
-          '_',
-        )}/${value.replaceAll('.', '_')}`,
+        `${viewUrl.value}${parentFindKey.value.replaceAll('.', '_')}/${value.replaceAll('.', '_')}`,
       );
     }
 

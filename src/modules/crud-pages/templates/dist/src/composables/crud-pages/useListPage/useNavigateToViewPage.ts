@@ -23,9 +23,7 @@ export default function useNavigateToViewPage<T extends NonNullable<unknown>>(
       })();
 
     const keyValue = item[modelFindKeyField.value];
-    const routeLocation = router.resolve(
-      viewUrl.value + String(keyValue).replaceAll('.', '_'),
-    );
+    const routeLocation = router.resolve(viewUrl.value + String(keyValue).replaceAll('.', '_'));
 
     return routeLocation.href;
   }
@@ -44,9 +42,7 @@ export default function useNavigateToViewPage<T extends NonNullable<unknown>>(
       if (delay) {
         // Wait for the ripple
         setTimeout(() => {
-          void router.push(
-            viewUrl.value + String(keyValue).replaceAll('.', '_'),
-          );
+          void router.push(viewUrl.value + String(keyValue).replaceAll('.', '_'));
         }, 300);
       } else {
         void router.push(viewUrl.value + String(keyValue).replaceAll('.', '_'));

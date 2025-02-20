@@ -69,9 +69,9 @@ export default function useEditor<TVm extends NonNullable<unknown>>(
     ...initialValuesKeys: K[]
   ) {
     const initialValues = values
-      ? (Object.fromEntries(
-          initialValuesKeys.map((key) => [key, values[key]]),
-        ) as FormOptions<Pick<T, K>>['initialValues'])
+      ? (Object.fromEntries(initialValuesKeys.map((key) => [key, values[key]])) as FormOptions<
+          Pick<T, K>
+        >['initialValues'])
       : undefined;
 
     return useForm<Pick<T, K>>({
@@ -84,11 +84,7 @@ export default function useEditor<TVm extends NonNullable<unknown>>(
     validationSchema: Schema<Pick<TVm, K>>,
     ...initialValuesKeys: K[]
   ) {
-    const result = useValidationForm(
-      validationSchema,
-      viewModel.value,
-      ...initialValuesKeys,
-    );
+    const result = useValidationForm(validationSchema, viewModel.value, ...initialValuesKeys);
 
     internalCustomValidate = null;
     internalValidate = result.validate;

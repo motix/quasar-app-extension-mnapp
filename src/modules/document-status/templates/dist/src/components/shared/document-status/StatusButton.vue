@@ -42,11 +42,7 @@ defineEmits<{
         @click="$emit('changeStatus', button.action)"
       >
         <q-item-section avatar>
-          <q-avatar
-            :color="button.color"
-            :icon="button.icon"
-            text-color="white"
-          />
+          <q-avatar :color="button.color" :icon="button.icon" text-color="white" />
         </q-item-section>
         <q-item-section>
           <q-item-label>{{ button.label }}</q-item-label>

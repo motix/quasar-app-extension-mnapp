@@ -79,11 +79,7 @@ export function isAuthenticated() {
 
 let handleAuthStateChangedCount = 0;
 
-export function handleAuthStateChanged(
-  user: User | null,
-  router: Router,
-  firstCall: boolean,
-) {
+export function handleAuthStateChanged(user: User | null, router: Router, firstCall: boolean) {
   if (firstCall) {
     handleAuthStateChangedCount = 0;
   } else {
@@ -102,9 +98,7 @@ export function handleAuthStateChanged(
       .then((idTokenResult) => {
         if (idTokenResult.claims.admin === undefined) {
           if (handleAuthStateChangedCount > 1000) {
-            console.error(
-              'Firebase background function processSignUp not deployed',
-            );
+            console.error('Firebase background function processSignUp not deployed');
             store.currentUserClaims = {};
           } else {
             // For newly signed up users, server will assign claims but they are not returned together with
@@ -146,10 +140,7 @@ export function signOut() {
 
 export async function createRemoteSignInToken() {
   const functions = getFunctions();
-  const createAuthToken = httpsCallable<undefined, string>(
-    functions,
-    'auth-createAuthToken',
-  );
+  const createAuthToken = httpsCallable<undefined, string>(functions, 'auth-createAuthToken');
 
   try {
     const result = await createAuthToken();

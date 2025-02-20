@@ -19,9 +19,7 @@ export default function (fixedHeaderHeight: number) {
 
   const readOnlyRevealed = computed(() => revealed.value);
   const readOnlyFixedHeaderHeight = computed(() => fixedHeaderHeight);
-  const stickyHeadersPosition = computed(() =>
-    revealed.value ? fixedHeaderHeight : 0,
-  );
+  const stickyHeadersPosition = computed(() => (revealed.value ? fixedHeaderHeight : 0));
 
   const result: StickyHeadersResult = {
     revealed: readOnlyRevealed,
@@ -46,9 +44,7 @@ export default function (fixedHeaderHeight: number) {
 }
 
 export function useStickyHeadersResult() {
-  const stickyHeadersResult = inject<StickyHeadersResult>(
-    StickyHeadersResultSymbol,
-  );
+  const stickyHeadersResult = inject<StickyHeadersResult>(StickyHeadersResultSymbol);
   !stickyHeadersResult &&
     (() => {
       throw new Error('No sticky header result provided.');

@@ -26,10 +26,7 @@ export default function useEditPage<
     | NewPage<TVm, TNewPageExtra>
     | ViewPage<T, TVm, TViewPageExtra>;
 
-  return defineNewPageNarrower<
-    NewPage<TVm, TNewPageExtra>,
-    ViewPage<T, TVm, TViewPageExtra>
-  >($p);
+  return defineNewPageNarrower<NewPage<TVm, TNewPageExtra>, ViewPage<T, TVm, TViewPageExtra>>($p);
 }
 
 export function useCustomizedEditPage<
@@ -75,9 +72,7 @@ export function extendEditPage<
   const newPageOrEditMode = computed(() => !p.editMode || p.editMode.value);
 
   const activeModelOrViewModel = computed(() =>
-    !p.editMode || !p.model || p.editMode.value
-      ? $p.viewModel.value
-      : p.model.value,
+    !p.editMode || !p.model || p.editMode.value ? $p.viewModel.value : p.model.value,
   );
 
   return {

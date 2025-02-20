@@ -3,8 +3,7 @@ import useNotifications from 'composables/useNotifications';
 
 // Composables
 
-const { notifyLoadDataError, notifyCreateDataSuccessAndRedirect } =
-  useNotifications();
+const { notifyLoadDataError, notifyCreateDataSuccessAndRedirect } = useNotifications();
 </script>
 
 <template>

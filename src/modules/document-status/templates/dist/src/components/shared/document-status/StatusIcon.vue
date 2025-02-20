@@ -14,11 +14,7 @@ withDefaults(
 </script>
 
 <template>
-  <q-icon
-    :color="revertColor ? status.textColor : status.backgroundColor"
-    :name="icon"
-    size="xs"
-  >
+  <q-icon :color="revertColor ? status.textColor : status.backgroundColor" :name="icon" size="xs">
     <top-tooltip>
       {{ status.text }}
     </top-tooltip>

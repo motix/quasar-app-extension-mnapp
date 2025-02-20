@@ -18,10 +18,7 @@ module.exports = function (api, templatePath, knownPaths, excludePaths) {
   const paths = fs.readdirSync(absolutePath);
 
   for (const currentPath of paths) {
-    removePath(api, absolutePath, currentPath, [
-      ...(knownPaths || []),
-      ...(excludePaths || []),
-    ]);
+    removePath(api, absolutePath, currentPath, [...(knownPaths || []), ...(excludePaths || [])]);
   }
 
   knownPaths?.forEach((value) => api.removePath(value));
@@ -46,12 +43,7 @@ function removePath(api, templatePath, relativePath, excludePaths) {
     const paths = fs.readdirSync(absolutePath);
 
     for (const currentPath of paths) {
-      removePath(
-        api,
-        templatePath,
-        path.join(relativePath, currentPath),
-        excludePaths,
-      );
+      removePath(api, templatePath, path.join(relativePath, currentPath), excludePaths);
     }
   }
 }

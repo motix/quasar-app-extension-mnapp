@@ -129,16 +129,11 @@ const captionCssClass = computed(() => {
     >
       <q-avatar
         v-if="avatarIcon"
-        :color="
-          avatarColor || (headerDark || Dark.isActive ? 'white' : 'grey-9')
-        "
+        :color="avatarColor || (headerDark || Dark.isActive ? 'white' : 'grey-9')"
         :size="avatarSize"
       >
         <q-icon
-          :color="
-            headerBackgroundColor ||
-            (headerDark || Dark.isActive ? 'grey-9' : 'white')
-          "
+          :color="headerBackgroundColor || (headerDark || Dark.isActive ? 'grey-9' : 'white')"
           :name="avatarIcon"
         />
       </q-avatar>
@@ -159,23 +154,14 @@ const captionCssClass = computed(() => {
           <sup v-if="titleEndIconSuperscript">
             <q-icon :color="titleEndIconColor" :name="titleEndIcon" />
           </sup>
-          <q-icon
-            v-else
-            class="q-ml-xs"
-            :color="titleEndIconColor"
-            :name="titleEndIcon"
-          />
+          <q-icon v-else class="q-ml-xs" :color="titleEndIconColor" :name="titleEndIcon" />
         </template>
       </q-item-label>
 
       <!-- Setting max-width to support ellipsis in main slot -->
       <q-item class="q-pa-none" style="max-width: 100%; min-height: 0">
         <q-item-section top>
-          <q-item-label
-            v-if="subtitle"
-            class="text-subtitle2 q-pt-xs"
-            :class="subtitleCssClass"
-          >
+          <q-item-label v-if="subtitle" class="text-subtitle2 q-pt-xs" :class="subtitleCssClass">
             <q-icon v-if="subtitleIcon" class="q-mr-xs" :name="subtitleIcon" />
             <span>
               {{ subtitle }}
@@ -200,12 +186,7 @@ const captionCssClass = computed(() => {
           </div>
         </q-item-section>
 
-        <q-item-section
-          v-if="$slots.side && titleFullWidth"
-          class="text-right"
-          side
-          :top="sideTop"
-        >
+        <q-item-section v-if="$slots.side && titleFullWidth" class="text-right" side :top="sideTop">
           <slot name="side"></slot>
         </q-item-section>
       </q-item>

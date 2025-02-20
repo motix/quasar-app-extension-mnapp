@@ -18,9 +18,7 @@ const loading = ref<boolean>(true);
 // Methods
 
 function loaderEnter() {
-  const transitionContainer = document.getElementById(
-    'sign-in-transition-container',
-  );
+  const transitionContainer = document.getElementById('sign-in-transition-container');
   const uiContainer = document.getElementById('firebaseui-auth-container');
   if (transitionContainer && uiContainer) {
     transitionContainer.appendChild(uiContainer.childNodes[0]);

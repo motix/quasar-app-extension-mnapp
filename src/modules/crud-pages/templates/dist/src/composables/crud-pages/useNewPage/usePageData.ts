@@ -10,9 +10,7 @@ export default function usePageData<TVm extends NonNullable<unknown>>() {
 
   // Method Refs
 
-  const createModel = ref<
-    ((payload: CreateDocActionPayload<TVm>) => Promise<TVm>) | null
-  >(null);
+  const createModel = ref<((payload: CreateDocActionPayload<TVm>) => Promise<TVm>) | null>(null);
 
   // Computed
 

@@ -38,10 +38,5 @@ watch(
 </script>
 
 <template>
-  <q-select
-    v-bind="$attrs"
-    v-model="value"
-    :error="!!errorMessage"
-    :error-message="errorMessage"
-  />
+  <q-select v-bind="$attrs" v-model="value" :error="!!errorMessage" :error-message="errorMessage" />
 </template>

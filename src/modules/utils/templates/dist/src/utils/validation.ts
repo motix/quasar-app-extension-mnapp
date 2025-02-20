@@ -54,8 +54,7 @@ export function numberRequired(label: string) {
         (originalValueAsString.length > 1 &&
           originalValueAsString.startsWith('0') &&
           originalValueAsString[1] !== '.') ||
-        (originalValueAsString.includes('.') &&
-          originalValueAsString.endsWith('0'))
+        (originalValueAsString.includes('.') && originalValueAsString.endsWith('0'))
       ) {
         return ' ';
       }
@@ -78,8 +77,7 @@ export function numberOptional(label: string) {
         (originalValueAsString.length > 1 &&
           originalValueAsString.startsWith('0') &&
           originalValueAsString[1] !== '.') ||
-        (originalValueAsString.includes('.') &&
-          originalValueAsString.endsWith('0'))
+        (originalValueAsString.includes('.') && originalValueAsString.endsWith('0'))
       ) {
         return ' ';
       }
@@ -133,11 +131,7 @@ export function dateRequired(label: string) {
     message: `${label} must be a date`,
     test: (value) =>
       !value ||
-      value ===
-        date.formatDate(
-          date.extractDate(value, getEditDateFormat()),
-          getEditDateFormat(),
-        ),
+      value === date.formatDate(date.extractDate(value, getEditDateFormat()), getEditDateFormat()),
   });
 }
 
@@ -151,21 +145,14 @@ export function dateOptional(label: string) {
       test: (value) =>
         !value ||
         value ===
-          date.formatDate(
-            date.extractDate(value, getEditDateFormat()),
-            getEditDateFormat(),
-          ),
+          date.formatDate(date.extractDate(value, getEditDateFormat()), getEditDateFormat()),
     });
 }
 
-export function asIsRequired<TType extends NonNullable<unknown>>(
-  label: string,
-) {
+export function asIsRequired<TType extends NonNullable<unknown>>(label: string) {
   return mixed<TType>().required().label(label);
 }
 
-export function asIsOptional<TType extends NonNullable<unknown>>(
-  label: string,
-) {
+export function asIsOptional<TType extends NonNullable<unknown>>(label: string) {
   return mixed<TType>().nullable().default(null).label(label);
 }

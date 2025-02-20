@@ -18,12 +18,7 @@ export function useChildPageNarrower<
   ): $p is TPage extends NewPage<TChildVm, NonNullable<unknown>>
     ? TPage & { newPageFlag: true } & NewChildPage<TChildVm, TParentVm>
     : TPage extends ViewPage<TChild, TChildVm, NonNullable<unknown>>
-    ? TPage & { viewPage: true } & ViewChildPage<
-          TChild,
-          TChildVm,
-          TParent,
-          TParentVm
-        >
+    ? TPage & { viewPage: true } & ViewChildPage<TChild, TChildVm, TParent, TParentVm>
     : never {
     return !!(
       $p as unknown as
@@ -50,8 +45,7 @@ export function defineNewPageNarrower<
 
     // To be used when !isNewPage not works as intended
     isViewPage: (p: typeof $p): p is TViewPage => {
-      return !!(p as ViewPage<NonNullable<unknown>, NonNullable<unknown>>)
-        .model;
+      return !!(p as ViewPage<NonNullable<unknown>, NonNullable<unknown>>).model;
     },
   });
 

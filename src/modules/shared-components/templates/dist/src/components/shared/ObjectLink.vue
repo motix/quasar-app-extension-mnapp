@@ -48,9 +48,7 @@ function copyLabel() {
   >
     <!-- Setting max-width to support ellipsis -->
     <div class="row no-wrap" style="max-width: 100%">
-      <div
-        :class="{ 'text-left': !!icon || $slots.icon, ellipsis: !wrapLabel }"
-      >
+      <div :class="{ 'text-left': !!icon || $slots.icon, ellipsis: !wrapLabel }">
         <slot name="icon">
           <q-icon v-if="icon" class="q-mr-sm" :name="icon" size="1.2em" />
         </slot>

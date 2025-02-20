@@ -27,10 +27,7 @@ type StoreType<T extends DocModel> = Pick<
   'docPage' | 'loadDocsPage' | 'releaseDocs'
 >;
 
-export default function useListPageFilterWithOptionsAndStore<
-  T extends DocModel,
-  FilterType,
->(
+export default function useListPageFilterWithOptionsAndStore<T extends DocModel, FilterType>(
   ready: ListPage<never, never>['ready'],
   queryConstraints: ListPage<never, never>['queryConstraints'],
   initialFilter: FilterType,

@@ -121,9 +121,7 @@ defineExpose({
 
 <template>
   <q-card
-    :class="`bg-${
-      bodyBackgroundColor || (Dark.isActive ? 'grey-10' : 'grey-1')
-    }`"
+    :class="`bg-${bodyBackgroundColor || (Dark.isActive ? 'grey-10' : 'grey-1')}`"
     style="width: 100%"
     :style="{ maxWidth: cardWidth + 'px' }"
   >
@@ -160,14 +158,8 @@ defineExpose({
 
         <div
           class="rounded-borders"
-          :class="`bg-${
-            bodyBackgroundColor || (Dark.isActive ? 'grey-10' : 'grey-1')
-          }`"
-          style="
-            border-top-left-radius: 0;
-            border-top-right-radius: 0;
-            cursor: default;
-          "
+          :class="`bg-${bodyBackgroundColor || (Dark.isActive ? 'grey-10' : 'grey-1')}`"
+          style="border-top-left-radius: 0; border-top-right-radius: 0; cursor: default"
           @click.stop
         >
           <!-- Fix background error when the following templates use q-gutter classes -->
@@ -177,20 +169,12 @@ defineExpose({
 
           <q-linear-progress v-if="bodyLoading" color="warning" indeterminate />
           <q-slide-transition>
-            <q-card-section
-              v-if="$slots.body"
-              v-show="!bodyLoading"
-              :class="bodyCssClass"
-            >
+            <q-card-section v-if="$slots.body" v-show="!bodyLoading" :class="bodyCssClass">
               <slot name="body"></slot>
             </q-card-section>
           </q-slide-transition>
 
-          <q-linear-progress
-            v-if="bezelLessLoading"
-            color="warning"
-            indeterminate
-          />
+          <q-linear-progress v-if="bezelLessLoading" color="warning" indeterminate />
           <q-slide-transition>
             <div v-if="$slots['bezel-less']" v-show="!bezelLessLoading">
               <slot name="bezel-less"></slot>
@@ -224,20 +208,12 @@ defineExpose({
 
         <q-linear-progress v-if="bodyLoading" color="warning" indeterminate />
         <q-slide-transition>
-          <q-card-section
-            v-if="$slots.body"
-            v-show="!bodyLoading"
-            :class="bodyCssClass"
-          >
+          <q-card-section v-if="$slots.body" v-show="!bodyLoading" :class="bodyCssClass">
             <slot name="body"></slot>
           </q-card-section>
         </q-slide-transition>
 
-        <q-linear-progress
-          v-if="bezelLessLoading"
-          color="warning"
-          indeterminate
-        />
+        <q-linear-progress v-if="bezelLessLoading" color="warning" indeterminate />
         <q-slide-transition>
           <div v-if="$slots['bezel-less']" v-show="!bezelLessLoading">
             <slot name="bezel-less"></slot>

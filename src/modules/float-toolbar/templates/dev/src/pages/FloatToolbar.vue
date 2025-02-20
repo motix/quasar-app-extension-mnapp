@@ -3,12 +3,8 @@ import { useFloatToolbarResult } from 'composables/useFloatToolbar';
 
 // Composables
 
-const {
-  collapseHeaderHeight,
-  headerElevated,
-  floatToolbarOffsetTop,
-  floatToolbarOffsetBottom,
-} = useFloatToolbarResult();
+const { collapseHeaderHeight, headerElevated, floatToolbarOffsetTop, floatToolbarOffsetBottom } =
+  useFloatToolbarResult();
 </script>
 
 <template>

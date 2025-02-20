@@ -18,8 +18,5 @@ module.exports = defineUninstall(function (api) {
 
   const packageName = getPackageName();
 
-  reduceJsonFile(api, 'package.json', [
-    `scripts.u-${packageName}`,
-    `scripts.r-${packageName}`,
-  ]);
+  reduceJsonFile(api, 'package.json', [`scripts.u-${packageName}`, `scripts.r-${packageName}`]);
 });

@@ -114,11 +114,6 @@ watch(freezed, (value) => {
       </div>
     </fade-transition>
 
-    <q-ajax-bar
-      ref="freezingBar"
-      color="warning"
-      position="bottom"
-      size="3px"
-    />
+    <q-ajax-bar ref="freezingBar" color="warning" position="bottom" size="3px" />
   </div>
 </template>

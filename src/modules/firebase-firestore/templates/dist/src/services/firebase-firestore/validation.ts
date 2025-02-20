@@ -17,14 +17,9 @@ export async function validateUniqueField<TValue>(
   const qSnapshot = await getDocs(q);
   const result =
     qSnapshot.empty ||
-    (!!excludeId &&
-      qSnapshot.docs.length === 1 &&
-      qSnapshot.docs[0].id === excludeId);
+    (!!excludeId && qSnapshot.docs.length === 1 && qSnapshot.docs[0].id === excludeId);
 
-  const collectionRefNormalized = collection(
-    db,
-    `${collectionPath}_normalized`,
-  );
+  const collectionRefNormalized = collection(db, `${collectionPath}_normalized`);
   const qNormalized = query(
     collectionRefNormalized,
     where(fieldName, '==', indexNormalizeString(String(value))),

@@ -30,13 +30,7 @@ export type InstallDefinition = InstallCallback;
 export type IndexDefinition = IndexCallback;
 export type UninstallDefinition = UninstallCallback;
 
-export declare function definePrompts(
-  callback: PromptsCallback,
-): PromptsCallback;
-export declare function defineInstall(
-  callback: InstallCallback,
-): InstallCallback;
+export declare function definePrompts(callback: PromptsCallback): PromptsCallback;
+export declare function defineInstall(callback: InstallCallback): InstallCallback;
 export declare function defineIndex(callback: IndexCallback): IndexCallback;
-export declare function defineUninstall(
-  callback: UninstallCallback,
-): UninstallCallback;
+export declare function defineUninstall(callback: UninstallCallback): UninstallCallback;

@@ -15,9 +15,7 @@ const props = defineProps<{ scopeName: string }>();
 
 // Composables
 
-const $p = useViewPage<NonNullable<unknown>, NonNullable<unknown>>(
-  props.scopeName,
-);
+const $p = useViewPage<NonNullable<unknown>, NonNullable<unknown>>(props.scopeName);
 const {
   // useReturnUrl
   goBack,
@@ -98,9 +96,7 @@ watch(freezed, (value) => {
 
       <div v-else-if="!model" key="empty">
         <!-- Empty -->
-        <div class="q-my-md text-center">
-          The item is not available. Please contact support.
-        </div>
+        <div class="q-my-md text-center">The item is not available. Please contact support.</div>
 
         <float-toolbar position="bottom-left">
           <template #fixed-buttons>
@@ -223,10 +219,7 @@ watch(freezed, (value) => {
             }"
             tag="div"
           >
-            <switch-view-button
-              v-if="toolbarFabButtonsVisibility.switchView"
-              key="switchView"
-            />
+            <switch-view-button v-if="toolbarFabButtonsVisibility.switchView" key="switchView" />
 
             <slot name="toolbar-extra"></slot>
           </transition-group>
@@ -238,11 +231,6 @@ watch(freezed, (value) => {
       </div>
     </fade-transition>
 
-    <q-ajax-bar
-      ref="freezingBar"
-      color="warning"
-      position="bottom"
-      size="3px"
-    />
+    <q-ajax-bar ref="freezingBar" color="warning" position="bottom" size="3px" />
   </div>
 </template>

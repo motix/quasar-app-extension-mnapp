@@ -7,8 +7,5 @@ module.exports = defineUninstall(function (api) {
   api.removePath('src/composables/useCharts.ts');
   api.removePath('src/types/VueApexCharts.d.ts');
 
-  reduceJsonFile(api, 'package.json', [
-    'dependencies.apexcharts',
-    'dependencies.vue3-apexcharts',
-  ]);
+  reduceJsonFile(api, 'package.json', ['dependencies.apexcharts', 'dependencies.vue3-apexcharts']);
 });

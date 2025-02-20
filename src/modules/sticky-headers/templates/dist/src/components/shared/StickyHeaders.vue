@@ -7,21 +7,16 @@ import { scroll } from 'quasar';
 
 import { useStickyHeadersResult } from 'composables/useStickyHeaders';
 
-type OnScrollDetail = Parameters<
-  Exclude<QScrollObserverProps['onScroll'], undefined>
->[0];
+type OnScrollDetail = Parameters<Exclude<QScrollObserverProps['onScroll'], undefined>>[0];
 
 // Private
 
 let sourceScrollObserverPaused = false;
 let destScrollObserverPaused = false;
-let sourceScrollObserverPausedTimeout: ReturnType<typeof setTimeout> | null =
-  null;
-let destScrollObserverPausedTimeout: ReturnType<typeof setTimeout> | null =
-  null;
+let sourceScrollObserverPausedTimeout: ReturnType<typeof setTimeout> | null = null;
+let destScrollObserverPausedTimeout: ReturnType<typeof setTimeout> | null = null;
 
-const getSourceTable = () =>
-  document.querySelector(`${sourceTableScrollTarget.value}>table`);
+const getSourceTable = () => document.querySelector(`${sourceTableScrollTarget.value}>table`);
 
 // Props
 
@@ -83,9 +78,7 @@ function onResize() {
 
   headersPaddingLeft.value = `${paddingLeft}px`;
   headersPaddingRight.value = `${paddingRight}px`;
-  headersWidth.value = `${
-    source.getBoundingClientRect().width + paddingLeft + paddingRight
-  }px`;
+  headersWidth.value = `${source.getBoundingClientRect().width + paddingLeft + paddingRight}px`;
 
   // Update headers content
 
@@ -96,9 +89,7 @@ function onResize() {
 
   destTr.innerHTML = sourceTr.innerHTML;
 
-  function forEachHeader(
-    callback: (sourceTh: HTMLElement, desetTh: HTMLElement) => void,
-  ) {
+  function forEachHeader(callback: (sourceTh: HTMLElement, desetTh: HTMLElement) => void) {
     let textNodeCount = 0;
     sourceTr.childNodes.forEach((value, index) => {
       const sourceTh = value as HTMLElement;
@@ -112,9 +103,7 @@ function onResize() {
         return;
       }
 
-      const destTh = destTr.childNodes.item(
-        index - textNodeCount,
-      ) as HTMLElement;
+      const destTh = destTr.childNodes.item(index - textNodeCount) as HTMLElement;
 
       callback(sourceTh, destTh);
     });
@@ -160,8 +149,7 @@ function onDocumentScroll() {
   containerVisible.value =
     sourceHeight > 0 &&
     sourceTop <= stickyHeadersPosition.value &&
-    sourceBottom >=
-      stickyHeadersPosition.value + sourceTr.getBoundingClientRect().height * 2;
+    sourceBottom >= stickyHeadersPosition.value + sourceTr.getBoundingClientRect().height * 2;
 
   const left = getHorizontalScrollPosition(
     document.querySelector(sourceTableScrollTarget.value) as HTMLElement,
@@ -179,10 +167,7 @@ function onSourceTableScroll(info: OnScrollDetail) {
   }
 
   destScrollObserverPaused = true;
-  setHorizontalScrollPosition(
-    container.value as HTMLElement,
-    info.position.left,
-  );
+  setHorizontalScrollPosition(container.value as HTMLElement, info.position.left);
   destScrollObserverPausedTimeout = setTimeout(() => {
     destScrollObserverPaused = false;
   }, 100);

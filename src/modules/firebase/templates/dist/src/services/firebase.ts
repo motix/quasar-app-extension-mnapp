@@ -23,11 +23,9 @@ function getAuthOrEmulator() {
   auth = getAuth();
 
   if (process.env.FIREBASE_ENV === 'DEV') {
-    connectAuthEmulator(
-      auth,
-      `http://${host}:${firebaseConfig.emulators.auth.port}`,
-      { disableWarnings: !!process.env.DEBUGGING },
-    );
+    connectAuthEmulator(auth, `http://${host}:${firebaseConfig.emulators.auth.port}`, {
+      disableWarnings: !!process.env.DEBUGGING,
+    });
   }
 
   return auth;
@@ -42,11 +40,7 @@ function getFirestoreOrEmulator() {
   firestore = getFirestore();
 
   if (process.env.FIREBASE_ENV === 'DEV') {
-    connectFirestoreEmulator(
-      firestore,
-      host,
-      firebaseConfig.emulators.firestore.port,
-    );
+    connectFirestoreEmulator(firestore, host, firebaseConfig.emulators.firestore.port);
   }
 
   return firestore;
@@ -61,11 +55,7 @@ function getStorageOrEmulator() {
   storage = getStorage();
 
   if (process.env.FIREBASE_ENV === 'DEV') {
-    connectStorageEmulator(
-      storage,
-      host,
-      firebaseConfig.emulators.storage.port,
-    );
+    connectStorageEmulator(storage, host, firebaseConfig.emulators.storage.port);
   }
 
   return storage;
@@ -85,11 +75,7 @@ function getFunctionsOrEmulator() {
   }
 
   if (process.env.FIREBASE_ENV === 'DEV') {
-    connectFunctionsEmulator(
-      functions,
-      host,
-      firebaseConfig.emulators.functions.port,
-    );
+    connectFunctionsEmulator(functions, host, firebaseConfig.emulators.functions.port);
   }
 
   return functions;

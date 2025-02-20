@@ -4,11 +4,7 @@ import { cloneDeep } from 'lodash';
 
 import { defineGetters } from './';
 
-function buildGetters<T, TVm>(
-  mapper: Mapper,
-  modelName: string,
-  viewModelName: string,
-) {
+function buildGetters<T, TVm>(mapper: Mapper, modelName: string, viewModelName: string) {
   return defineGetters({
     __flag: () => ({ model: undefined as unknown as T }),
 
@@ -33,10 +29,7 @@ function buildGetters<T, TVm>(
     },
 
     docPage: (state) => (page: number) =>
-      state.docs.slice(
-        page * state.docsPageSize,
-        (page + 1) * state.docsPageSize,
-      ),
+      state.docs.slice(page * state.docsPageSize, (page + 1) * state.docsPageSize),
   });
 }
 

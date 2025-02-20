@@ -69,18 +69,9 @@ function toggleLeftDrawer() {
   <q-layout view="lHh Lpr lFf" @scroll="onScroll">
     <q-header :elevated="headerElevated" reveal @reveal="onReveal">
       <q-toolbar>
-        <q-btn
-          aria-label="Menu"
-          dense
-          flat
-          icon="menu"
-          round
-          @click="toggleLeftDrawer"
-        />
+        <q-btn aria-label="Menu" dense flat icon="menu" round @click="toggleLeftDrawer" />
 
-        <q-toolbar-title>
-          mnapp Dev - elevated: {{ headerElevated }}
-        </q-toolbar-title>
+        <q-toolbar-title> mnapp Dev - elevated: {{ headerElevated }} </q-toolbar-title>
 
         <div>Quasar v{{ $q.version }}</div>
       </q-toolbar>
@@ -88,15 +79,9 @@ function toggleLeftDrawer() {
 
     <q-drawer v-model="leftDrawerOpen" bordered class="bg-grey-1" show-if-above>
       <q-list>
-        <q-item-label class="text-grey-8" header>
-          Essential Links
-        </q-item-label>
+        <q-item-label class="text-grey-8" header> Essential Links </q-item-label>
 
-        <EssentialLink
-          v-for="link in essentialLinks"
-          :key="link.title"
-          v-bind="link"
-        />
+        <EssentialLink v-for="link in essentialLinks" :key="link.title" v-bind="link" />
       </q-list>
     </q-drawer>
 

@@ -8,13 +8,12 @@ declare module '../useFormats' {
 }
 
 export default function date() {
-  const { dateFormat, timeFormat, editDateFormat, monthDayFormat } =
-    requiredConfigEntries(
-      'dateFormat',
-      'timeFormat',
-      'editDateFormat',
-      'monthDayFormat',
-    );
+  const { dateFormat, timeFormat, editDateFormat, monthDayFormat } = requiredConfigEntries(
+    'dateFormat',
+    'timeFormat',
+    'editDateFormat',
+    'monthDayFormat',
+  );
 
   function formatDate(value: Date | null | undefined) {
     if (value == null) return value;
@@ -28,10 +27,7 @@ export default function date() {
     return qdate.formatDate(value, `${dateFormat} ${timeFormat}`);
   }
 
-  function dateViewModel(
-    value: string | null | undefined,
-    defaultDisplay?: string,
-  ) {
+  function dateViewModel(value: string | null | undefined, defaultDisplay?: string) {
     if (value == null || value === '') return defaultDisplay;
 
     return formatDate(qdate.extractDate(value, editDateFormat));

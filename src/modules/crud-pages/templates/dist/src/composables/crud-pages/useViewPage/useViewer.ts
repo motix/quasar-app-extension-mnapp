@@ -19,8 +19,7 @@ export default function useViewer<T extends NonNullable<unknown>>(
 ) {
   // Composables
 
-  const { notifyErrorDebug, notifySaveDataSuccess, notifySaveDataError } =
-    useNotifications();
+  const { notifyErrorDebug, notifySaveDataSuccess, notifySaveDataError } = useNotifications();
 
   // Methods
 
@@ -68,11 +67,7 @@ export default function useViewer<T extends NonNullable<unknown>>(
   function watchViewer(...sources: WatchSource[]) {
     for (const source of sources) {
       watch(source, async (_newValue, oldValue) => {
-        if (
-          ignoreViewerWatch.value ||
-          editMode.value ||
-          oldValue === undefined
-        ) {
+        if (ignoreViewerWatch.value || editMode.value || oldValue === undefined) {
           return;
         }
 
@@ -84,11 +79,7 @@ export default function useViewer<T extends NonNullable<unknown>>(
   function watchViewerAndRun(cb: () => void, ...sources: WatchSource[]) {
     for (const source of sources) {
       watch(source, async (_newValue, oldValue) => {
-        if (
-          ignoreViewerWatch.value ||
-          editMode.value ||
-          oldValue === undefined
-        ) {
+        if (ignoreViewerWatch.value || editMode.value || oldValue === undefined) {
           return;
         }
 

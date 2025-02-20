@@ -27,9 +27,7 @@ module.exports = defineUninstall(function appDefault(api) {
       'utf-8',
     );
 
-    if (
-      quasarVariablesScss.includes("@import './quasar.variables-custom.scss';")
-    ) {
+    if (quasarVariablesScss.includes("@import './quasar.variables-custom.scss';")) {
       quasarVariablesScss = quasarVariablesScss.replace(
         `
 @import './quasar.variables-custom.scss';
@@ -37,13 +35,9 @@ module.exports = defineUninstall(function appDefault(api) {
         '',
       );
 
-      fs.writeFileSync(
-        api.resolve.src('css/quasar.variables.scss'),
-        quasarVariablesScss,
-        {
-          encoding: 'utf-8',
-        },
-      );
+      fs.writeFileSync(api.resolve.src('css/quasar.variables.scss'), quasarVariablesScss, {
+        encoding: 'utf-8',
+      });
     }
   }
 });

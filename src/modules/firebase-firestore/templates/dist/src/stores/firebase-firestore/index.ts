@@ -69,11 +69,7 @@ class GettersHelper<T, TVm> {
 type G<T, TVm> = GettersHelper<T, TVm>['Return'];
 
 type ActionFlag<T, TVm, TAm> = {
-  __flag: (
-    model: T,
-    viewModel: TVm,
-    apiModel: TAm,
-  ) => { model: T; viewModel: TVm; apiModel: TAm };
+  __flag: (model: T, viewModel: TVm, apiModel: TAm) => { model: T; viewModel: TVm; apiModel: TAm };
 };
 
 export function defineActions<T, TVm, TAm, A>(

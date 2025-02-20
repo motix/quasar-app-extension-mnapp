@@ -16,11 +16,7 @@ function newScope<TVm extends NonNullable<unknown>>() {
   return {
     ...pageStatus,
     ...pageData,
-    ...useEditor<TVm>(
-      pageStatus.freezed,
-      pageData.viewModel,
-      pageData.createModel,
-    ),
+    ...useEditor<TVm>(pageStatus.freezed, pageData.viewModel, pageData.createModel),
     ...useNavigateToListPage(pageStatus.isDirty),
     extraInitialized,
   };
@@ -33,10 +29,7 @@ class NewScopeHelper<TVm extends NonNullable<unknown>> {
 export default function useNewPage<
   TVm extends NonNullable<unknown>,
   TExtra extends NonNullable<unknown> = Record<string, never>,
->(
-  scopeName: string,
-  hitUseCount?: boolean,
-): NewScopeHelper<TVm>['Return'] & TExtra {
+>(scopeName: string, hitUseCount?: boolean): NewScopeHelper<TVm>['Return'] & TExtra {
   const store = useSingleScopeComposableStore();
 
   !store.hasScope(scopeName) && store.setScope(scopeName, newScope<TVm>());
@@ -49,10 +42,7 @@ export default function useNewPage<
   return store.retrieveScope(scopeName);
 }
 
-class UseNewPageHelper<
-  TVm extends NonNullable<unknown>,
-  TExtra extends NonNullable<unknown>,
-> {
+class UseNewPageHelper<TVm extends NonNullable<unknown>, TExtra extends NonNullable<unknown>> {
   Return = useNewPage<TVm, TExtra>('');
 }
 

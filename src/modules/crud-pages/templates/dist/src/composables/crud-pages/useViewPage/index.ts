@@ -13,10 +13,7 @@ import usePageTitle from './usePageTitle';
 import useToolbar from './useToolbar';
 import useViewer from './useViewer';
 
-function newScope<
-  T extends NonNullable<unknown>,
-  TVm extends NonNullable<unknown>,
->() {
+function newScope<T extends NonNullable<unknown>, TVm extends NonNullable<unknown>>() {
   const { defaultReturnUrl: backUrl, returnUrl, goBack } = useReturnUrl();
   const pageFeatures = usePageFeatures();
   const pageStatus = usePageStatus();
@@ -78,10 +75,7 @@ function newScope<
   };
 }
 
-class NewScopeHelper<
-  T extends NonNullable<unknown>,
-  TVm extends NonNullable<unknown>,
-> {
+class NewScopeHelper<T extends NonNullable<unknown>, TVm extends NonNullable<unknown>> {
   Return = newScope<T, TVm>();
 }
 
@@ -89,10 +83,7 @@ export default function useViewPage<
   T extends NonNullable<unknown>,
   TVm extends NonNullable<unknown>,
   TExtra extends NonNullable<unknown> = Record<string, never>,
->(
-  scopeName: string,
-  hitUseCount?: boolean,
-): NewScopeHelper<T, TVm>['Return'] & TExtra {
+>(scopeName: string, hitUseCount?: boolean): NewScopeHelper<T, TVm>['Return'] & TExtra {
   const store = useSingleScopeComposableStore();
 
   !store.hasScope(scopeName) && store.setScope(scopeName, newScope<T, TVm>());

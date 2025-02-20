@@ -20,16 +20,14 @@ const props = withDefaults(
 
 function beforeEnter(el: Element) {
   const style = (el as HTMLElement).style;
-  style.transition =
-    'opacity 0.5s, transform 0.5s, background-color 0.5s, margin-bottom 0s';
+  style.transition = 'opacity 0.5s, transform 0.5s, background-color 0.5s, margin-bottom 0s';
 }
 
 function enter(el: Element) {
   const style = (el as HTMLElement).style;
   style.marginBottom = `-${el.clientHeight + props.gutter}px`;
   void nextTick(() => {
-    style.transition =
-      'opacity 0.5s, transform 0.5s, background-color 0.5s, margin-bottom 0.5s';
+    style.transition = 'opacity 0.5s, transform 0.5s, background-color 0.5s, margin-bottom 0.5s';
     style.marginBottom = '0';
   });
 }

@@ -20,10 +20,7 @@ export default function useSubDetailsEditor<
 ) {
   // Private
 
-  function scrollToSubDetailEditor(
-    detailIndex: number,
-    subDetailIndex: number,
-  ) {
+  function scrollToSubDetailEditor(detailIndex: number, subDetailIndex: number) {
     scrollToElement(subDetailEditorRefs.value[detailIndex][subDetailIndex]);
   }
 
@@ -55,11 +52,7 @@ export default function useSubDetailsEditor<
   }
 
   function addSubDetail(detailIndex: number, ...params: TNewSubDetailParams) {
-    insertSubDetail(
-      detailIndex,
-      getSubDetails($p.vm.value, detailIndex).length,
-      ...params,
-    );
+    insertSubDetail(detailIndex, getSubDetails($p.vm.value, detailIndex).length, ...params);
   }
 
   function insertSubDetail(
@@ -68,11 +61,7 @@ export default function useSubDetailsEditor<
     ...params: TNewSubDetailParams
   ) {
     const subDetail = newSubDetail(...params);
-    getSubDetails($p.vm.value, detailIndex).splice(
-      subDetailIndex,
-      0,
-      subDetail,
-    );
+    getSubDetails($p.vm.value, detailIndex).splice(subDetailIndex, 0, subDetail);
 
     $p.dirty();
 
@@ -99,9 +88,7 @@ export default function useSubDetailsEditor<
 
   async function validateSubDetailsEditor(detailIndex: number) {
     const results = await Promise.all(
-      (subDetailEditorRefs.value[detailIndex] || []).map((value) =>
-        value.validate(),
-      ),
+      (subDetailEditorRefs.value[detailIndex] || []).map((value) => value.validate()),
     );
 
     return !results.includes(false);
@@ -110,9 +97,7 @@ export default function useSubDetailsEditor<
   // Watch
 
   watch(
-    computed(() =>
-      $p.viewModel.value ? getDetails($p.viewModel.value).length : undefined,
-    ),
+    computed(() => ($p.viewModel.value ? getDetails($p.viewModel.value).length : undefined)),
     () => {
       subDetailEditorRefs.value = [];
     },

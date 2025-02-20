@@ -13,9 +13,7 @@ export default function () {
 
   // Computed
 
-  const returnUrl = computed(
-    () => (meta.history && meta.history[0]) || defaultReturnUrl.value,
-  );
+  const returnUrl = computed(() => (meta.history && meta.history[0]) || defaultReturnUrl.value);
 
   // Methods
 

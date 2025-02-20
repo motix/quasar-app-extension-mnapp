@@ -3,9 +3,7 @@ import type { QTable } from 'quasar';
 
 import { computed, ref } from 'vue';
 
-type QTableColumnOriginal = NonNullable<
-  QTable['columns']
-> extends readonly (infer ElementType)[]
+type QTableColumnOriginal = NonNullable<QTable['columns']> extends readonly (infer ElementType)[]
   ? ElementType
   : never;
 
@@ -21,9 +19,7 @@ export type QTablePagination = NonNullable<QTable['pagination']>;
 export default function useTableView<
   T extends NonNullable<unknown>,
   TRow extends NonNullable<unknown>,
->(
-  clientFilteredItems: UseClientFilterHelper<T>['Return']['clientFilteredItems'],
-) {
+>(clientFilteredItems: UseClientFilterHelper<T>['Return']['clientFilteredItems']) {
   // Data
 
   const wrapCells = ref(false);

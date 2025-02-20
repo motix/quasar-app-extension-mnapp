@@ -24,9 +24,9 @@ export default function usePageData<T extends NonNullable<unknown>>(
   const queryConstraints = ref<QueryConstraint[]>([]);
   const items = ref(null) as Ref<T[] | null>;
   const allItemsLoaded = ref(false);
-  const modelFindKeyField = ref<Extract<keyof T, string>>(
-    'id' as Extract<keyof T, string>,
-  ) as Ref<Extract<keyof T, string>>;
+  const modelFindKeyField = ref<Extract<keyof T, string>>('id' as Extract<keyof T, string>) as Ref<
+    Extract<keyof T, string>
+  >;
   const newItemsOnTop = ref(false);
 
   // Computed
@@ -41,10 +41,7 @@ export default function usePageData<T extends NonNullable<unknown>>(
 
   // Methods
 
-  async function loadFirstPage(
-    loadPage: LoadDocsPageActionMethod,
-    done: () => void,
-  ) {
+  async function loadFirstPage(loadPage: LoadDocsPageActionMethod, done: () => void) {
     allItemsLoaded.value = false;
 
     const payload: LoadDocsPageActionPayload = {
@@ -112,11 +109,7 @@ export default function usePageData<T extends NonNullable<unknown>>(
       return;
     }
 
-    const itemsToKeep = differenceBy(
-      items.value,
-      newItems,
-      modelFindKeyField.value,
-    );
+    const itemsToKeep = differenceBy(items.value, newItems, modelFindKeyField.value);
     items.value = itemsToKeep.concat(newItems);
   }
 
@@ -135,10 +128,7 @@ export default function usePageData<T extends NonNullable<unknown>>(
       }
 
       recentlyUpdatedDocs.forEach((doc) => {
-        const index = findIndex(itemsValue, [
-          'id',
-          (doc as unknown as { id: string }).id,
-        ]);
+        const index = findIndex(itemsValue, ['id', (doc as unknown as { id: string }).id]);
         if (index > -1) {
           itemsValue[index] = doc;
         }

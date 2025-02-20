@@ -4,12 +4,8 @@ declare module '../useFormats' {
 }
 
 export default function editor() {
-  function isNumber(
-    value: number | string | null | undefined,
-  ): value is number {
-    return value == null || value === '' || typeof value !== 'number'
-      ? false
-      : isFinite(value);
+  function isNumber(value: number | string | null | undefined): value is number {
+    return value == null || value === '' || typeof value !== 'number' ? false : isFinite(value);
   }
 
   return {

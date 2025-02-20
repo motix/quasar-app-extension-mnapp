@@ -7,8 +7,7 @@ import { computed } from 'vue';
 
 function percentRound(value: number) {
   return props.decimal
-    ? Math.round(value * Math.pow(10, 2 + props.decimal)) /
-        Math.pow(10, 2 + props.decimal)
+    ? Math.round(value * Math.pow(10, 2 + props.decimal)) / Math.pow(10, 2 + props.decimal)
     : value;
 }
 
@@ -41,9 +40,7 @@ const isValueValid = computed(() => {
 
 const displayValue = computed(() =>
   isValueValid.value
-    ? percentDisplayRound(
-        percentRound(props.modelValue as number) * 100,
-      ).toString()
+    ? percentDisplayRound(percentRound(props.modelValue as number) * 100).toString()
     : props.modelValue?.toString() || '',
 );
 

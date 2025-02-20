@@ -10,11 +10,7 @@ defineProps<Props>();
 <template>
   <q-field v-bind="$attrs" readonly>
     <template #control>
-      <div
-        class="self-center full-width no-outline"
-        :class="fieldClass"
-        tabindex="0"
-      >
+      <div class="self-center full-width no-outline" :class="fieldClass" tabindex="0">
         <slot></slot>
       </div>
     </template>

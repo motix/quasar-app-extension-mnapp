@@ -1,8 +1,5 @@
 const fs = require('fs');
-const {
-  reduceJsonFileArray,
-  reduceJsonFile,
-} = require('../../lib/json-helpers');
+const { reduceJsonFileArray, reduceJsonFile } = require('../../lib/json-helpers');
 const { defineUninstall } = require('..');
 
 module.exports = defineUninstall(function (api) {
@@ -49,10 +46,7 @@ module.exports = defineUninstall(function (api) {
   function modifyFiles() {
     // [Reverse] Modify src/shims-vue.d.ts
 
-    let shimsVueDTs = fs.readFileSync(
-      api.resolve.app('src/shims-vue.d.ts'),
-      'utf-8',
-    );
+    let shimsVueDTs = fs.readFileSync(api.resolve.app('src/shims-vue.d.ts'), 'utf-8');
 
     shimsVueDTs = shimsVueDTs.replace(
       `// declare module '*.vue' {
@@ -73,16 +67,11 @@ module.exports = defineUninstall(function (api) {
 
     // [Reverse] Modify tsconfig.json
 
-    reduceJsonFileArray(api, 'tsconfig.json', [
-      { path: 'exclude', value: '.bk' },
-    ]);
+    reduceJsonFileArray(api, 'tsconfig.json', [{ path: 'exclude', value: '.bk' }]);
 
     // [Reverse] Modify `.eslintrc.cjs`.
 
-    let eslintrcCjs = fs.readFileSync(
-      api.resolve.app('.eslintrc.cjs'),
-      'utf-8',
-    );
+    let eslintrcCjs = fs.readFileSync(api.resolve.app('.eslintrc.cjs'), 'utf-8');
 
     eslintrcCjs = eslintrcCjs
       .replace(

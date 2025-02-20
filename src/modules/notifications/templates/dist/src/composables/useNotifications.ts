@@ -16,8 +16,7 @@ export default function () {
 
   function notifyLoadDataError() {
     Notify.create({
-      message:
-        'Load data error. Refresh the page to try again or contact support.',
+      message: 'Load data error. Refresh the page to try again or contact support.',
       type: 'negative',
       actions: [{ icon: 'close', color: 'white' }],
     });
@@ -41,8 +40,7 @@ export default function () {
 
   function notifyCreateDataError() {
     Notify.create({
-      message:
-        'Create data error. Refresh the page to try again or contact support.',
+      message: 'Create data error. Refresh the page to try again or contact support.',
       type: 'negative',
       actions: [{ icon: 'close', color: 'white' }],
     });
@@ -58,8 +56,7 @@ export default function () {
 
   function notifySaveDataError() {
     Notify.create({
-      message:
-        'Save data error. Refresh the page to try again or contact support.',
+      message: 'Save data error. Refresh the page to try again or contact support.',
       type: 'negative',
       actions: [{ icon: 'close', color: 'white' }],
     });
@@ -75,8 +72,7 @@ export default function () {
 
   function notifyDeleteDataError() {
     Notify.create({
-      message:
-        'Delete data error. Refresh the page to try again or contact support.',
+      message: 'Delete data error. Refresh the page to try again or contact support.',
       type: 'negative',
       actions: [{ icon: 'close', color: 'white' }],
     });

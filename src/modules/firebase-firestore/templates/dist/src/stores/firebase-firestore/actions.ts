@@ -102,15 +102,8 @@ function buildActions<T extends DocModel, TVm, TAm extends DocumentData>(
       }
 
       const db = getFirestore();
-      const collectionRef = collection(
-        db,
-        collectionPath,
-      ) as CollectionReference<TAm>;
-      const q = query(
-        collectionRef,
-        ...queryConstraints,
-        limit(this.docsPageSize),
-      );
+      const collectionRef = collection(db, collectionPath) as CollectionReference<TAm>;
+      const q = query(collectionRef, ...queryConstraints, limit(this.docsPageSize));
 
       do {
         try {
@@ -143,10 +136,7 @@ function buildActions<T extends DocModel, TVm, TAm extends DocumentData>(
           return;
         }
 
-        if (
-          this.docs.length < listLength &&
-          this.docs.length > page * this.docsPageSize
-        ) {
+        if (this.docs.length < listLength && this.docs.length > page * this.docsPageSize) {
           // Can be the last page. If no more doc found, outOfRange wouldn't fire.
           try {
             await loadDocsNextPage(
@@ -170,8 +160,7 @@ function buildActions<T extends DocModel, TVm, TAm extends DocumentData>(
       if (immediately) {
         this.docs = [];
       } else {
-        const { releaseDocsTimeout } =
-          requiredConfigEntries('releaseDocsTimeout');
+        const { releaseDocsTimeout } = requiredConfigEntries('releaseDocsTimeout');
 
         releaseDocsTimeoutId = setTimeout(() => {
           this.docs = [];
@@ -206,10 +195,7 @@ function buildActions<T extends DocModel, TVm, TAm extends DocumentData>(
       let id: string;
 
       if (findKeyField) {
-        const collectionRef = collection(
-          db,
-          collectionPath,
-        ) as CollectionReference<TAm>;
+        const collectionRef = collection(db, collectionPath) as CollectionReference<TAm>;
         const q = query(collectionRef, where(findKeyField, '==', findKey));
         getDocs(q)
           .then((querySnapshot) => {
@@ -268,28 +254,23 @@ function buildActions<T extends DocModel, TVm, TAm extends DocumentData>(
       const docAm = mapper.map<TVm, TAm>(docVm, viewModelName, apiModelName);
 
       const db = getFirestore();
-      const collectionRef = collection(
-        db,
-        collectionPath,
-      ) as CollectionReference<TAm>;
+      const collectionRef = collection(db, collectionPath) as CollectionReference<TAm>;
       let docRef: DocumentReference<TAm>;
 
       if (id) {
         docRef = doc(collectionRef, id);
         await setDoc(docRef, docAm);
       } else if (idField) {
-        const idFromField = urlFriendlyNormalizeString(
-          String(docVm[idField]),
-        ) as string;
+        const idFromField = urlFriendlyNormalizeString(String(docVm[idField])) as string;
         docRef = doc(collectionRef, idFromField);
         await runTransaction(db, async (transaction) => {
           const existingDocSnapshot = await transaction.get(docRef);
 
           if (existingDocSnapshot.exists()) {
             throw new Error(
-              `[mnapp-firebase-firestore] Failed to generate id from '${String(
-                idField,
-              )}' field. '${docRef.path}' already exists.`,
+              `[mnapp-firebase-firestore] Failed to generate id from '${String(idField)}' field. '${
+                docRef.path
+              }' already exists.`,
             );
           }
 
@@ -313,19 +294,13 @@ function buildActions<T extends DocModel, TVm, TAm extends DocumentData>(
       const id =
         this.realtimeDocs[docKey]?.doc?.id ||
         (() => {
-          throw new Error(
-            `[mnapp-firebase-firestore] Realtime doc '${docKey}' not available.`,
-          );
+          throw new Error(`[mnapp-firebase-firestore] Realtime doc '${docKey}' not available.`);
         })();
 
       let docAm: TAm;
 
       if (isViewModel) {
-        docAm = mapper.map<TVm, TAm>(
-          docMOrVm as TVm,
-          viewModelName,
-          apiModelName,
-        );
+        docAm = mapper.map<TVm, TAm>(docMOrVm as TVm, viewModelName, apiModelName);
       } else {
         docAm = mapper.map<T, TAm>(docMOrVm as T, modelName, apiModelName);
       }
@@ -344,9 +319,7 @@ function buildActions<T extends DocModel, TVm, TAm extends DocumentData>(
       const id =
         this.realtimeDocs[docKey]?.doc?.id ||
         (() => {
-          throw new Error(
-            `[mnapp-firebase-firestore] Realtime doc '${docKey}' not available.`,
-          );
+          throw new Error(`[mnapp-firebase-firestore] Realtime doc '${docKey}' not available.`);
         })();
 
       const db = getFirestore();
@@ -419,9 +392,7 @@ function buildActions<T extends DocModel, TVm, TAm extends DocumentData>(
           >['recentlyUpdatedDocs'][number];
         } else {
           this.recentlyUpdatedDocs.push(
-            newDocM as UnwrapRef<
-              DocStateInterface<T>
-            >['recentlyUpdatedDocs'][number],
+            newDocM as UnwrapRef<DocStateInterface<T>>['recentlyUpdatedDocs'][number],
           );
         }
       }
@@ -460,11 +431,7 @@ function buildActions<T extends DocModel, TVm, TAm extends DocumentData>(
       !options.afterLoadArray &&
         options.afterLoad &&
         (await Promise.all(
-          docs.map(
-            (doc) =>
-              (options.afterLoad && options.afterLoad(doc)) ||
-              Promise.resolve(),
-          ),
+          docs.map((doc) => (options.afterLoad && options.afterLoad(doc)) || Promise.resolve()),
         ));
 
       const docIdMap = new Map(docAndIds as Iterable<readonly [TAm, string]>);
@@ -559,11 +526,7 @@ function buildActions<T extends DocModel, TVm, TAm extends DocumentData>(
             if (docSnapshot.exists()) {
               const newDoc = docSnapshot.data();
 
-              if (
-                !autoGeneratedFields
-                  .map((value) => !!newDoc[value])
-                  .includes(false)
-              ) {
+              if (!autoGeneratedFields.map((value) => !!newDoc[value]).includes(false)) {
                 unsubscribe();
 
                 if (options.afterLoad) {

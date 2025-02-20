@@ -6,9 +6,7 @@ import { Dialog } from 'quasar';
 
 import useReturnUrl from 'composables/useReturnUrl';
 
-export default function navigateToListPage(
-  isDirty: ReturnType<typeof usePageStatus>['isDirty'],
-) {
+export default function navigateToListPage(isDirty: ReturnType<typeof usePageStatus>['isDirty']) {
   // Composables
 
   const router = useRouter();

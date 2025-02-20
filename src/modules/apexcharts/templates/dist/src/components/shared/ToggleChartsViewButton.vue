@@ -13,9 +13,7 @@ const { isChartsView } = useCharts();
 <template>
   <q-btn
     :color="Dark.isActive ? 'grey-9' : 'grey-3'"
-    :icon="`fal fa-${
-      isChartsView ? (isTableView ? 'table' : 'address-card') : 'analytics'
-    }`"
+    :icon="`fal fa-${isChartsView ? (isTableView ? 'table' : 'address-card') : 'analytics'}`"
     round
     text-color="primary"
     @click="isChartsView = !isChartsView"

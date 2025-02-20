@@ -4,11 +4,7 @@ import { ref } from 'vue';
 
 import { uid } from 'quasar';
 
-import {
-  getDownloadURL,
-  ref as storageRef,
-  uploadString,
-} from 'firebase/storage';
+import { getDownloadURL, ref as storageRef, uploadString } from 'firebase/storage';
 
 import imageFileToBase64 from 'utils/imageFileToBase64';
 
@@ -79,10 +75,7 @@ export default function useRichEditor() {
   async function uploadImages(content: string, path: string) {
     await Promise.all(
       imageQueue.map(async (image) => {
-        const imageRef = storageRef(
-          storage,
-          `${path}/${uid()}/${image.fileName}`,
-        );
+        const imageRef = storageRef(storage, `${path}/${uid()}/${image.fileName}`);
 
         await uploadString(imageRef, image.data, 'data_url');
 

@@ -11,10 +11,7 @@ import usePageData from './usePageData';
 import usePageStatus from './usePageStatus';
 import useTableView from './useTableView';
 
-function newScope<
-  T extends NonNullable<unknown>,
-  TRow extends NonNullable<unknown>,
->() {
+function newScope<T extends NonNullable<unknown>, TRow extends NonNullable<unknown>>() {
   const pageStatus = usePageStatus();
   const pageData = usePageData<T>(pageStatus.ready);
   const clientFilter = useClientFilter<T>(pageData.items);
@@ -34,10 +31,7 @@ function newScope<
   };
 }
 
-class NewScopeHelper<
-  T extends NonNullable<unknown>,
-  TRow extends NonNullable<unknown>,
-> {
+class NewScopeHelper<T extends NonNullable<unknown>, TRow extends NonNullable<unknown>> {
   Return = newScope<T, TRow>();
 }
 
@@ -47,10 +41,7 @@ export default function useListPage<
   T extends NonNullable<unknown>,
   TRow extends NonNullable<unknown>,
   TExtra extends NonNullable<unknown> = Record<string, never>,
->(
-  scopeName: string,
-  hitUseCount?: boolean,
-): NewScopeHelper<T, TRow>['Return'] & TExtra {
+>(scopeName: string, hitUseCount?: boolean): NewScopeHelper<T, TRow>['Return'] & TExtra {
   const store = useSingleScopeComposableStore();
 
   !store.hasScope(scopeName) && store.setScope(scopeName, newScope<T, TRow>());

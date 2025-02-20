@@ -25,20 +25,14 @@ module.exports = defineInstall(function appDefault(api) {
       'utf-8',
     );
 
-    if (
-      !quasarVariablesScss.includes("@import './quasar.variables-custom.scss';")
-    ) {
+    if (!quasarVariablesScss.includes("@import './quasar.variables-custom.scss';")) {
       quasarVariablesScss = `${quasarVariablesScss}
 @import './quasar.variables-custom.scss';
 `;
 
-      fs.writeFileSync(
-        api.resolve.src('css/quasar.variables.scss'),
-        quasarVariablesScss,
-        {
-          encoding: 'utf-8',
-        },
-      );
+      fs.writeFileSync(api.resolve.src('css/quasar.variables.scss'), quasarVariablesScss, {
+        encoding: 'utf-8',
+      });
     }
   }
 });

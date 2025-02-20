@@ -21,12 +21,7 @@ defineExpose({
 </script>
 
 <template>
-  <q-tooltip
-    v-bind="$attrs"
-    ref="tooltip"
-    anchor="top middle"
-    self="bottom middle"
-  >
+  <q-tooltip v-bind="$attrs" ref="tooltip" anchor="top middle" self="bottom middle">
     <slot></slot>
   </q-tooltip>
 </template>

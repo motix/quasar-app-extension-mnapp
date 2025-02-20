@@ -18,11 +18,8 @@ export default function useDeleting(
 ) {
   // Composables
 
-  const {
-    notifyErrorDebug,
-    notifyDeleteDataSuccessAndRedirect,
-    notifyDeleteDataError,
-  } = useNotifications();
+  const { notifyErrorDebug, notifyDeleteDataSuccessAndRedirect, notifyDeleteDataError } =
+    useNotifications();
 
   // Data
 

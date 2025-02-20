@@ -84,11 +84,7 @@ function useAutoLoadAllPages() {
 
 function usePageData(
   scopeName: string,
-  emit: (
-    e: 'loadNextPage',
-    index: number,
-    done: (stop: boolean) => void,
-  ) => void,
+  emit: (e: 'loadNextPage', index: number, done: (stop: boolean) => void) => void,
   autoLoadAllPages: ReturnType<typeof useAutoLoadAllPages>['autoLoadAllPages'],
   infiniteScroll: ReturnType<typeof useAutoLoadAllPages>['infiniteScroll'],
 ) {
@@ -188,9 +184,7 @@ function usePageMultiViews(scopeName: string) {
 
   const hasTableView = computed(() => !!columns.value || !!slots['table']);
   const hasCardsView = computed(() => !!slots['item-card'] || !!slots['cards']);
-  const hasMultiViews = computed(
-    () => hasTableView.value && hasCardsView.value,
-  );
+  const hasMultiViews = computed(() => hasTableView.value && hasCardsView.value);
 
   return {
     isTableView,
@@ -256,15 +250,12 @@ const {
   newButton,
 } = useListPage<NonNullable<unknown>, NonNullable<unknown>>(props.scopeName);
 
-const { wrapCells, columns, pagination, rows, headerSlotNames, bodySlotNames } =
-  useTableView(props.scopeName);
+const { wrapCells, columns, pagination, rows, headerSlotNames, bodySlotNames } = useTableView(
+  props.scopeName,
+);
 
-const {
-  autoLoadAllPages,
-  hideAutoLoadAllPagesButton,
-  infiniteScroll,
-  toggleAutoLoadAllPages,
-} = useAutoLoadAllPages();
+const { autoLoadAllPages, hideAutoLoadAllPagesButton, infiniteScroll, toggleAutoLoadAllPages } =
+  useAutoLoadAllPages();
 
 const {
   items,
@@ -275,16 +266,13 @@ const {
   onLoadNextPage,
 } = usePageData(props.scopeName, emit, autoLoadAllPages, infiniteScroll);
 
-const { itemLink, hasViewPage, onRowClick } = useNavigateToViewPage(
+const { itemLink, hasViewPage, onRowClick } = useNavigateToViewPage(props.scopeName);
+
+const { isTableView, isCardsView, hasTableView, hasCardsView, hasMultiViews } = usePageMultiViews(
   props.scopeName,
 );
 
-const { isTableView, isCardsView, hasTableView, hasCardsView, hasMultiViews } =
-  usePageMultiViews(props.scopeName);
-
-const { hideInfiniteScrollLoading } = useSmoothHideInfiniteScrollLoading(
-  props.scopeName,
-);
+const { hideInfiniteScrollLoading } = useSmoothHideInfiniteScrollLoading(props.scopeName);
 
 // Computed
 
@@ -310,10 +298,7 @@ const switchViewButtonMargin = computed(
         <q-spinner-pie color="primary" size="6em" />
       </div>
 
-      <div
-        v-else-if="!items || !clientFilteredItems || items.length === 0"
-        key="empty"
-      >
+      <div v-else-if="!items || !clientFilteredItems || items.length === 0" key="empty">
         <!-- Empty -->
         <div
           :class="{
@@ -327,16 +312,9 @@ const switchViewButtonMargin = computed(
 
       <div v-else key="ready">
         <!-- Ready -->
-        <q-infinite-scroll
-          ref="infiniteScroll"
-          :offset="250"
-          @load="onLoadNextPage"
-        >
+        <q-infinite-scroll ref="infiniteScroll" :offset="250" @load="onLoadNextPage">
           <fade-transition>
-            <slot
-              v-if="hasTableView && (isTableView || !hasCardsView)"
-              name="table"
-            >
+            <slot v-if="hasTableView && (isTableView || !hasCardsView)" name="table">
               <div key="tableView">
                 <sticky-headers target="#mainTable" />
 
@@ -352,26 +330,18 @@ const switchViewButtonMargin = computed(
                     <slot name="top"></slot>
                   </template>
 
-                  <template
-                    v-for="slotName in headerSlotNames"
-                    #[slotName]="slotProps"
-                  >
+                  <template v-for="slotName in headerSlotNames" #[slotName]="slotProps">
                     <slot :name="slotName" :props="slotProps"></slot>
                   </template>
 
-                  <template
-                    v-for="slotName in bodySlotNames"
-                    #[slotName]="slotProps"
-                  >
+                  <template v-for="slotName in bodySlotNames" #[slotName]="slotProps">
                     <slot :name="slotName" :props="slotProps"></slot>
                   </template>
 
                   <template #bottom>
                     <div class="text-center full-width">
                       {{ itemCountLabel }}
-                      <template
-                        v-if="items.length > clientFilteredItems.length"
-                      >
+                      <template v-if="items.length > clientFilteredItems.length">
                         - {{ clientFilteredItemCountLabel }}
                       </template>
                     </div>
@@ -380,10 +350,7 @@ const switchViewButtonMargin = computed(
               </div>
             </slot>
 
-            <slot
-              v-else-if="hasCardsView && (isCardsView || !hasTableView)"
-              name="cards"
-            >
+            <slot v-else-if="hasCardsView && (isCardsView || !hasTableView)" name="cards">
               <div key="cardsView">
                 <div class="row items-start justify-evenly q-gutter-md">
                   <div class="col-12 q-mb-md text-center">
@@ -400,10 +367,7 @@ const switchViewButtonMargin = computed(
                   ></slot>
                 </div>
 
-                <div
-                  class="text-center q-mt-lg"
-                  :class="{ 'q-mb-md': allItemsLoaded }"
-                >
+                <div class="text-center q-mt-lg" :class="{ 'q-mb-md': allItemsLoaded }">
                   {{ itemCountLabel }}
                   <template v-if="items.length > clientFilteredItems.length">
                     - {{ clientFilteredItemCountLabel }}
@@ -427,10 +391,7 @@ const switchViewButtonMargin = computed(
       </div>
     </fade-transition>
 
-    <float-toolbar
-      v-if="$slots['toolbar-extra']"
-      :fab-buttons-space-ignored="1"
-    >
+    <float-toolbar v-if="$slots['toolbar-extra']" :fab-buttons-space-ignored="1">
       <template v-if="newButton || !hideAutoLoadAllPagesButton" #fixed-buttons>
         <q-btn
           v-if="newButton"
@@ -472,9 +433,7 @@ const switchViewButtonMargin = computed(
       </transition-group>
     </float-toolbar>
 
-    <float-toolbar
-      v-else-if="newButton || hasMultiViews || !hideAutoLoadAllPagesButton"
-    >
+    <float-toolbar v-else-if="newButton || hasMultiViews || !hideAutoLoadAllPagesButton">
       <template #fixed-buttons>
         <q-btn
           v-if="newButton"

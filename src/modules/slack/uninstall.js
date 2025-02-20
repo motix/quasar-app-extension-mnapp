@@ -12,8 +12,5 @@ module.exports = defineUninstall(function (api) {
     ' \x1b[32mslack         • \x1b[0mPlease remove \x1b[47m\x1b[30m./.env\x1b[0m if no longer used.',
   );
 
-  reduceJsonFile(api, 'package.json', [
-    'dependencies.slack',
-    'dependencies.slack-message-parser',
-  ]);
+  reduceJsonFile(api, 'package.json', ['dependencies.slack', 'dependencies.slack-message-parser']);
 });

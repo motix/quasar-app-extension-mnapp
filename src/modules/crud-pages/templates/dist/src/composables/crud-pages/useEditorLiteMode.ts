@@ -28,9 +28,7 @@ export default function useEditorLiteMode<TVm extends NonNullable<unknown>>(
 
   // Computed
 
-  const showToggleLiteModeButton = computed(
-    () => $p.ready.value && $ep.newPageOrEditMode.value,
-  );
+  const showToggleLiteModeButton = computed(() => $p.ready.value && $ep.newPageOrEditMode.value);
 
   // Methods
 

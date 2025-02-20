@@ -47,11 +47,7 @@ module.exports = defineInstall(function (api) {
 
     const extensionsJson = require(api.resolve.app('.vscode/extensions.json'));
 
-    if (
-      !extensionsJson.recommendations?.includes(
-        'rohit-gohri.format-code-action',
-      )
-    ) {
+    if (!extensionsJson.recommendations?.includes('rohit-gohri.format-code-action')) {
       api.extendJsonFile('.vscode/extensions.json', {
         recommendations: ['rohit-gohri.format-code-action'],
       });
@@ -65,9 +61,7 @@ module.exports = defineInstall(function (api) {
       delete require.cache[api.resolve.app('.vscode/extensions.json')];
     }
 
-    if (
-      !extensionsJson.recommendations?.includes('aaron-bond.better-comments')
-    ) {
+    if (!extensionsJson.recommendations?.includes('aaron-bond.better-comments')) {
       api.extendJsonFile('.vscode/extensions.json', {
         recommendations: ['aaron-bond.better-comments'],
       });
@@ -83,19 +77,13 @@ module.exports = defineInstall(function (api) {
 
     api.extendJsonFile('.vscode/settings.json', {
       'editor.formatOnSave': false,
-      'editor.codeActionsOnSave': [
-        'source.formatDocument',
-        'source.fixAll.eslint',
-      ],
+      'editor.codeActionsOnSave': ['source.formatDocument', 'source.fixAll.eslint'],
     });
     delete require.cache[api.resolve.app('.vscode/settings.json')];
 
     // Modify `.eslintrc.cjs`.
 
-    let eslintrcCjs = fs.readFileSync(
-      api.resolve.app('.eslintrc.cjs'),
-      'utf-8',
-    );
+    let eslintrcCjs = fs.readFileSync(api.resolve.app('.eslintrc.cjs'), 'utf-8');
 
     eslintrcCjs = eslintrcCjs
       .replace(
@@ -134,10 +122,7 @@ module.exports = defineInstall(function (api) {
 
     // Modify src/shims-vue.d.ts
 
-    let shimsVueDTs = fs.readFileSync(
-      api.resolve.app('src/shims-vue.d.ts'),
-      'utf-8',
-    );
+    let shimsVueDTs = fs.readFileSync(api.resolve.app('src/shims-vue.d.ts'), 'utf-8');
 
     shimsVueDTs = shimsVueDTs.replace(
       `declare module '*.vue' {

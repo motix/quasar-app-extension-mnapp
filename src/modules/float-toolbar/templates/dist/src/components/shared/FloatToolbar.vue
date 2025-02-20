@@ -40,8 +40,7 @@ const slots = useSlots();
 
 // Composables
 
-const { floatToolbarOffsetTop, floatToolbarOffsetBottom } =
-  useFloatToolbarResult();
+const { floatToolbarOffsetTop, floatToolbarOffsetBottom } = useFloatToolbarResult();
 
 // Data
 
@@ -76,8 +75,7 @@ const fabButtonsCount = computed(() => {
 const showFab = computed(() => !!slots.default && fabButtonsCount.value > 0);
 
 const offsetX = computed(
-  () =>
-    PAGE_PADDING - (!showFab.value ? QBTN_MARGIN : 0) + (props.offset.x || 0),
+  () => PAGE_PADDING - (!showFab.value ? QBTN_MARGIN : 0) + (props.offset.x || 0),
 );
 
 const offsetY = computed(() => {
@@ -85,11 +83,8 @@ const offsetY = computed(() => {
 
   if (props.position.includes('top')) {
     return (
-      Math.max(
-        floatToolbarOffsetTop.value - buttonSize / 2,
-        -(buttonSize / 2),
-        props.minMarginY,
-      ) + (props.offset.y || 0)
+      Math.max(floatToolbarOffsetTop.value - buttonSize / 2, -(buttonSize / 2), props.minMarginY) +
+      (props.offset.y || 0)
     );
   } else if (props.position.includes('bottom')) {
     return (
@@ -196,10 +191,7 @@ const fabContentMargin = computed(() => {
     props.position === 'right'
   ) {
     return { 'margin-top': `${buttonSpace.value}px` };
-  } else if (
-    props.position === 'bottom-left' ||
-    props.position === 'bottom-right'
-  ) {
+  } else if (props.position === 'bottom-left' || props.position === 'bottom-right') {
     return { 'margin-bottom': `${buttonSpace.value}px` };
   } else if (props.position === 'top' || props.position === 'bottom') {
     return {};
@@ -225,8 +217,7 @@ const fixedButtonsPosition = computed(() => {
     (QFAB_ACTIONS_PADDING +
       QFAB_ACTIONS_MARGIN +
       (fabOpened.value
-        ? buttonSpace.value *
-          (fabButtonsCount.value - props.fabButtonsSpaceIgnored)
+        ? buttonSpace.value * (fabButtonsCount.value - props.fabButtonsSpaceIgnored)
         : 0))
   );
 });

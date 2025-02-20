@@ -52,10 +52,7 @@ export default function useDetailsEditor<
 
   // Methods
 
-  function setDetailEditorRef(
-    el: (typeof detailEditorRefs.value)[number] | null,
-    index: number,
-  ) {
+  function setDetailEditorRef(el: (typeof detailEditorRefs.value)[number] | null, index: number) {
     if (el !== null) {
       detailEditorRefs.value[index] = el;
     }
@@ -97,9 +94,7 @@ export default function useDetailsEditor<
   }
 
   async function validateDetailsEditor() {
-    const results = await Promise.all(
-      detailEditorRefs.value.map((value) => value.validate()),
-    );
+    const results = await Promise.all(detailEditorRefs.value.map((value) => value.validate()));
 
     return !results.includes(false);
   }
@@ -107,9 +102,7 @@ export default function useDetailsEditor<
   // Watch
 
   watch(
-    computed(() =>
-      $p.viewModel.value ? getDetails($p.viewModel.value).length : undefined,
-    ),
+    computed(() => ($p.viewModel.value ? getDetails($p.viewModel.value).length : undefined)),
     () => {
       detailEditorRefs.value = [];
     },

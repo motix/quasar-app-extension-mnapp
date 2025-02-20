@@ -45,15 +45,13 @@ export default function useListPageFilterWithOptions<FilterType>(
 
   // Computed
 
-  const filterOptions = computed(
-    (): { type: FilterType; label: string; selected: boolean }[] => {
-      return options.map((value) => ({
-        type: value.type,
-        label: value.label,
-        selected: value.type === listPageFilter.currentFilter.value,
-      }));
-    },
-  );
+  const filterOptions = computed((): { type: FilterType; label: string; selected: boolean }[] => {
+    return options.map((value) => ({
+      type: value.type,
+      label: value.label,
+      selected: value.type === listPageFilter.currentFilter.value,
+    }));
+  });
 
   return {
     ...listPageFilter,
