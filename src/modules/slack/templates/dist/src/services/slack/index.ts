@@ -3,7 +3,7 @@ import type { Node } from 'slack-message-parser';
 
 import emojiData from './emoji.json';
 
-import { isEqual, sortBy, uniqWith } from 'lodash';
+import { isEqual, sortBy, uniqWith } from 'lodash-es';
 import slack from 'slack';
 import parse, { NodeType } from 'slack-message-parser';
 

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { isFinite } from 'lodash';
+import { isFinite } from 'lodash-es';
 
 import { computed } from 'vue';
 

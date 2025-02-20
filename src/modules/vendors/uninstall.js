@@ -26,8 +26,8 @@ module.exports = defineUninstall(function vendors(api) {
     'dependencies.axios',
 
     // Lodash
-    'dependencies.lodash',
-    'devDependencies.@types/lodash',
+    'dependencies.lodash-es',
+    'devDependencies.@types/lodash-es',
 
     // js-guid
     'dependencies.js-guid',

@@ -6,7 +6,7 @@ import type {
 } from 'stores/firebase-firestore';
 import type { Ref } from 'vue';
 
-import { differenceBy, findIndex } from 'lodash';
+import { differenceBy, findIndex } from 'lodash-es';
 
 import { computed, ref } from 'vue';
 

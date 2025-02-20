@@ -1,4 +1,4 @@
-import { isFinite } from 'lodash';
+import { isFinite } from 'lodash-es';
 
 declare module '../useFormats' {
   interface FormatsInstance {

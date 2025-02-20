@@ -1,4 +1,4 @@
-import { isFinite } from 'lodash';
+import { isFinite } from 'lodash-es';
 
 export function checkAndCalculate<TResult>(
   calculation: () => TResult,

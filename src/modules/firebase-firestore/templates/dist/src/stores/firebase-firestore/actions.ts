@@ -23,7 +23,7 @@ import type {
 } from 'firebase/firestore';
 import type { UnwrapRef } from 'vue';
 
-import { findIndex } from 'lodash';
+import { findIndex } from 'lodash-es';
 
 import { uid } from 'quasar';
 

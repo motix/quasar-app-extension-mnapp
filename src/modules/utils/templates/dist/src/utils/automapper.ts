@@ -8,7 +8,7 @@ import type {
 import type { PojoMetadata } from '@automapper/pojos';
 import type { Timestamp } from '@firebase/firestore';
 
-import { isArray, isDate, isObject } from 'lodash';
+import { isArray, isDate, isObject } from 'lodash-es';
 
 import {
   afterMap,

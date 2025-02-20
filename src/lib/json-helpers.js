@@ -2,7 +2,7 @@
 const BaseAPI = require('@quasar/app-vite/lib/app-extension/BaseAPI');
 
 const fs = require('fs');
-const { unset, get } = require('lodash');
+const { unset, get } = require('lodash-es');
 
 /**
  * @param {BaseAPI} api

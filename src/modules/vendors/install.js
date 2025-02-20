@@ -50,10 +50,10 @@ module.exports = defineInstall(function vendors(api) {
   if (vendors.includes('lds')) {
     api.extendPackageJson({
       dependencies: {
-        lodash: '^4.17.21',
+        'lodash-es': '^4.17.21',
       },
       devDependencies: {
-        '@types/lodash': '^4.14.195',
+        '@types/lodash-es': '^4.17.12',
       },
     });
     delete require.cache[api.resolve.app('package.json')];
