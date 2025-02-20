@@ -198,7 +198,7 @@ watch(freezed, (value) => {
             round
             text-color="primary"
             @click="
-              (function () {
+              (() => {
                 hideSaveTooltip();
                 editorSave();
               })()
