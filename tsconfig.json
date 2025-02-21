@@ -1,74 +1,11 @@
 {
-  "extends": "@quasar/app-vite/tsconfig-preset",
+  "extends": "./templates/.quasar/tsconfig.json",
   "compilerOptions": {
-    "baseUrl": ".",
-    "skipLibCheck": true,
-    "moduleDetection": "force",
-    "lib": ["esnext", "dom", "dom.iterable"],
-    "allowUnreachableCode": false,
-    "allowUnusedLabels": false,
-    "noImplicitOverride": true,
-    "exactOptionalPropertyTypes": true,
-    "noUncheckedIndexedAccess": true,
-    "paths": {
-      "layouts/*": ["src/layouts/*", "src/modules/float-toolbar/templates/dev/src/layouts/*"],
-      "pages/*": [
-        "src/pages/*",
-        "src/modules/float-toolbar/templates/dev/src/pages/*",
-        "src/modules/multi-views/templates/dev/src/pages/*",
-        "src/modules/notifications/templates/dev/src/pages/*",
-        "src/modules/scroll/templates/dev/src/pages/*",
-        "src/modules/shared-components/templates/dev/src/pages/*"
-      ],
-
-      "app/package.json": ["src/modules/page-title/package.json"],
-      "app/firebase.json": ["src/modules/firebase/firebase.json"],
-
-      "utils/*": [
-        "src/modules/utils/templates/dist/src/utils/*",
-        "src/modules/document-status/templates/dist/src/utils/*"
-      ],
-
-      "models/*": [
-        "src/modules/firebase-auth/templates/dist/src/models/*",
-        "src/modules/firebase-firestore/templates/dist/src/models/*",
-        "src/modules/slack/templates/dist/src/models/*",
-        "src/modules/single-scope-composable/templates/dist/src/models/*"
-      ],
-
-      "stores/*": [
-        "src/modules/firebase-auth/templates/dist/src/stores/*",
-        "src/modules/firebase-firestore/templates/dist/src/stores/*",
-        "src/modules/single-scope-composable/templates/dist/src/stores/*"
-      ],
-
-      "services/*": [
-        "src/modules/firebase/templates/dist/src/services/*",
-        "src/modules/firebase-auth/templates/dist/src/services/*"
-      ],
-
-      "composables/*": [
-        "src/modules/config/templates/dist/src/composables/*",
-        "src/modules/notifications/templates/dist/src/composables/*",
-        "src/modules/scroll/templates/dist/src/composables/*",
-        "src/modules/float-toolbar/templates/dist/src/composables/*",
-        "src/modules/sticky-headers/templates/dist/src/composables/*",
-        "src/modules/multi-views/templates/dist/src/composables/*",
-        "src/modules/return-url/templates/dist/src/composables/*",
-        "src/modules/apexcharts/templates/dist/src/composables/*",
-        "src/modules/firebase-auth/templates/dist/src/composables/*",
-        "src/modules/crud-pages/templates/dist/src/composables/*"
-      ],
-
-      "components/*": [
-        "src/modules/shared-components/templates/dist/src/components/*",
-        "src/modules/float-toolbar/templates/dist/src/components/*",
-        "src/modules/sticky-headers/templates/dist/src/components/*",
-        "src/modules/multi-views/templates/dist/src/components/*",
-        "src/modules/crud-pages/templates/dist/src/components/*"
-      ]
-    }
+    "noEmit": false,
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "paths": {}
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "include": ["./src/**/*.ts"],
+  "exclude": []
 }

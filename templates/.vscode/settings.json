@@ -5,8 +5,5 @@
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.codeActionsOnSave": ["source.formatDocument", "source.fixAll.eslint"],
   "eslint.validate": ["javascript", "javascriptreact", "typescript", "vue"],
-  "typescript.tsdk": "node_modules/typescript/lib",
-  "search.exclude": {
-    "dist": true
-  }
+  "typescript.tsdk": "node_modules/typescript/lib"
 }

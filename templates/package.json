@@ -1,0 +1,41 @@
+{
+  "name": "mnapp-templates",
+  "version": "0.0.1",
+  "description": "Templates for mnapp",
+  "productName": "mnapp Templates",
+  "author": "Minh Nguyen <minh.nguyen@motiteam.com>",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "lint": "eslint -c ./eslint.config.js \"./modules/**/*.{ts,js,cjs,mjs,vue}\"",
+    "format": "prettier --write \"**/*.{js,ts,vue,scss,html,md,json}\" --ignore-path .gitignore",
+    "test": "echo \"No test specified\" && exit 0",
+    "postinstall": "node fixQuasarAppVite.js && quasar prepare",
+    "clean": "yarn format-imports modules && yarn format --log-level warn && yarn lint --fix",
+    "tsc": "yarn vue-tsc --noEmit --skipLibCheck"
+  },
+  "dependencies": {
+    "quasar": "^2.17.7",
+    "vue": "^3.5.13",
+    "vue-router": "^4.5.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.20.0",
+    "eslint": "^9.20.1",
+    "eslint-plugin-vue": "^9.32.0",
+    "globals": "^15.15.0",
+    "vue-tsc": "^2.2.2",
+    "@vue/eslint-config-typescript": "^14.4.0",
+    "@vue/eslint-config-prettier": "^10.2.0",
+    "prettier": "^3.5.1",
+    "@types/node": "^20.5.9",
+    "@quasar/app-vite": "^2.1.0",
+    "typescript": "^5.7.3",
+    "format-imports": "^4.0.7"
+  },
+  "engines": {
+    "node": "^28 || ^26 || ^24 || ^22 || ^20 || ^18",
+    "npm": ">= 6.13.4",
+    "yarn": ">= 1.21.1"
+  }
+}
