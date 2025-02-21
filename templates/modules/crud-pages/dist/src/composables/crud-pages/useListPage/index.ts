@@ -39,7 +39,7 @@ export * from './useTableView';
 
 export default function useListPage<
   T extends NonNullable<unknown>,
-  TRow extends NonNullable<unknown>,
+  TRow extends NonNullable<unknown> = T,
   TExtra extends NonNullable<unknown> = Record<string, never>,
 >(scopeName: string, hitUseCount?: boolean): NewScopeHelper<T, TRow>['Return'] & TExtra {
   const store = useSingleScopeComposableStore();

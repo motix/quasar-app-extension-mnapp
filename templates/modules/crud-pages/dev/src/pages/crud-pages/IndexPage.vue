@@ -19,10 +19,9 @@ const SCOPE_NAME = 'list-page';
 
 // Composables
 
-const $p = useListPage<Member, Member>(SCOPE_NAME, true);
+const $p = useListPage<Member>(SCOPE_NAME, true);
 const {
   // Auto sort
-  c,
   listItemCardWidth,
   onItemClick,
 } = $p;
@@ -112,7 +111,7 @@ $p.newUrl.value = '/crud-pages/new-member';
 </script>
 
 <template>
-  <list-page :scope-name="SCOPE_NAME" @load-next-page="onLoadNextPage">
+  <list-page :composition="$p" :scope-name="SCOPE_NAME" @load-next-page="onLoadNextPage">
     <template #top>
       <q-btn-dropdown color="accent" :label="filterLabel" rounded>
         <q-list>
@@ -165,27 +164,27 @@ $p.newUrl.value = '/crud-pages/new-member';
 
     <template #item-card="{ model, link }">
       <expandable-card
-        :avatar-icon="c(model).photoUrl ? undefined : 'fas fa-user-alt'"
-        :avatar-image="c(model).photoUrl || undefined"
-        :caption="c(model).email"
+        :avatar-icon="model.photoUrl ? undefined : 'fas fa-user-alt'"
+        :avatar-image="model.photoUrl || undefined"
+        :caption="model.email"
         clickable
         :external-link-url="link()"
         :style="{ maxWidth: listItemCardWidth + 'px' }"
-        :subtitle="c(model).uid"
+        :subtitle="model.uid"
         subtitle-tooltip="UID"
-        :title="c(model).fullName"
-        @click="onItemClick($event, c(model), true)"
+        :title="model.fullName"
+        @click="onItemClick($event, model, true)"
       >
-        <template v-if="!!c(model).slackId" #main>
+        <template v-if="!!model.slackId" #main>
           <div class="q-mt-sm text-caption">
-            Slack ID: {{ c(model).slackId }}
+            Slack ID: {{ model.slackId }}
             <top-tooltip>Slack ID</top-tooltip>
           </div>
         </template>
 
         <template #side>
           <q-toggle
-            v-model="c(model).isActive"
+            v-model="model.isActive"
             checked-icon="fal fa-power-off"
             class="right-toggle"
             color="primary"
@@ -196,7 +195,7 @@ $p.newUrl.value = '/crud-pages/new-member';
           </q-toggle>
 
           <q-toggle
-            v-model="c(model).inviteToFinanceChannels"
+            v-model="model.inviteToFinanceChannels"
             checked-icon="fal fa-comments"
             class="right-toggle"
             color="primary"

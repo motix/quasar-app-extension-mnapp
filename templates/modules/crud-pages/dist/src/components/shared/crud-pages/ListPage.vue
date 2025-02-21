@@ -1,10 +1,12 @@
 <script lang="ts">
 export default {};
 
+import type { ListPage } from 'composables/crud-pages/useListPage';
+import type { QTableSlots } from 'quasar';
 import type { VNode } from 'vue';
+
 import { computed, nextTick, ref, useSlots, watchEffect } from 'vue';
 
-import type { QTableSlots } from 'quasar';
 import { Dark, QInfiniteScroll } from 'quasar';
 
 import useListPage from 'composables/crud-pages/useListPage';
@@ -17,20 +19,22 @@ import SwitchViewButton from 'components/shared/SwitchViewButton.vue';
 type HeaderCellProps = Parameters<QTableSlots['header-cell-']>[0];
 type BodyCellProps = Parameters<QTableSlots['body-cell-']>[0];
 
-export interface ListPageSlots {
+export interface ListPageSlots<T extends NonNullable<unknown>> {
   [key: `header-cell-${string}`]: (props: { props: HeaderCellProps }) => VNode[];
   [key: `body-cell-${string}`]: (props: { props: BodyCellProps }) => VNode[];
   table: () => VNode[];
   cards: () => VNode[];
   top?: () => VNode[];
   'toolbar-extra': () => VNode[];
-  'item-card': (props: { model: NonNullable<unknown>; link: () => string }) => VNode[];
+  'item-card': (props: { model: T; link: () => string }) => VNode[];
 }
 
-function useTableView(scopeName: string) {
+function useTableView<T extends NonNullable<unknown>, TRow extends NonNullable<unknown>>(
+  scopeName: string,
+) {
   // Slots
 
-  const slots = useSlots() as unknown as Readonly<ListPageSlots> & ListPageSlots;
+  const slots = useSlots() as unknown as Readonly<ListPageSlots<T>> & ListPageSlots<T>;
 
   // Composables
 
@@ -40,7 +44,7 @@ function useTableView(scopeName: string) {
     columns,
     pagination,
     rows,
-  } = useListPage<NonNullable<unknown>, NonNullable<unknown>>(scopeName);
+  } = useListPage<T, TRow>(scopeName);
 
   // Computed
 
@@ -97,7 +101,7 @@ function useAutoLoadAllPages() {
   };
 }
 
-function usePageData(
+function usePageData<T extends NonNullable<unknown>, TRow extends NonNullable<unknown>>(
   scopeName: string,
   emit: (e: 'loadNextPage', index: number, done: (stop: boolean) => void) => void,
   autoLoadAllPages: ReturnType<typeof useAutoLoadAllPages>['autoLoadAllPages'],
@@ -113,7 +117,7 @@ function usePageData(
     // useClientFilter
     clientFilteredItems,
     clientFilteredItemCountLabel,
-  } = useListPage<NonNullable<unknown>, NonNullable<unknown>>(scopeName);
+  } = useListPage<T, TRow>(scopeName);
 
   // Methods
 
@@ -140,7 +144,9 @@ function usePageData(
   };
 }
 
-function useNavigateToViewPage(scopeName: string) {
+function useNavigateToViewPage<T extends NonNullable<unknown>, TRow extends NonNullable<unknown>>(
+  scopeName: string,
+) {
   // Composables
 
   const {
@@ -150,7 +156,7 @@ function useNavigateToViewPage(scopeName: string) {
     viewUrl,
     itemLink,
     onItemClick,
-  } = useListPage<NonNullable<unknown>, NonNullable<unknown>>(scopeName);
+  } = useListPage<T, TRow>(scopeName);
 
   // Computed
 
@@ -158,7 +164,7 @@ function useNavigateToViewPage(scopeName: string) {
 
   // Methods
 
-  function handleRowClick(evt: Event, row: NonNullable<unknown>) {
+  function handleRowClick(evt: Event, row: TRow) {
     if (onRowClick.value) {
       onRowClick.value(evt, row);
     } else if ((evt.target as Element).localName !== 'a') {
@@ -169,7 +175,9 @@ function useNavigateToViewPage(scopeName: string) {
       }
 
       if (parent === null) {
-        onItemClick(evt as MouseEvent, row, false);
+        // Normally T and TRow are the same, if implemented differently,
+        // override onRowClick behaviour by setting onRowClick.value
+        onItemClick(evt as MouseEvent, row as unknown as T, false);
       }
     }
   }
@@ -181,10 +189,12 @@ function useNavigateToViewPage(scopeName: string) {
   };
 }
 
-function usePageMultiViews(scopeName: string) {
+function usePageMultiViews<T extends NonNullable<unknown>, TRow extends NonNullable<unknown>>(
+  scopeName: string,
+) {
   // Slots
 
-  const slots = useSlots() as unknown as Readonly<ListPageSlots> & ListPageSlots;
+  const slots = useSlots() as unknown as Readonly<ListPageSlots<T>> & ListPageSlots<T>;
 
   // Composables
 
@@ -193,7 +203,7 @@ function usePageMultiViews(scopeName: string) {
   const {
     // useTableView
     columns,
-  } = useListPage<NonNullable<unknown>, NonNullable<unknown>>(scopeName);
+  } = useListPage<T, TRow>(scopeName);
 
   // Computed
 
@@ -210,13 +220,16 @@ function usePageMultiViews(scopeName: string) {
   };
 }
 
-function useSmoothHideInfiniteScrollLoading(scopeName: string) {
+function useSmoothHideInfiniteScrollLoading<
+  T extends NonNullable<unknown>,
+  TRow extends NonNullable<unknown>,
+>(scopeName: string) {
   // Composables
 
   const {
     // usePageData
     allItemsLoaded,
-  } = useListPage<NonNullable<unknown>, NonNullable<unknown>>(scopeName);
+  } = useListPage<T, TRow>(scopeName);
 
   // Data
 
@@ -240,14 +253,18 @@ function useSmoothHideInfiniteScrollLoading(scopeName: string) {
 }
 </script>
 
-<script setup lang="ts">
+<script setup lang="ts" generic="T extends NonNullable<unknown>, TRow extends NonNullable<unknown>">
 // Props
 
-const props = defineProps<{ scopeName: string }>();
+const props = defineProps<{
+  scopeName: string;
+  // T and TRow will be inferred from this prop
+  composition: ListPage<T, TRow>;
+}>();
 
 // Slots
 
-const slots = defineSlots<ListPageSlots>();
+const slots = defineSlots<ListPageSlots<T>>();
 
 // Emit
 
@@ -263,11 +280,12 @@ const {
   // useNavigateToNewPage
   newUrl,
   newButton,
-} = useListPage<NonNullable<unknown>, NonNullable<unknown>>(props.scopeName);
+} = useListPage<T, TRow>(props.scopeName);
 
-const { wrapCells, columns, pagination, rows, headerSlotNames, bodySlotNames } = useTableView(
-  props.scopeName,
-);
+const { wrapCells, columns, pagination, rows, headerSlotNames, bodySlotNames } = useTableView<
+  T,
+  TRow
+>(props.scopeName);
 
 const { autoLoadAllPages, hideAutoLoadAllPagesButton, infiniteScroll, toggleAutoLoadAllPages } =
   useAutoLoadAllPages();
@@ -279,15 +297,16 @@ const {
   clientFilteredItems,
   clientFilteredItemCountLabel,
   onLoadNextPage,
-} = usePageData(props.scopeName, emit, autoLoadAllPages, infiniteScroll);
+} = usePageData<T, TRow>(props.scopeName, emit, autoLoadAllPages, infiniteScroll);
 
-const { itemLink, hasViewPage, onRowClick } = useNavigateToViewPage(props.scopeName);
+const { itemLink, hasViewPage, onRowClick } = useNavigateToViewPage<T, TRow>(props.scopeName);
 
-const { isTableView, isCardsView, hasTableView, hasCardsView, hasMultiViews } = usePageMultiViews(
-  props.scopeName,
-);
+const { isTableView, isCardsView, hasTableView, hasCardsView, hasMultiViews } = usePageMultiViews<
+  T,
+  TRow
+>(props.scopeName);
 
-const { hideInfiniteScrollLoading } = useSmoothHideInfiniteScrollLoading(props.scopeName);
+const { hideInfiniteScrollLoading } = useSmoothHideInfiniteScrollLoading<T, TRow>(props.scopeName);
 
 // Computed
 
