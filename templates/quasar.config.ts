@@ -1,6 +1,6 @@
 // Supports quasar prepare
 
-import { defineConfig } from '#q-app/wrappers'
+import { defineConfig } from '#q-app/wrappers';
 
 export default defineConfig((/* ctx */) => {
   return {
@@ -10,5 +10,5 @@ export default defineConfig((/* ctx */) => {
         vueShim: false,
       },
     },
-  }
-})
+  };
+});

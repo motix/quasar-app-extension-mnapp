@@ -8,5 +8,7 @@
   "typescript.tsdk": "node_modules/typescript/lib",
   "search.exclude": {
     "dist": true
-  }
+  },
+  "compareFolders.excludeFilter": ["node_modules", ".git"],
+  "compareFolders.ignoreFileNameCase": false
 }

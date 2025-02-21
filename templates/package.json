@@ -17,7 +17,23 @@
   "dependencies": {
     "quasar": "^2.17.7",
     "vue": "^3.5.13",
-    "vue-router": "^4.5.0"
+    "vue-router": "^4.5.0",
+    "lodash-es": "^4.17.21",
+    "js-guid": "^1.0.2",
+    "@automapper/core": "^8.8.1",
+    "@automapper/pojos": "^8.8.1",
+    "vee-validate": "^4.15.0",
+    "yup": "^1.6.1",
+    "vue-markdown-render": "^2.2.1",
+    "apexcharts": "^4.4.0",
+    "vue3-apexcharts": "^1.8.0",
+    "exceljs": "^4.4.0",
+    "file-saver": "^2.0.5",
+    "pinia": "^3.0.1",
+    "firebase": "^11.3.1",
+    "firebaseui": "^6.1.0",
+    "slack": "^11.0.2",
+    "slack-message-parser": "^3.0.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.20.0",
@@ -31,7 +47,11 @@
     "@types/node": "^20.5.9",
     "@quasar/app-vite": "^2.1.0",
     "typescript": "^5.7.3",
-    "format-imports": "^4.0.7"
+    "format-imports": "^4.0.7",
+    "@types/lodash-es": "^4.17.12",
+    "@types/markdown-it": "^14.1.2",
+    "@types/file-saver": "^2.0.7",
+    "cross-env": "^7.0.3"
   },
   "engines": {
     "node": "^28 || ^26 || ^24 || ^22 || ^20 || ^18",

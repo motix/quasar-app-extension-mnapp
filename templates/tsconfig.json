@@ -1,3 +1,68 @@
 {
-  "extends": "./.quasar/tsconfig.json"
+  "extends": "./.quasar/tsconfig.json",
+  "compilerOptions": {
+    "paths": {
+      "components/*": [
+        "./src/components/*",
+        "./modules/shared-components/dist/src/components/*",
+        "./modules/float-toolbar/dist/src/components/*",
+        "./modules/sticky-headers/dist/src/components/*",
+        "./modules/multi-views/dist/src/components/*",
+        "./modules/crud-pages/dist/src/components/*",
+        "./modules/crud-pages/dev/src/components/*"
+      ],
+      "layouts/*": [
+        "./src/layouts/*",
+        "./modules/float-toolbar/dev/src/layouts/*",
+        "./modules/crud-pages/dev/src/layouts/*",
+        "./modules/app-default/dist/src/layouts/*"
+      ],
+      "pages/*": [
+        "./src/pages/*",
+        "./modules/shared-components/dev/src/pages/*",
+        "./modules/notifications/dev/src/pages/*",
+        "./modules/scroll/dev/src/pages/*",
+        "./modules/float-toolbar/dev/src/pages/*",
+        "./modules/multi-views/dev/src/pages/*",
+        "./modules/firebase-auth/dist/src/pages/*",
+        "./modules/crud-pages/dev/src/pages/*"
+      ],
+      "stores/*": [
+        "./modules/firebase-auth/dist/src/stores/*",
+        "./modules/firebase-firestore/dist/src/stores/*",
+        "./modules/single-scope-composable/dist/src/stores/*",
+        "./modules/crud-pages/dev/src/stores/*"
+      ],
+      "#q-app/wrappers": ["./../node_modules/@quasar/app-vite/types/app-wrappers.d.ts"],
+      "app/package.json": ["./modules/page-title/package.json"],
+      "app/firebase.json": ["./modules/firebase/firebase.json"],
+      "utils/*": ["./modules/utils/dist/src/utils/*", "./modules/document-status/dist/src/utils/*"],
+      "models/*": [
+        "./modules/firebase-auth/dist/src/models/*",
+        "./modules/firebase-firestore/dist/src/models/*",
+        "./modules/slack/dist/src/models/*",
+        "./modules/single-scope-composable/dist/src/models/*",
+        "./modules/crud-pages/dev/src/models/*"
+      ],
+      "services/*": [
+        "./modules/firebase/dist/src/services/*",
+        "./modules/firebase-auth/dist/src/services/*",
+        "./modules/firebase-firestore/dist/src/services/*"
+      ],
+      "composables/*": [
+        "./modules/config/dist/src/composables/*",
+        "./modules/formats/dist/src/composables/*",
+        "./modules/page-title/dist/src/composables/*",
+        "./modules/notifications/dist/src/composables/*",
+        "./modules/scroll/dist/src/composables/*",
+        "./modules/float-toolbar/dist/src/composables/*",
+        "./modules/sticky-headers/dist/src/composables/*",
+        "./modules/multi-views/dist/src/composables/*",
+        "./modules/return-url/dist/src/composables/*",
+        "./modules/apexcharts/dist/src/composables/*",
+        "./modules/firebase-auth/dist/src/composables/*",
+        "./modules/crud-pages/dist/src/composables/*"
+      ]
+    }
+  }
 }
