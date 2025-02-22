@@ -13,17 +13,14 @@ import { requiredConfigEntries } from 'composables/useConfig';
 
 type Props = {
   name: string;
-  modelValue: string | null | undefined;
   optional?: boolean | undefined;
   dateOptions?: QDateProps['options'] | undefined;
 };
-const { name, modelValue, optional, dateOptions } = defineProps<Props>();
+const { name, optional, dateOptions } = defineProps<Props>();
 
-// Emits
+// Models
 
-const emit = defineEmits<{
-  (e: 'update:modelValue', value: string | null | undefined): void;
-}>();
+const model = defineModel<string | null>();
 
 // Composables
 
@@ -43,11 +40,11 @@ const popupProxy = useTemplateRef('popupProxy');
 
 const value = computed<string | null | undefined>({
   get() {
-    return modelValue;
+    return model.value;
   },
   set(value) {
     valValue.value = value;
-    emit('update:modelValue', value);
+    model.value = value;
   },
 });
 
@@ -55,22 +52,18 @@ const value = computed<string | null | undefined>({
 
 // Update validation value when v-model set from container changed
 // after useForm is called and before this component is mounted
-if (valValue.value !== modelValue) {
-  // Wrapping in a computed to avoid vue/no-setup-props-destructure rule
-  value.value = computed(() => modelValue).value;
+if (valValue.value !== model.value) {
+  value.value = model.value;
 }
 
 // Watch
 
 // Update validation value when v-model set from container changed
-watch(
-  computed(() => modelValue),
-  (newValue) => {
-    if (valValue.value !== newValue) {
-      value.value = newValue;
-    }
-  },
-);
+watch(model, (newValue) => {
+  if (valValue.value !== newValue) {
+    value.value = newValue;
+  }
+});
 </script>
 
 <template>

@@ -1,16 +1,19 @@
 <script setup lang="ts">
 import { useField } from 'vee-validate';
 
-import { computed, watch } from 'vue';
+import { watch } from 'vue';
 
 // Props
 
 type Props = {
   name: string;
-  modelValue: string | number | null | undefined;
   decimal?: number | undefined;
 };
-const { name, modelValue, decimal } = defineProps<Props>();
+const { name, decimal } = defineProps<Props>();
+
+// Model
+
+const model = defineModel<string | number | null>();
 
 // Composables
 
@@ -19,22 +22,19 @@ const { errorMessage, value } = useField<string | number | null | undefined>(nam
 // Private Executions
 
 // Update validation value when v-model set from container changed
-if (value.value !== modelValue) {
-  // Wrapping in a computed to avoid vue/no-setup-props-destructure rule
-  value.value = computed(() => modelValue).value;
+// after useForm is called and before this component is mounted
+if (value.value !== model.value) {
+  value.value = model.value;
 }
 
 // Watch
 
 // Update validation value when v-model set from container changed
-watch(
-  computed(() => modelValue),
-  (newValue) => {
-    if (value.value !== newValue) {
-      value.value = newValue;
-    }
-  },
-);
+watch(model, (newValue) => {
+  if (value.value !== newValue) {
+    value.value = newValue;
+  }
+});
 </script>
 
 <template>

@@ -11,15 +11,12 @@ import { requiredConfigEntries } from 'composables/useConfig';
 
 type Props = {
   name: string;
-  modelValue: string[] | null;
 };
-const { name, modelValue } = defineProps<Props>();
+const { name } = defineProps<Props>();
 
-// Emits
+// Models
 
-const emit = defineEmits<{
-  (e: 'update:modelValue', value: string[] | null): void;
-}>();
+const model = defineModel<string[] | null>({ required: true });
 
 // Composables
 
@@ -31,7 +28,7 @@ const { value: valValue, errorMessage } = useField<string[] | null>(name);
 
 const value = computed<string[] | null>({
   get() {
-    return modelValue;
+    return model.value;
   },
   set(value) {
     value?.sort(
@@ -42,7 +39,7 @@ const value = computed<string[] | null>({
 
     if (value?.join('|') !== valValue.value?.join('|')) {
       valValue.value = value;
-      emit('update:modelValue', value);
+      model.value = value;
     } else {
       valValue.value = value;
     }
@@ -52,23 +49,19 @@ const value = computed<string[] | null>({
 // Private Executions
 
 // Update validation value when v-model set from container changed
-if (valValue.value !== modelValue) {
-  // Wrapping in a computed to avoid vue/no-setup-props-destructure rule
-  value.value = computed(() => modelValue).value;
+// after useForm is called and before this component is mounted
+if (valValue.value !== model.value) {
+  value.value = model.value;
 }
 
 // Watch
 
 // Update validation value when v-model set from container changed
-// after useForm is called and before this component is mounted
-watch(
-  computed(() => modelValue),
-  (newValue) => {
-    if (valValue.value !== newValue) {
-      value.value = newValue;
-    }
-  },
-);
+watch(model, (newValue) => {
+  if (valValue.value !== newValue) {
+    value.value = newValue;
+  }
+});
 </script>
 
 <template>

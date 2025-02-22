@@ -9,53 +9,50 @@ function oneThousandRound(value: number) {
   return Math.round(value / 1000) * 1000;
 }
 
+function validateValue(value: string | number | null | undefined): value is number {
+  const valueAsNumber = parseInt(String(value));
+
+  return (
+    isFinite(value) &&
+    (valueAsNumber === value ||
+      `${String(valueAsNumber)}E0` === value ||
+      `${String(valueAsNumber)}e0` === value)
+  );
+}
+
+function validateThousandValue(value: string | number | null | undefined) {
+  const valueAsNumber = parseInt(String(value));
+
+  return (
+    isFinite(value) && valueAsNumber === value && oneThousandRound(valueAsNumber) === valueAsNumber
+  );
+}
+
 // Props
 
 type Props = {
-  modelValue: string | number | null | undefined;
   suffix?: string | undefined;
 };
-const { modelValue, suffix } = defineProps<Props>();
+const { suffix } = defineProps<Props>();
 
-// Emit
+// Models
 
-const emit = defineEmits<{
-  (e: 'update:modelValue', value: string | number | null): void;
-}>();
+const model = defineModel<string | number | null>();
 
 // Computed
 
-const isValueValid = computed(() => {
-  const valueAsNumber = parseInt(String(modelValue));
-
-  return (
-    isFinite(modelValue) &&
-    (valueAsNumber === modelValue ||
-      `${String(valueAsNumber)}E0` === modelValue ||
-      `${String(valueAsNumber)}e0` === modelValue)
-  );
-});
-
-const isThousandValue = computed(() => {
-  const valueAsNumber = parseInt(String(modelValue));
-
-  return (
-    isFinite(modelValue) &&
-    valueAsNumber === modelValue &&
-    oneThousandRound(valueAsNumber) === valueAsNumber
-  );
-});
-
 const displayValue = computed(() =>
-  isValueValid.value
-    ? isThousandValue.value
-      ? (oneThousandRound(modelValue as number) / 1000).toString()
-      : `${modelValue}E0`
-    : modelValue?.toString() || '',
+  validateValue(model.value)
+    ? validateThousandValue(model.value)
+      ? (oneThousandRound(model.value) / 1000).toString()
+      : `${model.value}E0`
+    : model.value?.toString() || '',
 );
 
 const thousandSuffix = computed(() =>
-  isThousandValue.value && (modelValue as number) > 0 ? '000' + (suffix || '') : suffix,
+  validateValue(model.value) && validateThousandValue(model.value) && model.value > 0
+    ? '000' + (suffix || '')
+    : suffix,
 );
 
 // Methods
@@ -75,8 +72,8 @@ function onUpdate(value: string | null) {
           : value;
   }
 
-  if (newValue !== modelValue) {
-    emit('update:modelValue', newValue);
+  if (newValue !== model.value) {
+    model.value = newValue;
   }
 }
 </script>
