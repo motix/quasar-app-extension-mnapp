@@ -15,14 +15,14 @@ const { isTableView, isCardsView } = useMultiViews();
     <q-card v-if="isTableView">
       <q-card-section>
         Table View
-        <div style="padding-bottom: 2000px" />
+        <div style="padding-bottom: 2000px"></div>
       </q-card-section>
     </q-card>
 
     <q-card v-if="isCardsView">
       <q-card-section>
         Cards View
-        <div style="padding-bottom: 2000px" />
+        <div style="padding-bottom: 2000px"></div>
       </q-card-section>
     </q-card>
 

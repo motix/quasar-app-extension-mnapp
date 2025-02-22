@@ -89,7 +89,7 @@ function onUpdate(value: string | null) {
     @update:model-value="onUpdate($event as string | null)"
   >
     <template v-if="$slots.loading" #loading>
-      <slot name="loading" />
+      <slot name="loading"></slot>
     </template>
   </q-input>
 </template>

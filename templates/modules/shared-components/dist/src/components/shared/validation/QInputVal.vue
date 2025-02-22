@@ -40,7 +40,7 @@ watch(
 <template>
   <q-input v-bind="$attrs" v-model="value" :error="!!errorMessage" :error-message="errorMessage">
     <template #append>
-      <slot name="append" />
+      <slot name="append"></slot>
     </template>
   </q-input>
 </template>

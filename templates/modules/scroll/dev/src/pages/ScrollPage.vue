@@ -36,14 +36,14 @@ function toComponent() {
       <q-btn label="To Buttons" @click="toButtons" />
     </div>
 
-    <div style="padding: 500px 0" />
+    <div style="padding: 500px 0"></div>
 
     <div ref="element">
       Element
       <q-btn label="To Buttons" @click="toButtons" />
     </div>
 
-    <div style="padding: 500px 0" />
+    <div style="padding: 500px 0"></div>
 
     <div>
       <q-card ref="component">
@@ -52,7 +52,7 @@ function toComponent() {
       </q-card>
     </div>
 
-    <div style="padding: 3000px 0" />
+    <div style="padding: 3000px 0"></div>
 
     <div ref="buttons">
       <q-btn label="To Top" @click="toTop" />

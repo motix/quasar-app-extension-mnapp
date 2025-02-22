@@ -230,7 +230,7 @@ defineExpose({
           }"
         >
           <thead>
-            <tr />
+            <tr></tr>
           </thead>
         </table>
       </div>

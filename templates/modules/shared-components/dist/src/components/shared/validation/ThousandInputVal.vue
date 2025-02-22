@@ -45,7 +45,7 @@ watch(
     :error-message="errorMessage"
   >
     <template #append>
-      <slot name="append" />
+      <slot name="append"></slot>
     </template>
   </thousand-input>
 </template>

@@ -46,8 +46,8 @@ onMounted(() => {
       <div v-if="loading">
         <q-spinner-pie color="primary" size="6em" />
       </div>
-      <div v-else id="sign-in-transition-container" />
+      <div v-else id="sign-in-transition-container"></div>
     </fade-transition>
-    <div v-show="false" id="firebaseui-auth-container" />
+    <div v-show="false" id="firebaseui-auth-container"></div>
   </q-page>
 </template>
