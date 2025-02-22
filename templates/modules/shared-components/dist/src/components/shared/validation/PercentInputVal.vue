@@ -8,7 +8,7 @@ import { computed, watch } from 'vue';
 type Props = {
   name: string;
   modelValue: string | number | null | undefined;
-  decimal?: number;
+  decimal?: number | undefined;
 };
 const props = defineProps<Props>();
 

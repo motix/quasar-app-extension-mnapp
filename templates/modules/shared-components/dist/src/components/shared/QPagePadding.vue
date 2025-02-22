@@ -4,9 +4,9 @@ import { requiredConfigEntries } from 'composables/useConfig';
 // Props
 
 type Props = {
-  fixedPadding?: number;
-  topFloatPadding?: number;
-  bottomFloatPadding?: number;
+  fixedPadding?: number | undefined;
+  topFloatPadding?: number | undefined;
+  bottomFloatPadding?: number | undefined;
 };
 const props = defineProps<Props>();
 

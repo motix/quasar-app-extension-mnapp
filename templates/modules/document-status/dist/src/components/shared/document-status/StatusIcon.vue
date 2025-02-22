@@ -5,7 +5,7 @@ withDefaults(
   defineProps<{
     status: DocumentStatusBase<unknown, string, string, string>;
     icon: string;
-    revertColor?: boolean;
+    revertColor?: boolean | undefined;
   }>(),
   {
     revertColor: false,

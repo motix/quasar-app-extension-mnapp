@@ -14,9 +14,9 @@ import { requiredConfigEntries } from 'composables/useConfig';
 type Props = {
   name: string;
   modelValue: string | null | undefined;
-  optional?: boolean;
+  optional?: boolean | undefined;
   // eslint-disable-next-line vue/require-default-prop
-  dateOptions?: QDateProps['options'];
+  dateOptions?: QDateProps['options'] | undefined;
 };
 const props = withDefaults(defineProps<Props>(), {
   optional: false,

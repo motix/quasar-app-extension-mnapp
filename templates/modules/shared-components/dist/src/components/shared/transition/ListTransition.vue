@@ -5,9 +5,9 @@ import { nextTick } from 'vue';
 
 const props = withDefaults(
   defineProps<{
-    gutter?: number;
-    colorEffect?: boolean;
-    noTag?: boolean;
+    gutter?: number | undefined;
+    colorEffect?: boolean | undefined;
+    noTag?: boolean | undefined;
   }>(),
   {
     gutter: 0,

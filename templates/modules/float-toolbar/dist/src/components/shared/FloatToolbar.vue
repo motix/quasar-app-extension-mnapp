@@ -19,13 +19,13 @@ const props = withDefaults(
       | 'top'
       | 'right'
       | 'bottom'
-      | 'left';
-    minMarginY?: number;
+      | 'left' | undefined;
+    minMarginY?: number | undefined;
     // eslint-disable-next-line vue/require-default-prop
-    fabButtonsVisibility?: Record<string, boolean>;
-    fabButtonsSpaceIgnored?: number;
-    offset?: { x?: number; y?: number };
-    persistent?: boolean;
+    fabButtonsVisibility?: Record<string, boolean> | undefined;
+    fabButtonsSpaceIgnored?: number | undefined;
+    offset?: { x?: number; y?: number } | undefined;
+    persistent?: boolean | undefined;
   }>(),
   {
     position: 'bottom-right',

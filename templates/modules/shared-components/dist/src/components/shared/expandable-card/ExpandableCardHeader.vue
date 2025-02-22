@@ -7,50 +7,50 @@ import { Dark } from 'quasar';
 
 const props = withDefaults(
   defineProps<{
-    expandable?: boolean;
+    expandable?: boolean | undefined;
     // eslint-disable-next-line vue/require-default-prop
-    headerBackgroundColor?: string;
-    headerDark?: boolean;
+    headerBackgroundColor?: string | undefined;
+    headerDark?: boolean | undefined;
     // eslint-disable-next-line vue/require-default-prop
-    externalLinkUrl?: string;
-    avatarTop?: boolean;
+    externalLinkUrl?: string | undefined;
+    avatarTop?: boolean | undefined;
     // eslint-disable-next-line vue/require-default-prop
-    avatarColor?: string;
-    avatarSize?: string;
+    avatarColor?: string | undefined;
+    avatarSize?: string | undefined;
     // eslint-disable-next-line vue/require-default-prop
     avatarIcon?: string | undefined;
     // eslint-disable-next-line vue/require-default-prop
     avatarImage?: string | undefined;
-    useGravatar?: boolean;
+    useGravatar?: boolean | undefined;
     // eslint-disable-next-line vue/require-default-prop
-    gravatarId?: string;
-    titleFullWidth?: boolean;
-    titleTop?: boolean;
+    gravatarId?: string | undefined;
+    titleFullWidth?: boolean | undefined;
+    titleTop?: boolean | undefined;
     // eslint-disable-next-line vue/require-default-prop
-    titleColor?: string;
-    titleNoWrap?: boolean;
+    titleColor?: string | undefined;
+    titleNoWrap?: boolean | undefined;
     // eslint-disable-next-line vue/require-default-prop
-    title?: string;
+    title?: string | undefined;
     // eslint-disable-next-line vue/require-default-prop
-    titleEndIconColor?: string;
-    titleEndIconSuperscript?: boolean;
+    titleEndIconColor?: string | undefined;
+    titleEndIconSuperscript?: boolean | undefined;
     // eslint-disable-next-line vue/require-default-prop
-    titleEndIcon?: string;
+    titleEndIcon?: string | undefined;
     // eslint-disable-next-line vue/require-default-prop
-    subtitleIcon?: string;
+    subtitleIcon?: string | undefined;
     // eslint-disable-next-line vue/require-default-prop
-    subtitleColor?: string;
+    subtitleColor?: string | undefined;
     // eslint-disable-next-line vue/require-default-prop
-    subtitle?: string;
+    subtitle?: string | undefined;
     // eslint-disable-next-line vue/require-default-prop
-    subtitleTooltip?: string;
+    subtitleTooltip?: string | undefined;
     // eslint-disable-next-line vue/require-default-prop
-    captionColor?: string;
+    captionColor?: string | undefined;
     // eslint-disable-next-line vue/require-default-prop
-    caption?: string;
+    caption?: string | undefined;
     // eslint-disable-next-line vue/require-default-prop
-    captionTooltip?: string;
-    sideTop?: boolean;
+    captionTooltip?: string | undefined;
+    sideTop?: boolean | undefined;
   }>(),
   {
     expandable: false,
@@ -61,6 +61,7 @@ const props = withDefaults(
     titleFullWidth: false,
     titleTop: false,
     titleNoWrap: false,
+    titleEndIconSuperscript: false,
     sideTop: false,
   },
 );

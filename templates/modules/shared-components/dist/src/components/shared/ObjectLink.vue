@@ -9,9 +9,9 @@ const props = withDefaults(
   defineProps<{
     label: string;
     // eslint-disable-next-line vue/require-default-prop
-    icon?: string;
-    wrapLabel?: boolean;
-    maxWidth?: string;
+    icon?: string | undefined;
+    wrapLabel?: boolean | undefined;
+    maxWidth?: string | undefined;
   }>(),
   {
     wrapLabel: false,

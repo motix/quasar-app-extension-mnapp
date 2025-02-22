@@ -4,7 +4,7 @@ import type DocumentStatusBase from 'utils/DocumentStatusBase';
 withDefaults(
   defineProps<{
     status: DocumentStatusBase<unknown, string, string, string>;
-    revertColor?: boolean;
+    revertColor?: boolean | undefined;
   }>(),
   {
     revertColor: false,

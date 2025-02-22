@@ -23,9 +23,9 @@ const getSourceTable = () => document.querySelector(`${sourceTableScrollTarget.v
 const props = withDefaults(
   defineProps<{
     target: string;
-    markupTable?: boolean;
-    dense?: boolean;
-    separated?: boolean;
+    markupTable?: boolean | undefined;
+    dense?: boolean | undefined;
+    separated?: boolean | undefined;
   }>(),
   {
     markupTable: false,

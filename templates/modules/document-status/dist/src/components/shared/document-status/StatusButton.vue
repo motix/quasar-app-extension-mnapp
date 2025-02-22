@@ -4,8 +4,8 @@ import type DocumentStatusBase from 'utils/DocumentStatusBase';
 withDefaults(
   defineProps<{
     status: DocumentStatusBase<unknown, string, string, string>;
-    freezed?: boolean;
-    revertColor?: boolean;
+    freezed?: boolean | undefined;
+    revertColor?: boolean | undefined;
   }>(),
   {
     freezed: false,

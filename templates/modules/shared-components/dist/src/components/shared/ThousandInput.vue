@@ -13,7 +13,7 @@ function oneThousandRound(value: number) {
 
 type Props = {
   modelValue: string | number | null | undefined;
-  suffix?: string;
+  suffix?: string | undefined;
 };
 const props = defineProps<Props>();
 
