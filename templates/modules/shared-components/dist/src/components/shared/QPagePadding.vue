@@ -8,27 +8,15 @@ type Props = {
   topFloatPadding?: number | undefined;
   bottomFloatPadding?: number | undefined;
 };
-const props = defineProps<Props>();
-
-// Data
-
-const topFloatPadding =
-  props.topFloatPadding === undefined
-    ? requiredConfigEntries('topFloatPadding').topFloatPadding
-    : props.topFloatPadding;
-const bottomFloatPadding =
-  props.bottomFloatPadding === undefined
-    ? requiredConfigEntries('bottomFloatPadding').bottomFloatPadding
-    : props.bottomFloatPadding;
+const {
+  fixedPadding = requiredConfigEntries('fixedPadding').fixedPadding,
+  topFloatPadding = requiredConfigEntries('topFloatPadding').topFloatPadding,
+  bottomFloatPadding = requiredConfigEntries('bottomFloatPadding').bottomFloatPadding,
+} = defineProps<Props>();
 
 // Methods
 
 function styleFn(offset: number, height: number) {
-  const fixedPadding =
-    props.fixedPadding === undefined
-      ? requiredConfigEntries('fixedPadding').fixedPadding
-      : props.fixedPadding;
-
   return {
     minHeight: `${height - offset - fixedPadding}px`,
   };

@@ -1,3 +1,13 @@
+<script lang="ts">
+export default {};
+
+function validateValue(value: string | number | null | undefined): value is number {
+  const valueAsNumber = parseFloat(String(value));
+
+  return isFinite(value) && valueAsNumber === value;
+}
+</script>
+
 <script setup lang="ts">
 import { isFinite } from 'lodash-es';
 
@@ -6,8 +16,8 @@ import { computed } from 'vue';
 // Private
 
 function percentRound(value: number) {
-  return props.decimal
-    ? Math.round(value * Math.pow(10, 2 + props.decimal)) / Math.pow(10, 2 + props.decimal)
+  return decimal
+    ? Math.round(value * Math.pow(10, 2 + decimal)) / Math.pow(10, 2 + decimal)
     : value;
 }
 
@@ -22,7 +32,7 @@ type Props = {
   modelValue: string | number | null | undefined;
   decimal?: number | undefined;
 };
-const props = defineProps<Props>();
+const { modelValue, decimal } = defineProps<Props>();
 
 // Emit
 
@@ -32,16 +42,12 @@ const emit = defineEmits<{
 
 // Computed
 
-const isValueValid = computed(() => {
-  const valueAsNumber = parseFloat(String(props.modelValue));
-
-  return isFinite(props.modelValue) && valueAsNumber === props.modelValue;
-});
+const isValueValid = computed(() => validateValue(modelValue));
 
 const displayValue = computed(() =>
-  isValueValid.value
-    ? percentDisplayRound(percentRound(props.modelValue as number) * 100).toString()
-    : props.modelValue?.toString() || '',
+  validateValue(modelValue)
+    ? percentDisplayRound(percentRound(modelValue) * 100).toString()
+    : modelValue?.toString() || '',
 );
 
 // Methods
@@ -57,7 +63,7 @@ function onUpdate(value: string | null) {
         : value;
   }
 
-  if (roundedValue !== props.modelValue) {
+  if (roundedValue !== modelValue) {
     emit('update:modelValue', roundedValue);
   }
 }

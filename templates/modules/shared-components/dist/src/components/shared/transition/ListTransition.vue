@@ -3,18 +3,15 @@ import { nextTick } from 'vue';
 
 // Props
 
-const props = withDefaults(
-  defineProps<{
-    gutter?: number | undefined;
-    colorEffect?: boolean | undefined;
-    noTag?: boolean | undefined;
-  }>(),
-  {
-    gutter: 0,
-    colorEffect: false,
-    noTag: false,
-  },
-);
+const {
+  gutter = 0,
+  colorEffect,
+  noTag,
+} = defineProps<{
+  gutter?: number | undefined;
+  colorEffect?: boolean | undefined;
+  noTag?: boolean | undefined;
+}>();
 
 // Methods
 
@@ -25,7 +22,7 @@ function beforeEnter(el: Element) {
 
 function enter(el: Element) {
   const style = (el as HTMLElement).style;
-  style.marginBottom = `-${el.clientHeight + props.gutter}px`;
+  style.marginBottom = `-${el.clientHeight + gutter}px`;
   void nextTick(() => {
     style.transition = 'opacity 0.5s, transform 0.5s, background-color 0.5s, margin-bottom 0.5s';
     style.marginBottom = '0';
@@ -40,7 +37,7 @@ function doneEnter(el: Element) {
 
 function leave(el: Element) {
   const style = (el as HTMLElement).style;
-  style.marginTop = `-${el.clientHeight + props.gutter}px`;
+  style.marginTop = `-${el.clientHeight + gutter}px`;
 }
 
 function doneLeave(el: Element) {

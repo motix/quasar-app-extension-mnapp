@@ -5,76 +5,73 @@ import { Dark } from 'quasar';
 
 // Props
 
-const props = withDefaults(
-  defineProps<{
-    expandable?: boolean | undefined;
-    // eslint-disable-next-line vue/require-default-prop
-    headerBackgroundColor?: string | undefined;
-    headerDark?: boolean | undefined;
-    // eslint-disable-next-line vue/require-default-prop
-    externalLinkUrl?: string | undefined;
-    avatarTop?: boolean | undefined;
-    // eslint-disable-next-line vue/require-default-prop
-    avatarColor?: string | undefined;
-    avatarSize?: string | undefined;
-    // eslint-disable-next-line vue/require-default-prop
-    avatarIcon?: string | undefined;
-    // eslint-disable-next-line vue/require-default-prop
-    avatarImage?: string | undefined;
-    useGravatar?: boolean | undefined;
-    // eslint-disable-next-line vue/require-default-prop
-    gravatarId?: string | undefined;
-    titleFullWidth?: boolean | undefined;
-    titleTop?: boolean | undefined;
-    // eslint-disable-next-line vue/require-default-prop
-    titleColor?: string | undefined;
-    titleNoWrap?: boolean | undefined;
-    // eslint-disable-next-line vue/require-default-prop
-    title?: string | undefined;
-    // eslint-disable-next-line vue/require-default-prop
-    titleEndIconColor?: string | undefined;
-    titleEndIconSuperscript?: boolean | undefined;
-    // eslint-disable-next-line vue/require-default-prop
-    titleEndIcon?: string | undefined;
-    // eslint-disable-next-line vue/require-default-prop
-    subtitleIcon?: string | undefined;
-    // eslint-disable-next-line vue/require-default-prop
-    subtitleColor?: string | undefined;
-    // eslint-disable-next-line vue/require-default-prop
-    subtitle?: string | undefined;
-    // eslint-disable-next-line vue/require-default-prop
-    subtitleTooltip?: string | undefined;
-    // eslint-disable-next-line vue/require-default-prop
-    captionColor?: string | undefined;
-    // eslint-disable-next-line vue/require-default-prop
-    caption?: string | undefined;
-    // eslint-disable-next-line vue/require-default-prop
-    captionTooltip?: string | undefined;
-    sideTop?: boolean | undefined;
-  }>(),
-  {
-    expandable: false,
-    headerDark: false,
-    avatarTop: false,
-    avatarSize: '56px',
-    useGravatar: false,
-    titleFullWidth: false,
-    titleTop: false,
-    titleNoWrap: false,
-    titleEndIconSuperscript: false,
-    sideTop: false,
-  },
-);
+const {
+  expandable,
+  headerBackgroundColor,
+  headerDark,
+  externalLinkUrl,
+  avatarTop,
+  avatarColor,
+  avatarSize = '56px',
+  avatarIcon,
+  avatarImage,
+  useGravatar,
+  gravatarId,
+  titleFullWidth,
+  titleTop,
+  titleColor,
+  titleNoWrap,
+  title,
+  titleEndIconColor,
+  titleEndIconSuperscript,
+  titleEndIcon,
+  subtitleIcon,
+  subtitleColor,
+  subtitle,
+  subtitleTooltip,
+  captionColor,
+  caption,
+  captionTooltip,
+  sideTop,
+} = defineProps<{
+  expandable?: boolean | undefined;
+  headerBackgroundColor?: string | undefined;
+  headerDark?: boolean | undefined;
+  externalLinkUrl?: string | undefined;
+  avatarTop?: boolean | undefined;
+  avatarColor?: string | undefined;
+  avatarSize?: string | undefined;
+  avatarIcon?: string | undefined;
+  avatarImage?: string | undefined;
+  useGravatar?: boolean | undefined;
+  gravatarId?: string | undefined;
+  titleFullWidth?: boolean | undefined;
+  titleTop?: boolean | undefined;
+  titleColor?: string | undefined;
+  titleNoWrap?: boolean | undefined;
+  title?: string | undefined;
+  titleEndIconColor?: string | undefined;
+  titleEndIconSuperscript?: boolean | undefined;
+  titleEndIcon?: string | undefined;
+  subtitleIcon?: string | undefined;
+  subtitleColor?: string | undefined;
+  subtitle?: string | undefined;
+  subtitleTooltip?: string | undefined;
+  captionColor?: string | undefined;
+  caption?: string | undefined;
+  captionTooltip?: string | undefined;
+  sideTop?: boolean | undefined;
+}>();
 
 // Computed
 
 const titleCssClass = computed(() => {
   const val: { [key: string]: boolean } = {
-    'text-no-wrap': props.titleNoWrap,
+    'text-no-wrap': titleNoWrap,
   };
 
-  if (props.titleColor) {
-    val[`text-${props.titleColor}`] = true;
+  if (titleColor !== undefined) {
+    val[`text-${titleColor}`] = true;
   }
 
   return val;
@@ -83,8 +80,8 @@ const titleCssClass = computed(() => {
 const subtitleCssClass = computed(() => {
   const val: { [key: string]: boolean } = {};
 
-  if (props.subtitleColor) {
-    val[`text-${props.subtitleColor}`] = true;
+  if (subtitleColor !== undefined) {
+    val[`text-${subtitleColor}`] = true;
   }
 
   return val;
@@ -93,8 +90,8 @@ const subtitleCssClass = computed(() => {
 const captionCssClass = computed(() => {
   const val: { [key: string]: boolean } = {};
 
-  if (props.captionColor) {
-    val[`text-${props.captionColor}`] = true;
+  if (captionColor) {
+    val[`text-${captionColor}`] = true;
   }
 
   return val;
@@ -104,7 +101,7 @@ const captionCssClass = computed(() => {
 <template>
   <q-item :dark="headerDark || Dark.isActive">
     <q-btn
-      v-if="externalLinkUrl"
+      v-if="externalLinkUrl !== undefined"
       class="absolute"
       :color="headerDark ? 'white' : 'primary'"
       flat
@@ -123,22 +120,30 @@ const captionCssClass = computed(() => {
     />
 
     <q-item-section
-      v-if="avatarIcon || avatarImage || useGravatar"
+      v-if="avatarIcon !== undefined || avatarImage !== undefined || useGravatar"
       avatar
       :class="{ 'q-pt-xs': avatarTop }"
       :top="avatarTop"
     >
       <q-avatar
-        v-if="avatarIcon"
-        :color="avatarColor || (headerDark || Dark.isActive ? 'white' : 'grey-9')"
+        v-if="avatarIcon !== undefined"
+        :color="
+          avatarColor !== undefined ? avatarColor : headerDark || Dark.isActive ? 'white' : 'grey-9'
+        "
         :size="avatarSize"
       >
         <q-icon
-          :color="headerBackgroundColor || (headerDark || Dark.isActive ? 'grey-9' : 'white')"
+          :color="
+            headerBackgroundColor !== undefined
+              ? headerBackgroundColor
+              : headerDark || Dark.isActive
+                ? 'grey-9'
+                : 'white'
+          "
           :name="avatarIcon"
         />
       </q-avatar>
-      <q-avatar v-if="avatarImage" :size="avatarSize">
+      <q-avatar v-if="avatarImage !== undefined" :size="avatarSize">
         <q-img :src="avatarImage" />
       </q-avatar>
       <gravatar-image
@@ -149,9 +154,9 @@ const captionCssClass = computed(() => {
     </q-item-section>
 
     <q-item-section :top="titleTop">
-      <q-item-label v-if="title" class="text-h6" :class="titleCssClass">
+      <q-item-label v-if="title !== undefined" class="text-h6" :class="titleCssClass">
         {{ title }}
-        <template v-if="titleEndIcon">
+        <template v-if="titleEndIcon !== undefined">
           <sup v-if="titleEndIconSuperscript">
             <q-icon :color="titleEndIconColor" :name="titleEndIcon" />
           </sup>
@@ -162,20 +167,24 @@ const captionCssClass = computed(() => {
       <!-- Setting max-width to support ellipsis in main slot -->
       <q-item class="q-pa-none" style="max-width: 100%; min-height: 0">
         <q-item-section top>
-          <q-item-label v-if="subtitle" class="text-subtitle2 q-pt-xs" :class="subtitleCssClass">
-            <q-icon v-if="subtitleIcon" class="q-mr-xs" :name="subtitleIcon" />
+          <q-item-label
+            v-if="subtitle !== undefined"
+            class="text-subtitle2 q-pt-xs"
+            :class="subtitleCssClass"
+          >
+            <q-icon v-if="subtitleIcon !== undefined" class="q-mr-xs" :name="subtitleIcon" />
             <span>
               {{ subtitle }}
-              <top-tooltip v-if="subtitleTooltip">
+              <top-tooltip v-if="subtitleTooltip !== undefined">
                 {{ subtitleTooltip }}
               </top-tooltip>
             </span>
           </q-item-label>
 
-          <q-item-label v-if="caption" caption :class="captionCssClass">
+          <q-item-label v-if="caption !== undefined" caption :class="captionCssClass">
             <span>
               {{ caption }}
-              <top-tooltip v-if="captionTooltip">
+              <top-tooltip v-if="captionTooltip !== undefined">
                 {{ captionTooltip }}
               </top-tooltip>
             </span>

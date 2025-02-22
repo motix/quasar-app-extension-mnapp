@@ -15,7 +15,7 @@ type Props = {
   modelValue: string | number | null | undefined;
   suffix?: string | undefined;
 };
-const props = defineProps<Props>();
+const { modelValue, suffix } = defineProps<Props>();
 
 // Emit
 
@@ -26,22 +26,22 @@ const emit = defineEmits<{
 // Computed
 
 const isValueValid = computed(() => {
-  const valueAsNumber = parseInt(String(props.modelValue));
+  const valueAsNumber = parseInt(String(modelValue));
 
   return (
-    isFinite(props.modelValue) &&
-    (valueAsNumber === props.modelValue ||
-      `${String(valueAsNumber)}E0` === props.modelValue ||
-      `${String(valueAsNumber)}e0` === props.modelValue)
+    isFinite(modelValue) &&
+    (valueAsNumber === modelValue ||
+      `${String(valueAsNumber)}E0` === modelValue ||
+      `${String(valueAsNumber)}e0` === modelValue)
   );
 });
 
 const isThousandValue = computed(() => {
-  const valueAsNumber = parseInt(String(props.modelValue));
+  const valueAsNumber = parseInt(String(modelValue));
 
   return (
-    isFinite(props.modelValue) &&
-    valueAsNumber === props.modelValue &&
+    isFinite(modelValue) &&
+    valueAsNumber === modelValue &&
     oneThousandRound(valueAsNumber) === valueAsNumber
   );
 });
@@ -49,15 +49,13 @@ const isThousandValue = computed(() => {
 const displayValue = computed(() =>
   isValueValid.value
     ? isThousandValue.value
-      ? (oneThousandRound(props.modelValue as number) / 1000).toString()
-      : `${props.modelValue}E0`
-    : props.modelValue?.toString() || '',
+      ? (oneThousandRound(modelValue as number) / 1000).toString()
+      : `${modelValue}E0`
+    : modelValue?.toString() || '',
 );
 
-const suffix = computed(() =>
-  isThousandValue.value && (props.modelValue as number) > 0
-    ? '000' + (props.suffix || '')
-    : props.suffix,
+const thousandSuffix = computed(() =>
+  isThousandValue.value && (modelValue as number) > 0 ? '000' + (suffix || '') : suffix,
 );
 
 // Methods
@@ -77,7 +75,7 @@ function onUpdate(value: string | null) {
           : value;
   }
 
-  if (newValue !== props.modelValue) {
+  if (newValue !== modelValue) {
     emit('update:modelValue', newValue);
   }
 }
@@ -87,7 +85,7 @@ function onUpdate(value: string | null) {
   <q-input
     v-bind="$attrs"
     :model-value="displayValue"
-    :suffix="suffix"
+    :suffix="thousandSuffix"
     @update:model-value="onUpdate($event as string | null)"
   >
     <template v-if="$slots.loading" #loading>

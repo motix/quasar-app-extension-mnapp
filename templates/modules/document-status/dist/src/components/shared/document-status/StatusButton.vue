@@ -1,17 +1,11 @@
 <script setup lang="ts">
 import type DocumentStatusBase from 'utils/DocumentStatusBase';
 
-withDefaults(
-  defineProps<{
-    status: DocumentStatusBase<unknown, string, string, string>;
-    freezed?: boolean | undefined;
-    revertColor?: boolean | undefined;
-  }>(),
-  {
-    freezed: false,
-    revertColor: false,
-  },
-);
+const { freezed, revertColor } = defineProps<{
+  status: DocumentStatusBase<unknown, string, string, string>;
+  freezed?: boolean | undefined;
+  revertColor?: boolean | undefined;
+}>();
 
 defineEmits<{
   (e: 'changeStatus', action: string): void;

@@ -4,7 +4,7 @@ import type { VueClassProp } from 'quasar';
 // Props
 
 type Props = { fieldClass?: VueClassProp | undefined };
-defineProps<Props>();
+const { fieldClass } = defineProps<Props>();
 </script>
 
 <template>

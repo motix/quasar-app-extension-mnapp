@@ -9,26 +9,26 @@ type Props = {
   name: string;
   modelValue: string | number | null | undefined;
 };
-const props = defineProps<Props>();
+const { name, modelValue } = defineProps<Props>();
 
 // Composables
 
-const { errorMessage, value } = useField<string | number | null | undefined>(props.name);
+const { errorMessage, value } = useField<string | number | null | undefined>(name);
 
 // Private Executions
 
 // Update validation value when v-model set from container changed
 // after useForm is called and before this component is mounted
-if (value.value !== props.modelValue) {
+if (value.value !== modelValue) {
   // Wrapping in a computed to avoid vue/no-setup-props-destructure rule
-  value.value = computed(() => props.modelValue).value;
+  value.value = computed(() => modelValue).value;
 }
 
 // Watch
 
 // Update validation value when v-model set from container changed
 watch(
-  computed(() => props.modelValue),
+  computed(() => modelValue),
   (newValue) => {
     if (value.value !== newValue) {
       value.value = newValue;

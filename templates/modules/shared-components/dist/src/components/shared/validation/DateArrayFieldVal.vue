@@ -13,7 +13,7 @@ type Props = {
   name: string;
   modelValue: string[] | null;
 };
-const props = defineProps<Props>();
+const { name, modelValue } = defineProps<Props>();
 
 // Emits
 
@@ -25,13 +25,13 @@ const emit = defineEmits<{
 
 const { editDateFormat } = requiredConfigEntries('editDateFormat');
 
-const { value: valValue, errorMessage } = useField<string[] | null>(props.name);
+const { value: valValue, errorMessage } = useField<string[] | null>(name);
 
 // Computed
 
 const value = computed<string[] | null>({
   get() {
-    return props.modelValue;
+    return modelValue;
   },
   set(value) {
     value?.sort(
@@ -52,9 +52,9 @@ const value = computed<string[] | null>({
 // Private Executions
 
 // Update validation value when v-model set from container changed
-if (valValue.value !== props.modelValue) {
+if (valValue.value !== modelValue) {
   // Wrapping in a computed to avoid vue/no-setup-props-destructure rule
-  value.value = computed(() => props.modelValue).value;
+  value.value = computed(() => modelValue).value;
 }
 
 // Watch
@@ -62,7 +62,7 @@ if (valValue.value !== props.modelValue) {
 // Update validation value when v-model set from container changed
 // after useForm is called and before this component is mounted
 watch(
-  computed(() => props.modelValue),
+  computed(() => modelValue),
   (newValue) => {
     if (valValue.value !== newValue) {
       value.value = newValue;

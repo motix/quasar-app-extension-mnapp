@@ -15,12 +15,9 @@ type Props = {
   name: string;
   modelValue: string | null | undefined;
   optional?: boolean | undefined;
-  // eslint-disable-next-line vue/require-default-prop
   dateOptions?: QDateProps['options'] | undefined;
 };
-const props = withDefaults(defineProps<Props>(), {
-  optional: false,
-});
+const { name, modelValue, optional, dateOptions } = defineProps<Props>();
 
 // Emits
 
@@ -36,17 +33,17 @@ const { dateFormat, editDateFormat, dateMask } = requiredConfigEntries(
   'dateMask',
 );
 
-const { value: valValue, errorMessage } = useField<string | null | undefined>(props.name);
+const { value: valValue, errorMessage } = useField<string | null | undefined>(name);
 
 // Data
 
-const popupProxy = useTemplateRef('popupProxy')
+const popupProxy = useTemplateRef('popupProxy');
 
 // Computed
 
 const value = computed<string | null | undefined>({
   get() {
-    return props.modelValue;
+    return modelValue;
   },
   set(value) {
     valValue.value = value;
@@ -58,16 +55,16 @@ const value = computed<string | null | undefined>({
 
 // Update validation value when v-model set from container changed
 // after useForm is called and before this component is mounted
-if (valValue.value !== props.modelValue) {
+if (valValue.value !== modelValue) {
   // Wrapping in a computed to avoid vue/no-setup-props-destructure rule
-  value.value = computed(() => props.modelValue).value;
+  value.value = computed(() => modelValue).value;
 }
 
 // Watch
 
 // Update validation value when v-model set from container changed
 watch(
-  computed(() => props.modelValue),
+  computed(() => modelValue),
   (newValue) => {
     if (valValue.value !== newValue) {
       value.value = newValue;

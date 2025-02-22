@@ -1,16 +1,10 @@
 <script setup lang="ts">
 // Props
 
-withDefaults(
-  defineProps<{
-    // eslint-disable-next-line vue/require-default-prop
-    gravatarId?: string | undefined;
-    dark?: boolean | undefined;
-  }>(),
-  {
-    dark: false,
-  },
-);
+const { gravatarId, dark } = defineProps<{
+  gravatarId?: string | undefined;
+  dark?: boolean | undefined;
+}>();
 </script>
 
 <template>

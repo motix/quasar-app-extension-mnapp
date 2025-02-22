@@ -20,19 +20,12 @@ const getSourceTable = () => document.querySelector(`${sourceTableScrollTarget.v
 
 // Props
 
-const props = withDefaults(
-  defineProps<{
-    target: string;
-    markupTable?: boolean | undefined;
-    dense?: boolean | undefined;
-    separated?: boolean | undefined;
-  }>(),
-  {
-    markupTable: false,
-    dense: false,
-    separated: false,
-  },
-);
+const { target, markupTable, dense, separated } = defineProps<{
+  target: string;
+  markupTable?: boolean | undefined;
+  dense?: boolean | undefined;
+  separated?: boolean | undefined;
+}>();
 
 // Composables
 
@@ -42,7 +35,7 @@ const { stickyHeadersPosition } = useStickyHeadersResult();
 
 // Data
 
-const container = useTemplateRef('container')
+const container = useTemplateRef('container');
 const containerVisible = ref(false);
 const containerTop = ref('0px');
 const headersPaddingLeft = ref('0px');
@@ -54,7 +47,7 @@ const sourceTableScrollObserverEnabled = ref(false);
 // Computed
 
 const sourceTableScrollTarget = computed(() =>
-  props.markupTable ? props.target : `${props.target}>.q-table__middle.scroll`,
+  markupTable ? target : `${target}>.q-table__middle.scroll`,
 );
 
 // Methods

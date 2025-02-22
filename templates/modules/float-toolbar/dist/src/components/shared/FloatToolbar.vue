@@ -9,32 +9,30 @@ import { useFloatToolbarResult } from 'composables/useFloatToolbar';
 
 // Props
 
-const props = withDefaults(
-  defineProps<{
-    position?:
-      | 'top-right'
-      | 'top-left'
-      | 'bottom-right'
-      | 'bottom-left'
-      | 'top'
-      | 'right'
-      | 'bottom'
-      | 'left' | undefined;
-    minMarginY?: number | undefined;
-    // eslint-disable-next-line vue/require-default-prop
-    fabButtonsVisibility?: Record<string, boolean> | undefined;
-    fabButtonsSpaceIgnored?: number | undefined;
-    offset?: { x?: number; y?: number } | undefined;
-    persistent?: boolean | undefined;
-  }>(),
-  {
-    position: 'bottom-right',
-    minMarginY: 2,
-    fabButtonsSpaceIgnored: 0,
-    offset: () => ({}),
-    persistent: false,
-  },
-);
+const {
+  position = 'bottom-right',
+  minMarginY = 2,
+  fabButtonsVisibility,
+  fabButtonsSpaceIgnored = 0,
+  offset = {},
+  persistent,
+} = defineProps<{
+  position?:
+    | 'top-right'
+    | 'top-left'
+    | 'bottom-right'
+    | 'bottom-left'
+    | 'top'
+    | 'right'
+    | 'bottom'
+    | 'left'
+    | undefined;
+  minMarginY?: number | undefined;
+  fabButtonsVisibility?: Record<string, boolean> | undefined;
+  fabButtonsSpaceIgnored?: number | undefined;
+  offset?: { x?: number; y?: number } | undefined;
+  persistent?: boolean | undefined;
+}>();
 
 // Slots
 
@@ -57,7 +55,7 @@ const QFAB_ACTIONS_MARGIN = 9;
 const QBTN_MARGIN = 5;
 const QBTN_SIZE = 42;
 
-const fab = useTemplateRef('fab')
+const fab = useTemplateRef('fab');
 const fabOpened = ref<boolean>(false);
 
 // Computed
@@ -65,9 +63,9 @@ const fabOpened = ref<boolean>(false);
 const fabButtonsCount = computed(() => {
   let count = 0;
 
-  if (props.fabButtonsVisibility) {
-    for (const button in props.fabButtonsVisibility) {
-      if (props.fabButtonsVisibility[button]) count++;
+  if (fabButtonsVisibility) {
+    for (const button in fabButtonsVisibility) {
+      if (fabButtonsVisibility[button]) count++;
     }
   } else if (slots.default) {
     for (const item of slots.default()) {
@@ -80,25 +78,20 @@ const fabButtonsCount = computed(() => {
 
 const showFab = computed(() => !!slots.default && fabButtonsCount.value > 0);
 
-const offsetX = computed(
-  () => PAGE_PADDING - (!showFab.value ? QBTN_MARGIN : 0) + (props.offset.x || 0),
-);
+const offsetX = computed(() => PAGE_PADDING - (!showFab.value ? QBTN_MARGIN : 0) + (offset.x || 0));
 
 const offsetY = computed(() => {
   const buttonSize = !showFab.value ? QBTN_SIZE : QFAB_BTN_SIZE;
 
-  if (props.position.includes('top')) {
+  if (position.includes('top')) {
     return (
-      Math.max(floatToolbarOffsetTop.value - buttonSize / 2, -(buttonSize / 2), props.minMarginY) +
-      (props.offset.y || 0)
+      Math.max(floatToolbarOffsetTop.value - buttonSize / 2, -(buttonSize / 2), minMarginY) +
+      (offset.y || 0)
     );
-  } else if (props.position.includes('bottom')) {
+  } else if (position.includes('bottom')) {
     return (
-      Math.max(
-        floatToolbarOffsetBottom.value - buttonSize / 2,
-        -(buttonSize / 2),
-        props.minMarginY,
-      ) + (props.offset.y || 0)
+      Math.max(floatToolbarOffsetBottom.value - buttonSize / 2, -(buttonSize / 2), minMarginY) +
+      (offset.y || 0)
     );
   } else {
     return 0;
@@ -108,16 +101,16 @@ const offsetY = computed(() => {
 const containerMargin = computed(() => {
   const style: Record<string, unknown> = {};
 
-  if (props.position.includes('top')) {
+  if (position.includes('top')) {
     style['margin-bottom'] = '0px';
   }
-  if (props.position.includes('bottom')) {
+  if (position.includes('bottom')) {
     style['margin-top'] = '0px';
   }
-  if (props.position.includes('left')) {
+  if (position.includes('left')) {
     style['margin-right'] = '0px';
   }
-  if (props.position.includes('right')) {
+  if (position.includes('right')) {
     style['margin-left'] = '0px';
   }
 
@@ -125,84 +118,68 @@ const containerMargin = computed(() => {
 });
 
 const direction = computed(() => {
-  if (
-    props.position === 'top-left' ||
-    props.position === 'bottom-left' ||
-    props.position === 'left'
-  ) {
+  if (position === 'top-left' || position === 'bottom-left' || position === 'left') {
     return 'right';
-  } else if (
-    props.position === 'top-right' ||
-    props.position === 'bottom-right' ||
-    props.position === 'right'
-  ) {
+  } else if (position === 'top-right' || position === 'bottom-right' || position === 'right') {
     return 'left';
-  } else if (props.position === 'top') {
+  } else if (position === 'top') {
     return 'down';
-  } else if (props.position === 'bottom') {
+  } else if (position === 'bottom') {
     return 'up';
   } else {
-    const _exhaustiveCheck: never = props.position;
+    const _exhaustiveCheck: never = position;
     return _exhaustiveCheck;
   }
 });
 
 const reverseOrder = computed(() => {
   if (
-    props.position === 'top-left' ||
-    props.position === 'bottom-left' ||
-    props.position === 'left' ||
-    props.position === 'top' ||
-    props.position === 'bottom'
+    position === 'top-left' ||
+    position === 'bottom-left' ||
+    position === 'left' ||
+    position === 'top' ||
+    position === 'bottom'
   ) {
     return false;
-  } else if (
-    props.position === 'top-right' ||
-    props.position === 'bottom-right' ||
-    props.position === 'right'
-  ) {
+  } else if (position === 'top-right' || position === 'bottom-right' || position === 'right') {
     return true;
   } else {
-    const _exhaustiveCheck: never = props.position;
+    const _exhaustiveCheck: never = position;
     return _exhaustiveCheck;
   }
 });
 
 const secondRowPosition = computed(() => {
   if (
-    props.position === 'top-left' ||
-    props.position === 'top-right' ||
-    props.position === 'top' ||
-    props.position === 'left' ||
-    props.position === 'right'
+    position === 'top-left' ||
+    position === 'top-right' ||
+    position === 'top' ||
+    position === 'left' ||
+    position === 'right'
   ) {
     return 'bottom';
-  } else if (
-    props.position === 'bottom-left' ||
-    props.position === 'bottom-right' ||
-    props.position === 'bottom'
-  ) {
+  } else if (position === 'bottom-left' || position === 'bottom-right' || position === 'bottom') {
     return 'top';
   } else {
-    const _exhaustiveCheck: never = props.position;
+    const _exhaustiveCheck: never = position;
     return _exhaustiveCheck;
   }
 });
 
 const fabContentMargin = computed(() => {
   if (
-    props.position === 'top-left' ||
-    props.position === 'top-right' ||
-    props.position === 'left' ||
-    props.position === 'right'
+    position === 'top-left' ||
+    position === 'top-right' ||
+    position === 'left' ||
+    position === 'right'
   ) {
     return { 'margin-top': `${buttonSpace.value}px` };
-  } else if (props.position === 'bottom-left' || props.position === 'bottom-right') {
+  } else if (position === 'bottom-left' || position === 'bottom-right') {
     return { 'margin-bottom': `${buttonSpace.value}px` };
-  } else if (props.position === 'top' || props.position === 'bottom') {
+  } else if (position === 'top' || position === 'bottom') {
     return {};
   } else {
-    const _exhaustiveCheck: never = props.position;
+    const _exhaustiveCheck: never = position;
     return _exhaustiveCheck;
   }
 });
@@ -214,7 +191,7 @@ const fixedButtonsPosition = computed(() => {
     return 0;
   }
 
-  if (props.position === 'top' || props.position === 'bottom') {
+  if (position === 'top' || position === 'bottom') {
     return QFAB_ACTIONS_MARGIN;
   }
 
@@ -222,9 +199,7 @@ const fixedButtonsPosition = computed(() => {
     (reverseOrder.value ? -1 : 1) *
     (QFAB_ACTIONS_PADDING +
       QFAB_ACTIONS_MARGIN +
-      (fabOpened.value
-        ? buttonSpace.value * (fabButtonsCount.value - props.fabButtonsSpaceIgnored)
-        : 0))
+      (fabOpened.value ? buttonSpace.value * (fabButtonsCount.value - fabButtonsSpaceIgnored) : 0))
   );
 });
 
