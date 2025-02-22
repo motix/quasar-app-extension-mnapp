@@ -83,7 +83,7 @@ function useAutoLoadAllPages() {
 
   const autoLoadAllPages = ref(false);
   const hideAutoLoadAllPagesButton = ref(false);
-  const infiniteScroll = useTemplateRef<InstanceType<typeof QInfiniteScroll>>('infiniteScroll')
+  const infiniteScroll = useTemplateRef<InstanceType<typeof QInfiniteScroll>>('infiniteScroll');
 
   // Methods
 
@@ -103,7 +103,7 @@ function useAutoLoadAllPages() {
 
 function usePageData<T extends NonNullable<unknown>, TRow extends NonNullable<unknown>>(
   scopeName: string,
-  emit: (e: 'loadNextPage', index: number, done: (stop: boolean) => void) => void,
+  emitLoadNextPage: (e: 'loadNextPage', index: number, done: (stop: boolean) => void) => void,
   autoLoadAllPages: ReturnType<typeof useAutoLoadAllPages>['autoLoadAllPages'],
   infiniteScroll: ReturnType<typeof useAutoLoadAllPages>['infiniteScroll'],
 ) {
@@ -122,7 +122,7 @@ function usePageData<T extends NonNullable<unknown>, TRow extends NonNullable<un
   // Methods
 
   function onLoadNextPage(index: number, done: (stop: boolean) => void) {
-    emit('loadNextPage', index, (stop) => {
+    emitLoadNextPage('loadNextPage', index, (stop) => {
       done(stop);
       allItemsLoaded.value = stop;
 
@@ -269,7 +269,7 @@ const slots = defineSlots<ListPageSlots<T>>();
 // Emit
 
 const emit = defineEmits<{
-  (e: 'loadNextPage', index: number, done: (stop: boolean) => void): void;
+  loadNextPage: [index: number, done: (stop: boolean) => void];
 }>();
 
 // Composables

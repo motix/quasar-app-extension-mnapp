@@ -8,7 +8,7 @@ const { freezed, revertColor } = defineProps<{
 }>();
 
 defineEmits<{
-  (e: 'changeStatus', action: string): void;
+  changeStatus: [action: string];
 }>();
 </script>
 
