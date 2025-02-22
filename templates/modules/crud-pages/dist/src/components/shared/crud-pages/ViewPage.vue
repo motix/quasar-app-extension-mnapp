@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue';
+import { computed, useTemplateRef, watch } from 'vue';
 
 import { Dark, QAjaxBar } from 'quasar';
 
@@ -45,8 +45,8 @@ const {
 
 // Data
 
-const freezingBar = ref<QAjaxBar | null>(null);
-const saveTooltip = ref<InstanceType<typeof TopTooltip> | null>(null);
+const freezingBar = useTemplateRef('freezingBar')
+const saveTooltip = useTemplateRef('saveTooltip')
 
 // Computed
 

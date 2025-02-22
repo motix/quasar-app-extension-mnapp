@@ -2,7 +2,7 @@ import type { ViewPage } from 'composables/crud-pages/useViewPage';
 import type { UpdateDocActionPayload } from 'stores/firebase-firestore';
 import type { ComponentPublicInstance, Ref } from 'vue';
 
-import { computed, nextTick, ref, watch, watchEffect } from 'vue';
+import { computed, nextTick, ref, useTemplateRef, watch, watchEffect } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
 import { Dialog, Platform } from 'quasar';
@@ -37,7 +37,7 @@ export default function useViewChildPage<
   const parentModel = ref(null) as Ref<TParent | null>;
   const parentViewModel = ref(null) as Ref<TParentVm | null>;
   const viewUrl = ref<string | null>(null);
-  const childViewerRef = ref<ComponentPublicInstance | null>(null);
+  const childViewerRef = useTemplateRef<ComponentPublicInstance>('childViewerRef')
 
   // Method Refs
 

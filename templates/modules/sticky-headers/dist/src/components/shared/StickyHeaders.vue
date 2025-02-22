@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { QScrollObserverProps } from 'quasar';
 
-import { computed, nextTick, ref } from 'vue';
+import { computed, nextTick, ref, useTemplateRef } from 'vue';
 
 import { scroll } from 'quasar';
 
@@ -42,7 +42,7 @@ const { stickyHeadersPosition } = useStickyHeadersResult();
 
 // Data
 
-const container = ref<HTMLElement | null>(null);
+const container = useTemplateRef('container')
 const containerVisible = ref(false);
 const containerTop = ref('0px');
 const headersPaddingLeft = ref('0px');
@@ -213,7 +213,7 @@ defineExpose({
   <q-scroll-observer
     v-if="container"
     axis="horizontal"
-    :scroll-target="container"
+    :scroll-target="container || undefined"
     @scroll="onDestTableScroll"
   />
 

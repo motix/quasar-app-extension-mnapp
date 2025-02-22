@@ -1,4 +1,4 @@
-import { reduceJsonFileArray } from '../../lib/json-helpers.js';
+import { reduceJsonFile, reduceJsonFileArray } from '../../lib/json-helpers.js';
 import { defineUninstall } from '../index.js';
 
 export default defineUninstall(function (api) {
@@ -31,6 +31,8 @@ export default defineUninstall(function (api) {
       typescript: '~5.5.3',
     },
   });
+
+  reduceJsonFile(api, 'package.json', ['dependencies.vue-component-type-helpers']);
 
   function modifyFiles() {
     // [Reverse] Modify tsconfig.json

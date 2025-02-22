@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { useTemplateRef } from 'vue';
 
 import { QTooltip } from 'quasar';
 
 // Data
 
-const tooltip = ref<InstanceType<typeof QTooltip> | null>(null);
+const tooltip = useTemplateRef('tooltip')
 
 // Methods
 

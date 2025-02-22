@@ -1,6 +1,6 @@
 import type { QEditor } from 'quasar';
 
-import { ref } from 'vue';
+import { useTemplateRef } from 'vue';
 
 import { uid } from 'quasar';
 
@@ -24,7 +24,7 @@ export default function useRichEditor() {
 
   // Data
 
-  const editortRef = ref<QEditor | null>(null);
+  const editortRef = useTemplateRef<QEditor>('editortRef')
 
   // Methods
 

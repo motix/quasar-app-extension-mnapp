@@ -5,7 +5,7 @@ import type { ListPage } from 'composables/crud-pages/useListPage';
 import type { QTableSlots } from 'quasar';
 import type { VNode } from 'vue';
 
-import { computed, nextTick, ref, useSlots, watchEffect } from 'vue';
+import { computed, nextTick, ref, useSlots, useTemplateRef, watchEffect } from 'vue';
 
 import { Dark, QInfiniteScroll } from 'quasar';
 
@@ -83,7 +83,7 @@ function useAutoLoadAllPages() {
 
   const autoLoadAllPages = ref(false);
   const hideAutoLoadAllPagesButton = ref(false);
-  const infiniteScroll = ref<InstanceType<typeof QInfiniteScroll> | null>(null);
+  const infiniteScroll = useTemplateRef<InstanceType<typeof QInfiniteScroll>>('infiniteScroll')
 
   // Methods
 

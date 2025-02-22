@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { useTemplateRef } from 'vue';
 
 import { QCard } from 'quasar';
 
@@ -11,9 +11,9 @@ const { toTop, toElement } = useScroll();
 
 // Data
 
-const buttons = ref<Element | null>(null);
-const element = ref<Element | null>(null);
-const component = ref<QCard | null>(null);
+const buttons = useTemplateRef('buttons');
+const element = useTemplateRef('element');
+const component = useTemplateRef('component');
 
 // Methods
 

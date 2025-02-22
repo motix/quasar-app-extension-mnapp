@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { VNodeTypes } from 'vue';
 
-import { Comment, computed, ref } from 'vue';
+import { Comment, computed, ref, useTemplateRef } from 'vue';
 
 import { QFab } from 'quasar';
 
@@ -57,7 +57,7 @@ const QFAB_ACTIONS_MARGIN = 9;
 const QBTN_MARGIN = 5;
 const QBTN_SIZE = 42;
 
-const fab = ref<QFab | null>(null);
+const fab = useTemplateRef('fab')
 const fabOpened = ref<boolean>(false);
 
 // Computed

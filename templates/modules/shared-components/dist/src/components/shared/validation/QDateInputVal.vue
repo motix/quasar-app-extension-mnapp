@@ -3,7 +3,7 @@ import type { QDateProps } from 'quasar';
 
 import { useField } from 'vee-validate';
 
-import { computed, ref, watch } from 'vue';
+import { computed, useTemplateRef, watch } from 'vue';
 
 import { QPopupProxy } from 'quasar';
 
@@ -40,7 +40,7 @@ const { value: valValue, errorMessage } = useField<string | null | undefined>(pr
 
 // Data
 
-const popupProxy = ref<QPopupProxy | null>(null);
+const popupProxy = useTemplateRef('popupProxy')
 
 // Computed
 

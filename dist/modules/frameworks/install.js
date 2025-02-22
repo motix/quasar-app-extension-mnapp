@@ -8,6 +8,8 @@ export default defineInstall(async function (api) {
             quasar: '^2.17.7',
             vue: '^3.5.13',
             'vue-router': '^4.5.0',
+            // Additional packages
+            'vue-component-type-helpers': '^2.2.2',
         },
         devDependencies: {
             // Upgrade Starter Kit packages
