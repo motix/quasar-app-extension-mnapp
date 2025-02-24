@@ -19,7 +19,9 @@ export default async function (api) {
     api.extendPackageJson({
         scripts,
     });
+    console.log(` \x1b[32m${packageName} •\x1b[0m`, 'Installing', modules.length, 'modules...');
     for (const module of modules) {
+        console.log(` \x1b[32m${packageName} •\x1b[0m`, 'Installing module', `\x1b[32m${module.name}\x1b[0m...`);
         await module(api);
     }
 }

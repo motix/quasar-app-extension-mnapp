@@ -3,9 +3,11 @@ import { getPackageName } from './lib/package-name.js';
 import getModules from './modules/index.js';
 export default async function (api) {
     const modules = await getModules(api.appDir, 'uninstall');
+    const packageName = getPackageName();
+    console.log(` \x1b[32m${packageName} •\x1b[0m`, 'Uninstalling', modules.length, 'modules...');
     for (const module of modules) {
+        console.log(` \x1b[32m${packageName} •\x1b[0m`, 'Uninstalling module', `\x1b[32m${module.name}\x1b[0m...`);
         await module(api);
     }
-    const packageName = getPackageName();
     reduceJsonFile(api, 'package.json', [`scripts.u-${packageName}`, `scripts.r-${packageName}`]);
 }
