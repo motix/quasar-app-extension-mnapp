@@ -5,17 +5,19 @@ import { computed } from 'vue';
 
 import useListPageFilter from './useListPageFilter';
 
+export type FilterOptions<FilterType> = {
+  type: FilterType;
+  label: string;
+  selectedLabel?: string;
+  queryConstraints: QueryConstraint[];
+};
+
 export default function useListPageFilterWithOptions<FilterType>(
   ready: ListPage<never, never>['ready'],
   queryConstraints: ListPage<never, never>['queryConstraints'],
   initialFilter: FilterType,
   loadItems: () => Promise<void>,
-  ...options: {
-    type: FilterType;
-    label: string;
-    selectedLabel?: string;
-    queryConstraints: QueryConstraint[];
-  }[]
+  ...options: FilterOptions<FilterType>[]
 ) {
   // Composables
 

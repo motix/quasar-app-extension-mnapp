@@ -1,5 +1,5 @@
 import type { ListPage } from './useListPage';
-import type { QueryConstraint } from 'firebase/firestore';
+import type { FilterOptions } from './useListPageFilterWithOptions';
 import type { DocModel } from 'stores/firebase-firestore';
 
 import { createMapper } from '@automapper/core';
@@ -34,12 +34,7 @@ export default function useListPageFilterWithOptionsAndStore<T extends DocModel,
   store: StoreType<T>,
   loadFirstPage: ListPage<never, never>['loadFirstPage'],
   resetItems: ListPage<T, never>['resetItems'],
-  ...options: {
-    type: FilterType;
-    label: string;
-    selectedLabel?: string;
-    queryConstraints: QueryConstraint[];
-  }[]
+  ...options: FilterOptions<FilterType>[]
 ) {
   return useListPageFilterWithOptions<FilterType>(
     ready,
