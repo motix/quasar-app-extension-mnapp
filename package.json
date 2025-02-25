@@ -8,8 +8,9 @@
   "scripts": {
     "test": "echo \"No test specified\" && exit 0",
     "lint": "eslint -c ./eslint.config.js \"./src/**/*.{ts,js,cjs,mjs,vue}\" && cd templates && yarn lint && cd ..",
+    "lintf": "eslint -c ./eslint.config.js \"./src/**/*.{ts,js,cjs,mjs,vue}\" --fix && cd templates && yarn lint --fix && cd ..",
     "format": "prettier --write \"**/*.{js,ts,vue,scss,html,md,json}\" --ignore-path templates/.gitignore  --ignore-path .prettierignore",
-    "clean": "yarn format-imports src && yarn format-imports templates/modules && yarn format --log-level warn && yarn lint --fix",
+    "clean": "yarn format-imports src && yarn format-imports templates/modules && yarn format --log-level warn && yarn lintf",
     "build": "npx tsc && cd templates && yarn tsc && cd ..",
     "watch": "npx tsc --watch",
     "postinstall": "node fixQuasarAppVite.js"
