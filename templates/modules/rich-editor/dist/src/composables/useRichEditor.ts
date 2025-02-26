@@ -24,7 +24,7 @@ export default function useRichEditor() {
 
   // Data
 
-  const editortRef = useTemplateRef<QEditor>('editortRef')
+  const editortRef = useTemplateRef<QEditor>('editortRef');
 
   // Methods
 
