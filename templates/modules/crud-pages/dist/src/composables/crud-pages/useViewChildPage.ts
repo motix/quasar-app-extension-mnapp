@@ -37,7 +37,7 @@ export default function useViewChildPage<
   const parentModel = ref(null) as Ref<TParent | null>;
   const parentViewModel = ref(null) as Ref<TParentVm | null>;
   const viewUrl = ref<string | null>(null);
-  const childViewerRef = useTemplateRef<ComponentPublicInstance>('childViewerRef')
+  const childViewerRef = useTemplateRef<ComponentPublicInstance>('childViewerRef');
 
   // Method Refs
 

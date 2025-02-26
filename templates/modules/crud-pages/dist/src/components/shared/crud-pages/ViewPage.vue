@@ -45,8 +45,8 @@ const {
 
 // Data
 
-const freezingBar = useTemplateRef('freezingBar')
-const saveTooltip = useTemplateRef('saveTooltip')
+const freezingBar = useTemplateRef('freezingBar');
+const saveTooltip = useTemplateRef('saveTooltip');
 
 // Computed
 

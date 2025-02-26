@@ -8,7 +8,7 @@ import ViewPage from 'components/shared/crud-pages/ViewPage.vue';
 
 export default defineBoot(({ app }) => {
   app
-    .component('ListPage', ListPage as ComponentExposed<typeof ListPage>)
+    .component<ComponentExposed<typeof ListPage>>('ListPage', ListPage)
     .component('ViewPage', ViewPage)
     .component('NewPage', NewPage);
 });
