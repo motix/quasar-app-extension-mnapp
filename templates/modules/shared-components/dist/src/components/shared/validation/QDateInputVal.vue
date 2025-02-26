@@ -3,7 +3,7 @@ import type { QDateProps } from 'quasar';
 
 import { useField } from 'vee-validate';
 
-import { computed, useTemplateRef, watch } from 'vue';
+import { useTemplateRef } from 'vue';
 
 import { QPopupProxy } from 'quasar';
 
@@ -20,7 +20,7 @@ const { name, optional, dateOptions } = defineProps<Props>();
 
 // Models
 
-const model = defineModel<string | null>();
+defineModel<string | null>();
 
 // Composables
 
@@ -30,45 +30,17 @@ const { dateFormat, editDateFormat, dateMask } = requiredConfigEntries(
   'dateMask',
 );
 
-const { value: valValue, errorMessage } = useField<string | null | undefined>(name);
+const { value, errorMessage } = useField<string | null | undefined>(name, undefined, {
+  syncVModel: true,
+});
 
 // Data
 
 const popupProxy = useTemplateRef('popupProxy');
-
-// Computed
-
-const value = computed<string | null | undefined>({
-  get() {
-    return model.value;
-  },
-  set(value) {
-    valValue.value = value;
-    model.value = value;
-  },
-});
-
-// Private Executions
-
-// Update validation value when v-model set from container changed
-// after useForm is called and before this component is mounted
-if (valValue.value !== model.value) {
-  value.value = model.value;
-}
-
-// Watch
-
-// Update validation value when v-model set from container changed
-watch(model, (newValue) => {
-  if (valValue.value !== newValue) {
-    value.value = newValue;
-  }
-});
 </script>
 
 <template>
   <q-input
-    v-bind="$attrs"
     v-model="value"
     :clearable="optional"
     :error="!!errorMessage"

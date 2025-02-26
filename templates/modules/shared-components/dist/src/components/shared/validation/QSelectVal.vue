@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { useField } from 'vee-validate';
 
-import { watch } from 'vue';
-
 // Props
 
 type Props = {
@@ -12,30 +10,13 @@ const { name } = defineProps<Props>();
 
 // Models
 
-const model = defineModel<unknown>();
+defineModel<unknown>();
 
 // Composables
 
-const { errorMessage, value } = useField(name);
-
-// Private Executions
-
-// Update validation value when v-model set from container changed
-// after useForm is called and before this component is mounted
-if (value.value !== model.value) {
-  value.value = model.value;
-}
-
-// Watch
-
-// Update validation value when v-model set from container changed
-watch(model, (newValue) => {
-  if (value.value !== newValue) {
-    value.value = newValue;
-  }
-});
+const { errorMessage, value } = useField(name, undefined, { syncVModel: true });
 </script>
 
 <template>
-  <q-select v-bind="$attrs" v-model="value" :error="!!errorMessage" :error-message="errorMessage" />
+  <q-select v-model="value" :error="!!errorMessage" :error-message="errorMessage" />
 </template>

@@ -80,7 +80,6 @@ function onUpdate(value: string | null) {
 
 <template>
   <q-input
-    v-bind="$attrs"
     :model-value="displayValue"
     :suffix="thousandSuffix"
     @update:model-value="onUpdate($event as string | null)"

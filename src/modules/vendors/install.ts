@@ -77,6 +77,7 @@ export default defineInstall(function (api) {
     api.extendPackageJson({
       dependencies: {
         'vee-validate': '^4.15.0',
+        '@vee-validate/yup': '^4.15.0',
         yup: '^1.6.1',
       },
     });

@@ -13,7 +13,7 @@
 8. `page-title`  
    🔗 `config`
 9. `shared-components`  
-   🔗 `map-paths`, `vendors` (`lds`, `vld`), `config`
+   🔗 `map-paths`, `vendors` (`fap`, `lds`, `vld`), `config`, `formats`
 10. `document-status`  
     🔗 `map-paths`, `vendors` (`lds`)
 11. `notifications`  

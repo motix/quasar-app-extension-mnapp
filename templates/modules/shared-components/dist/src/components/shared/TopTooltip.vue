@@ -5,7 +5,7 @@ import { QTooltip } from 'quasar';
 
 // Data
 
-const tooltip = useTemplateRef('tooltip')
+const tooltip = useTemplateRef('tooltip');
 
 // Methods
 
@@ -21,7 +21,7 @@ defineExpose({
 </script>
 
 <template>
-  <q-tooltip v-bind="$attrs" ref="tooltip" anchor="top middle" self="bottom middle">
+  <q-tooltip ref="tooltip" anchor="top middle" self="bottom middle">
     <slot></slot>
   </q-tooltip>
 </template>

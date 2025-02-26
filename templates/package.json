@@ -23,6 +23,7 @@
     "@automapper/core": "^8.8.1",
     "@automapper/pojos": "^8.8.1",
     "vee-validate": "^4.15.0",
+    "@vee-validate/yup": "^4.15.0",
     "yup": "^1.6.1",
     "vue-markdown-render": "^2.2.1",
     "apexcharts": "^4.4.0",

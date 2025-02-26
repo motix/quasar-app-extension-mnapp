@@ -8,7 +8,7 @@ const { fieldClass } = defineProps<Props>();
 </script>
 
 <template>
-  <q-field v-bind="$attrs" readonly>
+  <q-field readonly>
     <template #control>
       <div class="self-center full-width no-outline" :class="fieldClass" tabindex="0">
         <slot></slot>

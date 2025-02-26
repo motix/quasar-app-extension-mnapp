@@ -1,11 +1,14 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, useTemplateRef } from 'vue';
 
 // Data
 
 const fsShowCard1 = ref(true);
 const lsCards = ref(['Card 1', 'Card 2', 'Card 3']);
 const piValue = ref(0.5);
+
+const topTooltipModel = ref(false);
+const topTooltipRef = useTemplateRef('topTooltip');
 
 // Methods
 
@@ -45,10 +48,20 @@ function lsRemoveCard(index: number) {
     <q-btn label="Add" @click="lsAddCard" />
 
     <h4>TopTooltip</h4>
-    <q-btn>
-      Top Tooltip
-      <top-tooltip>Top Tooltip</top-tooltip>
-    </q-btn>
+    <div>
+      <q-btn @click="topTooltipRef?.hide()">
+        Top Tooltip - Click to hide
+        <TopTooltip
+          ref="topTooltip"
+          v-model="topTooltipModel"
+          transition-hide="jump-right"
+          @hide="console.log('TopTooltip onHide')"
+          >Top Tooltip</TopTooltip
+        >
+      </q-btn>
+
+      <span class="q-ml-md">topTooltipModel: {{ topTooltipModel }}</span>
+    </div>
 
     <h4>Gravatar Image</h4>
     <gravatar-image />

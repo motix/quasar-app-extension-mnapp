@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { useField } from 'vee-validate';
 
-import { watch } from 'vue';
+import { Platform } from 'quasar';
+
+import { requiredConfigEntries } from 'composables/useConfig';
 
 // Props
 
@@ -12,30 +14,26 @@ const { name } = defineProps<Props>();
 
 // Models
 
-const model = defineModel<string | null>();
+defineModel<string | null>();
 
 // Composables
 
-const { value } = useField<string | null | undefined>(name);
+const { editDateFormat } = requiredConfigEntries('editDateFormat');
 
-// Private Executions
-
-// Update validation value when v-model set from container changed
-// after useForm is called and before this component is mounted
-if (value.value !== model.value) {
-  value.value = model.value;
-}
-
-// Watch
-
-// Update validation value when v-model set from container changed
-watch(model, (newValue) => {
-  if (value.value !== newValue) {
-    value.value = newValue;
-  }
+const { value, errorMessage } = useField<string | null | undefined>(name, undefined, {
+  syncVModel: true,
 });
 </script>
 
 <template>
-  <q-date v-model="value" v-bind="$attrs" />
+  <q-field v-model="value" :error="!!errorMessage" :error-message="errorMessage" stack-label>
+    <template #control>
+      <q-date
+        v-model="value"
+        class="q-mt-sm full-width"
+        :landscape="Platform.is.desktop"
+        :mask="editDateFormat"
+      />
+    </template>
+  </q-field>
 </template>

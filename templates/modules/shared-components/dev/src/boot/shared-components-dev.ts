@@ -10,6 +10,10 @@ export default defineBoot(({ router }) => {
         path: '/shared-components',
         component: () => import('pages/SharedComponents.vue'),
       },
+      {
+        path: '/shared-components-input',
+        component: () => import('pages/SharedComponentsInput.vue'),
+      },
     ],
   });
 });

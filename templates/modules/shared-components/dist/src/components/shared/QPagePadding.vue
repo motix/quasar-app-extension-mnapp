@@ -24,7 +24,7 @@ function styleFn(offset: number, height: number) {
 </script>
 
 <template>
-  <q-page v-bind="$attrs" :style-fn="styleFn">
+  <q-page :style-fn="styleFn">
     <div
       :style="{
         paddingTop: `${topFloatPadding}px`,

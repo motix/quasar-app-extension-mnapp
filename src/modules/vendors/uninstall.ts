@@ -36,6 +36,7 @@ export default defineUninstall(function (api) {
 
     // vee-validate
     'dependencies.vee-validate',
+    'dependencies.@vee-validate/yup',
     'dependencies.yup',
 
     // markdown-it

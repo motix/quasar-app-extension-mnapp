@@ -64,7 +64,6 @@ function onUpdate(value: string | null) {
 
 <template>
   <q-input
-    v-bind="$attrs"
     class="percent"
     :model-value="displayValue"
     :suffix="isValueValid ? '%' : undefined"

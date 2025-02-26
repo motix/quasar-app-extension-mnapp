@@ -26,6 +26,7 @@ export default defineUninstall(function (api) {
         'dependencies.@automapper/pojos',
         // vee-validate
         'dependencies.vee-validate',
+        'dependencies.@vee-validate/yup',
         'dependencies.yup',
         // markdown-it
         'dependencies.vue-markdown-render',
