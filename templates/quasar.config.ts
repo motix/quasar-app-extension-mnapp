@@ -7,7 +7,7 @@ export default defineConfig((/* ctx */) => {
     build: {
       typescript: {
         strict: true,
-        vueShim: false,
+        vueShim: true,
       },
     },
   };
