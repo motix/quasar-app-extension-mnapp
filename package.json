@@ -13,6 +13,7 @@
     "clean": "yarn format-imports src && yarn format-imports templates/modules && yarn format --log-level warn && yarn lintf",
     "build": "npx tsc && cd templates && yarn tsc && cd ..",
     "watch": "npx tsc --watch",
+    "buildPaths": "cd ./templates && node ./buildPaths.js && cd ..",
     "postinstall": "node fixQuasarAppVite.js"
   },
   "engines": {

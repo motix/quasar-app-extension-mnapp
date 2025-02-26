@@ -1,0 +1,4 @@
+{
+  "app/package.json": ["./modules/page-title/package.json"],
+  "app/firebase.json": ["./modules/firebase/firebase.json"]
+}
