@@ -5,12 +5,12 @@ import { QTooltip } from 'quasar';
 
 // Data
 
-const tooltip = useTemplateRef('tooltip');
+const tooltipRef = useTemplateRef('tooltip');
 
 // Methods
 
 function hide() {
-  tooltip.value?.hide();
+  tooltipRef.value?.hide();
 }
 
 // Expose

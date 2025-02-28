@@ -29,22 +29,22 @@ const {
 
 // Data
 
-const freezingBar = useTemplateRef('freezingBar');
-const saveTooltip = useTemplateRef('saveTooltip');
+const freezingBarRef = useTemplateRef('freezingBar');
+const saveTooltipRef = useTemplateRef('saveTooltip');
 
 // Methods
 
 function hideSaveTooltip() {
-  saveTooltip.value?.hide();
+  saveTooltipRef.value?.hide();
 }
 
 // Watch
 
 watch(freezed, (value) => {
   if (value) {
-    freezingBar.value?.start();
+    freezingBarRef.value?.start();
   } else {
-    freezingBar.value?.stop();
+    freezingBarRef.value?.stop();
   }
 });
 </script>

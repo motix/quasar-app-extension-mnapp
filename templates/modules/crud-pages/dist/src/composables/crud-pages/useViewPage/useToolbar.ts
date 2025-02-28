@@ -1,8 +1,9 @@
 import type usePageFeatures from './usePageFeatures';
 import type usePageStatus from './usePageStatus';
 import type FloatToolbar from 'components/shared/FloatToolbar.vue';
+import type { ShallowRef, useTemplateRef } from 'vue';
 
-import { computed, ref, useTemplateRef } from 'vue';
+import { computed, ref } from 'vue';
 
 export default function useToolbar(
   hasEditor: ReturnType<typeof usePageFeatures>['hasEditor'],
@@ -13,7 +14,14 @@ export default function useToolbar(
 ) {
   // Data
 
-  const toolbarRef = useTemplateRef<InstanceType<typeof FloatToolbar>>('toolbarRef');
+  const toolbarRef =
+    ref<
+      ReturnType<typeof useTemplateRef<InstanceType<typeof FloatToolbar>>> extends Readonly<
+        ShallowRef<infer Component>
+      >
+        ? Component
+        : never
+    >(null);
   const toolbarPersistent = ref(false);
   const toolbarMainButtonVisibility = ref<Record<string, boolean>>({});
   const toolbarExtraButtonVisibility = ref<Record<string, boolean>>({});

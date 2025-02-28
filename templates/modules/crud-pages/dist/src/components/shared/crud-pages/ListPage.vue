@@ -83,20 +83,20 @@ function useAutoLoadAllPages() {
 
   const autoLoadAllPages = ref(false);
   const hideAutoLoadAllPagesButton = ref(false);
-  const infiniteScroll = useTemplateRef<InstanceType<typeof QInfiniteScroll>>('infiniteScroll');
+  const infiniteScrollRef = useTemplateRef<QInfiniteScroll>('infiniteScroll');
 
   // Methods
 
   function toggleAutoLoadAllPages() {
     autoLoadAllPages.value = !autoLoadAllPages.value;
 
-    infiniteScroll.value?.trigger();
+    infiniteScrollRef.value?.trigger();
   }
 
   return {
     autoLoadAllPages,
     hideAutoLoadAllPagesButton,
-    infiniteScroll,
+    infiniteScrollRef,
     toggleAutoLoadAllPages,
   };
 }
@@ -105,7 +105,7 @@ function usePageData<T extends NonNullable<unknown>, TRow extends NonNullable<un
   scopeName: string,
   emitLoadNextPage: (e: 'loadNextPage', index: number, done: (stop: boolean) => void) => void,
   autoLoadAllPages: ReturnType<typeof useAutoLoadAllPages>['autoLoadAllPages'],
-  infiniteScroll: ReturnType<typeof useAutoLoadAllPages>['infiniteScroll'],
+  infiniteScrollRef: ReturnType<typeof useAutoLoadAllPages>['infiniteScrollRef'],
 ) {
   // Composables
 
@@ -129,7 +129,7 @@ function usePageData<T extends NonNullable<unknown>, TRow extends NonNullable<un
       if (stop) {
         autoLoadAllPages.value = false;
       } else if (autoLoadAllPages.value) {
-        infiniteScroll.value?.trigger();
+        infiniteScrollRef.value?.trigger();
       }
     });
   }
@@ -287,7 +287,7 @@ const { wrapCells, columns, pagination, rows, headerSlotNames, bodySlotNames } =
   TRow
 >(props.scopeName);
 
-const { autoLoadAllPages, hideAutoLoadAllPagesButton, infiniteScroll, toggleAutoLoadAllPages } =
+const { autoLoadAllPages, hideAutoLoadAllPagesButton, infiniteScrollRef, toggleAutoLoadAllPages } =
   useAutoLoadAllPages();
 
 const {
@@ -297,7 +297,7 @@ const {
   clientFilteredItems,
   clientFilteredItemCountLabel,
   onLoadNextPage,
-} = usePageData<T, TRow>(props.scopeName, emit, autoLoadAllPages, infiniteScroll);
+} = usePageData<T, TRow>(props.scopeName, emit, autoLoadAllPages, infiniteScrollRef);
 
 const { itemLink, hasViewPage, onRowClick } = useNavigateToViewPage<T, TRow>(props.scopeName);
 
@@ -443,7 +443,7 @@ const switchViewButtonMargin = computed(
           v-if="!hideAutoLoadAllPagesButton"
           key="autoLoadAllPages"
           :color="Dark.isActive ? 'grey-9' : 'grey-3'"
-          :disable="!infiniteScroll || allItemsLoaded"
+          :disable="!infiniteScrollRef || allItemsLoaded"
           :icon="autoLoadAllPages ? undefined : 'fas fa-ellipsis'"
           round
           text-color="primary"
@@ -485,7 +485,7 @@ const switchViewButtonMargin = computed(
           v-if="!hideAutoLoadAllPagesButton"
           key="autoLoadAllPages"
           :color="Dark.isActive ? 'grey-9' : 'grey-3'"
-          :disable="!infiniteScroll || allItemsLoaded"
+          :disable="!infiniteScrollRef || allItemsLoaded"
           :icon="autoLoadAllPages ? undefined : 'fas fa-ellipsis'"
           round
           text-color="primary"

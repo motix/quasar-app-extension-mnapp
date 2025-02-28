@@ -35,7 +35,7 @@ const { stickyHeadersPosition } = useStickyHeadersResult();
 
 // Data
 
-const container = useTemplateRef('container');
+const containerRef = useTemplateRef('container');
 const containerVisible = ref(false);
 const containerTop = ref('0px');
 const headersPaddingLeft = ref('0px');
@@ -76,7 +76,7 @@ function onResize() {
   // Update headers content
 
   const sourceTr = source.querySelector(':scope>thead>tr') as HTMLElement;
-  const destTr = (container.value as HTMLElement).querySelector(
+  const destTr = (containerRef.value as HTMLElement).querySelector(
     ':scope>div>table>thead>tr',
   ) as HTMLElement;
 
@@ -147,7 +147,7 @@ function onDocumentScroll() {
   const left = getHorizontalScrollPosition(
     document.querySelector(sourceTableScrollTarget.value) as HTMLElement,
   );
-  setHorizontalScrollPosition(container.value as HTMLElement, left);
+  setHorizontalScrollPosition(containerRef.value as HTMLElement, left);
 }
 
 function onSourceTableScroll(info: OnScrollDetail) {
@@ -160,7 +160,7 @@ function onSourceTableScroll(info: OnScrollDetail) {
   }
 
   destScrollObserverPaused = true;
-  setHorizontalScrollPosition(container.value as HTMLElement, info.position.left);
+  setHorizontalScrollPosition(containerRef.value as HTMLElement, info.position.left);
   destScrollObserverPausedTimeout = setTimeout(() => {
     destScrollObserverPaused = false;
   }, 100);
@@ -204,9 +204,9 @@ defineExpose({
     @scroll="onSourceTableScroll"
   />
   <q-scroll-observer
-    v-if="container"
+    v-if="containerRef"
     axis="horizontal"
-    :scroll-target="container || undefined"
+    :scroll-target="containerRef || undefined"
     @scroll="onDestTableScroll"
   />
 

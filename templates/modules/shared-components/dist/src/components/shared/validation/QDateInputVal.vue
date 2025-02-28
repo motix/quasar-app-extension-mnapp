@@ -36,7 +36,7 @@ const { value, errorMessage } = useField<string | null | undefined>(name, undefi
 
 // Data
 
-const popupProxy = useTemplateRef('popupProxy');
+const popupProxyRef = useTemplateRef('popupProxy');
 </script>
 
 <template>
@@ -56,7 +56,7 @@ const popupProxy = useTemplateRef('popupProxy');
             v-model="value"
             :mask="editDateFormat"
             :options="dateOptions"
-            @update:model-value="popupProxy?.hide()"
+            @update:model-value="popupProxyRef?.hide()"
           />
         </q-popup-proxy>
       </q-icon>

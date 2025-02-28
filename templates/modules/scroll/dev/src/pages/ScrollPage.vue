@@ -11,22 +11,22 @@ const { toTop, toElement } = useScroll();
 
 // Data
 
-const buttons = useTemplateRef('buttons');
-const element = useTemplateRef('element');
-const component = useTemplateRef('component');
+const buttonsRef = useTemplateRef('buttons');
+const elementRef = useTemplateRef('element');
+const componentRef = useTemplateRef('component');
 
 // Methods
 
 function toButtons() {
-  buttons.value && toElement(buttons.value);
+  buttonsRef.value && toElement(buttonsRef.value);
 }
 
 function toTheElement() {
-  element.value && toElement(element.value);
+  elementRef.value && toElement(elementRef.value);
 }
 
 function toComponent() {
-  component.value && toElement(component.value);
+  componentRef.value && toElement(componentRef.value);
 }
 </script>
 

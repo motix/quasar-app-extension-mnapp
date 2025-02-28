@@ -55,7 +55,7 @@ const QFAB_ACTIONS_MARGIN = 9;
 const QBTN_MARGIN = 5;
 const QBTN_SIZE = 42;
 
-const fab = useTemplateRef('fab');
+const fabRef = useTemplateRef('fab');
 const fabOpened = ref<boolean>(false);
 
 // Computed
@@ -206,15 +206,7 @@ const fixedButtonsPosition = computed(() => {
 // Methods
 
 function open() {
-  fab.value && fab.value.show();
-}
-
-function onBeforeShow() {
-  fabOpened.value = true;
-}
-
-function onBeforeHide() {
-  fabOpened.value = false;
+  fabRef.value?.show();
 }
 
 // Expose
@@ -245,12 +237,11 @@ defineExpose({
       <q-fab
         v-if="showFab"
         ref="fab"
+        v-model="fabOpened"
         color="accent"
         :direction="direction"
         icon="fal fa-ellipsis-h-alt"
         :persistent="persistent"
-        @before-hide="onBeforeHide"
-        @before-show="onBeforeShow"
       >
         <div style="pointer-events: none" :style="fabContentMargin">
           <transition-group

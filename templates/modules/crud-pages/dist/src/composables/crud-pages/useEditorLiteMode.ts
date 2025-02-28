@@ -1,7 +1,8 @@
 import type { EditPage } from './useEditPage';
 import type StickyHeaders from 'components/shared/StickyHeaders.vue';
+import type { ShallowRef, useTemplateRef } from 'vue';
 
-import { computed, nextTick, ref, useTemplateRef, watch } from 'vue';
+import { computed, nextTick, ref, watch } from 'vue';
 
 import useNotifications from 'composables/useNotifications';
 
@@ -24,7 +25,14 @@ export default function useEditorLiteMode<TVm extends NonNullable<unknown>>(
 
   const liteMode = ref(true);
   const showLiteModeInputs = ref(false);
-  const stickyHeadersRef = useTemplateRef<InstanceType<typeof StickyHeaders>>('stickyHeadersRef');
+  const stickyHeadersRef =
+    ref<
+      ReturnType<typeof useTemplateRef<InstanceType<typeof StickyHeaders>>> extends Readonly<
+        ShallowRef<infer Component>
+      >
+        ? Component
+        : never
+    >(null);
 
   // Computed
 
