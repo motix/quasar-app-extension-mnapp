@@ -17,6 +17,7 @@ import order
 
 setup sections
   Constants
+  Options (defineOptions)
   Private
   Props
   Attrs
