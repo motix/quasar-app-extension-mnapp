@@ -1,6 +1,4 @@
 <script lang="ts">
-export default {};
-
 import type { ListPage } from 'composables/crud-pages/useListPage';
 import type { QTableSlots } from 'quasar';
 import type { VNode } from 'vue';
