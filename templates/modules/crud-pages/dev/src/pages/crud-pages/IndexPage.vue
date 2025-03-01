@@ -1,7 +1,3 @@
-<script lang="ts">
-export default { name: 'AliveIndex' };
-</script>
-
 <script setup lang="ts">
 import type { Member } from 'models/crud-pages';
 
@@ -16,6 +12,12 @@ import useListPageStore from 'composables/crud-pages/useListPageStore';
 // Constants
 
 const SCOPE_NAME = 'list-page';
+
+// Options
+
+defineOptions({
+  name: 'AliveIndex',
+});
 
 // Composables
 
