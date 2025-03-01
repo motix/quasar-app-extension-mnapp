@@ -15,9 +15,7 @@ const SCOPE_NAME = 'list-page';
 
 // Options
 
-defineOptions({
-  name: 'AliveIndex',
-});
+defineOptions({ name: 'AliveIndex' });
 
 // Composables
 
