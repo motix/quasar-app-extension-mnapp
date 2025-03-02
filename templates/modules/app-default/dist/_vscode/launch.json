@@ -8,12 +8,8 @@
       "type": "chrome",
       "request": "launch",
       "name": "Launch Chrome against localhost",
-      "url": "https://localhost:<%= prompts.devServerPort %>",
-      "webRoot": "${workspaceFolder}/src",
-      "breakOnLoad": true,
-      "sourceMapPathOverrides": {
-        "webpack://${workspaceFolderBasename}/./src/*": "${webRoot}/*"
-      }
+      "url": "http<%= prompts.https ? 's' : '' %>://localhost:<%= prompts.devServerPort %>",
+      "webRoot": "${workspaceFolder}"
     }
   ]
 }
