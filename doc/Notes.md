@@ -1,6 +1,5 @@
 Use defineModel()
 Use defineOptions()
-Use defineBoot()
 Use defineSlots()
 Use useTemplateRef(), remove 'Ref' subfix from ref attribute
 Fallthrough Attributes v-bind="$attrs" + inheritAttrs: false
