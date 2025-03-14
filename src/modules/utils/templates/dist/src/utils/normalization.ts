@@ -1,4 +1,6 @@
 export function indexNormalizeString(value: string | undefined | null) {
+  value = toAscii(value);
+
   if (value == null) return value;
 
   return value.toLowerCase();
