@@ -1,7 +1,8 @@
-import { Notify } from 'quasar';
-import { boot } from 'quasar/wrappers';
+import { defineBoot } from '#q-app/wrappers';
 
-export default boot(() => {
+import { Notify } from 'quasar';
+
+export default defineBoot(() => {
   Notify.setDefaults({
     color: 'grey-6',
   });
