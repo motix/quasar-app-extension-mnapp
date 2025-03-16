@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useFloatToolbarResult } from 'composables/useFloatToolbar';
+import { useFloatToolbarResult } from 'composables/useFloatToolbar.js';
 
 // Composables
 

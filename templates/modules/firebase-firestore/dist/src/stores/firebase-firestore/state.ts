@@ -1,6 +1,6 @@
-import type { RealtimeDocIndex } from './';
+import type { RealtimeDocIndex } from './index.js';
 
-import { requiredConfigEntries } from 'composables/useConfig';
+import { requiredConfigEntries } from 'composables/useConfig.js';
 
 function buildState<T>() {
   const { docsPageSize } = requiredConfigEntries('docsPageSize');

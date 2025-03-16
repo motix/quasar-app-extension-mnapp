@@ -3,14 +3,14 @@ import type { Firestore } from 'firebase/firestore';
 import type { Functions } from 'firebase/functions';
 import type { FirebaseStorage } from 'firebase/storage';
 
-import firebaseConfig from 'app/firebase.json';
+import firebaseConfig from 'app/firebase.json' with { type: 'json' };
 
 import { connectAuthEmulator, getAuth } from 'firebase/auth';
 import { connectFirestoreEmulator, getFirestore } from 'firebase/firestore';
 import { connectFunctionsEmulator, getFunctions } from 'firebase/functions';
 import { connectStorageEmulator, getStorage } from 'firebase/storage';
 
-import useConfig from 'composables/useConfig';
+import useConfig from 'composables/useConfig.js';
 
 const host = window.location.hostname;
 

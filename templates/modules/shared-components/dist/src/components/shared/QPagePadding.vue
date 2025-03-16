@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { requiredConfigEntries } from 'composables/useConfig';
+import { requiredConfigEntries } from 'composables/useConfig.js';
 
 // Props
 

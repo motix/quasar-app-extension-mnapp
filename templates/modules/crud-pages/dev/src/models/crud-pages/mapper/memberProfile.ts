@@ -1,10 +1,10 @@
 import type { Member, MemberAm, MemberVm } from '../';
 import type { MappingProfile } from '@automapper/core';
-import type { FieldConfig, MapperMetadata } from 'utils/automapper';
+import type { FieldConfig, MapperMetadata } from 'utils/automapper.js';
 
 import { PojosMetadataMap } from '@automapper/pojos';
 
-import { configureAndCreateMaps } from 'utils/automapper';
+import { configureAndCreateMaps } from 'utils/automapper.js';
 
 const memberBase: MapperMetadata<Member> = {
   uid: String,

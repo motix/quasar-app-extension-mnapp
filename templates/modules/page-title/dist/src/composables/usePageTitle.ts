@@ -3,7 +3,7 @@ import { useRoute } from 'vue-router';
 
 import { useMeta } from 'quasar';
 
-import { requiredConfigEntries } from 'composables/useConfig';
+import { requiredConfigEntries } from 'composables/useConfig.js';
 
 export default function () {
   // Private

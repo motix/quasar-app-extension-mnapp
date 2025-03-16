@@ -2,7 +2,7 @@ import type { ComponentPublicInstance } from 'vue';
 
 import { scroll } from 'quasar';
 
-import { requiredConfigEntries } from 'composables/useConfig';
+import { requiredConfigEntries } from 'composables/useConfig.js';
 
 const { getScrollTarget, setVerticalScrollPosition } = scroll;
 

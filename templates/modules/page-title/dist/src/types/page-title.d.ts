@@ -6,7 +6,7 @@ declare module 'vue-router' {
   }
 }
 
-declare module 'composables/useConfig' {
+declare module 'composables/useConfig.js' {
   interface Config {
     appName?: string;
   }

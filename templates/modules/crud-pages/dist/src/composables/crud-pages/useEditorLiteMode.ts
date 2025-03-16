@@ -1,12 +1,12 @@
-import type { EditPage } from './useEditPage';
+import type { EditPage } from './useEditPage.js';
 import type StickyHeaders from 'components/shared/StickyHeaders.vue';
 import type { ShallowRef, useTemplateRef } from 'vue';
 
 import { computed, nextTick, ref, watch } from 'vue';
 
-import useNotifications from 'composables/useNotifications';
+import useNotifications from 'composables/useNotifications.js';
 
-import { extendEditPage } from './useEditPage';
+import { extendEditPage } from './useEditPage.js';
 
 // useNewPage | useViewPage
 export default function useEditorLiteMode<TVm extends NonNullable<unknown>>(

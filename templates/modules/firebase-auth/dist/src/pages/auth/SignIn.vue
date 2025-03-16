@@ -4,7 +4,7 @@ import 'firebaseui/dist/firebaseui.css';
 import { onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 
-import useFirebaseAuth from 'composables/useFirebaseAuth';
+import useFirebaseAuth from 'composables/useFirebaseAuth.js';
 
 // Composables
 

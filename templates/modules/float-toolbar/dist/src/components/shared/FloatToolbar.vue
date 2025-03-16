@@ -5,7 +5,7 @@ import { Comment, computed, ref, useTemplateRef } from 'vue';
 
 import { QFab } from 'quasar';
 
-import { useFloatToolbarResult } from 'composables/useFloatToolbar';
+import { useFloatToolbarResult } from 'composables/useFloatToolbar.js';
 
 // Props
 

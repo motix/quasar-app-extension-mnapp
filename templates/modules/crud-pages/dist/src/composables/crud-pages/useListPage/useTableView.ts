@@ -1,4 +1,4 @@
-import type { UseClientFilterHelper } from './useClientFilter';
+import type { UseClientFilterHelper } from './useClientFilter.js';
 import type { QTable } from 'quasar';
 
 import { computed, ref } from 'vue';

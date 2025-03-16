@@ -1,7 +1,7 @@
-import type { NewChildPage } from 'composables/crud-pages/useNewChildPage';
-import type { NewPage } from 'composables/crud-pages/useNewPage';
-import type { ViewChildPage } from 'composables/crud-pages/useViewChildPage';
-import type { ViewPage } from 'composables/crud-pages/useViewPage';
+import type { NewChildPage } from 'composables/crud-pages/useNewChildPage.js';
+import type { NewPage } from 'composables/crud-pages/useNewPage/index.js';
+import type { ViewChildPage } from 'composables/crud-pages/useViewChildPage.js';
+import type { ViewPage } from 'composables/crud-pages/useViewPage/index.js';
 
 export function useChildPageNarrower<
   TChild extends NonNullable<unknown>,

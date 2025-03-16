@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import type { Member } from 'models/crud-pages';
+import type { Member } from 'models/crud-pages/index.js';
 
 import { where } from 'firebase/firestore';
 
-import { membersStoreDefaultSort, useMembersStore } from 'stores/crud-pages/Members';
+import { membersStoreDefaultSort, useMembersStore } from 'stores/crud-pages/Members.js';
 
-import useListPage from 'composables/crud-pages/useListPage';
-import useListPageFilterWithOptionsAndStore from 'composables/crud-pages/useListPageFilterWithOptionsAndStore';
-import useListPageStore from 'composables/crud-pages/useListPageStore';
+import useListPage from 'composables/crud-pages/useListPage/index.js';
+import useListPageFilterWithOptionsAndStore from 'composables/crud-pages/useListPageFilterWithOptionsAndStore.js';
+import useListPageStore from 'composables/crud-pages/useListPageStore.js';
 
 // Constants
 

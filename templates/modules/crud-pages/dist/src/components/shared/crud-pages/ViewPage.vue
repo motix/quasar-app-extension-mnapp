@@ -3,7 +3,7 @@ import { computed, useTemplateRef, watch } from 'vue';
 
 import { Dark, QAjaxBar } from 'quasar';
 
-import useViewPage from 'composables/crud-pages/useViewPage';
+import useViewPage from 'composables/crud-pages/useViewPage/index.js';
 
 import FloatToolbar from 'components/shared/FloatToolbar.vue';
 import SwitchViewButton from 'components/shared/SwitchViewButton.vue';

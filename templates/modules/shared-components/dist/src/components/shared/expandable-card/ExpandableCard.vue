@@ -3,7 +3,7 @@ import { computed, readonly, ref } from 'vue';
 
 import { Dark } from 'quasar';
 
-import { requiredConfigEntries } from 'composables/useConfig';
+import { requiredConfigEntries } from 'composables/useConfig.js';
 
 import ExpandableCardHeader from './ExpandableCardHeader.vue';
 

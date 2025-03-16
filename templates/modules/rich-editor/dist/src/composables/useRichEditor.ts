@@ -6,9 +6,9 @@ import { uid } from 'quasar';
 
 import { getDownloadURL, ref as storageRef, uploadString } from 'firebase/storage';
 
-import imageFileToBase64 from 'utils/imageFileToBase64';
+import imageFileToBase64 from 'utils/imageFileToBase64.js';
 
-import { getStorage } from 'services/firebase';
+import { getStorage } from 'services/firebase.js';
 
 export default function useRichEditor() {
   // Private

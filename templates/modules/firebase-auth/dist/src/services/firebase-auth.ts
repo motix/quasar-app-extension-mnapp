@@ -1,15 +1,15 @@
 import type { User } from 'firebase/auth';
-import type { UserClaims } from 'models/firebase-auth';
+import type { UserClaims } from 'models/firebase-auth/index.js';
 import type { Router } from 'vue-router';
 
 import { onAuthStateChanged } from 'firebase/auth';
 import { httpsCallable } from 'firebase/functions';
 
-import { userRoles } from 'models/firebase-auth';
+import { userRoles } from 'models/firebase-auth/index.js';
 
-import { useFirebaseAuthStore } from 'stores/FirebaseAuth';
+import { useFirebaseAuthStore } from 'stores/FirebaseAuth.js';
 
-import { getAuth, getFunctions } from 'services/firebase';
+import { getAuth, getFunctions } from 'services/firebase.js';
 
 function waitForUserClaims() {
   const store = useFirebaseAuthStore();

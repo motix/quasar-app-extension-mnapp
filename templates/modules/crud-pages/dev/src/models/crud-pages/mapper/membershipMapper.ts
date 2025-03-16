@@ -3,7 +3,7 @@ import type { MappingProfile } from '@automapper/core';
 import { addProfile, createMapper } from '@automapper/core';
 import { pojos } from '@automapper/pojos';
 
-import memberProfile from './memberProfile';
+import memberProfile from './memberProfile.js';
 
 export const membershipProfile: MappingProfile = (mapper) => {
   memberProfile(mapper);

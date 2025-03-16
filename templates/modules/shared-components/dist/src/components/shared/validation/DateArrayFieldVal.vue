@@ -5,7 +5,7 @@ import { watch } from 'vue';
 
 import { date, Platform } from 'quasar';
 
-import { requiredConfigEntries } from 'composables/useConfig';
+import { requiredConfigEntries } from 'composables/useConfig.js';
 
 // Props
 

@@ -22,7 +22,7 @@ import {
 
 import { date } from 'quasar';
 
-import { requiredConfigEntries } from 'composables/useConfig';
+import { requiredConfigEntries } from 'composables/useConfig.js';
 
 export type MapperMetadata<TModel> = {
   [key in keyof TModel]?:

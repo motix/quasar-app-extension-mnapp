@@ -5,7 +5,7 @@ import { computed, nextTick, ref, useTemplateRef } from 'vue';
 
 import { scroll } from 'quasar';
 
-import { useStickyHeadersResult } from 'composables/useStickyHeaders';
+import { useStickyHeadersResult } from 'composables/useStickyHeaders.js';
 
 type OnScrollDetail = Parameters<Exclude<QScrollObserverProps['onScroll'], undefined>>[0];
 

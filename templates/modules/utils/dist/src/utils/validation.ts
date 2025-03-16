@@ -2,7 +2,7 @@ import { mixed, number, string } from 'yup';
 
 import { date } from 'quasar';
 
-import { requiredConfigEntries } from 'composables/useConfig';
+import { requiredConfigEntries } from 'composables/useConfig.js';
 
 function getEditDateFormat() {
   return requiredConfigEntries('editDateFormat').editDateFormat;

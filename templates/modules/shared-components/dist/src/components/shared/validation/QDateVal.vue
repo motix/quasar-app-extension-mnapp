@@ -3,7 +3,7 @@ import { useField } from 'vee-validate';
 
 import { Platform } from 'quasar';
 
-import { requiredConfigEntries } from 'composables/useConfig';
+import { requiredConfigEntries } from 'composables/useConfig.js';
 
 // Props
 

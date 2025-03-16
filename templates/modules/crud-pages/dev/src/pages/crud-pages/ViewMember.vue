@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import type { Member, MemberVm } from 'models/crud-pages';
+import type { Member, MemberVm } from 'models/crud-pages/index.js';
 
 import { computed, onUnmounted } from 'vue';
 
-import { useMembersStore } from 'stores/crud-pages/Members';
+import { useMembersStore } from 'stores/crud-pages/Members.js';
 
-import useViewPage from 'composables/crud-pages/useViewPage';
+import useViewPage from 'composables/crud-pages/useViewPage/index.js';
 
 import MemberEditor from 'components/crud-pages/MemberEditor.vue';
 import MemberViewer from 'components/crud-pages/MemberViewer.vue';

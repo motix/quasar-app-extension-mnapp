@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import type { MemberVm } from 'models/crud-pages';
+import type { MemberVm } from 'models/crud-pages/index.js';
 
 import { nextTick } from 'vue';
 
-import { useMembersStore } from 'stores/crud-pages/Members';
+import { useMembersStore } from 'stores/crud-pages/Members.js';
 
-import useNewPage from 'composables/crud-pages/useNewPage';
+import useNewPage from 'composables/crud-pages/useNewPage/index.js';
 
 import MemberEditor from 'components/crud-pages/MemberEditor.vue';
 

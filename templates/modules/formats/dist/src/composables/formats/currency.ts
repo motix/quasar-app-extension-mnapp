@@ -1,6 +1,6 @@
 import { isFinite, isNumber } from 'lodash-es';
 
-declare module '../useFormats' {
+declare module '../useFormats.js' {
   interface FormatsInstance {
     currency: typeof currency;
   }

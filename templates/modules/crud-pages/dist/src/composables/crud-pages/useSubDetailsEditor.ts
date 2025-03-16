@@ -1,10 +1,10 @@
-import type { EditPage } from './useEditPage';
+import type { EditPage } from './useEditPage.js';
 import type { ComponentPublicInstance } from 'vue';
 
 import { computed, nextTick, ref, watch } from 'vue';
 
-import useMultiViews from 'composables/useMultiViews';
-import useScroll from 'composables/useScroll';
+import useMultiViews from 'composables/useMultiViews.js';
+import useScroll from 'composables/useScroll.js';
 
 // useNewPage | useViewPage
 export default function useSubDetailsEditor<

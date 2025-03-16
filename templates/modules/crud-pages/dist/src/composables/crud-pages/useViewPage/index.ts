@@ -1,8 +1,8 @@
 import { onUnmounted, ref } from 'vue';
 
-import { useSingleScopeComposableStore } from 'stores/SingleScopeComposable';
+import { useSingleScopeComposableStore } from 'stores/SingleScopeComposable.js';
 
-import useReturnUrl from 'composables/useReturnUrl';
+import useReturnUrl from 'composables/useReturnUrl.js';
 
 import useDeleting from './useDeleting';
 import useEditor from './useEditor';

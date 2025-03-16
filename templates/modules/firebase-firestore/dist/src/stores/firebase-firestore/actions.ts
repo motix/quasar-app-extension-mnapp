@@ -11,8 +11,8 @@ import type {
   ReleaseRealtimeDocActionPayload,
   StoreOptions,
   UpdateDocActionPayload,
-} from './';
-import type { DocStateInterface } from './state';
+} from './index.js';
+import type { DocStateInterface } from './state.js';
 import type { MapOptions, Mapper } from '@automapper/core';
 import type {
   CollectionReference,
@@ -44,13 +44,13 @@ import {
   where,
 } from 'firebase/firestore';
 
-import { urlFriendlyNormalizeString } from 'utils/normalization';
+import { urlFriendlyNormalizeString } from 'utils/normalization.js';
 
-import { getFirestore } from 'services/firebase';
+import { getFirestore } from 'services/firebase.js';
 
-import { requiredConfigEntries } from 'composables/useConfig';
+import { requiredConfigEntries } from 'composables/useConfig.js';
 
-import { defineActions } from './';
+import { defineActions } from './index.js';
 
 function buildActions<T extends DocModel, TVm, TAm extends DocumentData>(
   collectionPath: string,

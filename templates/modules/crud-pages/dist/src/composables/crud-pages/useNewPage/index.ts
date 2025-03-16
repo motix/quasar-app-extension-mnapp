@@ -1,11 +1,11 @@
 import { onUnmounted, ref } from 'vue';
 
-import { useSingleScopeComposableStore } from 'stores/SingleScopeComposable';
+import { useSingleScopeComposableStore } from 'stores/SingleScopeComposable.js';
 
-import useEditor from './useEditor';
-import useNavigateToListPage from './useNavigateToListPage';
-import usePageData from './usePageData';
-import usePageStatus from './usePageStatus';
+import useEditor from './useEditor.js';
+import useNavigateToListPage from './useNavigateToListPage.js';
+import usePageData from './usePageData.js';
+import usePageStatus from './usePageStatus.js';
 
 function newScope<TVm extends NonNullable<unknown>>() {
   const pageStatus = usePageStatus();

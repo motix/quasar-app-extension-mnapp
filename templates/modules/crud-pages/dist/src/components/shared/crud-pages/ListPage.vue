@@ -1,5 +1,5 @@
 <script lang="ts">
-import type { ListPage } from 'composables/crud-pages/useListPage';
+import type { ListPage } from 'composables/crud-pages/useListPage/index.js';
 import type { QTableSlots } from 'quasar';
 import type { VNode } from 'vue';
 
@@ -7,8 +7,8 @@ import { computed, nextTick, ref, useSlots, useTemplateRef, watchEffect } from '
 
 import { Dark, QInfiniteScroll } from 'quasar';
 
-import useListPage from 'composables/crud-pages/useListPage';
-import useMultiViews from 'composables/useMultiViews';
+import useListPage from 'composables/crud-pages/useListPage/index.js';
+import useMultiViews from 'composables/useMultiViews.js';
 
 import FloatToolbar from 'components/shared/FloatToolbar.vue';
 import StickyHeaders from 'components/shared/StickyHeaders.vue';

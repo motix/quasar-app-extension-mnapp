@@ -1,12 +1,12 @@
-import type usePageData from './usePageData';
-import type { UsePageDataHelper } from './usePageData';
-import type usePageStatus from './usePageStatus';
-import type { UpdateDocActionPayload } from 'stores/firebase-firestore';
+import type usePageData from './usePageData.js';
+import type { UsePageDataHelper } from './usePageData.js';
+import type usePageStatus from './usePageStatus.js';
+import type { UpdateDocActionPayload } from 'stores/firebase-firestore/index.js';
 import type { WatchSource } from 'vue';
 
 import { watch } from 'vue';
 
-import useNotifications from 'composables/useNotifications';
+import useNotifications from 'composables/useNotifications.js';
 
 export default function useViewer<T extends NonNullable<unknown>>(
   freezed: ReturnType<typeof usePageStatus>['freezed'],

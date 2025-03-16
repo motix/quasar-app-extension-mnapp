@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import type { Member, MemberVm } from 'models/crud-pages';
+import type { Member, MemberVm } from 'models/crud-pages/index.js';
 
-import useViewPage from 'composables/crud-pages/useViewPage';
+import useViewPage from 'composables/crud-pages/useViewPage/index.js';
 
 // Props
 

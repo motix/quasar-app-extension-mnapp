@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import useNotifications from 'composables/useNotifications';
+import useNotifications from 'composables/useNotifications.js';
 
 // Composables
 

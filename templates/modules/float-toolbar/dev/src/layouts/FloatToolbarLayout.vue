@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-import useFloatToolbar from 'composables/useFloatToolbar';
+import useFloatToolbar from 'composables/useFloatToolbar.js';
 
 // Composables
 

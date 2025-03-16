@@ -3,7 +3,7 @@ import { useTemplateRef, watch } from 'vue';
 
 import { Dark, QAjaxBar } from 'quasar';
 
-import useNewPage from 'composables/crud-pages/useNewPage';
+import useNewPage from 'composables/crud-pages/useNewPage/index.js';
 
 import FloatToolbar from 'components/shared/FloatToolbar.vue';
 import TopTooltip from 'components/shared/TopTooltip.vue';

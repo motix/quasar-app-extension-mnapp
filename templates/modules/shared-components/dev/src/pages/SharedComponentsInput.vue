@@ -14,9 +14,9 @@ import {
   numberRequired,
   percentRequiredMinZeroMax,
   stringRequired,
-} from 'utils/validation';
+} from 'utils/validation.js';
 
-import currency from 'composables/formats/currency';
+import currency from 'composables/formats/currency.js';
 
 import { toTypedSchema } from '@vee-validate/yup';
 

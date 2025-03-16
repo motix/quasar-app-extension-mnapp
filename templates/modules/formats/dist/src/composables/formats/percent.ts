@@ -1,6 +1,6 @@
 import { isFinite } from 'lodash-es';
 
-declare module '../useFormats' {
+declare module '../useFormats.js' {
   interface FormatsInstance {
     percent: typeof percent;
   }

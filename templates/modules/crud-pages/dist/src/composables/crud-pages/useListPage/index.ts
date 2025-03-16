@@ -1,15 +1,15 @@
 import { onUnmounted, ref } from 'vue';
 
-import { useSingleScopeComposableStore } from 'stores/SingleScopeComposable';
+import { useSingleScopeComposableStore } from 'stores/SingleScopeComposable.js';
 
-import useCardsView from './useCardsView';
-import useClientFilter from './useClientFilter';
-import useGenericConvert from './useGenericConvert';
-import useNavigateToNewPage from './useNavigateToNewPage';
-import useNavigateToViewPage from './useNavigateToViewPage';
-import usePageData from './usePageData';
-import usePageStatus from './usePageStatus';
-import useTableView from './useTableView';
+import useCardsView from './useCardsView.js';
+import useClientFilter from './useClientFilter.js';
+import useGenericConvert from './useGenericConvert.js';
+import useNavigateToNewPage from './useNavigateToNewPage.js';
+import useNavigateToViewPage from './useNavigateToViewPage.js';
+import usePageData from './usePageData.js';
+import usePageStatus from './usePageStatus.js';
+import useTableView from './useTableView.js';
 
 function newScope<T extends NonNullable<unknown>, TRow extends NonNullable<unknown>>() {
   const pageStatus = usePageStatus();

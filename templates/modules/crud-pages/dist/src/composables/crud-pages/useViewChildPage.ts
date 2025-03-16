@@ -1,5 +1,5 @@
-import type { ViewPage } from 'composables/crud-pages/useViewPage';
-import type { UpdateDocActionPayload } from 'stores/firebase-firestore';
+import type { ViewPage } from 'composables/crud-pages/useViewPage/index.js';
+import type { UpdateDocActionPayload } from 'stores/firebase-firestore/index.js';
 import type { ComponentPublicInstance, Ref } from 'vue';
 
 import { computed, nextTick, ref, watch, watchEffect } from 'vue';
@@ -7,8 +7,8 @@ import { useRoute, useRouter } from 'vue-router';
 
 import { Dialog, Platform } from 'quasar';
 
-import useNotifications from 'composables/useNotifications';
-import useScroll from 'composables/useScroll';
+import useNotifications from 'composables/useNotifications.js';
+import useScroll from 'composables/useScroll.js';
 
 export default function useViewChildPage<
   TChild extends NonNullable<unknown>,

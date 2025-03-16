@@ -1,8 +1,8 @@
 import { date as qdate } from 'quasar';
 
-import { requiredConfigEntries } from 'composables/useConfig';
+import { requiredConfigEntries } from 'composables/useConfig.js';
 
-declare module '../useFormats' {
+declare module '../useFormats.js' {
   // eslint-disable-next-line @typescript-eslint/no-empty-object-type
   interface FormatsInstance extends ReturnType<typeof date> {}
 }

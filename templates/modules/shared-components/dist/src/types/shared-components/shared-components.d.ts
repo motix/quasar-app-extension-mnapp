@@ -38,7 +38,7 @@ declare module 'vue' {
   }
 }
 
-declare module 'composables/useConfig' {
+declare module 'composables/useConfig.js' {
   interface Config {
     cardWidth?: number;
     listItemCardWidth?: number;

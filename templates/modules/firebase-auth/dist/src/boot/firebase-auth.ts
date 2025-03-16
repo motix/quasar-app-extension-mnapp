@@ -2,18 +2,18 @@ import { defineBoot } from '#q-app/wrappers';
 
 import { onAuthStateChanged } from 'firebase/auth';
 
-import { adminRole, userRole } from 'models/firebase-auth';
+import { adminRole, userRole } from 'models/firebase-auth/index.js';
 
-import { useFirebaseAuthStore } from 'stores/FirebaseAuth';
+import { useFirebaseAuthStore } from 'stores/FirebaseAuth.js';
 
-import { getAuth } from 'services/firebase';
 import {
   ensureAuthInitialized,
   handleAuthStateChanged,
   isAuthenticated,
-} from 'services/firebase-auth';
+} from 'services/firebase-auth.js';
+import { getAuth } from 'services/firebase.js';
 
-import useNotifications from 'composables/useNotifications';
+import useNotifications from 'composables/useNotifications.js';
 
 export default defineBoot(({ router }) => {
   // Router

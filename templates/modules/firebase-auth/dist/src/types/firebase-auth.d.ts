@@ -1,4 +1,4 @@
-import type { UserClaims, UserRole } from 'models/firebase-auth';
+import type { UserClaims, UserRole } from 'models/firebase-auth/index.js';
 
 declare module '@firebase/auth' {
   // ParsedToken is augmented so it actually has more members

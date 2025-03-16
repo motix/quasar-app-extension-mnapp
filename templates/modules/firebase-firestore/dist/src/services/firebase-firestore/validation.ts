@@ -1,8 +1,8 @@
 import { collection, getDocs, limit, query, where } from 'firebase/firestore';
 
-import { indexNormalizeString } from 'utils/normalization';
+import { indexNormalizeString } from 'utils/normalization.js';
 
-import { getFirestore } from 'services/firebase';
+import { getFirestore } from 'services/firebase.js';
 
 export async function validateUniqueField<TValue>(
   collectionPath: string,

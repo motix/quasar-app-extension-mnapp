@@ -1,4 +1,4 @@
-import type { ScopeRecord } from 'models/single-scope-composable';
+import type { ScopeRecord } from 'models/single-scope-composable/index.js';
 import type { Ref } from 'vue';
 
 import { markRaw, ref } from 'vue';

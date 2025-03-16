@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import useFloatToolbar from 'composables/useFloatToolbar';
-import usePageTitle from 'composables/usePageTitle';
-import useStickyHeaders from 'composables/useStickyHeaders';
+import useFloatToolbar from 'composables/useFloatToolbar.js';
+import usePageTitle from 'composables/usePageTitle.js';
+import useStickyHeaders from 'composables/useStickyHeaders.js';
 
 // Composables
 

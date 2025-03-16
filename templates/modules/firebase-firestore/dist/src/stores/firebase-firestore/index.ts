@@ -3,8 +3,8 @@ import type {
   DeleteDocActionPayload,
   DocModel,
   UpdateDocActionPayload,
-} from './';
-import type { DocStateInterface } from './state';
+} from './index.js';
+import type { DocStateInterface } from './state.js';
 import type { MapCallback, Mapper } from '@automapper/core';
 import type { DocumentData } from 'firebase/firestore';
 import type {
@@ -20,12 +20,12 @@ import { pojos } from '@automapper/pojos';
 
 import { acceptHMRUpdate, defineStore } from 'pinia';
 
-import buildActions from './actions';
-import buildGetters from './getters';
-import buildState from './state';
+import buildActions from './actions.js';
+import buildGetters from './getters.js';
+import buildState from './state.js';
 
-export * from 'models/firebase-firestore';
-export * from './types';
+export * from 'models/firebase-firestore/index.js';
+export * from './types.js';
 
 export type StoreOptions<T, TVm, TAm> = {
   mapperOptions?: MapOptions<T, TAm>;

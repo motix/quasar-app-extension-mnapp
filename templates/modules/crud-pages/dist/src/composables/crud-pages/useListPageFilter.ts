@@ -1,4 +1,4 @@
-import type { ListPage } from './useListPage';
+import type { ListPage } from './useListPage/index.js';
 import type { Ref } from 'vue';
 
 import { computed, nextTick, onMounted, ref } from 'vue';

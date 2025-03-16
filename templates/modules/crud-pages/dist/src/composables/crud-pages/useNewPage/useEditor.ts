@@ -1,6 +1,6 @@
-import type { UsePageDataHelper } from './usePageData';
-import type usePageStatus from './usePageStatus';
-import type { CreateDocActionPayload } from 'stores/firebase-firestore';
+import type { UsePageDataHelper } from './usePageData.js';
+import type usePageStatus from './usePageStatus.js';
+import type { CreateDocActionPayload } from 'stores/firebase-firestore/index.js';
 import type { FormOptions } from 'vee-validate';
 import type { Ref } from 'vue';
 import type { Schema } from 'yup';
@@ -10,7 +10,7 @@ import { useForm } from 'vee-validate';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 
-import useNotifications from 'composables/useNotifications';
+import useNotifications from 'composables/useNotifications.js';
 
 export default function useEditor<TVm extends NonNullable<unknown>>(
   freezed: ReturnType<typeof usePageStatus>['freezed'],

@@ -2,7 +2,7 @@ import type { Mapper } from '@automapper/core';
 
 import { cloneDeep } from 'lodash-es';
 
-import { defineGetters } from './';
+import { defineGetters } from './index.js';
 
 function buildGetters<T, TVm>(mapper: Mapper, modelName: string, viewModelName: string) {
   return defineGetters({

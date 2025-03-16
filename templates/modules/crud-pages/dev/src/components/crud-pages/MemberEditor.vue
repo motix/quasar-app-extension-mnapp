@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import type { Member, MemberVm } from 'models/crud-pages';
+import type { Member, MemberVm } from 'models/crud-pages/index.js';
 
 import { object } from 'yup';
 
 import { markRaw } from 'vue';
 
-import { emailRequired, stringRequired } from 'utils/validation';
+import { emailRequired, stringRequired } from 'utils/validation.js';
 
-import { validateUniqueField } from 'services/firebase-firestore/validation';
+import { validateUniqueField } from 'services/firebase-firestore/validation.js';
 
-import useEditPage from 'composables/crud-pages/useEditPage';
+import useEditPage from 'composables/crud-pages/useEditPage.js';
 
 // Private
 

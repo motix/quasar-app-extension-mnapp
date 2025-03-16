@@ -1,4 +1,4 @@
-import type { DocApiModel, DocModel, DocViewModel } from 'models/firebase-firestore';
+import type { DocApiModel, DocModel, DocViewModel } from 'models/firebase-firestore/index.js';
 
 // Models
 

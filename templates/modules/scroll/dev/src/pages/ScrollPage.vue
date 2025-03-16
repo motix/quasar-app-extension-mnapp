@@ -3,7 +3,7 @@ import { useTemplateRef } from 'vue';
 
 import { QCard } from 'quasar';
 
-import useScroll from 'composables/useScroll';
+import useScroll from 'composables/useScroll.js';
 
 // Composables
 

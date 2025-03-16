@@ -1,7 +1,7 @@
-import type { SlackMessage, SlackUser } from 'models/slack';
+import type { SlackMessage, SlackUser } from 'models/slack/index.js';
 import type { Node } from 'slack-message-parser';
 
-import emojiData from './emoji.json';
+import emojiData from './emoji.json' with { type: 'json' };
 
 import { isEqual, sortBy, uniqWith } from 'lodash-es';
 import slack from 'slack';

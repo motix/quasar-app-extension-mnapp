@@ -1,6 +1,6 @@
 import { defineBoot } from '#q-app/wrappers';
 
-import useConfig from 'composables/useConfig';
+import useConfig from 'composables/useConfig.js';
 
 import ExpandableCard from 'components/shared/expandable-card/ExpandableCard.vue';
 import GravatarImage from 'components/shared/GravatarImage.vue';

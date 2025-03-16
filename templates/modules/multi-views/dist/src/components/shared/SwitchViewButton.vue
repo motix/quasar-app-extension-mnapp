@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Dark } from 'quasar';
 
-import useMultiViews from 'composables/useMultiViews';
+import useMultiViews from 'composables/useMultiViews.js';
 
 // Composables
 
