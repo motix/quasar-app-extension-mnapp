@@ -1,11 +1,11 @@
-import type { EditPage } from './useEditPage.js';
-import type StickyHeaders from 'components/shared/StickyHeaders.vue';
 import type { ShallowRef, useTemplateRef } from 'vue';
-
 import { computed, nextTick, ref, watch } from 'vue';
 
 import useNotifications from 'composables/useNotifications.js';
 
+import type StickyHeaders from 'components/shared/StickyHeaders.vue';
+
+import type { EditPage } from './useEditPage.js';
 import { extendEditPage } from './useEditPage.js';
 
 // useNewPage | useViewPage

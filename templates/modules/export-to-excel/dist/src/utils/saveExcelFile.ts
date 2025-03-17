@@ -1,5 +1,4 @@
 import type Excel from 'exceljs';
-
 import { saveAs } from 'file-saver';
 
 export default async function saveExcelFile(fileName: string, workbook: Excel.Workbook) {

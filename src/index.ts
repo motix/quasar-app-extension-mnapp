@@ -1,6 +1,6 @@
-import type { IndexDefinition } from './lib/extension-wrappers.js';
 import type { IndexAPI } from '@quasar/app-vite';
 
+import type { IndexDefinition } from './lib/extension-wrappers.js';
 import { getPackageName } from './lib/package-name.js';
 import getModules from './modules/index.js';
 

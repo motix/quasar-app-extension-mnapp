@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { VNodeTypes } from 'vue';
-
 import { Comment, computed, ref, useTemplateRef } from 'vue';
 
 import { QFab } from 'quasar';

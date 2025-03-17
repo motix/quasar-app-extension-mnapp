@@ -1,5 +1,4 @@
 import type { Ref } from 'vue';
-
 import { computed, inject, provide, ref } from 'vue';
 
 const StickyHeadersResultSymbol = Symbol('stickyHeadersResult');

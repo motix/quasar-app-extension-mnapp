@@ -1,12 +1,11 @@
-import type { ListPage } from './useListPage/index.js';
-import type { FilterOptions } from './useListPageFilterWithOptions.js';
-import type { DocModel } from 'stores/firebase-firestore/index.js';
-
 import { createMapper } from '@automapper/core';
 import { pojos } from '@automapper/pojos';
 
+import type { DocModel } from 'stores/firebase-firestore/index.js';
 import { useStore } from 'stores/firebase-firestore/index.js';
 
+import type { ListPage } from './useListPage/index.js';
+import type { FilterOptions } from './useListPageFilterWithOptions.js';
 import useListPageFilterWithOptions from './useListPageFilterWithOptions.js';
 
 class UseStoreHelper<T extends DocModel> {

@@ -1,8 +1,8 @@
-import type { ListPage } from './useListPage/index.js';
-import type { QueryConstraint } from 'firebase/firestore';
-
 import { computed } from 'vue';
 
+import type { QueryConstraint } from 'firebase/firestore';
+
+import type { ListPage } from './useListPage/index.js';
 import useListPageFilter from './useListPageFilter.js';
 
 export type FilterOptions<FilterType> = {

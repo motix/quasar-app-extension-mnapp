@@ -1,5 +1,4 @@
 import type { MappingProfile } from '@automapper/core';
-
 import { addProfile, createMapper } from '@automapper/core';
 import { pojos } from '@automapper/pojos';
 

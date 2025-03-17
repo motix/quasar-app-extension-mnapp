@@ -1,11 +1,11 @@
-import type { UsePageDataHelper } from './usePageData.js';
 import type { Ref } from 'vue';
-
 import { computed, ref } from 'vue';
 
 import { useMeta } from 'quasar';
 
 import { requiredConfigEntries } from 'composables/useConfig.js';
+
+import type { UsePageDataHelper } from './usePageData.js';
 
 export default function usePageTitle<T extends NonNullable<unknown>>(
   model: UsePageDataHelper<T, never>['Return']['model'],

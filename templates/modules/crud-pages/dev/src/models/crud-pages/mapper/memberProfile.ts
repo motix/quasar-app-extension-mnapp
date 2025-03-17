@@ -1,10 +1,10 @@
 import type { MappingProfile } from '@automapper/core';
-import type { Member, MemberAm, MemberVm } from 'models/crud-pages/index.js';
-import type { FieldConfig, MapperMetadata } from 'utils/automapper.js';
-
 import { PojosMetadataMap } from '@automapper/pojos';
 
+import type { FieldConfig, MapperMetadata } from 'utils/automapper.js';
 import { configureAndCreateMaps } from 'utils/automapper.js';
+
+import type { Member, MemberAm, MemberVm } from 'models/crud-pages/index.js';
 
 const memberBase: MapperMetadata<Member> = {
   uid: String,

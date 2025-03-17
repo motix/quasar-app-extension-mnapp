@@ -1,13 +1,12 @@
+import fs from 'fs';
+
+import getExtensionConfig from '../lib/extension-config.js';
 import type {
   IndexDefinition,
   InstallDefinition,
   PromptsDefinition,
   UninstallDefinition,
 } from '../lib/extension-wrappers.js';
-
-import fs from 'fs';
-
-import getExtensionConfig from '../lib/extension-config.js';
 
 export default async function <
   T extends PromptsDefinition | IndexDefinition | InstallDefinition | UninstallDefinition,

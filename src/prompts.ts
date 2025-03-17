@@ -1,7 +1,7 @@
-import type { PromptRecord, PromptsDefinition } from './lib/extension-wrappers.js';
 import type { PromptsAPI } from '@quasar/app-vite';
 
 import getExtensionConfig from './lib/extension-config.js';
+import type { PromptRecord, PromptsDefinition } from './lib/extension-wrappers.js';
 import normalizeModuleName from './lib/normalize-module-name.js';
 import getModules from './modules/index.js';
 

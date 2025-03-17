@@ -1,11 +1,10 @@
-import type { NewPage } from 'composables/crud-pages/useNewPage/index.js';
-import type { ViewPage } from 'composables/crud-pages/useViewPage/index.js';
-
 import { computed } from 'vue';
 
 import { useSingleScopeComposableStore } from 'stores/SingleScopeComposable.js';
 
+import type { NewPage } from 'composables/crud-pages/useNewPage/index.js';
 import { defineNewPageNarrower } from 'composables/crud-pages/usePageNarrower.js';
+import type { ViewPage } from 'composables/crud-pages/useViewPage/index.js';
 
 export default function useEditPage<
   T extends NonNullable<unknown>,

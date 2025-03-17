@@ -1,7 +1,6 @@
-import type { FirebaseOptions } from 'firebase/app';
-
 import { defineBoot } from '#q-app/wrappers';
 
+import type { FirebaseOptions } from 'firebase/app';
 import { initializeApp } from 'firebase/app';
 
 export default defineBoot(() => {

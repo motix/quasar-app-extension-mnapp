@@ -1,7 +1,6 @@
-import type { QEditor } from 'quasar';
-
 import { ref } from 'vue';
 
+import type { QEditor } from 'quasar';
 import { uid } from 'quasar';
 
 import { getDownloadURL, ref as storageRef, uploadString } from 'firebase/storage';

@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import type { QSelectProps } from 'quasar';
 import type { Ref } from 'vue';
-import type { Schema } from 'yup';
+import { markRaw, ref } from 'vue';
+
+import type { QSelectProps } from 'quasar';
 
 import { useForm } from 'vee-validate';
+import type { Schema } from 'yup';
 import { array, object } from 'yup';
-
-import { markRaw, ref } from 'vue';
 
 import {
   asIsRequired,

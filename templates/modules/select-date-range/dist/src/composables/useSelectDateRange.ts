@@ -1,6 +1,6 @@
-import { range } from 'lodash-es';
-
 import { computed } from 'vue';
+
+import { range } from 'lodash-es';
 
 import { requiredConfigEntries } from 'composables/useConfig.js';
 

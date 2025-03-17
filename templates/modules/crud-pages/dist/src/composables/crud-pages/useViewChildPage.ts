@@ -1,12 +1,12 @@
-import type { ViewPage } from 'composables/crud-pages/useViewPage/index.js';
-import type { UpdateDocActionPayload } from 'stores/firebase-firestore/index.js';
 import type { ComponentPublicInstance, Ref } from 'vue';
-
 import { computed, nextTick, ref, watch, watchEffect } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
 import { Dialog, Platform } from 'quasar';
 
+import type { UpdateDocActionPayload } from 'stores/firebase-firestore/index.js';
+
+import type { ViewPage } from 'composables/crud-pages/useViewPage/index.js';
 import useNotifications from 'composables/useNotifications.js';
 import useScroll from 'composables/useScroll.js';
 

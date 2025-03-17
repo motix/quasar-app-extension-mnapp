@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { useField } from 'vee-validate';
-
 import { Platform } from 'quasar';
+
+import { useField } from 'vee-validate';
 
 import { requiredConfigEntries } from 'composables/useConfig.js';
 

@@ -1,12 +1,12 @@
-import type { ListPage } from './useListPage/index.js';
-import type { DocModel } from 'stores/firebase-firestore/index.js';
-
 import { createMapper } from '@automapper/core';
 import { pojos } from '@automapper/pojos';
 
 import { onActivated, onMounted, onUnmounted } from 'vue';
 
+import type { DocModel } from 'stores/firebase-firestore/index.js';
 import { useStore } from 'stores/firebase-firestore/index.js';
+
+import type { ListPage } from './useListPage/index.js';
 
 class UseStoreHelper<T extends DocModel> {
   Return = useStore<T, never, never>(

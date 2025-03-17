@@ -1,7 +1,8 @@
-import type { UseClientFilterHelper } from './useClientFilter.js';
+import { computed, ref } from 'vue';
+
 import type { QTable } from 'quasar';
 
-import { computed, ref } from 'vue';
+import type { UseClientFilterHelper } from './useClientFilter.js';
 
 type QTableColumnOriginal =
   NonNullable<QTable['columns']> extends readonly (infer ElementType)[] ? ElementType : never;

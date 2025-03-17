@@ -1,19 +1,9 @@
-import type {
-  CreateDocActionPayload,
-  DeleteDocActionPayload,
-  DocModel,
-  LoadAllDocsActionPayload,
-  LoadDocsPageActionPayload,
-  LoadRealtimeDocActionPayload,
-  LoadRealtimeDocActionResult,
-  RealtimeDocIndex,
-  ReleaseDocsActionPayload,
-  ReleaseRealtimeDocActionPayload,
-  StoreOptions,
-  UpdateDocActionPayload,
-} from './index.js';
-import type { DocStateInterface } from './state.js';
 import type { MapOptions, Mapper } from '@automapper/core';
+
+import type { UnwrapRef } from 'vue';
+
+import { uid } from 'quasar';
+
 import type {
   CollectionReference,
   DocumentData,
@@ -21,12 +11,6 @@ import type {
   Query,
   UpdateData,
 } from 'firebase/firestore';
-import type { UnwrapRef } from 'vue';
-
-import { findIndex } from 'lodash-es';
-
-import { uid } from 'quasar';
-
 import {
   addDoc,
   collection,
@@ -44,13 +28,30 @@ import {
   where,
 } from 'firebase/firestore';
 
+import { findIndex } from 'lodash-es';
+
 import { urlFriendlyNormalizeString } from 'utils/normalization.js';
 
 import { getFirestore } from 'services/firebase.js';
 
 import { requiredConfigEntries } from 'composables/useConfig.js';
 
+import type {
+  CreateDocActionPayload,
+  DeleteDocActionPayload,
+  DocModel,
+  LoadAllDocsActionPayload,
+  LoadDocsPageActionPayload,
+  LoadRealtimeDocActionPayload,
+  LoadRealtimeDocActionResult,
+  RealtimeDocIndex,
+  ReleaseDocsActionPayload,
+  ReleaseRealtimeDocActionPayload,
+  StoreOptions,
+  UpdateDocActionPayload,
+} from './index.js';
 import { defineActions } from './index.js';
+import type { DocStateInterface } from './state.js';
 
 function buildActions<T extends DocModel, TVm, TAm extends DocumentData>(
   collectionPath: string,

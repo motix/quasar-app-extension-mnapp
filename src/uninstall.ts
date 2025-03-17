@@ -1,6 +1,6 @@
-import type { UninstallDefinition } from './lib/extension-wrappers.js';
 import type { UninstallAPI } from '@quasar/app-vite';
 
+import type { UninstallDefinition } from './lib/extension-wrappers.js';
 import { reduceJsonFile } from './lib/json-helpers.js';
 import { getPackageName } from './lib/package-name.js';
 import getModules from './modules/index.js';

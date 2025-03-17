@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import type { Member, MemberVm } from 'models/crud-pages/index.js';
+import { markRaw } from 'vue';
 
 import { object } from 'yup';
 
-import { markRaw } from 'vue';
-
 import { emailRequired, stringRequired } from 'utils/validation.js';
+
+import type { Member, MemberVm } from 'models/crud-pages/index.js';
 
 import { validateUniqueField } from 'services/firebase-firestore/validation.js';
 

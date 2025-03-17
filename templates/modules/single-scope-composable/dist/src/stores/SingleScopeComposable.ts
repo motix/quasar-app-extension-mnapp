@@ -1,9 +1,9 @@
-import type { ScopeRecord } from 'models/single-scope-composable/index.js';
 import type { Ref } from 'vue';
-
 import { markRaw, ref } from 'vue';
 
 import { acceptHMRUpdate, defineStore } from 'pinia';
+
+import type { ScopeRecord } from 'models/single-scope-composable/index.js';
 
 export const useSingleScopeComposableStore = defineStore('SingleScopeComposable', () => {
   // Private

@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import type { QDateProps } from 'quasar';
-
-import { useField } from 'vee-validate';
-
 import { useTemplateRef } from 'vue';
 
+import type { QDateProps } from 'quasar';
 import { QPopupProxy } from 'quasar';
+
+import { useField } from 'vee-validate';
 
 import { requiredConfigEntries } from 'composables/useConfig.js';
 

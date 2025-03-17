@@ -1,9 +1,10 @@
+import type { ShallowRef, useTemplateRef } from 'vue';
+import { computed, ref } from 'vue';
+
+import type FloatToolbar from 'components/shared/FloatToolbar.vue';
+
 import type usePageFeatures from './usePageFeatures';
 import type usePageStatus from './usePageStatus';
-import type FloatToolbar from 'components/shared/FloatToolbar.vue';
-import type { ShallowRef, useTemplateRef } from 'vue';
-
-import { computed, ref } from 'vue';
 
 export default function useToolbar(
   hasEditor: ReturnType<typeof usePageFeatures>['hasEditor'],

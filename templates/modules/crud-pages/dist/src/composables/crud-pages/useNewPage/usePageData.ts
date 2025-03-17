@@ -1,7 +1,7 @@
-import type { CreateDocActionPayload } from 'stores/firebase-firestore/index.js';
 import type { Ref } from 'vue';
-
 import { computed, ref } from 'vue';
+
+import type { CreateDocActionPayload } from 'stores/firebase-firestore/index.js';
 
 export default function usePageData<TVm extends NonNullable<unknown>>() {
   // Data

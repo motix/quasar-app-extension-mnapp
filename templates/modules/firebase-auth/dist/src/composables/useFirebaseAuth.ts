@@ -1,5 +1,3 @@
-import type { UserRole } from 'models/firebase-auth/index.js';
-
 import { computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
@@ -8,6 +6,7 @@ import { Platform, uid } from 'quasar';
 import { GoogleAuthProvider, signInWithCustomToken } from 'firebase/auth';
 import { auth } from 'firebaseui';
 
+import type { UserRole } from 'models/firebase-auth/index.js';
 import { adminRole } from 'models/firebase-auth/index.js';
 
 import { useFirebaseAuthStore } from 'stores/FirebaseAuth.js';

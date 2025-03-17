@@ -1,13 +1,12 @@
-import type { Auth } from 'firebase/auth';
-import type { Firestore } from 'firebase/firestore';
-import type { Functions } from 'firebase/functions';
-import type { FirebaseStorage } from 'firebase/storage';
-
 import firebaseConfig from 'app/firebase.json' with { type: 'json' };
 
+import type { Auth } from 'firebase/auth';
 import { connectAuthEmulator, getAuth } from 'firebase/auth';
+import type { Firestore } from 'firebase/firestore';
 import { connectFirestoreEmulator, getFirestore } from 'firebase/firestore';
+import type { Functions } from 'firebase/functions';
 import { connectFunctionsEmulator, getFunctions } from 'firebase/functions';
+import type { FirebaseStorage } from 'firebase/storage';
 import { connectStorageEmulator, getStorage } from 'firebase/storage';
 
 import useConfig from 'composables/useConfig.js';

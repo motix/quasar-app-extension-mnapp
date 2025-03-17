@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import type { MemberVm } from 'models/crud-pages/index.js';
-
 import { nextTick } from 'vue';
+
+import type { MemberVm } from 'models/crud-pages/index.js';
 
 import { useMembersStore } from 'stores/crud-pages/Members.js';
 

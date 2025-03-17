@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import type { Member } from 'models/crud-pages/index.js';
-
 import { where } from 'firebase/firestore';
+
+import type { Member } from 'models/crud-pages/index.js';
 
 import { membersStoreDefaultSort, useMembersStore } from 'stores/crud-pages/Members.js';
 

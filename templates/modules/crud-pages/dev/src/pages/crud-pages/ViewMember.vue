@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import type { Member, MemberVm } from 'models/crud-pages/index.js';
-
 import { computed, onUnmounted } from 'vue';
+
+import type { Member, MemberVm } from 'models/crud-pages/index.js';
 
 import { useMembersStore } from 'stores/crud-pages/Members.js';
 

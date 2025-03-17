@@ -1,5 +1,4 @@
 import type { Ref } from 'vue';
-
 import { computed, inject, provide, ref } from 'vue';
 
 const QFAB_BTN_SIZE = 56;

@@ -1,6 +1,6 @@
-import type { InstallDefinition } from './lib/extension-wrappers.js';
 import type { InstallAPI } from '@quasar/app-vite';
 
+import type { InstallDefinition } from './lib/extension-wrappers.js';
 import { backupFile } from './lib/file-backup.js';
 import { reduceJsonFile } from './lib/json-helpers.js';
 import { getOrganizationName, getPackageName } from './lib/package-name.js';

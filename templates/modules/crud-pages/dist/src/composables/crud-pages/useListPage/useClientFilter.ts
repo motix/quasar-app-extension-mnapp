@@ -1,6 +1,6 @@
-import type { UsePageDataHelper } from './usePageData';
-
 import { computed, ref } from 'vue';
+
+import type { UsePageDataHelper } from './usePageData';
 
 export default function useClientFilter<T extends NonNullable<unknown>>(
   items: UsePageDataHelper<T>['Return']['items'],

@@ -1,3 +1,21 @@
+import type { MapCallback, Mapper } from '@automapper/core';
+import { createMapper } from '@automapper/core';
+import { pojos } from '@automapper/pojos';
+
+import type { UnwrapRef } from 'vue';
+
+import type {
+  _GettersTree,
+  _StoreWithGetters,
+  _StoreWithState,
+  PiniaCustomProperties,
+} from 'pinia';
+import { acceptHMRUpdate, defineStore } from 'pinia';
+
+import type { DocumentData } from 'firebase/firestore';
+
+import buildActions from './actions.js';
+import buildGetters from './getters.js';
 import type {
   CreateDocActionPayload,
   DeleteDocActionPayload,
@@ -5,23 +23,6 @@ import type {
   UpdateDocActionPayload,
 } from './index.js';
 import type { DocStateInterface } from './state.js';
-import type { MapCallback, Mapper } from '@automapper/core';
-import type { DocumentData } from 'firebase/firestore';
-import type {
-  _GettersTree,
-  _StoreWithGetters,
-  _StoreWithState,
-  PiniaCustomProperties,
-} from 'pinia';
-import type { UnwrapRef } from 'vue';
-
-import { createMapper } from '@automapper/core';
-import { pojos } from '@automapper/pojos';
-
-import { acceptHMRUpdate, defineStore } from 'pinia';
-
-import buildActions from './actions.js';
-import buildGetters from './getters.js';
 import buildState from './state.js';
 
 export * from 'models/firebase-firestore/index.js';

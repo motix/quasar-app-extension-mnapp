@@ -1,8 +1,7 @@
 import type { QueryConstraint } from 'firebase/firestore';
-import type { Member, MemberAm, MemberVm } from 'models/crud-pages/index.js';
-
 import { orderBy } from 'firebase/firestore';
 
+import type { Member, MemberAm, MemberVm } from 'models/crud-pages/index.js';
 import membershipMapper from 'models/crud-pages/mapper/membershipMapper.js';
 
 import { useStore } from 'stores/firebase-firestore/index.js';

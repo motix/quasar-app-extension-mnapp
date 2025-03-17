@@ -1,6 +1,6 @@
-import { mixed, number, string } from 'yup';
-
 import { date } from 'quasar';
+
+import { mixed, number, string } from 'yup';
 
 import { requiredConfigEntries } from 'composables/useConfig.js';
 
