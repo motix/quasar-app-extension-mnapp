@@ -1,5 +1,5 @@
-import type { Member, MemberAm, MemberVm } from '../';
 import type { MappingProfile } from '@automapper/core';
+import type { Member, MemberAm, MemberVm } from 'models/crud-pages/index.js';
 import type { FieldConfig, MapperMetadata } from 'utils/automapper.js';
 
 import { PojosMetadataMap } from '@automapper/pojos';
