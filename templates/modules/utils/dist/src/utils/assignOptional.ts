@@ -9,7 +9,7 @@ type OptionalPropertiesOf<T extends object> = Exclude<
  * Helper function to assign optional properties with `undefined`
  * when `exactOptionalPropertyTypes` set to `true`.
  */
-export default function <T extends object>(
+export default function assignOptional<T extends object>(
   obj: T,
   props: { [key in OptionalPropertiesOf<T>]?: T[key] | undefined },
 ): T {
