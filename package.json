@@ -1,5 +1,5 @@
 {
-  "name": "@motinet/quasar-app-extension-mnapp-new",
+  "name": "@motinet/quasar-app-extension-mnapp",
   "version": "2.0.0",
   "description": "MotiNet Quasar Starter Kit as an App Extension",
   "author": "Minh Nguyen <minh.nguyen@motiteam.com>",
@@ -7,13 +7,13 @@
   "type": "module",
   "scripts": {
     "test": "echo \"No test specified\" && exit 0",
-    "lint": "eslint -c ./eslint.config.js \"./src/**/*.{ts,js,cjs,mjs,vue}\" && cd templates && yarn lint && cd ..",
-    "lintf": "eslint -c ./eslint.config.js \"./src/**/*.{ts,js,cjs,mjs,vue}\" --fix && cd templates && yarn lint --fix && cd ..",
+    "lint": "eslint -c ./eslint.config.js \"./src/**/*.{ts,js,cjs,mjs,vue}\" && cd templates && yarn lint",
+    "lintf": "eslint -c ./eslint.config.js \"./src/**/*.{ts,js,cjs,mjs,vue}\" --fix && cd templates && yarn lint --fix",
     "format": "prettier --write \"**/*.{js,ts,vue,scss,html,md,json}\" --ignore-path templates/.gitignore  --ignore-path .prettierignore",
     "clean": "yarn format-imports src && yarn format-imports templates/modules && yarn format --log-level warn && yarn lintf",
-    "build": "npx tsc && cd templates && yarn tsc && cd ..",
+    "build": "npx tsc && cd templates && yarn tsc",
     "watch": "npx tsc --watch",
-    "buildPaths": "cd ./templates && node ./buildPaths.js && npx prettier --write ./tsconfig-paths.json && cd ..",
+    "buildPaths": "cd ./templates && node ./buildPaths.js && npx prettier --write ./tsconfig-paths.json",
     "postinstall": "node fixQuasarAppVite.js"
   },
   "engines": {
