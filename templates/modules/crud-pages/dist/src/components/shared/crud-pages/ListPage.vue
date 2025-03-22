@@ -41,6 +41,7 @@ function useTableView<T extends NonNullable<unknown>, TRow extends NonNullable<u
     wrapCells,
     columns,
     pagination,
+    mainTableStickyHeadersRef,
     rows,
   } = useListPage<T, TRow>(scopeName);
 
@@ -70,6 +71,7 @@ function useTableView<T extends NonNullable<unknown>, TRow extends NonNullable<u
     wrapCells,
     columns,
     pagination,
+    mainTableStickyHeadersRef,
     rows,
     headerSlotNames,
     bodySlotNames,
@@ -280,10 +282,15 @@ const {
   newButton,
 } = useListPage<T, TRow>(props.scopeName);
 
-const { wrapCells, columns, pagination, rows, headerSlotNames, bodySlotNames } = useTableView<
-  T,
-  TRow
->(props.scopeName);
+const {
+  wrapCells,
+  columns,
+  pagination,
+  mainTableStickyHeadersRef,
+  rows,
+  headerSlotNames,
+  bodySlotNames,
+} = useTableView<T, TRow>(props.scopeName);
 
 const { autoLoadAllPages, hideAutoLoadAllPagesButton, infiniteScrollRef, toggleAutoLoadAllPages } =
   useAutoLoadAllPages();
@@ -348,7 +355,7 @@ const switchViewButtonMargin = computed(
           <fade-transition>
             <slot v-if="hasTableView && (isTableView || !hasCardsView)" name="table">
               <div key="tableView">
-                <sticky-headers target="#mainTable" />
+                <sticky-headers ref="mainTableStickyHeadersRef" target="#mainTable" />
 
                 <q-table
                   id="mainTable"

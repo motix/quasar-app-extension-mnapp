@@ -1,6 +1,9 @@
+import type { ShallowRef, useTemplateRef } from 'vue';
 import { computed, ref } from 'vue';
 
 import type { QTable } from 'quasar';
+
+import type StickyHeaders from 'components/shared/StickyHeaders.vue';
 
 import type { UseClientFilterHelper } from './useClientFilter.js';
 
@@ -25,6 +28,14 @@ export default function useTableView<
   const wrapCells = ref(false);
   const columns = ref<QTableColumn<TRow>[] | null>(null);
   const pagination = ref<QTablePagination>({ rowsPerPage: 0 });
+  const mainTableStickyHeadersRef =
+    ref<
+      ReturnType<typeof useTemplateRef<InstanceType<typeof StickyHeaders>>> extends Readonly<
+        ShallowRef<infer Component>
+      >
+        ? Component
+        : never
+    >(null);
 
   // Method Refs
 
@@ -41,12 +52,20 @@ export default function useTableView<
         : buildRows.value(clientFilteredItems.value),
   );
 
+  // Methods
+
+  function updateMainTableStickyHeaders() {
+    mainTableStickyHeadersRef.value?.update();
+  }
+
   return {
     wrapCells,
     columns,
     pagination,
-    rows,
+    mainTableStickyHeadersRef,
     buildRows,
     onRowClick,
+    rows,
+    updateMainTableStickyHeaders,
   };
 }
