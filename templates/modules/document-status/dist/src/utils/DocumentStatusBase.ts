@@ -26,6 +26,11 @@ export const PREDEFINED_BUTTONS: Record<string, Omit<Button<never, never>, 'role
     color: 'positive',
     icon: 'fal fa-thumbs-up',
   },
+  reject: {
+    label: 'Reject',
+    color: 'purple',
+    icon: 'fal fa-turn-down-left',
+  },
   cancel: {
     label: 'Cancel',
     color: 'negative',
@@ -58,6 +63,11 @@ export const PREDEFINED_STATUSES: Record<string, Omit<Status<never, never>, 'but
     text: 'Done',
     textColor: 'green-1',
     backgroundColor: 'green',
+  },
+  rejected: {
+    text: 'Rejected',
+    textColor: 'purple-1',
+    backgroundColor: 'purple',
   },
   cancelled: {
     text: 'Cancelled',
