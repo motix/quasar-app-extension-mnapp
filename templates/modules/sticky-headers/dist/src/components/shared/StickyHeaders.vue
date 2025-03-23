@@ -52,6 +52,82 @@ const sourceTableScrollTarget = computed(() =>
 // Methods
 
 function onResize() {
+  update()
+}
+
+function onDocumentScroll() {
+  const source = getSourceTable();
+
+  sourceTableScrollObserverEnabled.value = !!source;
+
+  if (!source) {
+    return;
+  }
+
+  const {
+    top: sourceTop,
+    bottom: sourceBottom,
+    height: sourceHeight,
+  } = source.getBoundingClientRect();
+  const sourceTr = source.querySelector(':scope>thead>tr') as HTMLElement;
+
+  containerTop.value = `${stickyHeadersPosition.value}px`;
+
+  const prevContainerVisible = containerVisible.value;
+
+  containerVisible.value =
+    sourceHeight > 0 &&
+    sourceTop <= stickyHeadersPosition.value &&
+    sourceBottom >= stickyHeadersPosition.value + sourceTr.getBoundingClientRect().height * 2;
+
+  // Update headers size before showing in cases content changed.
+  // Manual call to `update` is recommended anytime the content changes.
+  if (!prevContainerVisible && containerVisible.value) {
+    update();
+  }
+
+  const left = getHorizontalScrollPosition(
+    document.querySelector(sourceTableScrollTarget.value) as HTMLElement,
+  );
+  setHorizontalScrollPosition(containerRef.value as HTMLElement, left);
+}
+
+function onSourceTableScroll(info: OnScrollDetail) {
+  if (sourceScrollObserverPaused) {
+    return;
+  }
+
+  if (destScrollObserverPausedTimeout) {
+    clearTimeout(destScrollObserverPausedTimeout);
+  }
+
+  destScrollObserverPaused = true;
+  setHorizontalScrollPosition(containerRef.value as HTMLElement, info.position.left);
+  destScrollObserverPausedTimeout = setTimeout(() => {
+    destScrollObserverPaused = false;
+  }, 100);
+}
+
+function onDestTableScroll(info: OnScrollDetail) {
+  if (destScrollObserverPaused) {
+    return;
+  }
+
+  if (sourceScrollObserverPausedTimeout) {
+    clearTimeout(sourceScrollObserverPausedTimeout);
+  }
+
+  sourceScrollObserverPaused = true;
+  setHorizontalScrollPosition(
+    document.querySelector(sourceTableScrollTarget.value) as HTMLElement,
+    info.position.left,
+  );
+  sourceScrollObserverPausedTimeout = setTimeout(() => {
+    sourceScrollObserverPaused = false;
+  }, 100);
+}
+
+function update() {
   const source = getSourceTable();
   const sourceScroll = document.querySelector(sourceTableScrollTarget.value);
 
@@ -119,73 +195,6 @@ function onResize() {
       });
     };
   });
-}
-
-function onDocumentScroll() {
-  const source = getSourceTable();
-
-  sourceTableScrollObserverEnabled.value = !!source;
-
-  if (!source) {
-    return;
-  }
-
-  const {
-    top: sourceTop,
-    bottom: sourceBottom,
-    height: sourceHeight,
-  } = source.getBoundingClientRect();
-  const sourceTr = source.querySelector(':scope>thead>tr') as HTMLElement;
-
-  containerTop.value = `${stickyHeadersPosition.value}px`;
-  containerVisible.value =
-    sourceHeight > 0 &&
-    sourceTop <= stickyHeadersPosition.value &&
-    sourceBottom >= stickyHeadersPosition.value + sourceTr.getBoundingClientRect().height * 2;
-
-  const left = getHorizontalScrollPosition(
-    document.querySelector(sourceTableScrollTarget.value) as HTMLElement,
-  );
-  setHorizontalScrollPosition(containerRef.value as HTMLElement, left);
-}
-
-function onSourceTableScroll(info: OnScrollDetail) {
-  if (sourceScrollObserverPaused) {
-    return;
-  }
-
-  if (destScrollObserverPausedTimeout) {
-    clearTimeout(destScrollObserverPausedTimeout);
-  }
-
-  destScrollObserverPaused = true;
-  setHorizontalScrollPosition(containerRef.value as HTMLElement, info.position.left);
-  destScrollObserverPausedTimeout = setTimeout(() => {
-    destScrollObserverPaused = false;
-  }, 100);
-}
-
-function onDestTableScroll(info: OnScrollDetail) {
-  if (destScrollObserverPaused) {
-    return;
-  }
-
-  if (sourceScrollObserverPausedTimeout) {
-    clearTimeout(sourceScrollObserverPausedTimeout);
-  }
-
-  sourceScrollObserverPaused = true;
-  setHorizontalScrollPosition(
-    document.querySelector(sourceTableScrollTarget.value) as HTMLElement,
-    info.position.left,
-  );
-  sourceScrollObserverPausedTimeout = setTimeout(() => {
-    sourceScrollObserverPaused = false;
-  }, 100);
-}
-
-function update() {
-  onResize();
 }
 
 defineExpose({
