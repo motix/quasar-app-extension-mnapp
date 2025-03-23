@@ -6,6 +6,7 @@ export default defineInstall(function (api) {
   api.extendPackageJson({
     scripts: {
       dev: 'cross-env FIREBASE_ENV=DEV quasar dev',
+      devp: 'cross-env FIREBASE_ENV=PROD quasar dev',
       'dev:build': 'cross-env FIREBASE_ENV=DEV quasar build',
       'stage:build': 'cross-env FIREBASE_ENV=STAGE quasar build',
       'prod:build': 'cross-env FIREBASE_ENV=PROD quasar build',
