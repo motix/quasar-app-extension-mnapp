@@ -52,7 +52,7 @@ const sourceTableScrollTarget = computed(() =>
 // Methods
 
 function onResize() {
-  update()
+  update();
 }
 
 function onDocumentScroll() {
