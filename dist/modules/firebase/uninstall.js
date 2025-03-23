@@ -13,6 +13,7 @@ export default defineUninstall(function (api) {
         },
     });
     reduceJsonFile(api, 'package.json', [
+        'scripts.devp',
         'scripts.dev:build',
         'scripts.stage:build',
         'scripts.prod:build',
