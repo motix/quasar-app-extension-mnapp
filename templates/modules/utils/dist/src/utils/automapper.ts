@@ -799,6 +799,7 @@ export type FieldConfig = {
 };
 
 function configureAndCreateMapsInternal<T, TVm, TAm>(
+  extendMaps: boolean,
   mapper: Mapper,
   m: ModelIdentifier<T> | null,
   vm: ModelIdentifier<TVm> | null,
@@ -847,46 +848,86 @@ function configureAndCreateMapsInternal<T, TVm, TAm>(
 
   // API Model to Model
   if (am && m) {
-    createMap(
-      mapper,
-      am,
-      m,
-      ...getConfigurations<TAm, T>(resolvers.apiModelToModel),
-      ...(additionalConfigurations?.apiModelToModel || []),
-    );
+    if (extendMaps) {
+      extendMapping(
+        mapper,
+        am as string,
+        m as string,
+        ...getConfigurations<TAm, T>(resolvers.apiModelToModel),
+        ...(additionalConfigurations?.apiModelToModel || []),
+      );
+    } else {
+      createMap(
+        mapper,
+        am,
+        m,
+        ...getConfigurations<TAm, T>(resolvers.apiModelToModel),
+        ...(additionalConfigurations?.apiModelToModel || []),
+      );
+    }
   }
 
   // Model to View Model
   if (m && vm) {
-    createMap(
-      mapper,
-      m,
-      vm,
-      ...getConfigurations<T, TVm>(resolvers.modelToViewModel),
-      ...(additionalConfigurations?.modelToViewModel || []),
-    );
+    if (extendMaps) {
+      extendMapping(
+        mapper,
+        m as string,
+        vm as string,
+        ...getConfigurations<T, TVm>(resolvers.modelToViewModel),
+        ...(additionalConfigurations?.modelToViewModel || []),
+      );
+    } else {
+      createMap(
+        mapper,
+        m,
+        vm,
+        ...getConfigurations<T, TVm>(resolvers.modelToViewModel),
+        ...(additionalConfigurations?.modelToViewModel || []),
+      );
+    }
   }
 
   // Model to API Model
   if (m && am) {
-    createMap(
-      mapper,
-      m,
-      am,
-      ...getConfigurations<T, TAm>(resolvers.modelToApiModel),
-      ...(additionalConfigurations?.modelToApiModel || []),
-    );
+    if (extendMaps) {
+      extendMapping(
+        mapper,
+        m as string,
+        am as string,
+        ...getConfigurations<T, TAm>(resolvers.modelToApiModel),
+        ...(additionalConfigurations?.modelToApiModel || []),
+      );
+    } else {
+      createMap(
+        mapper,
+        m,
+        am,
+        ...getConfigurations<T, TAm>(resolvers.modelToApiModel),
+        ...(additionalConfigurations?.modelToApiModel || []),
+      );
+    }
   }
 
   // View Model to API Model
   if (vm && am) {
-    createMap(
-      mapper,
-      vm,
-      am,
-      ...getConfigurations<TVm, TAm>(resolvers.viewModelToApiModel),
-      ...(additionalConfigurations?.viewModelToApiModel || []),
-    );
+    if (extendMaps) {
+      extendMapping(
+        mapper,
+        vm as string,
+        am as string,
+        ...getConfigurations<TVm, TAm>(resolvers.viewModelToApiModel),
+        ...(additionalConfigurations?.viewModelToApiModel || []),
+      );
+    } else {
+      createMap(
+        mapper,
+        vm,
+        am,
+        ...getConfigurations<TVm, TAm>(resolvers.viewModelToApiModel),
+        ...(additionalConfigurations?.viewModelToApiModel || []),
+      );
+    }
   }
 }
 
@@ -922,7 +963,7 @@ export function configureAndCreateMaps<T extends { id: string }, TVm, TAm>(
         )
       : null;
 
-  configureAndCreateMapsInternal(mapper, m, vm, am, fieldTypes, {
+  configureAndCreateMapsInternal(false, mapper, m, vm, am, fieldTypes, {
     ...additionalConfigurations,
     apiModelToModel: [
       ...(additionalConfigurations?.apiModelToModel || []),
@@ -944,7 +985,23 @@ export function configureAndCreateNoneIdMaps<T, TVm, TAm>(
     viewModelToApiModel?: MappingConfiguration<TVm, TAm>[];
   },
 ) {
-  configureAndCreateMapsInternal(mapper, m, vm, am, fieldTypes, additionalConfigurations);
+  configureAndCreateMapsInternal(false, mapper, m, vm, am, fieldTypes, additionalConfigurations);
+}
+
+export function configureAndExtendMaps<T extends { id: string }, TVm, TAm>(
+  mapper: Mapper,
+  m: string | null,
+  vm: string | null,
+  am: string | null,
+  fieldTypes: Partial<Record<keyof T & keyof TVm & keyof TAm, FieldConfig>>,
+  additionalConfigurations?: {
+    apiModelToModel?: MappingConfiguration<TAm, T>[];
+    modelToViewModel?: MappingConfiguration<T, TVm>[];
+    modelToApiModel?: MappingConfiguration<T, TAm>[];
+    viewModelToApiModel?: MappingConfiguration<TVm, TAm>[];
+  },
+) {
+  configureAndCreateMapsInternal(true, mapper, m, vm, am, fieldTypes, additionalConfigurations);
 }
 
 const MAPPINGS = Symbol.for('__mappings__');
