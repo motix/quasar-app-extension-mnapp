@@ -223,7 +223,7 @@ defineExpose({
     :style="containerMargin"
   >
     <div class="flex flex-center">
-      <transition-group
+      <TransitionGroup
         v-if="reverseOrder"
         class="fixed-buttons z-top row reverse"
         name="float-toolbar-transition"
@@ -231,7 +231,7 @@ defineExpose({
         tag="div"
       >
         <slot name="fixed-buttons"></slot>
-      </transition-group>
+      </TransitionGroup>
 
       <q-fab
         v-if="showFab"
@@ -243,7 +243,7 @@ defineExpose({
         :persistent="persistent"
       >
         <div style="pointer-events: none" :style="fabContentMargin">
-          <transition-group
+          <TransitionGroup
             v-if="secondRowPosition === 'top'"
             class="no-wrap row children-clickable"
             :class="{ reverse: reverseOrder }"
@@ -252,9 +252,9 @@ defineExpose({
             tag="div"
           >
             <slot name="second-row-buttons"></slot>
-          </transition-group>
+          </TransitionGroup>
 
-          <transition-group
+          <TransitionGroup
             class="no-wrap row children-clickable"
             :class="{ reverse: reverseOrder }"
             name="float-toolbar-transition"
@@ -262,9 +262,9 @@ defineExpose({
             tag="div"
           >
             <slot></slot>
-          </transition-group>
+          </TransitionGroup>
 
-          <transition-group
+          <TransitionGroup
             v-if="secondRowPosition === 'bottom'"
             class="no-wrap row children-clickable"
             :class="{ reverse: reverseOrder }"
@@ -273,11 +273,11 @@ defineExpose({
             tag="div"
           >
             <slot name="second-row-buttons"></slot>
-          </transition-group>
+          </TransitionGroup>
         </div>
       </q-fab>
 
-      <transition-group
+      <TransitionGroup
         v-if="!reverseOrder"
         class="fixed-buttons z-top row"
         name="float-toolbar-transition"
@@ -285,7 +285,7 @@ defineExpose({
         tag="div"
       >
         <slot name="fixed-buttons"></slot>
-      </transition-group>
+      </TransitionGroup>
     </div>
   </q-page-sticky>
 </template>

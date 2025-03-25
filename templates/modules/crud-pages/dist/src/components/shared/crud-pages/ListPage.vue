@@ -459,7 +459,7 @@ const switchViewButtonMargin = computed(
         </q-btn>
       </template>
 
-      <transition-group
+      <TransitionGroup
         key="extra"
         class="no-wrap row reverse"
         name="float-toolbar-transition"
@@ -469,7 +469,7 @@ const switchViewButtonMargin = computed(
         <SwitchViewButton v-if="hasMultiViews" key="switchView" />
 
         <slot name="toolbar-extra"></slot>
-      </transition-group>
+      </TransitionGroup>
     </FloatToolbar>
 
     <FloatToolbar v-else-if="newButton || hasMultiViews || !hideAutoLoadAllPagesButton">

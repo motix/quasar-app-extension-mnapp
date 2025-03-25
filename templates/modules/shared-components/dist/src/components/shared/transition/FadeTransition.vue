@@ -1,7 +1,7 @@
 <template>
-  <transition mode="out-in" name="fade-transition">
+  <Transition mode="out-in" name="fade-transition">
     <slot></slot>
-  </transition>
+  </Transition>
 </template>
 
 <style lang="scss">

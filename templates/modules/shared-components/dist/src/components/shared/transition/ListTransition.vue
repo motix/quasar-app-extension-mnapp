@@ -47,7 +47,7 @@ function doneLeave(el: Element) {
 </script>
 
 <template>
-  <transition-group
+  <TransitionGroup
     v-if="noTag"
     name="list-transition"
     @after-enter="doneEnter"
@@ -59,8 +59,8 @@ function doneLeave(el: Element) {
     @leave-cancelled="doneLeave"
   >
     <slot></slot>
-  </transition-group>
-  <transition-group
+  </TransitionGroup>
+  <TransitionGroup
     v-else
     class="overflow-hidden"
     :class="{ 'color-effect': colorEffect }"
@@ -75,7 +75,7 @@ function doneLeave(el: Element) {
     @leave-cancelled="doneLeave"
   >
     <slot></slot>
-  </transition-group>
+  </TransitionGroup>
 </template>
 
 <style lang="scss">

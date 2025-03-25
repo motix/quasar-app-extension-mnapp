@@ -29,7 +29,7 @@ function toggleLeftDrawer() {
     </q-header>
 
     <q-page-container>
-      <router-view />
+      <RouterView />
     </q-page-container>
   </q-layout>
 </template>

@@ -209,7 +209,7 @@ watch(freezed, (value) => {
 
           <slot name="toolbar-main"></slot>
 
-          <transition-group
+          <TransitionGroup
             v-show="hasMultiViews || $slots['toolbar-extra']"
             key="extra"
             class="no-wrap row reverse"
@@ -222,7 +222,7 @@ watch(freezed, (value) => {
             <SwitchViewButton v-if="toolbarFabButtonsVisibility.switchView" key="switchView" />
 
             <slot name="toolbar-extra"></slot>
-          </transition-group>
+          </TransitionGroup>
 
           <template #second-row-buttons>
             <slot name="toolbar-second-row"></slot>

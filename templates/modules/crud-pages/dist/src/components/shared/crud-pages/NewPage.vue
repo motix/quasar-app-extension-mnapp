@@ -99,7 +99,7 @@ watch(freezed, (value) => {
 
             <slot name="toolbar-main"></slot>
 
-            <transition-group
+            <TransitionGroup
               v-show="$slots['toolbar-extra']"
               key="extra"
               class="no-wrap row reverse"
@@ -108,7 +108,7 @@ watch(freezed, (value) => {
               tag="div"
             >
               <slot name="toolbar-extra"></slot>
-            </transition-group>
+            </TransitionGroup>
           </template>
         </FloatToolbar>
       </div>
