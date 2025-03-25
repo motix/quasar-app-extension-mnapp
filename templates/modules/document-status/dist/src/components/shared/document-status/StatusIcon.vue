@@ -10,8 +10,8 @@ const { revertColor } = defineProps<{
 
 <template>
   <q-icon :color="revertColor ? status.textColor : status.backgroundColor" :name="icon" size="xs">
-    <top-tooltip>
+    <TopTooltip>
       {{ status.text }}
-    </top-tooltip>
+    </TopTooltip>
   </q-icon>
 </template>

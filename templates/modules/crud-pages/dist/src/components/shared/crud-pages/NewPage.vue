@@ -51,7 +51,7 @@ watch(freezed, (value) => {
 
 <template>
   <div>
-    <fade-transition>
+    <FadeTransition>
       <div v-if="!ready" key="loading" class="absolute-center">
         <!-- Loading -->
         <q-spinner-pie color="primary" size="6em" />
@@ -61,7 +61,7 @@ watch(freezed, (value) => {
         <!-- Ready -->
         <slot></slot>
 
-        <float-toolbar position="bottom-left">
+        <FloatToolbar position="bottom-left">
           <template #fixed-buttons>
             <q-btn
               key="back"
@@ -72,12 +72,12 @@ watch(freezed, (value) => {
               :text-color="isDirty ? 'white' : 'accent'"
               @click="confirmAndGoBack"
             >
-              <top-tooltip>Back</top-tooltip>
+              <TopTooltip>Back</TopTooltip>
             </q-btn>
           </template>
-        </float-toolbar>
+        </FloatToolbar>
 
-        <float-toolbar>
+        <FloatToolbar>
           <template #fixed-buttons>
             <q-btn
               key="save"
@@ -94,7 +94,7 @@ watch(freezed, (value) => {
                 })()
               "
             >
-              <top-tooltip ref="saveTooltip">Save</top-tooltip>
+              <TopTooltip ref="saveTooltip">Save</TopTooltip>
             </q-btn>
 
             <slot name="toolbar-main"></slot>
@@ -110,9 +110,9 @@ watch(freezed, (value) => {
               <slot name="toolbar-extra"></slot>
             </transition-group>
           </template>
-        </float-toolbar>
+        </FloatToolbar>
       </div>
-    </fade-transition>
+    </FadeTransition>
 
     <q-ajax-bar ref="freezingBar" color="warning" position="bottom" size="3px" />
   </div>

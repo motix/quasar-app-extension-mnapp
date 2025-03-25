@@ -18,7 +18,7 @@ const { isChartsView } = useCharts();
     text-color="primary"
     @click="isChartsView = !isChartsView"
   >
-    <top-tooltip>
+    <TopTooltip>
       {{
         isChartsView
           ? isTableView
@@ -26,6 +26,6 @@ const { isChartsView } = useCharts();
             : 'Switch to Cards View'
           : 'Switch to Chart View'
       }}
-    </top-tooltip>
+    </TopTooltip>
   </q-btn>
 </template>

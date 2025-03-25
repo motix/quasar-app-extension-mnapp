@@ -216,7 +216,7 @@ function filterCustomerOptions(
       <div class="col-2">
         <h5>ThousandInput</h5>
         <div>
-          <thousand-input
+          <ThousandInput
             v-model="tiValue"
             :hint="currency(tiValue) || undefined"
             input-class="text-right"
@@ -227,7 +227,7 @@ function filterCustomerOptions(
       <div class="col-2">
         <h5>PercentInput</h5>
         <div>
-          <percent-input
+          <PercentInput
             v-model="vm.satisfactionRate"
             input-class="text-right"
             label="Satisfaction Rate"

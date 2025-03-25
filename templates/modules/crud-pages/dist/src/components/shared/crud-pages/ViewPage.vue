@@ -88,7 +88,7 @@ watch(freezed, (value) => {
 
 <template>
   <div>
-    <fade-transition>
+    <FadeTransition>
       <div v-if="!ready" key="loading" class="absolute-center">
         <!-- Loading -->
         <q-spinner-pie color="primary" size="6em" />
@@ -98,7 +98,7 @@ watch(freezed, (value) => {
         <!-- Empty -->
         <div class="q-my-md text-center">The item is not available. Please contact support.</div>
 
-        <float-toolbar position="bottom-left">
+        <FloatToolbar position="bottom-left">
           <template #fixed-buttons>
             <q-btn
               key="back"
@@ -108,15 +108,15 @@ watch(freezed, (value) => {
               text-color="accent"
               @click="goBack"
             >
-              <top-tooltip>Back</top-tooltip>
+              <TopTooltip>Back</TopTooltip>
             </q-btn>
           </template>
-        </float-toolbar>
+        </FloatToolbar>
       </div>
 
       <div v-else key="ready">
         <!-- Ready -->
-        <fade-transition>
+        <FadeTransition>
           <div v-if="!editMode" key="viewer">
             <slot name="viewer"></slot>
           </div>
@@ -124,9 +124,9 @@ watch(freezed, (value) => {
           <div v-else key="editor">
             <slot name="editor"></slot>
           </div>
-        </fade-transition>
+        </FadeTransition>
 
-        <float-toolbar position="bottom-left">
+        <FloatToolbar position="bottom-left">
           <template #fixed-buttons>
             <q-btn
               v-if="toolbarFixedButtonsVisibility.back"
@@ -138,12 +138,12 @@ watch(freezed, (value) => {
               text-color="accent"
               @click="goBack"
             >
-              <top-tooltip>Back</top-tooltip>
+              <TopTooltip>Back</TopTooltip>
             </q-btn>
           </template>
-        </float-toolbar>
+        </FloatToolbar>
 
-        <float-toolbar
+        <FloatToolbar
           ref="toolbarRef"
           :fab-buttons-visibility="toolbarFabButtonsVisibility"
           :persistent="toolbarPersistent"
@@ -159,7 +159,7 @@ watch(freezed, (value) => {
             text-color="negative"
             @click="trash"
           >
-            <top-tooltip>Delete</top-tooltip>
+            <TopTooltip>Delete</TopTooltip>
           </q-btn>
 
           <q-btn
@@ -172,7 +172,7 @@ watch(freezed, (value) => {
             text-color="primary"
             @click="edit"
           >
-            <top-tooltip>Edit</top-tooltip>
+            <TopTooltip>Edit</TopTooltip>
           </q-btn>
 
           <q-btn
@@ -185,7 +185,7 @@ watch(freezed, (value) => {
             :text-color="isDirty ? 'white' : 'warning'"
             @click="revert"
           >
-            <top-tooltip>Revert</top-tooltip>
+            <TopTooltip>Revert</TopTooltip>
           </q-btn>
 
           <q-btn
@@ -204,7 +204,7 @@ watch(freezed, (value) => {
               })()
             "
           >
-            <top-tooltip ref="saveTooltip">Save</top-tooltip>
+            <TopTooltip ref="saveTooltip">Save</TopTooltip>
           </q-btn>
 
           <slot name="toolbar-main"></slot>
@@ -219,7 +219,7 @@ watch(freezed, (value) => {
             }"
             tag="div"
           >
-            <switch-view-button v-if="toolbarFabButtonsVisibility.switchView" key="switchView" />
+            <SwitchViewButton v-if="toolbarFabButtonsVisibility.switchView" key="switchView" />
 
             <slot name="toolbar-extra"></slot>
           </transition-group>
@@ -227,9 +227,9 @@ watch(freezed, (value) => {
           <template #second-row-buttons>
             <slot name="toolbar-second-row"></slot>
           </template>
-        </float-toolbar>
+        </FloatToolbar>
       </div>
-    </fade-transition>
+    </FadeTransition>
 
     <q-ajax-bar ref="freezingBar" color="warning" position="bottom" size="3px" />
   </div>

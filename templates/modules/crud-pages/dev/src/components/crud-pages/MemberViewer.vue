@@ -17,7 +17,7 @@ const {
 </script>
 
 <template>
-  <expandable-card
+  <ExpandableCard
     :avatar-icon="m.photoUrl ? undefined : 'fas fa-user-alt'"
     :avatar-image="m.photoUrl || undefined"
     :caption="m.email"
@@ -29,7 +29,7 @@ const {
     <template v-if="!!m.slackId" #main>
       <div class="q-mt-sm text-caption">
         Slack ID: {{ m.slackId }}
-        <top-tooltip>Slack ID</top-tooltip>
+        <TopTooltip>Slack ID</TopTooltip>
       </div>
     </template>
 
@@ -56,5 +56,5 @@ const {
         unchecked-icon="clear"
       />
     </template>
-  </expandable-card>
+  </ExpandableCard>
 </template>

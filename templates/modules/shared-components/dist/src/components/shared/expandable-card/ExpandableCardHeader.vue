@@ -146,7 +146,7 @@ const captionCssClass = computed(() => {
       <q-avatar v-if="avatarImage !== undefined" :size="avatarSize">
         <q-img :src="avatarImage" />
       </q-avatar>
-      <gravatar-image
+      <GravatarImage
         v-if="useGravatar"
         :dark="headerDark || Dark.isActive"
         :gravatar-id="gravatarId"
@@ -175,18 +175,18 @@ const captionCssClass = computed(() => {
             <q-icon v-if="subtitleIcon !== undefined" class="q-mr-xs" :name="subtitleIcon" />
             <span>
               {{ subtitle }}
-              <top-tooltip v-if="subtitleTooltip !== undefined">
+              <TopTooltip v-if="subtitleTooltip !== undefined">
                 {{ subtitleTooltip }}
-              </top-tooltip>
+              </TopTooltip>
             </span>
           </q-item-label>
 
           <q-item-label v-if="caption !== undefined" caption :class="captionCssClass">
             <span>
               {{ caption }}
-              <top-tooltip v-if="captionTooltip !== undefined">
+              <TopTooltip v-if="captionTooltip !== undefined">
                 {{ captionTooltip }}
-              </top-tooltip>
+              </TopTooltip>
             </span>
           </q-item-label>
 

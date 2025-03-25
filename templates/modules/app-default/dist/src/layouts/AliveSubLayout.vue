@@ -21,7 +21,7 @@ onBeforeUnmount(() => {
 <template>
   <router-view v-slot="{ Component }">
     <div>
-      <fade-transition>
+      <FadeTransition>
         <keep-alive :include="isAlive ? 'AliveIndex' : '_'">
           <component
             :is="Component"
@@ -32,7 +32,7 @@ onBeforeUnmount(() => {
             "
           />
         </keep-alive>
-      </fade-transition>
+      </FadeTransition>
     </div>
   </router-view>
 </template>

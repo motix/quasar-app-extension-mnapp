@@ -21,7 +21,7 @@ const { errorMessage, value } = useField<string | number | null | undefined>(nam
 </script>
 
 <template>
-  <percent-input
+  <PercentInput
     v-model="value"
     :decimal="decimal"
     :error="!!errorMessage"
@@ -30,5 +30,5 @@ const { errorMessage, value } = useField<string | number | null | undefined>(nam
     <template #append>
       <slot name="append"></slot>
     </template>
-  </percent-input>
+  </PercentInput>
 </template>

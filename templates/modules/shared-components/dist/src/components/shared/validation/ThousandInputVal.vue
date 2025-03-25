@@ -20,9 +20,9 @@ const { errorMessage, value } = useField<string | number | null | undefined>(nam
 </script>
 
 <template>
-  <thousand-input v-model="value" :error="!!errorMessage" :error-message="errorMessage">
+  <ThousandInput v-model="value" :error="!!errorMessage" :error-message="errorMessage">
     <template #append>
       <slot name="append"></slot>
     </template>
-  </thousand-input>
+  </ThousandInput>
 </template>

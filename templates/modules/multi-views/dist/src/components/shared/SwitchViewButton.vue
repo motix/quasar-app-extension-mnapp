@@ -16,8 +16,8 @@ const { isTableView, switchViewAndScroll } = useMultiViews();
     text-color="primary"
     @click="switchViewAndScroll"
   >
-    <top-tooltip>
+    <TopTooltip>
       {{ isTableView ? 'Switch to Cards View' : 'Switch to Table View' }}
-    </top-tooltip>
+    </TopTooltip>
   </q-btn>
 </template>

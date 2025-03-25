@@ -10,7 +10,7 @@ const { isTableView, isCardsView } = useMultiViews();
 
 <template>
   <q-page padding>
-    <switch-view-button />
+    <SwitchViewButton />
 
     <q-card v-if="isTableView">
       <q-card-section>
@@ -26,6 +26,6 @@ const { isTableView, isCardsView } = useMultiViews();
       </q-card-section>
     </q-card>
 
-    <switch-view-button />
+    <SwitchViewButton />
   </q-page>
 </template>

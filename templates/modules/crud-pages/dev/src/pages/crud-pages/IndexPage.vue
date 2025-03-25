@@ -111,7 +111,7 @@ $p.newUrl.value = '/crud-pages/new-member';
 </script>
 
 <template>
-  <list-page :composition="$p" :scope-name="SCOPE_NAME" @load-next-page="onLoadNextPage">
+  <ListPage :composition="$p" :scope-name="SCOPE_NAME" @load-next-page="onLoadNextPage">
     <template #top>
       <q-btn-dropdown color="accent" :label="filterLabel" rounded>
         <q-list>
@@ -163,7 +163,7 @@ $p.newUrl.value = '/crud-pages/new-member';
     </template>
 
     <template #item-card="{ model, link }">
-      <expandable-card
+      <ExpandableCard
         :avatar-icon="model.photoUrl ? undefined : 'fas fa-user-alt'"
         :avatar-image="model.photoUrl || undefined"
         :caption="model.email"
@@ -178,7 +178,7 @@ $p.newUrl.value = '/crud-pages/new-member';
         <template v-if="!!model.slackId" #main>
           <div class="q-mt-sm text-caption">
             Slack ID: {{ model.slackId }}
-            <top-tooltip>Slack ID</top-tooltip>
+            <TopTooltip>Slack ID</TopTooltip>
           </div>
         </template>
 
@@ -191,7 +191,7 @@ $p.newUrl.value = '/crud-pages/new-member';
             disable
             unchecked-icon="clear"
           >
-            <top-tooltip>Active</top-tooltip>
+            <TopTooltip>Active</TopTooltip>
           </q-toggle>
 
           <q-toggle
@@ -202,10 +202,10 @@ $p.newUrl.value = '/crud-pages/new-member';
             disable
             unchecked-icon="clear"
           >
-            <top-tooltip>Invite to Finance Channels</top-tooltip>
+            <TopTooltip>Invite to Finance Channels</TopTooltip>
           </q-toggle>
         </template>
-      </expandable-card>
+      </ExpandableCard>
     </template>
-  </list-page>
+  </ListPage>
 </template>

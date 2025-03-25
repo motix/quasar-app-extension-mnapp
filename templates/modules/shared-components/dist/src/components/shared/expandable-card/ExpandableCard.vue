@@ -115,7 +115,7 @@ defineExpose({
         @click.stop
       >
         <template #header>
-          <expandable-card-header v-bind="$props" class="q-pl-none full-width" :clickable="false">
+          <ExpandableCardHeader v-bind="$props" class="q-pl-none full-width" :clickable="false">
             <template v-if="$slots.main" #main>
               <slot name="main"></slot>
             </template>
@@ -123,7 +123,7 @@ defineExpose({
             <template v-if="$slots.side" #side>
               <slot name="side"></slot>
             </template>
-          </expandable-card-header>
+          </ExpandableCardHeader>
         </template>
 
         <div
@@ -155,7 +155,7 @@ defineExpose({
     </template>
 
     <template v-else>
-      <expandable-card-header
+      <ExpandableCardHeader
         v-ripple="clickable"
         v-bind="$props"
         class="q-pa-md"
@@ -168,7 +168,7 @@ defineExpose({
         <template v-if="$slots.side" #side>
           <slot name="side"></slot>
         </template>
-      </expandable-card-header>
+      </ExpandableCardHeader>
 
       <div @click.stop>
         <q-separator v-if="headerSeparator" />

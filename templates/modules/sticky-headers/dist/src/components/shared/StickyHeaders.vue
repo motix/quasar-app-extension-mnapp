@@ -218,7 +218,7 @@ defineExpose({
     @scroll="onDestTableScroll"
   />
 
-  <fade-transition>
+  <FadeTransition>
     <div
       v-show="containerVisible"
       ref="container"
@@ -243,7 +243,7 @@ defineExpose({
         </table>
       </div>
     </div>
-  </fade-transition>
+  </FadeTransition>
 </template>
 
 <style scoped lang="scss">

@@ -54,8 +54,8 @@ $p.backUrl.value = '../crud-pages';
 
 <template>
   <q-page-padding padding>
-    <new-page :scope-name="SCOPE_NAME">
-      <member-editor :scope-name="SCOPE_NAME" />
-    </new-page>
+    <NewPage :scope-name="SCOPE_NAME">
+      <MemberEditor :scope-name="SCOPE_NAME" />
+    </NewPage>
   </q-page-padding>
 </template>

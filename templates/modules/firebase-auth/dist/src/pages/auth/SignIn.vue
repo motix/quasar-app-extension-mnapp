@@ -42,12 +42,12 @@ onMounted(() => {
 
 <template>
   <q-page class="row items-center justify-evenly">
-    <fade-transition @enter="loaderEnter">
+    <FadeTransition @enter="loaderEnter">
       <div v-if="loading">
         <q-spinner-pie color="primary" size="6em" />
       </div>
       <div v-else id="sign-in-transition-container"></div>
-    </fade-transition>
+    </FadeTransition>
     <div v-show="false" id="firebaseui-auth-container"></div>
   </q-page>
 </template>

@@ -58,7 +58,7 @@ async function copyLabel() {
       </div>
 
       <div style="width: 0">
-        <fade-transition>
+        <FadeTransition>
           <div
             v-if="hover && !labelCopied"
             class="q-px-xs"
@@ -67,7 +67,7 @@ async function copyLabel() {
           >
             <q-icon name="fal fa-copy" size="1.2em" />
           </div>
-        </fade-transition>
+        </FadeTransition>
       </div>
     </div>
   </q-btn>

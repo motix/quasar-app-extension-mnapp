@@ -331,7 +331,7 @@ const switchViewButtonMargin = computed(
 
 <template>
   <div>
-    <fade-transition>
+    <FadeTransition>
       <div v-if="!ready" key="loading" class="absolute-center">
         <!-- Loading -->
         <q-spinner-pie color="primary" size="6em" />
@@ -352,10 +352,10 @@ const switchViewButtonMargin = computed(
       <div v-else key="ready">
         <!-- Ready -->
         <q-infinite-scroll ref="infiniteScroll" :offset="250" @load="onLoadNextPage">
-          <fade-transition>
+          <FadeTransition>
             <slot v-if="hasTableView && (isTableView || !hasCardsView)" name="table">
               <div key="tableView">
-                <sticky-headers ref="mainTableStickyHeadersRef" target="#mainTable" />
+                <StickyHeaders ref="mainTableStickyHeadersRef" target="#mainTable" />
 
                 <q-table
                   id="mainTable"
@@ -414,7 +414,7 @@ const switchViewButtonMargin = computed(
                 </div>
               </div>
             </slot>
-          </fade-transition>
+          </FadeTransition>
 
           <!-- Smoothly hide loading template -->
           <q-slide-transition v-if="allItemsLoaded">
@@ -428,9 +428,9 @@ const switchViewButtonMargin = computed(
           </template>
         </q-infinite-scroll>
       </div>
-    </fade-transition>
+    </FadeTransition>
 
-    <float-toolbar v-if="$slots['toolbar-extra']" :fab-buttons-space-ignored="1">
+    <FloatToolbar v-if="$slots['toolbar-extra']" :fab-buttons-space-ignored="1">
       <template v-if="newButton || !hideAutoLoadAllPagesButton" #fixed-buttons>
         <q-btn
           v-if="newButton"
@@ -441,7 +441,7 @@ const switchViewButtonMargin = computed(
           text-color="primary"
           :to="newUrl"
         >
-          <top-tooltip>Add</top-tooltip>
+          <TopTooltip>Add</TopTooltip>
         </q-btn>
 
         <q-btn
@@ -455,7 +455,7 @@ const switchViewButtonMargin = computed(
           @click="toggleAutoLoadAllPages"
         >
           <q-spinner-dots v-if="autoLoadAllPages" color="primary" />
-          <top-tooltip>Auto Load All Pages</top-tooltip>
+          <TopTooltip>Auto Load All Pages</TopTooltip>
         </q-btn>
       </template>
 
@@ -466,13 +466,13 @@ const switchViewButtonMargin = computed(
         :style="{ 'margin-right': switchViewButtonMargin }"
         tag="div"
       >
-        <switch-view-button v-if="hasMultiViews" key="switchView" />
+        <SwitchViewButton v-if="hasMultiViews" key="switchView" />
 
         <slot name="toolbar-extra"></slot>
       </transition-group>
-    </float-toolbar>
+    </FloatToolbar>
 
-    <float-toolbar v-else-if="newButton || hasMultiViews || !hideAutoLoadAllPagesButton">
+    <FloatToolbar v-else-if="newButton || hasMultiViews || !hideAutoLoadAllPagesButton">
       <template #fixed-buttons>
         <q-btn
           v-if="newButton"
@@ -483,7 +483,7 @@ const switchViewButtonMargin = computed(
           text-color="primary"
           :to="newUrl"
         >
-          <top-tooltip>Add</top-tooltip>
+          <TopTooltip>Add</TopTooltip>
         </q-btn>
 
         <q-btn
@@ -497,7 +497,7 @@ const switchViewButtonMargin = computed(
           @click="toggleAutoLoadAllPages"
         >
           <q-spinner-dots v-if="autoLoadAllPages" color="primary" />
-          <top-tooltip>Auto Load All Pages</top-tooltip>
+          <TopTooltip>Auto Load All Pages</TopTooltip>
         </q-btn>
 
         <div
@@ -508,9 +508,9 @@ const switchViewButtonMargin = computed(
             'margin-right': switchViewButtonMargin,
           }"
         >
-          <switch-view-button />
+          <SwitchViewButton />
         </div>
       </template>
-    </float-toolbar>
+    </FloatToolbar>
   </div>
 </template>

@@ -59,13 +59,13 @@ $p.watchViewer(isActive, inviteToFinanceChannels);
 
 <template>
   <q-page-padding padding>
-    <view-page :scope-name="SCOPE_NAME">
+    <ViewPage :scope-name="SCOPE_NAME">
       <template #viewer>
-        <member-viewer :scope-name="SCOPE_NAME" />
+        <MemberViewer :scope-name="SCOPE_NAME" />
       </template>
       <template #editor>
-        <member-editor :scope-name="SCOPE_NAME" />
+        <MemberEditor :scope-name="SCOPE_NAME" />
       </template>
-    </view-page>
+    </ViewPage>
   </q-page-padding>
 </template>

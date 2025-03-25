@@ -53,7 +53,7 @@ $p.useValidation(validationSchema, 'uid', 'email', 'fullName', 'photoUrl');
 </script>
 
 <template>
-  <expandable-card
+  <ExpandableCard
     :avatar-icon="vm.photoUrl ? undefined : 'fas fa-user-alt'"
     :avatar-image="vm.photoUrl || undefined"
     body-row-gutter
@@ -68,7 +68,7 @@ $p.useValidation(validationSchema, 'uid', 'email', 'fullName', 'photoUrl');
     <template #main>
       <div class="q-mt-sm text-caption">
         Slack ID: {{ vm.slackId || '[Slack ID]' }}
-        <top-tooltip>Slack ID</top-tooltip>
+        <TopTooltip>Slack ID</TopTooltip>
       </div>
     </template>
 
@@ -99,7 +99,7 @@ $p.useValidation(validationSchema, 'uid', 'email', 'fullName', 'photoUrl');
     </template>
 
     <template #body>
-      <q-input-val
+      <QInputVal
         v-model="vm.uid"
         class="col-12"
         label="UID"
@@ -107,7 +107,7 @@ $p.useValidation(validationSchema, 'uid', 'email', 'fullName', 'photoUrl');
         @update:model-value="dirty"
       />
 
-      <q-input-val
+      <QInputVal
         v-model="vm.email"
         class="col-12"
         label="Email"
@@ -116,7 +116,7 @@ $p.useValidation(validationSchema, 'uid', 'email', 'fullName', 'photoUrl');
         @update:model-value="dirty"
       />
 
-      <q-input-val
+      <QInputVal
         v-model="vm.fullName"
         class="col-12"
         label="Full Name"
@@ -124,7 +124,7 @@ $p.useValidation(validationSchema, 'uid', 'email', 'fullName', 'photoUrl');
         @update:model-value="dirty"
       />
 
-      <q-input-val
+      <QInputVal
         v-model="vm.photoUrl"
         class="col-12"
         label="Photo URL"
@@ -141,5 +141,5 @@ $p.useValidation(validationSchema, 'uid', 'email', 'fullName', 'photoUrl');
         @update:model-value="dirty"
       />
     </template>
-  </expandable-card>
+  </ExpandableCard>
 </template>

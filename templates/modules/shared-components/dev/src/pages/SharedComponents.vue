@@ -26,25 +26,25 @@ function lsRemoveCard(index: number) {
     <div class="text-h3">Shared Components</div>
 
     <h4>FadeTransition</h4>
-    <fade-transition>
+    <FadeTransition>
       <q-card v-if="fsShowCard1" key="card1" @click="fsShowCard1 = !fsShowCard1">
         <q-card-section> Card 1 </q-card-section>
       </q-card>
       <q-card v-else key="card2" @click="fsShowCard1 = !fsShowCard1">
         <q-card-section> Card 2 </q-card-section>
       </q-card>
-    </fade-transition>
+    </FadeTransition>
 
     <h4>ListTransition</h4>
     <q-btn label="Add" @click="lsAddCard" />
-    <list-transition class="q-gutter-y-md q-py-md" color-effect>
+    <ListTransition class="q-gutter-y-md q-py-md" color-effect>
       <q-card v-for="(card, index) in lsCards" :key="card">
         <q-card-section>
           <q-btn label="Remove" @click="lsRemoveCard(index)" />
           {{ card }}
         </q-card-section>
       </q-card>
-    </list-transition>
+    </ListTransition>
     <q-btn label="Add" @click="lsAddCard" />
 
     <h4>TopTooltip</h4>
@@ -64,11 +64,11 @@ function lsRemoveCard(index: number) {
     </div>
 
     <h4>Gravatar Image</h4>
-    <gravatar-image />
-    <gravatar-image gravatar-id="9c9fc5119fa33d6ac836600c6f933e76" />
+    <GravatarImage />
+    <GravatarImage gravatar-id="9c9fc5119fa33d6ac836600c6f933e76" />
 
     <h4>ExpandableCard</h4>
-    <expandable-card
+    <ExpandableCard
       caption="Caption"
       expandable
       gravatar-id="9c9fc5119fa33d6ac836600c6f933e76"
@@ -80,12 +80,12 @@ function lsRemoveCard(index: number) {
     >
       <template #side> Side </template>
       <template #body> Body </template>
-    </expandable-card>
+    </ExpandableCard>
 
     <h4>PercentInput</h4>
     <div>Value: {{ piValue }}</div>
     <div style="max-width: 100px">
-      <percent-input v-model="piValue" input-class="text-right" suffix="%" />
+      <PercentInput v-model="piValue" input-class="text-right" suffix="%" />
     </div>
   </q-page>
 </template>
