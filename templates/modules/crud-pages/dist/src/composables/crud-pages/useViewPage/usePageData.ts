@@ -23,12 +23,20 @@ export default function usePageData<
 >(
   goBack: ReturnType<typeof useReturnUrl>['goBack'],
   hasEditor: ReturnType<typeof usePageFeatures>['hasEditor'],
+  ready: ReturnType<typeof usePageStatus>['ready'],
   muteRealtimeUpdate: ReturnType<typeof usePageStatus>['muteRealtimeUpdate'],
   delayRealtimeUpdate: ReturnType<typeof usePageStatus>['delayRealtimeUpdate'],
   ignoreViewerWatch: ReturnType<typeof usePageStatus>['ignoreViewerWatch'],
   editMode: ReturnType<typeof usePageStatus>['editMode'],
   isDirty: ReturnType<typeof usePageStatus>['isDirty'],
 ) {
+  // Private
+
+  // Use the same method to reload model
+  const lastLoadModel = ref<
+    ((payload: LoadRealtimeDocActionPayload) => LoadRealtimeDocActionResult) | null
+  >(null);
+
   // Composables
 
   const router = useRouter();
@@ -92,6 +100,8 @@ export default function usePageData<
   function loadModel(
     loadModel: (payload: LoadRealtimeDocActionPayload) => LoadRealtimeDocActionResult,
   ) {
+    lastLoadModel.value = loadModel;
+
     return new Promise<void>((resolve) => {
       let resolveOnce: typeof resolve | null = resolve;
 
@@ -192,6 +202,23 @@ export default function usePageData<
     });
   }
 
+  async function reloadModel() {
+    if (!lastLoadModel.value) {
+      return;
+    }
+
+    ready.value = false;
+    muteRealtimeUpdate.value = true;
+
+    await loadModel(lastLoadModel.value);
+
+    muteRealtimeUpdate.value = false;
+    // Wait for loading animation and for all components unmounted
+    setTimeout(() => {
+      ready.value = true;
+    }, 500);
+  }
+
   function getModelAndViewModel(realtimeUpdate: boolean) {
     docKey.value === null &&
       (() => {
@@ -240,6 +267,22 @@ export default function usePageData<
     return router.replace(path);
   }
 
+  function watchFindKey() {
+    watch(
+      () => route.params.findKey,
+      async (newValue, oldValue) => {
+        // Only handling cases where model was loaded
+        if (newValue === oldValue || !model.value) {
+          return;
+        }
+
+        findKey.value = ((newValue as string) || '').replaceAll('_', '.');
+
+        await reloadModel();
+      },
+    );
+  }
+
   // Watch
 
   watch(findKey, async (value, oldValue) => {
@@ -285,14 +328,17 @@ export default function usePageData<
     activeModelOrViewModel,
     activeMOrVm,
     loadModel,
+    reloadModel,
     getModelAndViewModel,
     updatePath,
+    watchFindKey,
   };
 }
 
 export class UsePageDataHelper<T extends NonNullable<unknown>, TVm extends NonNullable<unknown>> {
   Return = usePageData<T, TVm>(
     () => undefined,
+    ref(false),
     ref(false),
     ref(false),
     ref(false),

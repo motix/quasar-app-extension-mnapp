@@ -20,6 +20,7 @@ function newScope<T extends NonNullable<unknown>, TVm extends NonNullable<unknow
   const pageData = usePageData<T, TVm>(
     goBack,
     pageFeatures.hasEditor,
+    pageStatus.ready,
     pageStatus.muteRealtimeUpdate,
     pageStatus.delayRealtimeUpdate,
     pageStatus.ignoreViewerWatch,
