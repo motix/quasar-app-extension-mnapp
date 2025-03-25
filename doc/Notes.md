@@ -14,3 +14,5 @@ camelCase for slots name
   then: (schema) => schema.min(28).max(28),
 })
 ```
+
+class ...Helper { Return = ...}
