@@ -22,7 +22,7 @@ onBeforeUnmount(() => {
   <RouterView v-slot="{ Component }">
     <div>
       <FadeTransition>
-        <keep-alive :include="isAlive ? 'AliveIndex' : '_'">
+        <KeepAlive :include="isAlive ? 'AliveIndex' : '_'">
           <component
             :is="Component"
             :key="
@@ -31,7 +31,7 @@ onBeforeUnmount(() => {
                 : undefined
             "
           />
-        </keep-alive>
+        </KeepAlive>
       </FadeTransition>
     </div>
   </RouterView>
