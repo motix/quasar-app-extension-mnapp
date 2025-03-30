@@ -10,6 +10,7 @@ const {
   headerBackgroundColor,
   headerDark,
   externalLinkUrl,
+  externalLinkTooltip,
   avatarTop,
   avatarColor,
   avatarSize = '56px',
@@ -38,6 +39,7 @@ const {
   headerBackgroundColor?: string | undefined;
   headerDark?: boolean | undefined;
   externalLinkUrl?: string | undefined;
+  externalLinkTooltip?: string | undefined;
   avatarTop?: boolean | undefined;
   avatarColor?: string | undefined;
   avatarSize?: string | undefined;
@@ -117,7 +119,9 @@ const captionCssClass = computed(() => {
       target="_blank"
       type="a"
       @click.stop
-    />
+    >
+      <top-tooltip v-if="externalLinkTooltip">{{ externalLinkTooltip }}</top-tooltip>
+    </q-btn>
 
     <q-item-section
       v-if="avatarIcon !== undefined || avatarImage !== undefined || useGravatar"

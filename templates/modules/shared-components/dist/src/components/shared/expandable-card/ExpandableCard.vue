@@ -31,6 +31,7 @@ const {
   bodyBackgroundColor?: string | undefined;
   headerDark?: boolean | undefined;
   externalLinkUrl?: string | undefined;
+  externalLinkTooltip?: string | undefined;
   avatarTop?: boolean | undefined;
   avatarColor?: string | undefined;
   avatarSize?: string | undefined;
