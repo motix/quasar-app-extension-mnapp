@@ -8,11 +8,13 @@ import { copyToClipboard } from 'quasar';
 const {
   label,
   icon,
+  iconRight,
   wrapLabel,
   maxWidth = '100%',
 } = defineProps<{
   label: string;
   icon?: string | undefined;
+  iconRight?: string | undefined;
   wrapLabel?: boolean | undefined;
   maxWidth?: string | undefined;
 }>();
@@ -55,6 +57,10 @@ async function copyLabel() {
         <span>
           {{ label }}
         </span>
+
+        <slot name="iconRight">
+          <q-icon v-if="iconRight !== undefined" class="q-ml-sm" :name="iconRight" size="1.2em" />
+        </slot>
       </div>
 
       <div style="width: 0">
