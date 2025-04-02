@@ -36,6 +36,7 @@ export default function useViewChildPage<
   ) as Ref<Extract<keyof TParent & keyof TParentVm, string>>;
   const parentModel = ref(null) as Ref<TParent | null>;
   const parentViewModel = ref(null) as Ref<TParentVm | null>;
+  const disableChildPageSwitching = ref(false);
   const viewUrl = ref<string | null>(null);
   const childViewerRef = ref<ComponentPublicInstance | null>(null);
 
@@ -276,6 +277,32 @@ export default function useViewChildPage<
     });
   }
 
+  function watchParentFindKey() {
+    watch(
+      () => route.params.parentFindKey,
+      async (newValue, oldValue) => {
+        // Only handling cases where model was loaded
+        if (newValue === oldValue || !$p.model.value) {
+          return;
+        }
+
+        // `parentFindKey` param was updated by `updatePath`
+        if (((newValue as string) || '').replaceAll('_', '.') === parentFindKey.value) {
+          return;
+        }
+
+        disableChildPageSwitching.value = true;
+
+        $p.findKey.value = ((route.params.findKey as string) || '').replaceAll('_', '.');
+        parentFindKey.value = ((newValue as string) || '').replaceAll('_', '.');
+
+        await $p.reloadModel();
+
+        disableChildPageSwitching.value = false;
+      },
+    );
+  }
+
   // Watch
 
   watch($p.findKey, (value, oldValue) => {
@@ -283,6 +310,10 @@ export default function useViewChildPage<
       (() => {
         throw new Error('[mnapp-crud-pages] viewUrl not specified');
       })();
+
+    if (disableChildPageSwitching.value) {
+      return;
+    }
 
     if (oldValue === '') {
       route.meta.replaceRoute = true;
@@ -323,6 +354,7 @@ export default function useViewChildPage<
     parentModelFindKeyField,
     parentModel,
     parentViewModel,
+    disableChildPageSwitching,
     viewUrl,
     childViewerRef,
     pm,
@@ -337,6 +369,7 @@ export default function useViewChildPage<
     updateParentModel,
     showDeleteButton,
     deleteChild,
+    watchParentFindKey,
   };
 }
 

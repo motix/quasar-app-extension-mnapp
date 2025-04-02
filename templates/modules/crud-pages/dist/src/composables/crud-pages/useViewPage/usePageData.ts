@@ -276,6 +276,11 @@ export default function usePageData<
           return;
         }
 
+        // `findKey` param was updated by `updatePath`
+        if (((newValue as string) || '').replaceAll('_', '.') === findKey.value) {
+          return;
+        }
+
         findKey.value = ((newValue as string) || '').replaceAll('_', '.');
 
         await reloadModel();
