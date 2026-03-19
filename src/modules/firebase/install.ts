@@ -17,10 +17,10 @@ export default defineInstall(function (api) {
       postinstall: 'cross-env FIREBASE_ENV=PROD quasar prepare',
     },
     dependencies: {
-      firebase: '^11.3.1',
+      firebase: '^12.11.0',
     },
     devDependencies: {
-      'cross-env': '^7.0.3',
+      'cross-env': '^10.1.0',
     },
   });
 

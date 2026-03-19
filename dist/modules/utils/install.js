@@ -4,7 +4,7 @@ export default defineInstall(function (api) {
     if (!api.hasModule('firebase')) {
         api.extendPackageJson({
             dependencies: {
-                '@firebase/firestore': '^4.7.8',
+                '@firebase/firestore': '^4.13.0',
             },
         });
     }
