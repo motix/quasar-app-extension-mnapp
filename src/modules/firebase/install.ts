@@ -14,7 +14,7 @@ export default defineInstall(function (api) {
       'stage:deploy': 'yarn stage:build && firebase deploy',
       'prod:deploy': 'yarn prod:build && firebase deploy',
       'prod:deploy:debug': 'yarn prod:build --debug && firebase deploy',
-      postinstall: 'node fixQuasarAppVite.js && cross-env FIREBASE_ENV=PROD quasar prepare',
+      postinstall: 'cross-env FIREBASE_ENV=PROD quasar prepare',
     },
     dependencies: {
       firebase: '^11.3.1',

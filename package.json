@@ -13,8 +13,7 @@
     "clean": "yarn format-imports src && yarn format-imports templates/modules && yarn format --log-level warn && yarn lintf",
     "build": "npx tsc && cd templates && yarn tsc",
     "watch": "npx tsc --watch",
-    "buildPaths": "cd ./templates && node ./buildPaths.js && npx prettier --write ./tsconfig-paths.json",
-    "postinstall": "node fixQuasarAppVite.js"
+    "buildPaths": "cd ./templates && node ./buildPaths.js && npx prettier --write ./tsconfig-paths.json"
   },
   "engines": {
     "node": ">= 12.2.0",

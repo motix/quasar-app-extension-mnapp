@@ -14,7 +14,7 @@ export default defineUninstall(function (api) {
     scripts: {
       dev: 'quasar dev',
       build: 'quasar build',
-      postinstall: 'node fixQuasarAppVite.js && quasar prepare',
+      postinstall: 'quasar prepare',
     },
   });
   reduceJsonFile(api, 'package.json', [
