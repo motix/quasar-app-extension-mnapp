@@ -1,6 +1,6 @@
 {
   "name": "mnapp-templates",
-  "version": "0.0.1",
+  "version": "2.0.0",
   "description": "Templates for mnapp",
   "productName": "mnapp Templates",
   "author": "Minh Nguyen <minh.nguyen@motiteam.com>",
@@ -43,6 +43,7 @@
     "globals": "^15.15.0",
     "vue-tsc": "^2.2.2",
     "@vue/eslint-config-typescript": "^14.4.0",
+    "vue-eslint-parser": "^10.2.0",
     "@vue/eslint-config-prettier": "^10.2.0",
     "prettier": "^3.5.1",
     "@types/node": "^20.5.9",
@@ -56,8 +57,11 @@
     "vue-component-type-helpers": "^2.2.2"
   },
   "engines": {
-    "node": "^28 || ^26 || ^24 || ^22 || ^20 || ^18",
+    "node": "^28 || ^26 || ^24 || ^22 || ^20",
     "npm": ">= 6.13.4",
     "yarn": ">= 1.21.1"
+  },
+  "resolutions": {
+    "format-imports/@vue/compiler-sfc": "^3.5.0"
   }
 }
