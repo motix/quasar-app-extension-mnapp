@@ -60,16 +60,16 @@ export default defineBoot(({ router }) => {
     meta: { anonymous: true },
   });
 
-  router.beforeEach(async (to, _from, next) => {
+  router.beforeEach(async (to) => {
     const store = useFirebaseAuthStore();
 
     // Force the app to wait until Firebase has finished its initialization
     await ensureAuthInitialized();
 
     if (to.name === 'SignIn' && isAuthenticated()) {
-      next('/');
+      return '/';
     } else if (to.meta.anonymous === true) {
-      next();
+      return;
     } else if (to.matched.some((record) => record.meta.requiresAuth === true)) {
       if (isAuthenticated()) {
         const roles = store.currentUserRoles;
@@ -81,24 +81,23 @@ export default defineBoot(({ router }) => {
                 !roles.includes(userRole) ||
                 !record.meta.roles.some((role) => roles.includes(role))
               ) {
-                next({ name: 'UnauthorizedAccess' });
-                return;
+                return { name: 'UnauthorizedAccess' };
               }
             }
           }
         }
 
-        next();
+        return;
       } else {
         // Encoded URL string placed right after '/' will be decoded by Google provider
         // when returning to SignIn page after authenticating.
         // Place it in a query string like param instead.
         const returnUrl = to.fullPath === '/' ? '' : `?r=${to.fullPath}`;
-        next({ name: 'SignIn', params: { returnUrl } });
+        return { name: 'SignIn', params: { returnUrl } };
       }
-    } else {
-      next();
     }
+
+    return;
   });
 
   // Firebase Authentication
