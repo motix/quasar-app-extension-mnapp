@@ -7,14 +7,14 @@ export default defineInstall(function (api) {
     if (vendors.includes('fap')) {
         api.extendPackageJson({
             dependencies: {
-                '@fortawesome/fontawesome-pro': '^6.7.2',
-                '@fortawesome/fontawesome-svg-core': '^6.7.2',
-                '@fortawesome/free-brands-svg-icons': '^6.7.2',
-                '@fortawesome/pro-duotone-svg-icons': '^6.7.2',
-                '@fortawesome/pro-light-svg-icons': '^6.7.2',
-                '@fortawesome/pro-regular-svg-icons': '^6.7.2',
-                '@fortawesome/pro-solid-svg-icons': '^6.7.2',
-                '@fortawesome/vue-fontawesome': '^3.0.8',
+                '@fortawesome/fontawesome-pro': '^7.2.0',
+                '@fortawesome/fontawesome-svg-core': '^7.2.0',
+                '@fortawesome/free-brands-svg-icons': '^7.2.0',
+                '@fortawesome/pro-duotone-svg-icons': '^7.2.0',
+                '@fortawesome/pro-light-svg-icons': '^7.2.0',
+                '@fortawesome/pro-regular-svg-icons': '^7.2.0',
+                '@fortawesome/pro-solid-svg-icons': '^7.2.0',
+                '@fortawesome/vue-fontawesome': '^3.1.3',
             },
         });
         api.renderTemplate('dist-fap');
@@ -27,7 +27,7 @@ export default defineInstall(function (api) {
     if (vendors.includes('axs')) {
         api.extendPackageJson({
             dependencies: {
-                axios: '^1.7.9',
+                axios: '^1.13.6',
             },
         });
     }
@@ -35,7 +35,7 @@ export default defineInstall(function (api) {
     if (vendors.includes('lds')) {
         api.extendPackageJson({
             dependencies: {
-                'lodash-es': '^4.17.21',
+                'lodash-es': '^4.17.23',
             },
             devDependencies: {
                 '@types/lodash-es': '^4.17.12',
@@ -63,9 +63,9 @@ export default defineInstall(function (api) {
     if (vendors.includes('vld')) {
         api.extendPackageJson({
             dependencies: {
-                'vee-validate': '^4.15.0',
-                '@vee-validate/yup': '^4.15.0',
-                yup: '^1.6.1',
+                'vee-validate': '^4.15.1',
+                '@vee-validate/yup': '^4.15.1',
+                yup: '^1.7.1',
             },
         });
     }
@@ -73,7 +73,7 @@ export default defineInstall(function (api) {
     if (vendors.includes('mkd')) {
         api.extendPackageJson({
             dependencies: {
-                'vue-markdown-render': '^2.2.1',
+                'vue-markdown-render': '^2.3.0',
             },
             devDependencies: {
                 '@types/markdown-it': '^14.1.2',
