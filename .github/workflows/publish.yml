@@ -32,11 +32,5 @@ jobs:
       - name: Build
         run: yarn build
 
-      - name: Sync version from GitHub release tag
-        run: |
-          TAG="${{ github.event.release.tag_name }}"
-          VERSION="${TAG#v}"
-          npm version "$VERSION" --no-git-tag-version
-
       - name: Publish to npm
         run: npm publish --access public --provenance
