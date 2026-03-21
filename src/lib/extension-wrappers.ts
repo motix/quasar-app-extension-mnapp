@@ -1,11 +1,17 @@
 import type { IndexAPI, InstallAPI, PromptsAPI, UninstallAPI } from '@quasar/app-vite';
 
-// @ts-expect-error Importing from a specific path in node_modules
-import { InstallAPI as InstallAPIClass } from '../../node_modules/@quasar/app-vite/lib/app-extension/api-classes/InstallAPI.js';
-// @ts-expect-error Importing from a specific path in node_modules
-import { getCallerPath } from '../../node_modules/@quasar/app-vite/lib/utils/get-caller-path.js';
+import path from 'path';
+
 import getExtensionConfig from './extension-config.js';
 import removeTree from './remove-tree.js';
+
+// Instead of using relative path, we use absolute path to avoid issues with package manager.
+const { InstallAPI: InstallAPIClass } = await import(
+  path.resolve('./node_modules/@quasar/app-vite/lib/app-extension/api-classes/InstallAPI.js')
+);
+const { getCallerPath } = await import(
+  path.resolve('./node_modules/@quasar/app-vite/lib/utils/get-caller-path.js')
+);
 
 type Config = Awaited<ReturnType<typeof getExtensionConfig>>;
 
