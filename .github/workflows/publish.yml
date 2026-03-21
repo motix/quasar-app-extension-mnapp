@@ -5,8 +5,8 @@ on:
     types: [published]
 
 permissions:
-  contents: write  # Required for OIDC trusted publishing
-  id-token: write  # Required for OIDC trusted publishing
+  contents: write # Required for OIDC trusted publishing
+  id-token: write # Required for OIDC trusted publishing
 
 jobs:
   publish:
@@ -32,6 +32,9 @@ jobs:
 
       - name: Build
         run: yarn build
+
+      - name: Upgrade npm for OIDC support
+        run: npm install -g npm@latest
 
       - name: Publish to npm
         run: NODE_AUTH_TOKEN="" npm publish --access public --provenance
