@@ -5,8 +5,7 @@ on:
     types: [published]
 
 permissions:
-  contents: write # Required for OIDC trusted publishing
-  id-token: write # Required for OIDC trusted publishing
+  id-token: write
 
 jobs:
   publish:
