@@ -13,6 +13,7 @@ export default defineInstall(async function (api) {
         },
         devDependencies: {
             // Upgrade Starter Kit packages
+            // TODO: Upgrade `@eslint/js`, `eslint`, `eslint-plugin-vue` to version 10
             '@eslint/js': '^9.39.4',
             eslint: '^9.39.4',
             'eslint-plugin-vue': '^9.33.0',
