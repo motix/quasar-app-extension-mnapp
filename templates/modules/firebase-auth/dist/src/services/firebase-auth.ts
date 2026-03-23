@@ -107,23 +107,21 @@ export function handleAuthStateChanged(user: User | null, router: Router, firstC
               .getIdToken(true)
               .then(() => handleAuthStateChanged(user, router, false))
               .catch((error) => {
-                console.error(error);
-                throw new Error('[mnapp-firebase-auth] getIdToken failed.');
+                throw new Error('[mnapp-firebase-auth] getIdToken failed.', { cause: error });
               });
           }
         } else {
           const claims: UserClaims = {};
 
           for (const role of userRoles) {
-            claims[role] = idTokenResult.claims[role] || false;
+            claims[role] = !!idTokenResult.claims[role];
           }
 
           store.currentUserClaims = claims;
         }
       })
       .catch((error) => {
-        console.error(error);
-        throw new Error('[mnapp-firebase-auth] getIdTokenResult failed.');
+        throw new Error('[mnapp-firebase-auth] getIdTokenResult failed.', { cause: error });
       });
   } else {
     // Signed out
@@ -146,7 +144,6 @@ export async function createRemoteSignInToken() {
     const result = await createAuthToken();
     return result.data;
   } catch (error) {
-    console.error(error);
-    throw new Error('[mnapp-firebase-auth] Calling to auth-createAuthToken failed.');
+    throw new Error('[mnapp-firebase-auth] Calling to auth-createAuthToken failed.', { cause: error });
   }
 }
