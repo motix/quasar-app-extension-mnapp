@@ -489,7 +489,9 @@ function buildActions<T extends DocModel, TVm, TAm extends DocumentData>(
                 completeLoading(data);
               })
               .catch((error) => {
-                throw new Error('[mnapp-firebase-firestore] afterLoad failed to execute.', { cause: error });
+                throw new Error('[mnapp-firebase-firestore] afterLoad failed to execute.', {
+                  cause: error,
+                });
               });
           } else {
             completeLoading(data);

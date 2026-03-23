@@ -144,6 +144,8 @@ export async function createRemoteSignInToken() {
     const result = await createAuthToken();
     return result.data;
   } catch (error) {
-    throw new Error('[mnapp-firebase-auth] Calling to auth-createAuthToken failed.', { cause: error });
+    throw new Error('[mnapp-firebase-auth] Calling to auth-createAuthToken failed.', {
+      cause: error,
+    });
   }
 }
