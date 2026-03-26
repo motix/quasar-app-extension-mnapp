@@ -25,7 +25,7 @@ export default defineInstall(async function (api) {
             '@vue/eslint-config-prettier': '^10.2.0',
             prettier: '^3.8.1',
             '@types/node': '^25.5.0',
-            '@quasar/app-vite': '^2.5.1',
+            '@quasar/app-vite': '^2.5.2',
             autoprefixer: '^10.4.27',
             typescript: '^5.9.3',
         },
