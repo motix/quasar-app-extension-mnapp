@@ -92,7 +92,7 @@ const subtitleCssClass = computed(() => {
 const captionCssClass = computed(() => {
   const val: { [key: string]: boolean } = {};
 
-  if (captionColor) {
+  if (captionColor !== undefined) {
     val[`text-${captionColor}`] = true;
   }
 

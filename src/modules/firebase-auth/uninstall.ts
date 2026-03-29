@@ -7,7 +7,7 @@ export default defineUninstall(function (api) {
   });
 
   api.onExitLog(
-    " \x1b[32mfirebase-auth • \x1b[0mPlease remove \x1b[33mname: 'MainLayout'\x1b[0m from \x1b[33mMainLayout.vue\x1b[0m record in \x1b[47m\x1b[30m./src/router/routes.ts\x1b[0m if not needed anymore.",
+    " \x1b[32mfirebase-auth • \x1b[0mPlease remove \x1b[33mname: 'MainLayout'\x1b[0m from \x1b[33mMainLayout.vue\x1b[0m record in \x1b[47m\x1b[30m./src/router/routes.ts\x1b[0m if no longer needed.",
   );
 
   reduceJsonFile(api, 'package.json', ['dependencies.firebaseui']);

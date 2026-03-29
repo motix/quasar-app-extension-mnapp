@@ -43,7 +43,7 @@
 24. `single-scope-composable`  
     🔗 `map-paths`
 25. `crud-pages`  
-    🔗 `map-paths`, `vendors` (`fap`, `lds`, `atm`, `vld`), `config`, `formats`, `utils`, `shared-components`,
+    🔗 `frameworks`, `map-paths`, `vendors` (`fap`, `lds`, `atm`, `vld`), `config`, `formats`, `utils`, `shared-components`,
     `notifications`, `float-toolbar`, `sticky-headers`, `multi-views`,
     `return-url`, `firebase`, `firebase-firestore`, `single-scope-composable`
 26. `app-default`  

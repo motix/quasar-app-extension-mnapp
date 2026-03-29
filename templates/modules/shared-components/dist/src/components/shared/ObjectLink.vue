@@ -5,19 +5,20 @@ import { copyToClipboard } from 'quasar';
 
 // Props
 
+type Props = {
+  label: string;
+  icon?: string | undefined;
+  iconRight?: string | undefined;
+  wrapLabel?: boolean | undefined;
+  maxWidth?: string | undefined;
+};
 const {
   label,
   icon,
   iconRight,
   wrapLabel,
   maxWidth = '100%',
-} = defineProps<{
-  label: string;
-  icon?: string | undefined;
-  iconRight?: string | undefined;
-  wrapLabel?: boolean | undefined;
-  maxWidth?: string | undefined;
-}>();
+} = defineProps<Props>();
 
 // Data
 

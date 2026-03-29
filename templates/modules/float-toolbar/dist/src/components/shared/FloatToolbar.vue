@@ -62,7 +62,7 @@ const fabOpened = ref<boolean>(false);
 const fabButtonsCount = computed(() => {
   let count = 0;
 
-  if (fabButtonsVisibility) {
+  if (fabButtonsVisibility !== undefined) {
     for (const button in fabButtonsVisibility) {
       if (fabButtonsVisibility[button]) count++;
     }

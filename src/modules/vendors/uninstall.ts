@@ -6,7 +6,7 @@ export default defineUninstall(function (api) {
   api.removeTemplateTree('dist-fap');
 
   api.onExitLog(
-    ' \x1b[32mvendors       • \x1b[0mPlease remove \x1b[47m\x1b[30m./.npmrc\x1b[0m if no longer used.',
+    ' \x1b[32mvendors       • \x1b[0mPlease remove \x1b[47m\x1b[30m./.npmrc\x1b[0m if no longer needed.',
   );
 
   reduceJsonFile(api, 'package.json', [

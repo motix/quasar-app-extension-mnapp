@@ -4,8 +4,10 @@ declare module 'components/shared/ObjectLink.vue' {
 
   type Props = {
     label: string;
-    wrapLabel?: boolean;
-    maxWidth?: string;
+    icon?: string | undefined;
+    iconRight?: string | undefined;
+    wrapLabel?: boolean | undefined;
+    maxWidth?: string | undefined;
   };
   type Component = ComponentConstructor<
     ComponentPublicInstance<Omit<QBtnProps, keyof Props> & Props>
