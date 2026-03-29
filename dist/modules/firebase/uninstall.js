@@ -1,7 +1,7 @@
 import { reduceJsonFile } from '../../lib/json-helpers.js';
 import { defineUninstall } from '../index.js';
 export default defineUninstall(function (api) {
-    api.onExitLog(' \x1b[32mfirebase      • \x1b[0mPlease remove \x1b[47m\x1b[30m./.env\x1b[0m if no longer used.');
+    api.onExitLog(' \x1b[32mfirebase      • \x1b[0mPlease remove \x1b[47m\x1b[30m./.env\x1b[0m if no longer needed.');
     api.removeTemplateTree();
     api.removePath('.firebaserc');
     api.removePath('firebase.json');

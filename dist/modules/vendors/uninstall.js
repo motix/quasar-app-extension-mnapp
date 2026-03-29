@@ -3,7 +3,7 @@ import { defineUninstall } from '../index.js';
 export default defineUninstall(function (api) {
     // Font Awesome Pro, vue-fontawesome
     api.removeTemplateTree('dist-fap');
-    api.onExitLog(' \x1b[32mvendors       • \x1b[0mPlease remove \x1b[47m\x1b[30m./.npmrc\x1b[0m if no longer used.');
+    api.onExitLog(' \x1b[32mvendors       • \x1b[0mPlease remove \x1b[47m\x1b[30m./.npmrc\x1b[0m if no longer needed.');
     reduceJsonFile(api, 'package.json', [
         // Font Awesome Pro, vue-fontawesome
         'dependencies.@fortawesome/fontawesome-pro',

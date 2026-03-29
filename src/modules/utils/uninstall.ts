@@ -5,6 +5,6 @@ export default defineUninstall(function (api) {
   api.removeTemplateTree();
 
   if (!api.hasModule('firebase')) {
-    reduceJsonFile(api, 'package.json', ['dependencies.@firebase/firestore']);
+    reduceJsonFile(api, 'package.json', ['dependencies.firebase']);
   }
 });
