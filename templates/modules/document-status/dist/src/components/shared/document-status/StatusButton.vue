@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type DocumentStatusBase from 'utils/DocumentStatusBase.js';
 
-const { freezed, revertColor } = defineProps<{
+const { freezed = false, revertColor = false } = defineProps<{
   status: DocumentStatusBase<unknown, string, string, string>;
   freezed?: boolean | undefined;
   revertColor?: boolean | undefined;

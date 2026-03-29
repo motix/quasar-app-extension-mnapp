@@ -1,11 +1,10 @@
 import { defineInstall } from '../index.js';
+import packagesVersion from './packages-version.js';
 export default defineInstall(function (api) {
     api.renderTemplate();
     if (!api.hasModule('firebase')) {
         api.extendPackageJson({
-            dependencies: {
-                firebase: '^12.11.0',
-            },
+            dependencies: { firebase: packagesVersion.firebase },
         });
     }
 });

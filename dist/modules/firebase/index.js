@@ -6,7 +6,7 @@ export default defineIndex(function (api) {
         const configPath = api.resolve.app('.env');
         const env = config({ path: configPath }).parsed;
         const FIREBASE_ENV = process.env.FIREBASE_ENV;
-        if (!env) {
+        if (!env || Object.keys(env).length === 0) {
             throw Error('.env not found.');
         }
         if (!FIREBASE_ENV || !['DEV', 'STAGE', 'PROD'].includes(FIREBASE_ENV)) {

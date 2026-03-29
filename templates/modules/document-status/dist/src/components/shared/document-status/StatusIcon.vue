@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type DocumentStatusBase from 'utils/DocumentStatusBase.js';
 
-const { revertColor } = defineProps<{
+const { revertColor = false } = defineProps<{
   status: DocumentStatusBase<unknown, string, string, string>;
   icon: string;
   revertColor?: boolean | undefined;

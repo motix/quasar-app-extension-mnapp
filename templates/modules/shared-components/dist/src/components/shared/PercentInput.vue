@@ -27,7 +27,7 @@ function validateValue(value: string | number | null | undefined): value is numb
 type Props = {
   decimal?: number | undefined;
 };
-const { decimal } = defineProps<Props>();
+const { decimal = undefined } = defineProps<Props>();
 
 // Models
 

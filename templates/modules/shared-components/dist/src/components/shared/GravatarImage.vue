@@ -1,7 +1,7 @@
 <script setup lang="ts">
 // Props
 
-const { gravatarId, dark } = defineProps<{
+const { gravatarId = undefined, dark = false } = defineProps<{
   gravatarId?: string | undefined;
   dark?: boolean | undefined;
 }>();

@@ -13,9 +13,9 @@ import { requiredConfigEntries } from 'composables/useConfig.js';
 type Props = {
   name: string;
   optional?: boolean | undefined;
-  dateOptions?: QDateProps['options'] | undefined;
+  dateOptions?: QDateProps['options'];
 };
-const { name, optional, dateOptions } = defineProps<Props>();
+const { name, optional = false, dateOptions = undefined } = defineProps<Props>();
 
 // Models
 

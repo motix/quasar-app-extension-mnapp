@@ -1,5 +1,6 @@
 import { reduceJsonFile } from '../../lib/json-helpers.js';
 import { defineInstall } from '../index.js';
+import packagesVersion from './packages-version.js';
 
 export default defineInstall(function (api) {
   reduceJsonFile(api, 'package.json', ['scripts.dev', 'scripts.build']);
@@ -17,10 +18,10 @@ export default defineInstall(function (api) {
       postinstall: 'cross-env FIREBASE_ENV=PROD quasar prepare',
     },
     dependencies: {
-      firebase: '^12.11.0',
+      firebase: packagesVersion.firebase,
     },
     devDependencies: {
-      'cross-env': '^10.1.0',
+      'cross-env': packagesVersion['cross-env'],
     },
   });
 

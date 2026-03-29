@@ -1,11 +1,10 @@
 import { defineInstall } from '../index.js';
+import packagesVersion from './packages-version.js';
 
 export default defineInstall(function (api) {
+  const packages: (keyof typeof packagesVersion)[] = ['slack', 'slack-message-parser'];
   api.extendPackageJson({
-    dependencies: {
-      slack: '^11.0.2',
-      'slack-message-parser': '^3.0.2',
-    },
+    dependencies: Object.fromEntries(packages.map((item) => [item, packagesVersion[item]])),
   });
 
   api.renderTemplate();

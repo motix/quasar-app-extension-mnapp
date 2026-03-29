@@ -11,10 +11,10 @@ import { useFloatToolbarResult } from 'composables/useFloatToolbar.js';
 const {
   position = 'bottom-right',
   minMarginY = 2,
-  fabButtonsVisibility,
+  fabButtonsVisibility = undefined,
   fabButtonsSpaceIgnored = 0,
   offset = {},
-  persistent,
+  persistent = false,
 } = defineProps<{
   position?:
     | 'top-right'

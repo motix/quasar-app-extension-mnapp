@@ -1,2 +1,2 @@
 # SLACK CONFIG
-SLACK_ACCESS_TOKEN=
+SLACK_ACCESS_TOKEN=xxxx-xxxxxxxxxxxxx-xxxxxxxxxxxxx-xxxxxxxxxxxxxxxxxxxxxxxx

@@ -9,6 +9,89 @@ import ExpandableCardHeader from './ExpandableCardHeader.vue';
 
 // Props
 
+const props = withDefaults(
+  defineProps<{
+    expandable?: boolean | undefined;
+    initiallyExpanded?: boolean | undefined;
+    clickable?: boolean | undefined;
+    headerBackgroundColor?: string | undefined;
+    bodyBackgroundColor?: string | undefined;
+    headerDark?: boolean | undefined;
+    externalLinkUrl?: string | undefined;
+    externalLinkTooltip?: string | undefined;
+    avatarTop?: boolean | undefined;
+    avatarColor?: string | undefined;
+    avatarSize?: string | undefined;
+    avatarIcon?: string | undefined;
+    avatarImage?: string | undefined;
+    useGravatar?: boolean | undefined;
+    gravatarId?: string | undefined;
+    titleFullWidth?: boolean | undefined;
+    titleTop?: boolean | undefined;
+    titleColor?: string | undefined;
+    titleNoWrap?: boolean | undefined;
+    title?: string | undefined;
+    titleEndIconColor?: string | undefined;
+    titleEndIconSuperscript?: boolean | undefined;
+    titleEndIcon?: string | undefined;
+    subtitleIcon?: string | undefined;
+    subtitleColor?: string | undefined;
+    subtitle?: string | undefined;
+    subtitleTooltip?: string | undefined;
+    captionColor?: string | undefined;
+    caption?: string | undefined;
+    captionTooltip?: string | undefined;
+    sideTop?: boolean | undefined;
+    headerSeparator?: boolean | undefined;
+    bodyLoading?: boolean | undefined;
+    bodyClass?: string | undefined;
+    bodyColGutter?: boolean | undefined;
+    bodyRowGutter?: boolean | undefined;
+    bodyCellGutter?: boolean | undefined;
+    bezelLessLoading?: boolean | undefined;
+  }>(),
+  {
+    expandable: false,
+    initiallyExpanded: false,
+    clickable: false,
+    headerBackgroundColor: undefined,
+    bodyBackgroundColor: undefined,
+    headerDark: false,
+    externalLinkUrl: undefined,
+    externalLinkTooltip: undefined,
+    avatarTop: false,
+    avatarColor: undefined,
+    avatarSize: '56px',
+    avatarIcon: undefined,
+    avatarImage: undefined,
+    useGravatar: false,
+    gravatarId: undefined,
+    titleFullWidth: false,
+    titleTop: false,
+    titleColor: undefined,
+    titleNoWrap: false,
+    title: undefined,
+    titleEndIconColor: undefined,
+    titleEndIconSuperscript: false,
+    titleEndIcon: undefined,
+    subtitleIcon: undefined,
+    subtitleColor: undefined,
+    subtitle: undefined,
+    subtitleTooltip: undefined,
+    captionColor: undefined,
+    caption: undefined,
+    captionTooltip: undefined,
+    sideTop: false,
+    headerSeparator: false,
+    bodyLoading: false,
+    bodyClass: undefined,
+    bodyColGutter: false,
+    bodyRowGutter: false,
+    bodyCellGutter: false,
+    bezelLessLoading: false,
+  },
+);
+
 const {
   expandable,
   initiallyExpanded,
@@ -23,46 +106,7 @@ const {
   bodyRowGutter,
   bodyCellGutter,
   bezelLessLoading,
-} = defineProps<{
-  expandable?: boolean | undefined;
-  initiallyExpanded?: boolean | undefined;
-  clickable?: boolean | undefined;
-  headerBackgroundColor?: string | undefined;
-  bodyBackgroundColor?: string | undefined;
-  headerDark?: boolean | undefined;
-  externalLinkUrl?: string | undefined;
-  externalLinkTooltip?: string | undefined;
-  avatarTop?: boolean | undefined;
-  avatarColor?: string | undefined;
-  avatarSize?: string | undefined;
-  avatarIcon?: string | undefined;
-  avatarImage?: string | undefined;
-  useGravatar?: boolean | undefined;
-  gravatarId?: string | undefined;
-  titleFullWidth?: boolean | undefined;
-  titleTop?: boolean | undefined;
-  titleColor?: string | undefined;
-  titleNoWrap?: boolean | undefined;
-  title?: string | undefined;
-  titleEndIconColor?: string | undefined;
-  titleEndIconSuperscript?: boolean | undefined;
-  titleEndIcon?: string | undefined;
-  subtitleIcon?: string | undefined;
-  subtitleColor?: string | undefined;
-  subtitle?: string | undefined;
-  subtitleTooltip?: string | undefined;
-  captionColor?: string | undefined;
-  caption?: string | undefined;
-  captionTooltip?: string | undefined;
-  sideTop?: boolean | undefined;
-  headerSeparator?: boolean | undefined;
-  bodyLoading?: boolean | undefined;
-  bodyClass?: string | undefined;
-  bodyColGutter?: boolean | undefined;
-  bodyRowGutter?: boolean | undefined;
-  bodyCellGutter?: boolean | undefined;
-  bezelLessLoading?: boolean | undefined;
-}>();
+} = props;
 
 // Data
 

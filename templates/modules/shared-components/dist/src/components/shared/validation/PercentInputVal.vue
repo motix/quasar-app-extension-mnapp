@@ -7,7 +7,7 @@ type Props = {
   name: string;
   decimal?: number | undefined;
 };
-const { name, decimal } = defineProps<Props>();
+const { name, decimal = undefined } = defineProps<Props>();
 
 // Model
 

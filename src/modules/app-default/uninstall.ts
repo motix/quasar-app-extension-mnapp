@@ -12,7 +12,7 @@ export default defineUninstall(function (api) {
 
   if (api.prompts.https) {
     api.onExitLog(
-      ' \x1b[32mapp-default   • \x1b[0mPlease remove \x1b[47m\x1b[30m./.mkcerts\x1b[0m if no longer used.',
+      ' \x1b[32mapp-default   • \x1b[0mPlease remove \x1b[47m\x1b[30m./.mkcerts\x1b[0m if no longer needed.',
     );
   }
 

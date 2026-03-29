@@ -1,42 +1,57 @@
+import fs from 'fs';
+
 import { defineInstall } from '../index.js';
+import { packagesLatestVersion } from './packages-version.js';
 
 export default defineInstall(async function (api) {
-  api.extendPackageJson({
-    dependencies: {
-      // Upgrade Starter Kit packages
-      pinia: '^3.0.4',
-      '@quasar/extras': '^1.17.0',
-      quasar: '^2.18.7',
-      vue: '^3.5.30',
-      'vue-router': '^5.0.4',
-      // Additional packages
-      'vue-component-type-helpers': '^3.2.6',
-    },
+  const dependencies: (keyof typeof packagesLatestVersion)[] = [
+    // Upgrade Starter Kit packages
+    'pinia',
+    '@quasar/extras',
+    'quasar',
+    'vue',
+    'vue-router',
 
-    devDependencies: {
-      // Upgrade Starter Kit packages
-      // TODO: Upgrade `@eslint/js`, `eslint`, `eslint-plugin-vue` to version 10
-      '@eslint/js': '^9.39.4',
-      eslint: '^9.39.4',
-      'eslint-plugin-vue': '^9.33.0',
-      globals: '^17.4.0',
-      'vue-tsc': '^3.2.6',
-      '@vue/eslint-config-typescript': '^14.7.0',
-      'vite-plugin-checker': '^0.12.0',
-      'vue-eslint-parser': '^10.4.0',
-      '@vue/eslint-config-prettier': '^10.2.0',
-      prettier: '^3.8.1',
-      '@types/node': '^25.5.0',
-      '@quasar/app-vite': '^2.5.2',
-      autoprefixer: '^10.4.27',
-      typescript: '^5.9.3',
-    },
+    // Additional packages
+    'vue-component-type-helpers',
+  ];
+
+  const devDependencies: (keyof typeof packagesLatestVersion)[] = [
+    // Upgrade Starter Kit packages
+    '@eslint/js',
+    'eslint',
+    'eslint-plugin-vue',
+    'globals',
+    'vue-tsc',
+    '@vue/eslint-config-typescript',
+    'vite-plugin-checker',
+    'vue-eslint-parser',
+    '@vue/eslint-config-prettier',
+    'prettier',
+    '@types/node',
+    '@quasar/app-vite',
+    'autoprefixer',
+    'typescript',
+  ];
+
+  api.extendPackageJson({
+    dependencies: Object.fromEntries(
+      dependencies.map((item) => [item, packagesLatestVersion[item]]),
+    ),
+    devDependencies: Object.fromEntries(
+      devDependencies.map((item) => [item, packagesLatestVersion[item]]),
+    ),
   });
 
   await modifyFiles();
 
   async function modifyFiles() {
     // Modify `.vscode/extensions.json`.
+
+    if (!fs.existsSync(api.resolve.app('.vscode/extensions.json'))) {
+      fs.mkdirSync(api.resolve.app('.vscode'), { recursive: true });
+      fs.writeFileSync(api.resolve.app('.vscode/extensions.json'), '{}');
+    }
 
     const extensionsJson = (
       await import(api.resolve.app('.vscode/extensions.json'), {

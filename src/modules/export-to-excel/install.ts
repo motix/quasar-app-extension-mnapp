@@ -1,13 +1,12 @@
 import { defineInstall } from '../index.js';
+import packagesVersion from './packages-version.js';
 
 export default defineInstall(function (api) {
+  const packages: (keyof typeof packagesVersion)[] = ['exceljs', 'file-saver'];
   api.extendPackageJson({
-    dependencies: {
-      exceljs: '^4.4.0',
-      'file-saver': '^2.0.5',
-    },
+    dependencies: Object.fromEntries(packages.map((item) => [item, packagesVersion[item]])),
     devDependencies: {
-      '@types/file-saver': '^2.0.7',
+      '@types/file-saver': packagesVersion['@types/file-saver'],
     },
   });
 

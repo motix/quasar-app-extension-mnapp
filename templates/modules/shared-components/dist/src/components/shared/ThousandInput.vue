@@ -33,7 +33,7 @@ function validateThousandValue(value: string | number | null | undefined) {
 type Props = {
   suffix?: string | undefined;
 };
-const { suffix } = defineProps<Props>();
+const { suffix = undefined } = defineProps<Props>();
 
 // Models
 

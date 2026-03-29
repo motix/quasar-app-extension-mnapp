@@ -1,9 +1,10 @@
 import { defineInstall } from '../index.js';
+import packagesVersion from './packages-version.js';
 
 export default defineInstall(function (api) {
   api.extendPackageJson({
     dependencies: {
-      firebaseui: '^6.1.0',
+      firebaseui: packagesVersion.firebaseui,
     },
   });
 

@@ -1,24 +1,28 @@
 import fs from 'fs';
 
 import { defineInstall } from '../index.js';
+import packagesVersion from './packages-version.js';
 
 export default defineInstall(function (api) {
   const vendorsConfig = api.prompts.vendors as string;
   const vendors = vendorsConfig.split(',');
+  let packages: (keyof typeof packagesVersion)[];
 
   // Font Awesome Pro, vue-fontawesome
   if (vendors.includes('fap')) {
+    packages = [
+      '@fortawesome/fontawesome-pro',
+      '@fortawesome/fontawesome-svg-core',
+      '@fortawesome/free-brands-svg-icons',
+      '@fortawesome/pro-solid-svg-icons',
+      '@fortawesome/pro-regular-svg-icons',
+      '@fortawesome/pro-light-svg-icons',
+      '@fortawesome/pro-thin-svg-icons',
+      '@fortawesome/pro-duotone-svg-icons',
+      '@fortawesome/vue-fontawesome',
+    ];
     api.extendPackageJson({
-      dependencies: {
-        '@fortawesome/fontawesome-pro': '^7.2.0',
-        '@fortawesome/fontawesome-svg-core': '^7.2.0',
-        '@fortawesome/free-brands-svg-icons': '^7.2.0',
-        '@fortawesome/pro-duotone-svg-icons': '^7.2.0',
-        '@fortawesome/pro-light-svg-icons': '^7.2.0',
-        '@fortawesome/pro-regular-svg-icons': '^7.2.0',
-        '@fortawesome/pro-solid-svg-icons': '^7.2.0',
-        '@fortawesome/vue-fontawesome': '^3.1.3',
-      },
+      dependencies: Object.fromEntries(packages.map((item) => [item, packagesVersion[item]])),
     });
 
     api.renderTemplate('dist-fap');
@@ -36,7 +40,7 @@ export default defineInstall(function (api) {
   if (vendors.includes('axs')) {
     api.extendPackageJson({
       dependencies: {
-        axios: '^1.13.6',
+        axios: packagesVersion.axios,
       },
     });
   }
@@ -45,10 +49,10 @@ export default defineInstall(function (api) {
   if (vendors.includes('lds')) {
     api.extendPackageJson({
       dependencies: {
-        'lodash-es': '^4.17.23',
+        'lodash-es': packagesVersion['lodash-es'],
       },
       devDependencies: {
-        '@types/lodash-es': '^4.17.12',
+        '@types/lodash-es': packagesVersion['@types/lodash-es'],
       },
     });
   }
@@ -57,29 +61,24 @@ export default defineInstall(function (api) {
   if (vendors.includes('jgd')) {
     api.extendPackageJson({
       dependencies: {
-        'js-guid': '^1.0.2',
+        'js-guid': packagesVersion['js-guid'],
       },
     });
   }
 
   // AutoMapper TypeScript
   if (vendors.includes('atm')) {
+    packages = ['@automapper/core', '@automapper/pojos'];
     api.extendPackageJson({
-      dependencies: {
-        '@automapper/core': '^8.8.1',
-        '@automapper/pojos': '^8.8.1',
-      },
+      dependencies: Object.fromEntries(packages.map((item) => [item, packagesVersion[item]])),
     });
   }
 
   // vee-validate
   if (vendors.includes('vld')) {
+    packages = ['vee-validate', '@vee-validate/yup', 'yup'];
     api.extendPackageJson({
-      dependencies: {
-        'vee-validate': '^4.15.1',
-        '@vee-validate/yup': '^4.15.1',
-        yup: '^1.7.1',
-      },
+      dependencies: Object.fromEntries(packages.map((item) => [item, packagesVersion[item]])),
     });
   }
 
@@ -87,10 +86,10 @@ export default defineInstall(function (api) {
   if (vendors.includes('mkd')) {
     api.extendPackageJson({
       dependencies: {
-        'vue-markdown-render': '^2.3.0',
+        'vue-markdown-render': packagesVersion['vue-markdown-render'],
       },
       devDependencies: {
-        '@types/markdown-it': '^14.1.2',
+        '@types/markdown-it': packagesVersion['@types/markdown-it'],
       },
     });
   }

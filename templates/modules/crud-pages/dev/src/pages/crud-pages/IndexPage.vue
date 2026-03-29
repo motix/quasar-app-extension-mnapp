@@ -209,3 +209,11 @@ $p.newUrl.value = '/crud-pages/new-member';
     </template>
   </ListPage>
 </template>
+
+<style lang="scss">
+// This style is part of `app-default` module, manually added here to avoid unnecessary dependency.
+
+.flex-break {
+  flex: 1 0 100% !important;
+}
+</style>

@@ -14,9 +14,9 @@ type Props = {
 };
 const {
   label,
-  icon,
-  iconRight,
-  wrapLabel,
+  icon = undefined,
+  iconRight = undefined,
+  wrapLabel = false,
   maxWidth = '100%',
 } = defineProps<Props>();
 
