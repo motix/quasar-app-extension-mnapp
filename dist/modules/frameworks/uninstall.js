@@ -34,8 +34,6 @@ export default defineUninstall(function (api) {
     });
     reduceJsonFile(api, 'package.json', ['dependencies.vue-component-type-helpers']);
     function modifyFiles() {
-        // [Reverse] Modify tsconfig.json
-        reduceJsonFileArray(api, 'tsconfig.json', [{ path: 'exclude', value: '.bk' }], ['exclude']);
         // [Reverse] Modify `.vscode/extensions.json`.
         reduceJsonFileArray(api, '.vscode/extensions.json', [
             { path: 'recommendations', value: 'aaron-bond.better-comments' },

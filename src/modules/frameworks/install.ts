@@ -64,19 +64,5 @@ export default defineInstall(async function (api) {
         recommendations: ['aaron-bond.better-comments'],
       });
     }
-
-    // Modify tsconfig.json
-
-    const tsconfigJson = (
-      await import(api.resolve.app('tsconfig.json'), {
-        with: { type: 'json' },
-      })
-    ).default;
-
-    if (!tsconfigJson.exclude?.includes('.bk')) {
-      api.extendJsonFile('tsconfig.json', {
-        exclude: ['.bk'],
-      });
-    }
   }
 });
