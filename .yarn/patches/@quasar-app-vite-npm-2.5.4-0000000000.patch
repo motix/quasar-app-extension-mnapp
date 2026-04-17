@@ -1,0 +1,19 @@
+diff --git a/package.json b/package.json
+index 2e7ae61add3684688a04c2dae79405a058ee5862..c469c605365d5eeaa8e9011351ea5efdd4a54243 100644
+--- a/package.json
++++ b/package.json
+@@ -76,7 +76,13 @@
+     },
+     "./lib/testing.js": {
+       "import": "./exports/testing/testing.js"
+-    }
++    },
++    "./lib/app-extension/api-classes/InstallAPI.js": {
++      "import": "./lib/app-extension/api-classes/InstallAPI.js"
++    },
++    "./lib/utils/get-caller-path.js": {
++      "import": "./lib/utils/get-caller-path.js"
++     }
+   },
+   "publishConfig": {
+     "access": "public"
