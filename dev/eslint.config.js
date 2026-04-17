@@ -33,7 +33,16 @@ export default defineConfigWithVueTs(
    * pluginVue.configs["flat/recommended"]
    *   -> Above, plus rules to enforce subjective community defaults to ensure consistency.
    */
-  pluginVue.configs[ 'flat/essential' ],
+  pluginVue.configs[ 'flat/recommended' ],
+
+  {
+    languageOptions: {
+      parserOptions: {
+        projectService: true,
+        tsconfigRootDir: import.meta.dirname,
+      },
+    },
+  },
 
   {
     files: ['**/*.ts', '**/*.vue'],
@@ -41,6 +50,10 @@ export default defineConfigWithVueTs(
       '@typescript-eslint/consistent-type-imports': [
         'error',
         { prefer: 'type-imports' }
+      ],
+      '@typescript-eslint/no-unused-expressions': [
+        'error',
+        { allowShortCircuit: true, allowTernary: true },
       ],
     }
   },
@@ -69,7 +82,10 @@ export default defineConfigWithVueTs(
       'prefer-promise-reject-errors': 'off',
 
       // allow debugger during development only
-      'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off'
+      'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+
+      // alphabetical
+      'vue/attributes-order': ['warn', { alphabetical: true }]
     }
   },
 

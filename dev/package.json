@@ -10,7 +10,8 @@
     "test": "echo \"No test specified\" && exit 0",
     "dev": "quasar dev",
     "build": "quasar build",
-    "postinstall": "quasar prepare"
+    "postinstall": "quasar prepare",
+    "clean": "yarn format --log-level warn && yarn lint --fix"
   },
   "dependencies": {
     "pinia": "^3.0.1",
