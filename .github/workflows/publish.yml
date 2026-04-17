@@ -24,7 +24,7 @@ jobs:
         run: corepack enable
 
       - name: Remove unnecessary files and folders
-        run: find . -maxdepth 1 ! -name 'dist' ! -name 'templates' ! -name 'package.json' -exec rm -rf {} +
+        run: find . -maxdepth 1 ! -name '.' ! -name 'dist' ! -name 'templates' ! -name 'package.json' -exec rm -rf {} +
 
       - name: Clean templates folder except modules
         run: find templates -maxdepth 1 ! -name 'templates' ! -name 'modules' -exec rm -rf {} +
