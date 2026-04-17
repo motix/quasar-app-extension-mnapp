@@ -6,7 +6,8 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "test": "echo \"No test specified\" && exit 0"
+    "test": "echo \"No test specified\" && exit 0",
+    "postinstall": "yarn dlx @yarnpkg/sdks vscode && prettier --write ./.vscode/*.*"
   },
   "engines": {
     "node": ">= 12.2.0",
@@ -16,5 +17,18 @@
   "workspaces": [
     "templates",
     "dev"
-  ]
+  ],
+  "dependenciesMeta": {
+    "vite-plugin-checker": {
+      "unplugged": true
+    }
+  },
+  "dependencies": {
+    "vue": "^3.5.32"
+  },
+  "devDependencies": {
+    "eslint": "^10.2.0",
+    "prettier": "^3.8.3",
+    "typescript": "^5.9.3"
+  }
 }
