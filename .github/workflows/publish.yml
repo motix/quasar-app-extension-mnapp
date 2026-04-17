@@ -26,6 +26,9 @@ jobs:
       - name: Remove `dev` folder
         run: rm -rf ./dev
 
+      - name: Remove `.yarnrc.yml`
+        run: rm -f ./.yarnrc.yml
+
       - name: Install dependencies
         run: yarn install --immutable
 
