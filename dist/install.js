@@ -10,9 +10,9 @@ export default async function (api) {
     const organizationName = getOrganizationName();
     const scripts = {};
     scripts[`i-${packageName}`] =
-        `quasar ext invoke ${organizationName}/${packageName} && yarn format --log-level warn`;
+        `quasar ext invoke @${organizationName}/${packageName} && yarn format --log-level warn`;
     scripts[`u-${packageName}`] =
-        `quasar ext uninvoke ${organizationName}/${packageName} && yarn format --log-level warn`;
+        `quasar ext uninvoke @${organizationName}/${packageName} && yarn format --log-level warn`;
     scripts[`r-${packageName}`] = `yarn u-${packageName} && yarn i-${packageName} && yarn clean`;
     // Remove current i- to keep i-, u- and r- together
     reduceJsonFile(api, 'package.json', [`scripts.i-${packageName}`]);

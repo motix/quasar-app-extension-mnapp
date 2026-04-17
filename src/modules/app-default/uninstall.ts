@@ -32,9 +32,7 @@ export default defineUninstall(function (api) {
         '',
       );
 
-      fs.writeFileSync(api.resolve.src('css/quasar.variables.scss'), quasarVariablesScss, {
-        encoding: 'utf-8',
-      });
+      fs.writeFileSync(api.resolve.src('css/quasar.variables.scss'), quasarVariablesScss, 'utf-8');
     }
   }
 });

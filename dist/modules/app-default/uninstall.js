@@ -16,9 +16,7 @@ export default defineUninstall(function (api) {
             quasarVariablesScss = quasarVariablesScss.replace(`
 @import './quasar.variables-custom.scss';
 `, '');
-            fs.writeFileSync(api.resolve.src('css/quasar.variables.scss'), quasarVariablesScss, {
-                encoding: 'utf-8',
-            });
+            fs.writeFileSync(api.resolve.src('css/quasar.variables.scss'), quasarVariablesScss, 'utf-8');
         }
     }
 });
