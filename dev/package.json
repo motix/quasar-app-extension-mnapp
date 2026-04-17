@@ -1,9 +1,7 @@
 {
   "name": "mnapp-dev",
-  "version": "0.0.1",
   "description": "Dev for mnapp",
   "productName": "mnapp Dev",
-  "author": "Quang Khánh <mnguyen284.ai@gmail.com>",
   "type": "module",
   "private": true,
   "scripts": {
