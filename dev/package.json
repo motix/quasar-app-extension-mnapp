@@ -33,7 +33,8 @@
     "@types/node": "^22.19.11",
     "@quasar/app-vite": "^2.5.1",
     "autoprefixer": "^10.4.27",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "@motinet/quasar-app-extension-mnapp": "workspace:*"
   },
   "engines": {
     "node": "^28 || ^26 || ^24 || ^22.12",
