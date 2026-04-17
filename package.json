@@ -7,7 +7,11 @@
   "type": "module",
   "scripts": {
     "test": "echo \"No test specified\" && exit 0",
-    "postinstall": "yarn dlx @yarnpkg/sdks vscode && prettier --write ./.vscode/*.*"
+    "postinstall": "node scripts/bundle-prettier-plugin-sort-imports.js && yarn dlx @yarnpkg/sdks vscode && prettier --write ./.vscode/*.*",
+    "lint": "eslint -c ./eslint.config.js \"./src/**/*.{ts,js,cjs,mjs,vue}\" && cd ./templates && yarn lint && cd ../dev && yarn lint",
+    "lintf": "eslint -c ./eslint.config.js \"./src/**/*.{ts,js,cjs,mjs,vue}\" --fix && cd ./templates && yarn lint --fix && cd ../dev && yarn lint --fix",
+    "format": "prettier --write \"**/*.{js,ts,vue,css,scss,html,md,json}\" --ignore-path dev/.gitignore --ignore-path .prettierignore",
+    "clean": "yarn format --log-level warn && yarn lintf"
   },
   "engines": {
     "node": ">= 12.2.0",
@@ -29,6 +33,15 @@
   "devDependencies": {
     "eslint": "^10.2.0",
     "prettier": "^3.8.3",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "globals": "^17.5.0",
+    "@eslint/js": "^10.0.1",
+    "@vue/eslint-config-prettier": "^10.2.0",
+    "@vue/eslint-config-typescript": "^14.7.0",
+    "eslint-plugin-vue": "^10.8.0",
+    "vue-eslint-parser": "^10.4.0",
+    "@trivago/prettier-plugin-sort-imports": "^6.0.2",
+    "@vue/compiler-sfc": "^3.5.32",
+    "esbuild": "^0.28.0"
   }
 }
