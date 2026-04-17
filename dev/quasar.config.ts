@@ -42,7 +42,7 @@ export default defineConfig((/* ctx */) => {
 
       typescript: {
         strict: true,
-        vueShim: true
+        vueShim: false
         // extendTsConfig (tsConfig) {}
       },
 
