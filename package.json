@@ -1,0 +1,16 @@
+{
+  "name": "@motinet/quasar-app-extension-mnapp",
+  "version": "0.0.1",
+  "description": "MotiNet Quasar Starter Kit as an App Extension",
+  "author": "Quang Khánh <mnguyen284.ai@gmail.com>",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"No test specified\" && exit 0"
+  },
+  "engines": {
+    "node": ">= 12.2.0",
+    "npm": ">= 5.6.0",
+    "yarn": ">= 1.6.0"
+  }
+}
