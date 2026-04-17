@@ -30,7 +30,7 @@ jobs:
         run: rm -f ./.yarnrc.yml
 
       - name: Install dependencies
-        run: yarn install --immutable
+        run: yarn install --no-immutable
 
       - name: Build
         run: yarn build
