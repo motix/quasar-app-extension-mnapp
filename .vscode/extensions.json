@@ -5,7 +5,8 @@
     "editorconfig.editorconfig",
     "vue.volar",
     "wayou.vscode-todo-highlight",
-    "rohit-gohri.format-code-action"
+    "rohit-gohri.format-code-action",
+    "moshfeu.compare-folders"
   ],
   "unwantedRecommendations": [
     "octref.vetur",

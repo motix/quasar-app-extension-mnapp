@@ -11,22 +11,15 @@
     "lint": "eslint -c ./eslint.config.js \"./src/**/*.{ts,js,cjs,mjs,vue}\" && cd ./templates && yarn lint && cd ../dev && yarn lint",
     "lintf": "eslint -c ./eslint.config.js \"./src/**/*.{ts,js,cjs,mjs,vue}\" --fix && cd ./templates && yarn lint --fix && cd ../dev && yarn lint --fix",
     "format": "prettier --write \"**/*.{js,ts,vue,css,scss,html,md,json}\" --ignore-path dev/.gitignore --ignore-path .prettierignore",
-    "clean": "yarn format --log-level warn && yarn lintf"
-  },
-  "engines": {
-    "node": ">= 12.2.0",
-    "npm": ">= 5.6.0",
-    "yarn": ">= 1.6.0"
+    "clean": "yarn format --log-level warn && yarn lintf",
+    "build": "yarn tsc && cd ./templates && yarn tsc && cd ../dev && yarn tsc",
+    "watch": "yarn tsc --watch",
+    "buildPaths": "cd ./templates && node ./buildPaths.js && yarn prettier --write ./tsconfig-paths.json"
   },
   "workspaces": [
     "templates",
     "dev"
   ],
-  "dependenciesMeta": {
-    "vite-plugin-checker": {
-      "unplugged": true
-    }
-  },
   "dependencies": {
     "vue": "^3.5.32",
     "@quasar/app-vite": "patch:@quasar/app-vite@npm%3A2.5.4#~/.yarn/patches/@quasar-app-vite-npm-2.5.4-0000000000.patch",
@@ -48,5 +41,15 @@
     "@trivago/prettier-plugin-sort-imports": "^6.0.2",
     "@vue/compiler-sfc": "^3.5.32",
     "esbuild": "^0.28.0"
+  },
+  "dependenciesMeta": {
+    "vite-plugin-checker": {
+      "unplugged": true
+    }
+  },
+  "engines": {
+    "node": ">= 12.2.0",
+    "npm": ">= 5.6.0",
+    "yarn": ">= 1.6.0"
   }
 }
