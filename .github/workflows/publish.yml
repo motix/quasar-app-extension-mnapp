@@ -20,21 +20,6 @@ jobs:
           node-version: '24'
           registry-url: 'https://registry.npmjs.org'
 
-      - name: Enable Corepack & Setup Yarn
-        run: corepack enable
-
-      - name: Remove `dev` folder
-        run: rm -rf ./dev
-
-      - name: Remove `.yarnrc.yml`
-        run: rm -f ./.yarnrc.yml
-
-      - name: Install dependencies
-        run: yarn install --no-immutable
-
-      - name: Build
-        run: yarn build
-
       - name: Upgrade npm for OIDC support
         run: npm install -g npm@latest
 
