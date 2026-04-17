@@ -24,7 +24,10 @@ jobs:
         run: corepack enable
 
       - name: Remove unnecessary files and folders
-        run: rm -rf .github .vscode .yarn dev doc scripts src templates editorsconfig .pnp* .prettier* .yarnrc.yml eslint.config.js init.js
+        run: find . -maxdepth 1 ! -name 'dist' ! -name 'templates' ! -name 'package.json' -exec rm -rf {} +
+
+      - name: Clean templates folder except modules
+        run: find templates -maxdepth 1 ! -name 'templates' ! -name 'modules' -exec rm -rf {} +
 
       - name: Remove postinstall script
         run: npm pkg delete scripts.postinstall
