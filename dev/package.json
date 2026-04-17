@@ -11,7 +11,9 @@
     "dev": "quasar dev",
     "build": "quasar build",
     "postinstall": "quasar prepare",
-    "clean": "yarn format --log-level warn && yarn lint --fix"
+    "clean": "yarn format --log-level warn && yarn lint --fix",
+    "tsc": "yarn vue-tsc --noEmit --skipLibCheck",
+    "i-mnapp": "quasar ext invoke @motinet/mnapp && yarn format --log-level warn"
   },
   "dependencies": {
     "pinia": "^3.0.1",
