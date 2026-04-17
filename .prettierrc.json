@@ -3,9 +3,7 @@
   "singleQuote": true,
   "printWidth": 100,
   "semi": true,
-  "plugins": [
-    "./scripts/prettier-plugin-sort-imports-bundle.js"
-  ],
+  "plugins": ["./scripts/prettier-plugin-sort-imports-bundle.js"],
   "importOrder": [
     ".json$",
     ".css$",

@@ -1,0 +1,201 @@
+{
+  "extends": "../dev/.quasar/tsconfig.json",
+  "compilerOptions": {
+    "paths": {
+      "app/firebase.json": ["./modules/firebase/firebase.json"],
+      "models/firebase-auth/index.js": [
+        "../dev/src/models/firebase-auth/index.js",
+        "./modules/firebase-auth/dist/src/models/firebase-auth/index.js"
+      ],
+      "src": ["../dev/src"],
+      "src/*": [
+        "./modules/alive-sub-layout/dist/src/*",
+        "./modules/apexcharts/dist/src/*",
+        "./modules/app-default/dist/src/*",
+        "./modules/config/dist/src/*",
+        "./modules/crud-pages/dist/src/*",
+        "./modules/crud-pages/dev/src/*",
+        "./modules/document-status/dist/src/*",
+        "./modules/export-to-excel/dist/src/*",
+        "./modules/firebase/dist/src/*",
+        "./modules/firebase-auth/dist/src/*",
+        "./modules/firebase-firestore/dist/src/*",
+        "./modules/float-toolbar/dist/src/*",
+        "./modules/float-toolbar/dev/src/*",
+        "./modules/formats/dist/src/*",
+        "./modules/multi-views/dist/src/*",
+        "./modules/multi-views/dev/src/*",
+        "./modules/notifications/dist/src/*",
+        "./modules/notifications/dev/src/*",
+        "./modules/page-title/dist/src/*",
+        "./modules/return-url/dist/src/*",
+        "./modules/rich-editor/dist/src/*",
+        "./modules/scroll/dist/src/*",
+        "./modules/scroll/dev/src/*",
+        "./modules/select-date-range/dist/src/*",
+        "./modules/shared-components/dist/src/*",
+        "./modules/shared-components/dev/src/*",
+        "./modules/single-scope-composable/dist/src/*",
+        "./modules/slack/dist/src/*",
+        "./modules/sticky-headers/dist/src/*",
+        "./modules/utils/dist/src/*",
+        "../dev/src/*"
+      ],
+      "app": ["../dev"],
+      "app/*": [
+        "./modules/alive-sub-layout/dist/*",
+        "./modules/apexcharts/dist/*",
+        "./modules/app-default/dist/*",
+        "./modules/config/dist/*",
+        "./modules/crud-pages/dist/*",
+        "./modules/crud-pages/dev/*",
+        "./modules/document-status/dist/*",
+        "./modules/export-to-excel/dist/*",
+        "./modules/firebase/dist/*",
+        "./modules/firebase-auth/dist/*",
+        "./modules/firebase-firestore/dist/*",
+        "./modules/float-toolbar/dist/*",
+        "./modules/float-toolbar/dev/*",
+        "./modules/formats/dist/*",
+        "./modules/map-paths/dist/*",
+        "./modules/multi-views/dist/*",
+        "./modules/multi-views/dev/*",
+        "./modules/notifications/dist/*",
+        "./modules/notifications/dev/*",
+        "./modules/page-title/dist/*",
+        "./modules/return-url/dist/*",
+        "./modules/rich-editor/dist/*",
+        "./modules/scroll/dist/*",
+        "./modules/scroll/dev/*",
+        "./modules/select-date-range/dist/*",
+        "./modules/shared-components/dist/*",
+        "./modules/shared-components/dev/*",
+        "./modules/single-scope-composable/dist/*",
+        "./modules/slack/dist/*",
+        "./modules/sticky-headers/dist/*",
+        "./modules/utils/dist/*",
+        "../dev/*"
+      ],
+      "components": ["../dev/src/components"],
+      "components/*": [
+        "./modules/apexcharts/dist/src/components/*",
+        "./modules/crud-pages/dist/src/components/*",
+        "./modules/crud-pages/dev/src/components/*",
+        "./modules/document-status/dist/src/components/*",
+        "./modules/float-toolbar/dist/src/components/*",
+        "./modules/multi-views/dist/src/components/*",
+        "./modules/shared-components/dist/src/components/*",
+        "./modules/sticky-headers/dist/src/components/*",
+        "../dev/src/components/*"
+      ],
+      "layouts": ["../dev/src/layouts"],
+      "layouts/*": [
+        "./modules/alive-sub-layout/dist/src/layouts/*",
+        "./modules/crud-pages/dev/src/layouts/*",
+        "./modules/float-toolbar/dev/src/layouts/*",
+        "../dev/src/layouts/*"
+      ],
+      "pages": ["../dev/src/pages"],
+      "pages/*": [
+        "./modules/crud-pages/dev/src/pages/*",
+        "./modules/firebase-auth/dist/src/pages/*",
+        "./modules/float-toolbar/dev/src/pages/*",
+        "./modules/multi-views/dev/src/pages/*",
+        "./modules/notifications/dev/src/pages/*",
+        "./modules/scroll/dev/src/pages/*",
+        "./modules/shared-components/dev/src/pages/*",
+        "../dev/src/pages/*"
+      ],
+      "assets": ["../dev/src/assets"],
+      "assets/*": ["../dev/src/assets/*"],
+      "boot": ["../dev/src/boot"],
+      "boot/*": [
+        "./modules/apexcharts/dist/src/boot/*",
+        "./modules/app-default/dist/src/boot/*",
+        "./modules/crud-pages/dist/src/boot/*",
+        "./modules/crud-pages/dev/src/boot/*",
+        "./modules/firebase/dist/src/boot/*",
+        "./modules/firebase-auth/dist/src/boot/*",
+        "./modules/firebase-firestore/dist/src/boot/*",
+        "./modules/float-toolbar/dev/src/boot/*",
+        "./modules/formats/dist/src/boot/*",
+        "./modules/multi-views/dev/src/boot/*",
+        "./modules/notifications/dev/src/boot/*",
+        "./modules/page-title/dist/src/boot/*",
+        "./modules/return-url/dist/src/boot/*",
+        "./modules/scroll/dist/src/boot/*",
+        "./modules/scroll/dev/src/boot/*",
+        "./modules/shared-components/dist/src/boot/*",
+        "./modules/shared-components/dev/src/boot/*",
+        "../dev/src/boot/*"
+      ],
+      "stores": ["../dev/src/stores"],
+      "stores/*": [
+        "./modules/crud-pages/dev/src/stores/*",
+        "./modules/firebase-auth/dist/src/stores/*",
+        "./modules/firebase-firestore/dist/src/stores/*",
+        "./modules/single-scope-composable/dist/src/stores/*",
+        "../dev/src/stores/*"
+      ],
+      "utils": ["../dev/src/utils"],
+      "utils/*": [
+        "./modules/document-status/dist/src/utils/*",
+        "./modules/export-to-excel/dist/src/utils/*",
+        "./modules/utils/dist/src/utils/*",
+        "../dev/src/utils/*"
+      ],
+      "models": ["../dev/src/models"],
+      "models/*": [
+        "./modules/crud-pages/dev/src/models/*",
+        "./modules/firebase-auth/dist/src/models/*",
+        "./modules/firebase-firestore/dist/src/models/*",
+        "./modules/single-scope-composable/dist/src/models/*",
+        "./modules/slack/dist/src/models/*",
+        "../dev/src/models/*"
+      ],
+      "api": ["../dev/src/api"],
+      "api/*": ["../dev/src/api/*"],
+      "services": ["../dev/src/services"],
+      "services/*": [
+        "./modules/firebase/dist/src/services/*",
+        "./modules/firebase-auth/dist/src/services/*",
+        "./modules/firebase-firestore/dist/src/services/*",
+        "./modules/slack/dist/src/services/*",
+        "../dev/src/services/*"
+      ],
+      "composables": ["../dev/src/composables"],
+      "composables/*": [
+        "./modules/apexcharts/dist/src/composables/*",
+        "./modules/config/dist/src/composables/*",
+        "./modules/crud-pages/dist/src/composables/*",
+        "./modules/firebase-auth/dist/src/composables/*",
+        "./modules/float-toolbar/dist/src/composables/*",
+        "./modules/formats/dist/src/composables/*",
+        "./modules/multi-views/dist/src/composables/*",
+        "./modules/notifications/dist/src/composables/*",
+        "./modules/page-title/dist/src/composables/*",
+        "./modules/return-url/dist/src/composables/*",
+        "./modules/rich-editor/dist/src/composables/*",
+        "./modules/scroll/dist/src/composables/*",
+        "./modules/select-date-range/dist/src/composables/*",
+        "./modules/sticky-headers/dist/src/composables/*",
+        "../dev/src/composables/*"
+      ],
+      "#q-app": [
+        "../dev/../.yarn/__virtual__/@quasar-app-vite-virtual-b5569befde/6/.yarn/berry/cache/@quasar-app-vite-npm-2.6.0-b4b6ff684a-10c0.zip/node_modules/@quasar/app-vite/types/index.d.ts"
+      ],
+      "#q-app/wrappers": [
+        "../dev/../.yarn/__virtual__/@quasar-app-vite-virtual-b5569befde/6/.yarn/berry/cache/@quasar-app-vite-npm-2.6.0-b4b6ff684a-10c0.zip/node_modules/@quasar/app-vite/types/app-wrappers.d.ts"
+      ],
+      "#q-app/bex/background": [
+        "../dev/../.yarn/__virtual__/@quasar-app-vite-virtual-b5569befde/6/.yarn/berry/cache/@quasar-app-vite-npm-2.6.0-b4b6ff684a-10c0.zip/node_modules/@quasar/app-vite/types/bex/entrypoints/background.d.ts"
+      ],
+      "#q-app/bex/content": [
+        "../dev/../.yarn/__virtual__/@quasar-app-vite-virtual-b5569befde/6/.yarn/berry/cache/@quasar-app-vite-npm-2.6.0-b4b6ff684a-10c0.zip/node_modules/@quasar/app-vite/types/bex/entrypoints/content.d.ts"
+      ],
+      "#q-app/bex/private/bex-bridge": [
+        "../dev/../.yarn/__virtual__/@quasar-app-vite-virtual-b5569befde/6/.yarn/berry/cache/@quasar-app-vite-npm-2.6.0-b4b6ff684a-10c0.zip/node_modules/@quasar/app-vite/types/bex/bex-bridge.d.ts"
+      ]
+    }
+  }
+}

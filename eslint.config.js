@@ -1,7 +1,8 @@
-import js from '@eslint/js'
-import globals from 'globals'
-import { defineConfigWithVueTs, vueTsConfigs } from '@vue/eslint-config-typescript'
-import prettierSkipFormatting from '@vue/eslint-config-prettier/skip-formatting'
+import globals from 'globals';
+
+import js from '@eslint/js';
+import prettierSkipFormatting from '@vue/eslint-config-prettier/skip-formatting';
+import { defineConfigWithVueTs, vueTsConfigs } from '@vue/eslint-config-typescript';
 
 export default defineConfigWithVueTs(
   {
@@ -25,15 +26,12 @@ export default defineConfigWithVueTs(
   {
     files: ['**/*.ts'],
     rules: {
-      '@typescript-eslint/consistent-type-imports': [
-        'error',
-        { prefer: 'type-imports' }
-      ],
+      '@typescript-eslint/consistent-type-imports': ['error', { prefer: 'type-imports' }],
       '@typescript-eslint/no-unused-expressions': [
         'error',
         { allowShortCircuit: true, allowTernary: true },
       ],
-    }
+    },
   },
   // https://github.com/vuejs/eslint-config-typescript
   vueTsConfigs.recommendedTypeChecked,
@@ -47,7 +45,7 @@ export default defineConfigWithVueTs(
         ...globals.browser,
         ...globals.node, // SSR, Electron, config files
         process: 'readonly', // process.env.*
-      }
+      },
     },
 
     // add your custom rules here
@@ -56,8 +54,8 @@ export default defineConfigWithVueTs(
 
       // allow debugger during development only
       'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-    }
+    },
   },
 
-  prettierSkipFormatting
-)
+  prettierSkipFormatting,
+);

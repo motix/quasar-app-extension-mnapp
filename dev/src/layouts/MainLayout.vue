@@ -1,102 +1,106 @@
-<template>
-  <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
-      <q-toolbar>
-        <q-btn
-          flat
-          dense
-          round
-          icon="menu"
-          aria-label="Menu"
-          @click="toggleLeftDrawer"
-        />
+<script setup lang="ts">
+import useFirebaseAuth from 'composables/useFirebaseAuth.js';
+import usePageTitle from 'composables/usePageTitle.js';
 
+// Composables
+
+const { appName, pageTitle } = usePageTitle();
+
+const { isAuthenticated, authenticatedUser, isSignInPage, hasRole, signOut } = useFirebaseAuth();
+</script>
+
+<template>
+  <q-layout view="hHh lpr fFf">
+    <q-header class="bg-primary text-white" height-hint="98" reveal>
+      <q-toolbar class="top-toolbar">
         <q-toolbar-title>
-          Quasar App
+          <RouterLink class="text-white" style="text-decoration: none" to="/">
+            {{ appName }}
+          </RouterLink>
         </q-toolbar-title>
 
-        <div>Quasar v{{ $q.version }}</div>
+        <FadeTransition>
+          <div v-if="isAuthenticated">
+            <q-avatar size="sm">
+              <q-img v-if="authenticatedUser.photoURL" :src="authenticatedUser.photoURL" />
+              <q-icon v-else color="dark" name="fas fa-user-alt" size="lg" />
+              <q-tooltip>
+                {{ authenticatedUser.displayName }}
+              </q-tooltip>
+            </q-avatar>
+            <q-btn flat icon="fal fa-sign-out" round @click="signOut()">
+              <q-tooltip>Sign Out</q-tooltip>
+            </q-btn>
+          </div>
+
+          <q-btn
+            v-else-if="!isSignInPage"
+            flat
+            icon="fal fa-sign-in"
+            round
+            :to="{ name: 'SignIn' }"
+          >
+            <q-tooltip>Sign In</q-tooltip>
+          </q-btn>
+        </FadeTransition>
       </q-toolbar>
     </q-header>
 
-    <q-drawer
-      v-model="leftDrawerOpen"
-      show-if-above
-      bordered
-    >
-      <q-list>
-        <q-item-label
-          header
-        >
-          Essential Links
-        </q-item-label>
-
-        <EssentialLink
-          v-for="link in linksList"
-          :key="link.title"
-          v-bind="link"
-        />
-      </q-list>
-    </q-drawer>
-
     <q-page-container>
-      <router-view />
+      <q-page>
+        <Transition name="scale">
+          <q-toolbar v-show="pageTitle" class="page-title text-white shadow-4">
+            <q-toolbar-title>
+              <FadeTransition>
+                <span :key="pageTitle || ''">{{ pageTitle }}</span>
+              </FadeTransition>
+            </q-toolbar-title>
+          </q-toolbar>
+        </Transition>
+
+        <RouterView v-slot="{ Component, route }">
+          <FadeTransition>
+            <component :is="Component" :key="route.meta.mainTransitionKey" />
+          </FadeTransition>
+        </RouterView>
+      </q-page>
     </q-page-container>
+
+    <q-footer class="transparent">
+      <FadeTransition>
+        <q-tabs v-if="hasRole('user')" class="bg-grey-8 text-white shadow-up-5" dense>
+          <q-route-tab label="Home" name="home" to="/" />
+        </q-tabs>
+        <q-tabs v-else dense>
+          <div style="height: 36px"></div>
+        </q-tabs>
+      </FadeTransition>
+    </q-footer>
   </q-layout>
 </template>
 
-<script setup lang="ts">
-import { ref } from 'vue';
-import EssentialLink, { type EssentialLinkProps } from 'components/EssentialLink.vue';
-
-const linksList: EssentialLinkProps[] = [
-  {
-    title: 'Docs',
-    caption: 'quasar.dev',
-    icon: 'school',
-    link: 'https://quasar.dev'
-  },
-  {
-    title: 'Github',
-    caption: 'github.com/quasarframework',
-    icon: 'code',
-    link: 'https://github.com/quasarframework'
-  },
-  {
-    title: 'Discord Chat Channel',
-    caption: 'chat.quasar.dev',
-    icon: 'chat',
-    link: 'https://chat.quasar.dev'
-  },
-  {
-    title: 'Forum',
-    caption: 'forum.quasar.dev',
-    icon: 'record_voice_over',
-    link: 'https://forum.quasar.dev'
-  },
-  {
-    title: 'Twitter',
-    caption: '@quasarframework',
-    icon: 'rss_feed',
-    link: 'https://twitter.quasar.dev'
-  },
-  {
-    title: 'Facebook',
-    caption: '@QuasarFramework',
-    icon: 'public',
-    link: 'https://facebook.quasar.dev'
-  },
-  {
-    title: 'Quasar Awesome',
-    caption: 'Community Quasar projects',
-    icon: 'favorite',
-    link: 'https://awesome.quasar.dev'
-  }
-];
-
-const leftDrawerOpen = ref(false);
-
-function toggleLeftDrawer () {
-  leftDrawerOpen.value = !leftDrawerOpen.value;
+<style scoped lang="scss">
+.top-toolbar {
+  background-image: url('/overlay-bg.png');
+  background-size: auto 90px;
+  background-position: -250px 0;
 }
-</script>
+
+.page-title {
+  background-image: url('/overlay-bg.png');
+  background-size: auto 90px;
+  background-position: -250px -50px;
+  background-color: $primary;
+}
+
+.scale-enter-active,
+.scale-leave-active {
+  transition: all 0.25s ease-out;
+}
+
+.scale-enter-from,
+.scale-leave-to {
+  opacity: 0;
+  margin-top: -50px;
+}
+</style>

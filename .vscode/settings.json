@@ -8,19 +8,17 @@
     "source.formatDocument",
     "source.fixAll.eslint"
   ],
-  "eslint.validate": [
-    "javascript",
-    "javascriptreact",
-    "typescript",
-    "vue"
-  ],
+  "eslint.validate": ["javascript", "javascriptreact", "typescript", "vue"],
   "search.exclude": {
     ".yarn": true,
-    "dist": true
+    "dist": true,
+    "**/.yarn": true,
+    "**/.pnp.*": true
   },
-  "compareFolders.excludeFilter": [
-    "node_modules",
-    ".git"
-  ],
-  "compareFolders.ignoreFileNameCase": false
+  "compareFolders.excludeFilter": ["node_modules", ".git"],
+  "compareFolders.ignoreFileNameCase": false,
+  "eslint.nodePath": ".yarn/sdks",
+  "prettier.prettierPath": ".yarn/sdks/prettier/index.cjs",
+  "typescript.tsdk": ".yarn/sdks/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true
 }
