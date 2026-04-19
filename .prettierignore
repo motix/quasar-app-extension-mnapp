@@ -1,4 +1,4 @@
 /.yarn
 /dist
-.pnp.*
+/.pnp.*
 /scripts/*bundle.js
