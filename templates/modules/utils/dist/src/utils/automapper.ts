@@ -283,7 +283,7 @@ const modelToApiModelResolver = {
     };
   },
 
-  readOptionalWriteRequired: function <
+  mixedReadOptionalWriteRequired: function <
     Key extends string,
     Type extends string | boolean | number,
     TSource extends Partial<HasProp<Key, Type>>,
@@ -371,6 +371,23 @@ const modelToApiModelResolver = {
       resolve: (source: TSource): Type | null => {
         const field: Type | undefined = source[key];
         return field === undefined ? null : deleteUndefined(field);
+      },
+    };
+  },
+
+  asIsReadOptionalWriteRequired: function <
+    Key extends string,
+    Type extends object,
+    TSource extends Partial<HasProp<Key, Type>>,
+  >(this: void, key: Key) {
+    return {
+      resolve: (source: TSource): Type => {
+        const field: Type | undefined = source[key];
+        field === undefined &&
+          (() => {
+            throw new Error(`[mnapp-utils] ${key} is required for saving`);
+          })();
+        return deleteUndefined(field);
       },
     };
   },
@@ -620,6 +637,23 @@ const viewModelToApiModelResolver = {
       },
     };
   },
+
+  asIsReadOptionalWriteRequired: function <
+    Key extends string,
+    Type extends object,
+    TSource extends HasProp<Key, Type | null>,
+  >(this: void, key: Key) {
+    return {
+      resolve: (source: TSource): Type => {
+        const field: Type | null = source[key];
+        field === null &&
+          (() => {
+            throw new Error(`[mnapp-utils] ${key} is required for saving`);
+          })();
+        return deleteUndefined(field);
+      },
+    };
+  },
 };
 
 function deleteUndefined<T extends object>(value: T) {
@@ -710,7 +744,7 @@ const resolvers: Resolvers = {
       number: apiModelToModelResolver.mixedOptional,
       date: apiModelToModelResolver.dateOptional,
       dateArray: apiModelToModelResolver.dateArrayOptional,
-      // asIs: undefined, // TODO:
+      asIs: apiModelToModelResolver.asIsOptional,
     },
   },
   modelToViewModel: {
@@ -736,7 +770,7 @@ const resolvers: Resolvers = {
       number: modelToViewModelResolver.numberOptional,
       date: modelToViewModelResolver.dateOptional,
       dateArray: modelToViewModelResolver.dateArrayOptional,
-      // asIs: undefined, // TODO:
+      asIs: modelToViewModelResolver.asIsOptional,
     },
   },
   modelToApiModel: {
@@ -757,12 +791,12 @@ const resolvers: Resolvers = {
       asIs: modelToApiModelResolver.asIsOptional,
     },
     readOptionalWriteRequired: {
-      string: modelToApiModelResolver.readOptionalWriteRequired,
-      boolean: modelToApiModelResolver.readOptionalWriteRequired,
-      number: modelToApiModelResolver.readOptionalWriteRequired,
+      string: modelToApiModelResolver.mixedReadOptionalWriteRequired,
+      boolean: modelToApiModelResolver.mixedReadOptionalWriteRequired,
+      number: modelToApiModelResolver.mixedReadOptionalWriteRequired,
       date: modelToApiModelResolver.dateReadOptionalWriteRequired,
       dateArray: modelToApiModelResolver.dateArrayReadOptionalWriteRequired,
-      // asIs: undefined, // TODO:
+      asIs: modelToApiModelResolver.asIsReadOptionalWriteRequired,
     },
   },
   viewModelToApiModel: {
@@ -788,7 +822,7 @@ const resolvers: Resolvers = {
       number: viewModelToApiModelResolver.numberReadOptionalWriteRequired,
       date: viewModelToApiModelResolver.dateReadOptionalWriteRequired,
       dateArray: viewModelToApiModelResolver.dateArrayReadOptionalWriteRequired,
-      // asIs: undefined, // TODO:
+      asIs: viewModelToApiModelResolver.asIsReadOptionalWriteRequired,
     },
   },
 };
