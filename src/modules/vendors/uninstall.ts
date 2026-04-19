@@ -55,9 +55,9 @@ export default defineUninstall(function (api) {
   ]);
 
   function modifyFilesFab() {
-    let yarnrcYml = fs.readFileSync(api.resolve.app('.yarnrc.yml'), 'utf-8');
+    let dotyarnrcyml = fs.readFileSync(api.resolve.app('.yarnrc.yml'), 'utf-8');
 
-    yarnrcYml = yarnrcYml.replace(
+    dotyarnrcyml = dotyarnrcyml.replace(
       `npmScopes:
   fortawesome:
     npmAlwaysAuth: true
@@ -72,13 +72,13 @@ export default defineUninstall(function (api) {
     );
 
     if (
-      yarnrcYml.trim() ===
+      dotyarnrcyml.trim() ===
       `injectEnvironmentFiles:
   - .env.local-mnapp-fap`
     ) {
       fs.rmSync(api.resolve.app('.yarnrc.yml'));
     } else {
-      fs.writeFileSync(api.resolve.app('.yarnrc.yml'), `${yarnrcYml.trim()}\n`);
+      fs.writeFileSync(api.resolve.app('.yarnrc.yml'), `${dotyarnrcyml.trim()}\n`);
     }
   }
 });

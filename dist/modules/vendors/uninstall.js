@@ -40,8 +40,8 @@ export default defineUninstall(function (api) {
         'devDependencies.@types/markdown-it',
     ]);
     function modifyFilesFab() {
-        let yarnrcYml = fs.readFileSync(api.resolve.app('.yarnrc.yml'), 'utf-8');
-        yarnrcYml = yarnrcYml.replace(`npmScopes:
+        let dotyarnrcyml = fs.readFileSync(api.resolve.app('.yarnrc.yml'), 'utf-8');
+        dotyarnrcyml = dotyarnrcyml.replace(`npmScopes:
   fortawesome:
     npmAlwaysAuth: true
     npmRegistryServer: 'https://npm.fontawesome.com/'
@@ -51,13 +51,13 @@ export default defineUninstall(function (api) {
     npmRegistryServer: 'https://npm.fontawesome.com/'
     npmAuthToken: \${FONTAWESOME_PACKAGE_TOKEN}
 `, '');
-        if (yarnrcYml.trim() ===
+        if (dotyarnrcyml.trim() ===
             `injectEnvironmentFiles:
   - .env.local-mnapp-fap`) {
             fs.rmSync(api.resolve.app('.yarnrc.yml'));
         }
         else {
-            fs.writeFileSync(api.resolve.app('.yarnrc.yml'), `${yarnrcYml.trim()}\n`);
+            fs.writeFileSync(api.resolve.app('.yarnrc.yml'), `${dotyarnrcyml.trim()}\n`);
         }
     }
 });
