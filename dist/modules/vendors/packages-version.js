@@ -8,7 +8,7 @@ export default {
     '@fortawesome/pro-light-svg-icons': '^7.2.0',
     '@fortawesome/pro-thin-svg-icons': '^7.2.0',
     '@fortawesome/pro-duotone-svg-icons': '^7.2.0',
-    '@fortawesome/vue-fontawesome': '^3.1.3',
+    '@fortawesome/vue-fontawesome': '^3.2.0',
     // axios
     axios: '^1.14.0',
     // Lodash
