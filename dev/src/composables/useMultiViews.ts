@@ -4,8 +4,8 @@ import { Platform } from 'quasar';
 
 import useScroll from 'composables/useScroll.js';
 
-const data = reactive({
-  viewType: Platform.is.desktop ? 'table' : ('cards' as 'table' | 'cards'),
+const data = reactive<{ viewType: 'table' | 'cards' }>({
+  viewType: Platform.is.desktop ? 'table' : 'cards',
 });
 
 export default function () {

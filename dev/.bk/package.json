@@ -33,10 +33,10 @@
     "eslint": "^9.39.4",
     "eslint-plugin-vue": "^10.8.0",
     "globals": "^17.4.0",
-    "postcss": "^8.5.8",
+    "postcss": "^8.5.15",
     "prettier": "^3.8.1",
     "typescript": "^5.9.3",
-    "vite": "^8.0.3",
+    "vite": "^8.0.13",
     "vite-plugin-checker": "patch:vite-plugin-checker@npm%3A0.12.0#~/.yarn/patches/vite-plugin-checker-npm-0.12.0-0000000000.patch",
     "vue-eslint-parser": "^10.4.0",
     "vue-tsc": "^3.2.6"

@@ -50,15 +50,16 @@ execSync('yarn buildPaths', {
   stdio: 'inherit',
 });
 
-fs.copyFileSync('./dev/.yarnrc.yml', './.yarnrc.yml');
 fs.copyFileSync('./dev/.env.local-mnapp-fap', './.env.local-mnapp-fap');
 
-let yarnrnYml = fs.readFileSync('./.yarnrc.yml', 'utf-8');
+let devYarnrcYml = fs.readFileSync('./dev/.yarnrc.yml', 'utf-8');
+let yarnrcYml = fs.readFileSync('./.yarnrc.yml', 'utf-8');
 
 // Make `.env.local-mnapp-fap` optional to avoid error when root workspace is built by Yarn
-yarnrnYml = yarnrnYml.replace('.env.local-mnapp-fap', '.env.local-mnapp-fap?');
+yarnrcYml = `${yarnrcYml}
+${devYarnrcYml.replace('.env.local-mnapp-fap', '.env.local-mnapp-fap?')}`;
 
-fs.writeFileSync('./.yarnrc.yml', yarnrnYml, 'utf-8');
+fs.writeFileSync('./.yarnrc.yml', yarnrcYml, 'utf-8');
 
 execSync('mv ./dev/src/boot/app.txt ./dev/src/boot/app.ts', {
   stdio: 'inherit',
