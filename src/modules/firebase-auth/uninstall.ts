@@ -14,9 +14,9 @@ export default defineUninstall(function (api) {
   );
 
   function modifyFiles() {
-    let yarnrcYml = fs.readFileSync(api.resolve.app('.yarnrc.yml'), 'utf-8');
+    let dotYarnrcYml = fs.readFileSync(api.resolve.app('.yarnrc.yml'), 'utf-8');
 
-    yarnrcYml = yarnrcYml.replace(
+    dotYarnrcYml = dotYarnrcYml.replace(
       `packageExtensions:
   '@firebase/auth@*':
     dependencies:
@@ -25,10 +25,10 @@ export default defineUninstall(function (api) {
       '',
     );
 
-    if (yarnrcYml.trim() === '') {
+    if (dotYarnrcYml.trim() === '') {
       fs.rmSync(api.resolve.app('.yarnrc.yml'));
     } else {
-      fs.writeFileSync(api.resolve.app('.yarnrc.yml'), `${yarnrcYml.trim()}\n`);
+      fs.writeFileSync(api.resolve.app('.yarnrc.yml'), `${dotYarnrcYml.trim()}\n`);
     }
   }
 });

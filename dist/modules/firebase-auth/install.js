@@ -11,12 +11,12 @@ export default defineInstall(function (api) {
         if (!fs.existsSync(api.resolve.app('.yarnrc.yml'))) {
             fs.writeFileSync(api.resolve.app('.yarnrc.yml'), '');
         }
-        let dotyarnrcyml = fs.readFileSync(api.resolve.app('.yarnrc.yml'), 'utf-8');
-        dotyarnrcyml = `${dotyarnrcyml === '' ? '' : dotyarnrcyml.trim() + '\n\n'}packageExtensions:
+        let dotYarnrcYml = fs.readFileSync(api.resolve.app('.yarnrc.yml'), 'utf-8');
+        dotYarnrcYml = `${dotYarnrcYml === '' ? '' : dotYarnrcYml.trim() + '\n\n'}packageExtensions:
   '@firebase/auth@*':
     dependencies:
       '@firebase/app': '*'
 `;
-        fs.writeFileSync(api.resolve.app('.yarnrc.yml'), dotyarnrcyml);
+        fs.writeFileSync(api.resolve.app('.yarnrc.yml'), dotYarnrcYml);
     }
 });

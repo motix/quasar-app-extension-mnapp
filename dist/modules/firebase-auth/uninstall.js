@@ -7,17 +7,17 @@ export default defineUninstall(function (api) {
     });
     api.onExitLog(" \x1b[32mfirebase-auth • \x1b[0mPlease remove \x1b[33mname: 'MainLayout'\x1b[0m from \x1b[33mMainLayout.vue\x1b[0m record in \x1b[47m\x1b[30m./src/router/routes.ts\x1b[0m if no longer needed.");
     function modifyFiles() {
-        let yarnrcYml = fs.readFileSync(api.resolve.app('.yarnrc.yml'), 'utf-8');
-        yarnrcYml = yarnrcYml.replace(`packageExtensions:
+        let dotYarnrcYml = fs.readFileSync(api.resolve.app('.yarnrc.yml'), 'utf-8');
+        dotYarnrcYml = dotYarnrcYml.replace(`packageExtensions:
   '@firebase/auth@*':
     dependencies:
       '@firebase/app': '*'
 `, '');
-        if (yarnrcYml.trim() === '') {
+        if (dotYarnrcYml.trim() === '') {
             fs.rmSync(api.resolve.app('.yarnrc.yml'));
         }
         else {
-            fs.writeFileSync(api.resolve.app('.yarnrc.yml'), `${yarnrcYml.trim()}\n`);
+            fs.writeFileSync(api.resolve.app('.yarnrc.yml'), `${dotYarnrcYml.trim()}\n`);
         }
     }
 });

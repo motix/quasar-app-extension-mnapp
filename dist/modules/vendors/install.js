@@ -80,13 +80,13 @@ export default defineInstall(function (api) {
         if (!fs.existsSync(api.resolve.app('.yarnrc.yml'))) {
             fs.writeFileSync(api.resolve.app('.yarnrc.yml'), '');
         }
-        let dotyarnrcyml = fs.readFileSync(api.resolve.app('.yarnrc.yml'), 'utf-8');
-        if (!dotyarnrcyml.includes('- .env.local-mnapp-fap')) {
-            dotyarnrcyml = `${dotyarnrcyml === '' ? '' : dotyarnrcyml.trim() + '\n\n'}injectEnvironmentFiles:
+        let dotYarnrcYml = fs.readFileSync(api.resolve.app('.yarnrc.yml'), 'utf-8');
+        if (!dotYarnrcYml.includes('- .env.local-mnapp-fap')) {
+            dotYarnrcYml = `${dotYarnrcYml === '' ? '' : dotYarnrcYml.trim() + '\n\n'}injectEnvironmentFiles:
   - .env.local-mnapp-fap
 `;
         }
-        dotyarnrcyml = `${dotyarnrcyml.trim()}
+        dotYarnrcYml = `${dotYarnrcYml.trim()}
 
 npmScopes:
   fortawesome:
@@ -98,7 +98,7 @@ npmScopes:
     npmRegistryServer: 'https://npm.fontawesome.com/'
     npmAuthToken: \${FONTAWESOME_PACKAGE_TOKEN}
 `;
-        fs.writeFileSync(api.resolve.app('.yarnrc.yml'), dotyarnrcyml);
+        fs.writeFileSync(api.resolve.app('.yarnrc.yml'), dotYarnrcYml);
         if (!fs.existsSync(api.resolve.app('.env.local-mnapp-fap'))) {
             fs.writeFileSync(api.resolve.app('.env.local-mnapp-fap'), '');
         }
