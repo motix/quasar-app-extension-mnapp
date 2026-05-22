@@ -1,6 +1,4 @@
 {
-  /* --- TEMPLATE SYNCTAX INCLUDED --- */
-
   "hosting": {
     "public": "dist/spa",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],

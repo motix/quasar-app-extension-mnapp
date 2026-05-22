@@ -1,6 +1,4 @@
 {
-  /* --- TEMPLATE SYNCTAX INCLUDED --- */
-
   "projects": {
     "default": "<%= prompts.project %>"
   }<% if (prompts.targetName && prompts.siteId) { %>,
