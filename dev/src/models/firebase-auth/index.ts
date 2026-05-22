@@ -1,3 +1,5 @@
+/* --- TEMPLATE SYNCTAX INCLUDED --- */
+
 export const userRoles = [
   'admin',
   'user',

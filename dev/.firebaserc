@@ -1,4 +1,6 @@
 {
+  /* --- TEMPLATE SYNCTAX INCLUDED --- */
+
   "projects": {
     "default": "motiwiki-2022"
   }

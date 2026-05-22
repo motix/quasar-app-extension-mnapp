@@ -1,4 +1,6 @@
 {
+  /* --- TEMPLATE SYNCTAX INCLUDED --- */
+  
   "hosting": {
     <% if (prompts.targetName && prompts.siteId) { %>"target": "<%= prompts.targetName %>",
     <% } %>"public": "dist/spa",
