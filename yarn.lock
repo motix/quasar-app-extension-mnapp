@@ -3302,10 +3302,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"apexcharts@npm:^5.10.6, apexcharts@npm:^5.12.0":
-  version: 5.12.0
-  resolution: "apexcharts@npm:5.12.0"
-  checksum: 10c0/b25ae26d4618104e8db749da77e7639ffe64a215daa1c15d2433c7bd14051c79a8a454e93053594e673afcd5cf1a60f7305188d730725f022261c9f119184c37
+"apexcharts@npm:^5.10.6, apexcharts@npm:^5.13.0":
+  version: 5.13.0
+  resolution: "apexcharts@npm:5.13.0"
+  checksum: 10c0/ac96e42d49d4bd7eb7efee24fb9192c5009ba515f7ff9043a62dc27a827f18b2ed0feb2bf284c99d9e8d297b3421de7171416033e3ab7d0daf95a69895e316c0
   languageName: node
   linkType: hard
 
@@ -3602,11 +3602,11 @@ __metadata:
   linkType: hard
 
 "baseline-browser-mapping@npm:^2.10.12":
-  version: 2.10.31
-  resolution: "baseline-browser-mapping@npm:2.10.31"
+  version: 2.10.32
+  resolution: "baseline-browser-mapping@npm:2.10.32"
   bin:
     baseline-browser-mapping: dist/cli.cjs
-  checksum: 10c0/ecb6a10b4bb62d8660e3a4c525acdae2b1c7f68e4ec1e03f473b2050781b7131fbd562a200489ae987d11eb8ae85ec95d3ac77d9d84b4afe6548dfdfdceb6734
+  checksum: 10c0/408c93245bdf1e92ab0f891ebf9283ec60dbabfaac81bdc9a20d371565a2a496b0fb8028f7d628c3f66f90ee142670a81575cf1cbd5229f7b4b0d350db911085
   languageName: node
   linkType: hard
 
@@ -4464,11 +4464,11 @@ __metadata:
   linkType: hard
 
 "es-object-atoms@npm:^1.0.0, es-object-atoms@npm:^1.1.1":
-  version: 1.1.1
-  resolution: "es-object-atoms@npm:1.1.1"
+  version: 1.1.2
+  resolution: "es-object-atoms@npm:1.1.2"
   dependencies:
     es-errors: "npm:^1.3.0"
-  checksum: 10c0/65364812ca4daf48eb76e2a3b7a89b3f6a2e62a1c420766ce9f692665a29d94fe41fe88b65f24106f449859549711e4b40d9fb8002d862dfd7eb1c512d10be0c
+  checksum: 10c0/1772861f094f739d6f41b579cfb9a18579daffeb434552a370a5fbef50a32d22227e27b63fdbb757b7ddd429d1b42fe52ccae7966d9302a2ec221b6f1b41bbc4
   languageName: node
   linkType: hard
 
@@ -6550,7 +6550,7 @@ __metadata:
     "@vee-validate/yup": "npm:^4.15.1"
     "@vue/eslint-config-prettier": "npm:^10.2.0"
     "@vue/eslint-config-typescript": "npm:^14.7.0"
-    apexcharts: "npm:^5.12.0"
+    apexcharts: "npm:^5.13.0"
     eslint: "npm:^10.4.0"
     eslint-plugin-vue: "npm:^10.9.1"
     exceljs: "npm:^4.4.0"

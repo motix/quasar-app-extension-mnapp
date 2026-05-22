@@ -18,7 +18,7 @@
     "@vee-validate/yup": "^4.15.1",
     "@vue/eslint-config-prettier": "^10.2.0",
     "@vue/eslint-config-typescript": "^14.7.0",
-    "apexcharts": "^5.12.0",
+    "apexcharts": "^5.13.0",
     "eslint": "^10.4.0",
     "eslint-plugin-vue": "^10.9.1",
     "exceljs": "^4.4.0",
