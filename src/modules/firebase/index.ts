@@ -30,13 +30,10 @@ export default defineIndex(function (api) {
       measurementId: env[`${FIREBASE_ENV}_MEASUREMENT_ID`]!,
     };
 
-    const FIREBASE_CLIENT_ID = env[`${FIREBASE_ENV}_CLIENT_ID`];
-
     conf.build!.env = {
       ...conf.build!.env,
       FIREBASE_ENV,
       FIREBASE_CONFIG: JSON.stringify(FIREBASE_CONFIG),
-      FIREBASE_CLIENT_ID,
     };
   });
 });
