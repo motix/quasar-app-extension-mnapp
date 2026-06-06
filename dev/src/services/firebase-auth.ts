@@ -102,7 +102,7 @@ export function handleAuthStateChanged(user: User | null, router: Router, firstC
             store.currentUserClaims = {};
           } else {
             // For newly signed up users, server will assign claims but they are not returned together with
-            // the token immediately. Force refresh the toke to get new claims.
+            // the token immediately. Force refresh the token to get new claims.
             user
               .getIdToken(true)
               .then(() => handleAuthStateChanged(user, router, false))
