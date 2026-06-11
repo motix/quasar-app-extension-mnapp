@@ -1,9 +1,8 @@
 import fs from 'fs';
-import { reduceJsonFile, reduceJsonFileArray } from '../../lib/json-helpers.js';
+import { reduceJsonFile } from '../../lib/json-helpers.js';
 import { defineUninstall } from '../index.js';
 import { packagesOriginalVersion } from './packages-version.js';
 export default defineUninstall(function (api) {
-    modifyFiles();
     const dependencies = [
         // Restore Starter Kit packages
         '@quasar/extras',
@@ -43,11 +42,4 @@ export default defineUninstall(function (api) {
         devDependencies: Object.fromEntries(devDependencies.map((item) => [item, packagesOriginalVersion[item]])),
     });
     reduceJsonFile(api, 'package.json', ['dependencies.vue-component-type-helpers']);
-    function modifyFiles() {
-        // [Reverse] Modify `.vscode/extensions.json`.
-        reduceJsonFileArray(api, '.vscode/extensions.json', [
-            { path: 'recommendations', value: 'aaron-bond.better-comments' },
-        ]);
-        reduceJsonFile(api, '.vscode/settings.json', ['better-comments.tags']);
-    }
 });

@@ -3,7 +3,7 @@ import fs from 'fs';
 import { defineInstall } from '../index.js';
 import { packagesLatestVersion } from './packages-version.js';
 
-export default defineInstall(async function (api) {
+export default defineInstall(function (api) {
   const dependencies: (keyof typeof packagesLatestVersion)[] = [
     // Upgrade Starter Kit packages
     '@quasar/extras',
@@ -54,117 +54,4 @@ export default defineInstall(async function (api) {
       devDependencies.map((item) => [item, packagesLatestVersion[item]]),
     ),
   });
-
-  await modifyFiles();
-
-  async function modifyFiles() {
-    // Modify `.vscode/extensions.json`.
-
-    if (!fs.existsSync(api.resolve.app('.vscode/extensions.json'))) {
-      fs.mkdirSync(api.resolve.app('.vscode'), { recursive: true });
-      fs.writeFileSync(api.resolve.app('.vscode/extensions.json'), '{}');
-    }
-
-    const extensionsJson = (
-      await import(api.resolve.app('.vscode/extensions.json'), {
-        with: { type: 'json' },
-      })
-    ).default;
-
-    if (!extensionsJson.recommendations?.includes('aaron-bond.better-comments')) {
-      api.extendJsonFile('.vscode/extensions.json', {
-        recommendations: ['aaron-bond.better-comments'],
-      });
-    }
-
-    if (!fs.existsSync(api.resolve.app('.vscode/settings.json'))) {
-      fs.mkdirSync(api.resolve.app('.vscode'), { recursive: true });
-      fs.writeFileSync(api.resolve.app('.vscode/settings.json'), '{}');
-    }
-
-    const settingsJson = (
-      await import(api.resolve.app('.vscode/settings.json'), {
-        with: { type: 'json' },
-      })
-    ).default;
-
-    if (!settingsJson['better-comments.tags']) {
-      api.extendJsonFile('.vscode/settings.json', {
-        'better-comments.tags': [
-          {
-            tag: '•+',
-            color: '#000000',
-            strikethrough: false,
-            underline: false,
-            backgroundColor: '#a67216',
-            bold: false,
-            italic: false,
-          },
-          {
-            tag: '•-',
-            color: '#000000',
-            strikethrough: true,
-            underline: false,
-            backgroundColor: '#a67216',
-            bold: false,
-            italic: false,
-          },
-          {
-            tag: '•!',
-            color: '#000000',
-            strikethrough: false,
-            underline: false,
-            backgroundColor: '#a67216',
-            bold: false,
-            italic: true,
-          },
-          {
-            tag: '!',
-            color: '#FF2D00',
-            strikethrough: false,
-            underline: false,
-            backgroundColor: 'transparent',
-            bold: false,
-            italic: false,
-          },
-          {
-            tag: '?',
-            color: '#3498DB',
-            strikethrough: false,
-            underline: false,
-            backgroundColor: 'transparent',
-            bold: false,
-            italic: false,
-          },
-          {
-            tag: '//',
-            color: '#474747',
-            strikethrough: true,
-            underline: false,
-            backgroundColor: 'transparent',
-            bold: false,
-            italic: false,
-          },
-          {
-            tag: 'todo',
-            color: '#FF8C00',
-            strikethrough: false,
-            underline: false,
-            backgroundColor: 'transparent',
-            bold: false,
-            italic: false,
-          },
-          {
-            tag: '*',
-            color: '#98C379',
-            strikethrough: false,
-            underline: false,
-            backgroundColor: 'transparent',
-            bold: false,
-            italic: false,
-          },
-        ],
-      });
-    }
-  }
 });
