@@ -64,6 +64,6 @@ export default defineUninstall(function (api) {
       { path: 'recommendations', value: 'aaron-bond.better-comments' },
     ]);
 
-    reduceJsonFile(api, '.vscode/settings.json', ['editor.better-comments.tags']);
+    reduceJsonFile(api, '.vscode/settings.json', ['better-comments.tags']);
   }
 });

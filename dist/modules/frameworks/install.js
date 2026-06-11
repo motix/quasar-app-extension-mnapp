@@ -64,9 +64,9 @@ export default defineInstall(async function (api) {
         const settingsJson = (await import(api.resolve.app('.vscode/settings.json'), {
             with: { type: 'json' },
         })).default;
-        if (!settingsJson['editor.better-comments.tags']) {
+        if (!settingsJson['better-comments.tags']) {
             api.extendJsonFile('.vscode/settings.json', {
-                'editor.better-comments.tags': [
+                'better-comments.tags': [
                     {
                         tag: '•+',
                         color: '#000000',

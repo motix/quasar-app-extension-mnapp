@@ -88,9 +88,9 @@ export default defineInstall(async function (api) {
       })
     ).default;
 
-    if (!settingsJson['editor.better-comments.tags']) {
+    if (!settingsJson['better-comments.tags']) {
       api.extendJsonFile('.vscode/settings.json', {
-        'editor.better-comments.tags': [
+        'better-comments.tags': [
           {
             tag: '•+',
             color: '#000000',
