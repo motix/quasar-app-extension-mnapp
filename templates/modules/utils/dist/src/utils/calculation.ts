@@ -1,14 +1,14 @@
 import { isFinite } from 'lodash-es';
 
 export function checkAndCalculate<TResult>(
-  calculation: () => TResult,
+  calculation: (...variables: number[]) => TResult,
   ...variables: (number | string | null | undefined)[]
 ) {
   for (const variable of variables) {
     if (!isFinite(variable)) return undefined;
   }
 
-  return calculation();
+  return calculation(...variables.map((item) => item as number));
 }
 
 export function oneThousandRound(value: number) {
