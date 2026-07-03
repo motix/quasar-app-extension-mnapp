@@ -8,9 +8,9 @@ type Method = (...args: any) => any;
 
 type PropKeys = Exclude<
   keyof {
-    [P in keyof VueApexChartsComponent as VueApexChartsComponent[P] extends Method
-      ? never
-      : P]: any;
+    [
+      P in keyof VueApexChartsComponent as VueApexChartsComponent[P] extends Method ? never : P
+    ]: any;
   },
   keyof ComponentPublicInstance
 >;

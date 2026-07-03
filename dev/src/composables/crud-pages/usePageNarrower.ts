@@ -11,8 +11,7 @@ export function useChildPageNarrower<
 >() {
   function hasParent<
     TPage extends
-      | NewPage<TChildVm, NonNullable<unknown>>
-      | ViewPage<TChild, TChildVm, NonNullable<unknown>>,
+      NewPage<TChildVm, NonNullable<unknown>> | ViewPage<TChild, TChildVm, NonNullable<unknown>>,
   >(
     $p: TPage,
   ): $p is TPage extends NewPage<TChildVm, NonNullable<unknown>>
@@ -22,8 +21,7 @@ export function useChildPageNarrower<
       : never {
     return !!(
       $p as unknown as
-        | NewChildPage<TChildVm, TParentVm>
-        | ViewChildPage<TChild, TChildVm, TParent, TParentVm>
+        NewChildPage<TChildVm, TParentVm> | ViewChildPage<TChild, TChildVm, TParent, TParentVm>
     ).parentFindKey;
   }
 
