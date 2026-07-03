@@ -253,11 +253,13 @@ function buildActions<T extends DocModel, TVm, TAm extends DocumentData>(
     },
 
     async createDoc(payload: CreateDocActionPayload<TVm>) {
-      options.beforeCreate && (await options.beforeCreate(payload));
+      await options.beforeCreate?.(payload);
 
       const { doc: docVm, id, idField } = payload;
 
       const docAm = mapper.map<TVm, TAm>(docVm, viewModelName, apiModelName);
+
+      await options.beforeSave?.(docAm);
 
       const db = getFirestore();
       const collectionRef = collection(db, collectionPath) as CollectionReference<TAm>;
@@ -293,7 +295,7 @@ function buildActions<T extends DocModel, TVm, TAm extends DocumentData>(
     },
 
     async updateDoc(payload: UpdateDocActionPayload<T | TVm>) {
-      options.beforeUpdate && (await options.beforeUpdate(payload));
+      await options.beforeUpdate?.(payload);
 
       const { docKey, doc: docMOrVm, isViewModel } = payload;
 
@@ -311,6 +313,8 @@ function buildActions<T extends DocModel, TVm, TAm extends DocumentData>(
         docAm = mapper.map<T, TAm>(docMOrVm as T, modelName, apiModelName);
       }
 
+      await options.beforeSave?.(docAm);
+
       const db = getFirestore();
       const docRef = doc(db, collectionPath, id) as DocumentReference<TAm, TAm>;
       await updateDoc<TAm, TAm>(docRef, docAm as UpdateData<TAm>);
@@ -318,7 +322,7 @@ function buildActions<T extends DocModel, TVm, TAm extends DocumentData>(
     },
 
     async deleteDoc(payload: DeleteDocActionPayload) {
-      options.beforeDelete && (await options.beforeDelete(payload));
+      await options.beforeDelete?.(payload);
 
       const { docKey } = payload;
 
@@ -432,13 +436,10 @@ function buildActions<T extends DocModel, TVm, TAm extends DocumentData>(
       });
       const docs = docAndIds.map((docAndId) => docAndId[0] as TAm);
 
-      options.afterLoadArray && (await options.afterLoadArray(docs));
+      await options.afterLoadArray?.(docs);
 
-      !options.afterLoadArray &&
-        options.afterLoad &&
-        (await Promise.all(
-          docs.map((doc) => (options.afterLoad && options.afterLoad(doc)) || Promise.resolve()),
-        ));
+      const afterLoad = options.afterLoadArray ? undefined : options.afterLoad;
+      afterLoad && (await Promise.all(docs.map((doc) => afterLoad(doc))));
 
       const docIdMap = new Map(docAndIds as Iterable<readonly [TAm, string]>);
       const extraArgs = () => ({ idMap: docIdMap });
@@ -580,7 +581,7 @@ function buildActions<T extends DocModel, TVm, TAm extends DocumentData>(
     } else {
       const newDoc = (await getDoc(docRef)).data();
 
-      newDoc && options.afterLoad && (await options.afterLoad(newDoc));
+      newDoc && (await options.afterLoad?.(newDoc));
 
       return newDoc;
     }
