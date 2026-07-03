@@ -40,7 +40,7 @@ export type StoreOptions<T, TVm, TAm> = {
 };
 
 export type MapOptions<T, TAm> = {
-  apiModelToModelAfterMap?: MapCallback<TAm[], T[]>;
+  apiModelsToModelsAfterMap?: MapCallback<TAm[], T[]>;
 };
 
 type S<T> = DocStateInterface<T>;

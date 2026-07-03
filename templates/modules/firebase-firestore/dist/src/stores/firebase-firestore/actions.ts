@@ -447,8 +447,8 @@ function buildActions<T extends DocModel, TVm, TAm extends DocumentData>(
         extraArgs,
       };
 
-      if (options.mapperOptions?.apiModelToModelAfterMap) {
-        mapOptions.afterMap = options.mapperOptions.apiModelToModelAfterMap;
+      if (options.mapperOptions?.apiModelsToModelsAfterMap) {
+        mapOptions.afterMap = options.mapperOptions.apiModelsToModelsAfterMap;
       }
 
       state.docs = state.docs.concat(
