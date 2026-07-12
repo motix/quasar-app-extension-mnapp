@@ -51,17 +51,21 @@ async function copyLabel() {
     <!-- Setting max-width to support ellipsis -->
     <div class="row no-wrap" style="max-width: 100%">
       <div :class="{ 'text-left': icon !== undefined || $slots.icon, ellipsis: !wrapLabel }">
-        <slot name="icon">
-          <q-icon v-if="icon !== undefined" class="q-mr-sm" :name="icon" size="1.2em" />
-        </slot>
+        <span class="icon-wrapper">
+          <slot name="icon">
+            <q-icon v-if="icon !== undefined" class="q-mr-sm" :name="icon" size="1.2em" />
+          </slot>
+        </span>
 
         <span>
           {{ label }}
         </span>
 
-        <slot name="iconRight">
-          <q-icon v-if="iconRight !== undefined" class="q-ml-sm" :name="iconRight" size="1.2em" />
-        </slot>
+        <span class="icon-wrapper">
+          <slot name="iconRight">
+            <q-icon v-if="iconRight !== undefined" class="q-ml-sm" :name="iconRight" size="1.2em" />
+          </slot>
+        </span>
       </div>
 
       <div style="width: 0">
@@ -83,5 +87,8 @@ async function copyLabel() {
 <style lang="scss" scoped>
 .q-btn {
   line-height: $body-line-height;
+}
+.icon-wrapper {
+  display: inline-flex;
 }
 </style>
