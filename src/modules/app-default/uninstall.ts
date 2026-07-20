@@ -17,6 +17,19 @@ export default defineUninstall(function (api) {
   }
 
   function modifyFiles() {
+    // [Reverse] Change router scroll behavior
+
+    let routerIndexJs = fs.readFileSync(api.resolve.src('router/index.ts'), 'utf-8');
+
+    if (routerIndexJs.includes("behavior: 'smooth'")) {
+      routerIndexJs = routerIndexJs.replace(
+        "{ left: 0, top: 0, behavior: 'smooth' }",
+        '{ left: 0, top: 0 }',
+      );
+
+      fs.writeFileSync(api.resolve.src('router/index.ts'), routerIndexJs, 'utf-8');
+    }
+
     // [Reverse] Add `@import './quasar.variables-custom.scss'` to `quasar.variables.scss`.
 
     let quasarVariablesScss = fs.readFileSync(

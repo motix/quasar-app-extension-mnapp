@@ -32,5 +32,18 @@ export default defineInstall(function (api) {
 
       fs.writeFileSync(api.resolve.src('css/quasar.variables.scss'), quasarVariablesScss, 'utf-8');
     }
+
+    // Change router scroll behavior
+
+    let routerIndexJs = fs.readFileSync(api.resolve.src('router/index.ts'), 'utf-8');
+
+    if (!routerIndexJs.includes("behavior: 'smooth'")) {
+      routerIndexJs = routerIndexJs.replace(
+        '{ left: 0, top: 0 }',
+        "{ left: 0, top: 0, behavior: 'smooth' }",
+      );
+
+      fs.writeFileSync(api.resolve.src('router/index.ts'), routerIndexJs, 'utf-8');
+    }
   }
 });
