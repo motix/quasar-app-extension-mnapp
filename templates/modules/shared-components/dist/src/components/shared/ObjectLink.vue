@@ -57,7 +57,7 @@ async function copyLabel() {
           </slot>
         </span>
 
-        <span>
+        <span class="label">
           {{ label }}
         </span>
 
@@ -90,5 +90,9 @@ async function copyLabel() {
 }
 .icon-wrapper {
   display: inline-flex;
+}
+.label {
+  position: relative;
+  top: -2px;
 }
 </style>
