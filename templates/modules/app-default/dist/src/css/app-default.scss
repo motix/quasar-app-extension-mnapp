@@ -32,6 +32,16 @@ h6 {
 
   tbody td {
     font-size: 1em;
+
+    &.vertical-top {
+      .q-toggle {
+        margin-top: -8px;
+
+        &.q-toggle--dense {
+          margin-top: -4px;
+        }
+      }
+    }
   }
 }
 
